@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OAE-SIM — Resiliência da Rede Viária diante da Interdição de OAEs Críticas</title>
+
+<!-- =========================================================================
+     FONTES  (Fontshare + Google Fonts)
+     - Clash Display  -> títulos e números grandes (impacto técnico)
+     - General Sans   -> texto corrido
+     - Space Mono     -> rótulos, chips, unidades (cara de dashboard/terminal)
+     Para trocar as fontes, altere estes links e as variáveis --font-* abaixo.
+     ========================================================================= -->
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap">
+
+<style>
+/* =========================================================================
+   1) VARIÁVEIS DE TEMA  ——  EDITE AQUI PARA MUDAR TODO O VISUAL
+   ========================================================================= */
+:root{
+    /* ---- PALETA (identidade visual obrigatória) ----
+       Cada cor tem um papel semântico. Troque o valor para reskin total. */
+    --c-deep:      #050a16;   /* azul-marinho quase preto  (base/profundidade) */
+    --c-petroleo:  #0a1730;   /* azul petróleo             (fundo/profundidade) */
+    --c-cyan:      #29e3d4;   /* ciano/turquesa            (tecnologia, dados, rede) */
+    --c-blue:      #3b82f6;   /* azul elétrico             (malha viária, conectividade) */
+    --c-orange:    #ff8a34;   /* laranja                   (método, pergunta-chave, atenção) */
+    --c-green:     #36e07a;   /* verde neon                (rota alternativa, solução) */
+    --c-red:       #ff3b52;   /* vermelho                  (interdição, ruptura, falha) */
+    --c-yellow:    #ffc83d;   /* amarelo                   (prioridade média) */
+
+    --text:        #eaf1ff;   /* texto principal (branco levemente azulado) */
+    --text-soft:   #b7c6e0;   /* texto secundário */
+    --text-dim:    #7d90b3;   /* texto apagado / legendas */
+
+    /* Fundos derivados (não precisa editar normalmente) */
+    --stage-bg:  #02060f;                         /* letterbox (barras laterais) */
+    /* --slide-bg é definido logo abaixo, no segundo bloco :root */
+
+    /* ---- TIPOGRAFIA (tamanhos no palco fixo de 1920×1080) ---- */
+    --font-display: 'Clash Display', sans-serif;
+    --font-body:    'General Sans', sans-serif;
+    --font-mono:    'Space Mono', monospace;
+
+    --t-h1:      88px;   /* título de abertura */
+    --t-h2:      58px;   /* títulos dos slides internos */
+    --t-msg:     30px;   /* mensagem central / lead */
+    --t-body:    22px;   /* corpo */
+    --t-eyebrow: 17px;   /* kicker mono no topo dos slides */
+    --t-stat:    104px;  /* números gigantes (slide 6) */
+
+    /* ---- ANIMAÇÃO ---- */
+    --ease: cubic-bezier(.16, 1, .3, 1);
+    --dur:  .75s;
+
+    /* ---- ESPAÇAMENTO ---- */
+    --pad-x: 104px;
+    --pad-y: 70px;
+}
+
+/* Fundo padrão de cada slide (gradiente profundo azul-petróleo) */
+:root{
+    --slide-bg:
+        radial-gradient(1100px 720px at 14% 6%,  rgba(41,227,212,.10) 0%, transparent 58%),
+        radial-gradient(1200px 800px at 92% 96%, rgba(59,130,246,.12) 0%, transparent 60%),
+        linear-gradient(155deg, #061226 0%, var(--c-deep) 55%, #03060f 100%);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+/* =========================================================================
+   2) BASE DO PALCO FIXO 16:9  (viewport-base.css — NÃO REMOVER)
+   Slides são desenhados em 1920×1080 e o palco inteiro é escalado.
+   ========================================================================= */
+html,body{ width:100%; height:100%; margin:0; overflow:hidden; background:var(--stage-bg,#000); }
+.deck-viewport{ position:fixed; inset:0; overflow:hidden; background:var(--stage-bg,#000); }
+.deck-stage{ position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:hidden; transform-origin:0 0; background:var(--slide-bg,#fff); }
+.slide{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden; display:block; visibility:hidden; opacity:0; pointer-events:none; background:var(--slide-bg,#fff); }
+.slide.active,.slide.visible{ visibility:visible; opacity:1; pointer-events:auto; z-index:1; }
+img,video,canvas,svg{ max-width:100%; max-height:100%; }
+.deck-controls{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:1000; }
+@media print{
+    html,body{ width:1920px; height:auto; overflow:visible; background:#fff; }
+    .deck-viewport{ position:static; overflow:visible; background:#fff; }
+    .deck-stage{ position:static; width:auto; height:auto; transform:none!important; background:none; }
+    .slide{ position:relative; display:block!important; visibility:visible!important; opacity:1!important; pointer-events:auto!important; width:1920px; height:1080px; break-after:page; page-break-after:always; }
+    .slide:last-child{ break-after:auto; page-break-after:auto; }
+    .deck-controls{ display:none!important; }
+}
+@media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.2s!important; }
+}
+
+/* =========================================================================
+   3) TEXTURA DE FUNDO  ——  rede viária / grafo / mapa em CSS puro
+   Camada reutilizável: <div class="netgrid"></div> dentro de um slide.
+   ========================================================================= */
+.netgrid{ position:absolute; inset:0; pointer-events:none; z-index:0; }
+/* malha fina de linhas (grade de mapa) */
+.netgrid::before{
+    content:""; position:absolute; inset:0;
+    background-image:
+        linear-gradient(rgba(59,130,246,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,.07) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(120% 100% at 50% 40%, #000 30%, transparent 85%);
+}
+/* pontos/nós espalhados (cara de grafo) */
+.netgrid::after{
+    content:""; position:absolute; inset:0;
+    background-image: radial-gradient(rgba(41,227,212,.35) 1.4px, transparent 1.6px);
+    background-size: 128px 128px;
+    background-position: 32px 18px;
+    opacity:.5;
+    mask-image: radial-gradient(120% 100% at 60% 30%, #000 20%, transparent 80%);
+}
+
+/* Fundo com IMAGEM (slides 1, 3, 5). Troque o src no HTML do slide. */
+.bg-image{ position:absolute; inset:0; z-index:0; background-size:cover; background-position:center; }
+/* Véu escuro por cima da imagem para garantir leitura do texto */
+.bg-image::after{
+    content:""; position:absolute; inset:0;
+    background:
+        linear-gradient(90deg, rgba(4,8,18,.92) 0%, rgba(4,8,18,.55) 42%, rgba(4,8,18,.30) 100%),
+        linear-gradient(0deg, rgba(4,8,18,.85) 0%, transparent 45%);
+}
+/* Variante SUAVE: imagem já é escura/finalizada (mapa do slide 3) — escurece só o topo p/ o título */
+.bg-image.soft::after{
+    background:
+        linear-gradient(180deg, rgba(4,8,18,.82) 0%, rgba(4,8,18,.18) 26%, transparent 42%),
+        linear-gradient(90deg, rgba(4,8,18,.5) 0%, transparent 40%);
+}
+/* Imagem que JÁ é um slide pronto (ex.: slide 2 bibliometria) — ocupa o slide inteiro, sem véu */
+.slide-full{ position:absolute; inset:0; z-index:1; width:100%; height:100%; object-fit:cover; }
+
+/* =========================================================================
+   4) CLASSES REUTILIZÁVEIS  (cards, títulos, chips, números, fluxo, ranking)
+   ========================================================================= */
+
+/* camada de conteúdo do slide (flex) — fica ACIMA dos fundos */
+.slide-inner{ position:absolute; inset:0; z-index:2; padding:var(--pad-y) var(--pad-x); display:flex; flex-direction:column; }
+
+/* kicker mono no topo */
+.eyebrow{ font-family:var(--font-mono); font-size:var(--t-eyebrow); letter-spacing:.22em; text-transform:uppercase; color:var(--c-cyan); display:inline-flex; align-items:center; gap:14px; }
+.eyebrow::before{ content:""; width:34px; height:2px; background:linear-gradient(90deg,var(--c-cyan),transparent); }
+
+/* títulos */
+.h1{ font-family:var(--font-display); font-weight:700; font-size:var(--t-h1); line-height:1.02; color:var(--text); letter-spacing:-.01em; }
+.h2{ font-family:var(--font-display); font-weight:600; font-size:var(--t-h2); line-height:1.04; color:var(--text); letter-spacing:-.01em; }
+.msg{ font-family:var(--font-body); font-size:var(--t-msg); line-height:1.34; color:var(--text-soft); font-weight:400; max-width:1180px; }
+.msg b, .accent{ color:var(--c-cyan); font-weight:600; }
+.gradient-text{ background:linear-gradient(100deg,var(--c-cyan),var(--c-blue)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* chip / etiqueta (palavras-chave) — usa --c para a cor de destaque */
+.chip{ font-family:var(--font-mono); font-size:15px; letter-spacing:.04em; padding:8px 14px; border-radius:999px;
+    color:var(--text); white-space:nowrap;
+    border:1px solid color-mix(in srgb, var(--c,var(--c-cyan)) 45%, transparent);
+    background: color-mix(in srgb, var(--c,var(--c-cyan)) 12%, transparent);
+}
+.chip-row{ display:flex; flex-wrap:wrap; gap:12px; }
+
+/* CARD escuro com borda neon + glassmorphism discreto + glow.
+   Defina a cor com style="--c:var(--c-orange)" no elemento. */
+.card{ position:relative; --c:var(--c-cyan);
+    background: linear-gradient(160deg, rgba(20,36,66,.78), rgba(8,16,34,.58));
+    border:1px solid color-mix(in srgb, var(--c) 42%, transparent);
+    border-radius:20px; padding:30px 32px;
+    backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
+    box-shadow: 0 22px 46px rgba(0,0,0,.45),
+                0 0 46px -14px color-mix(in srgb, var(--c) 55%, transparent),
+                inset 0 1px 0 rgba(255,255,255,.06);
+    transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+}
+.card:hover{ transform:translateY(-6px);
+    border-color: color-mix(in srgb, var(--c) 70%, transparent);
+    box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 64px -10px color-mix(in srgb, var(--c) 70%, transparent), inset 0 1px 0 rgba(255,255,255,.08);
+}
+/* fiozinho de luz no topo do card */
+.card::before{ content:""; position:absolute; left:30px; right:30px; top:0; height:2px; border-radius:2px;
+    background:linear-gradient(90deg, transparent, color-mix(in srgb,var(--c) 90%, transparent), transparent); opacity:.8; }
+.card .card-ico{ color:var(--c); margin-bottom:16px; }
+.card .card-kicker{ font-family:var(--font-mono); font-size:14px; letter-spacing:.12em; text-transform:uppercase; color:var(--c); }
+.card h3{ font-family:var(--font-display); font-weight:600; font-size:30px; color:var(--text); line-height:1.1; margin:6px 0 8px; }
+.card p{ font-family:var(--font-body); font-size:20px; line-height:1.35; color:var(--text-soft); }
+
+/* BOX rotulada (slide 1: "O problema" / "Pergunta-chave") */
+.box{ position:relative; --c:var(--c-cyan);
+    background: linear-gradient(160deg, rgba(12,24,48,.86), rgba(6,12,28,.7));
+    border:1px solid color-mix(in srgb,var(--c) 50%, transparent);
+    border-left:4px solid var(--c);
+    border-radius:16px; padding:24px 28px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    box-shadow:0 18px 40px rgba(0,0,0,.5), 0 0 40px -16px color-mix(in srgb,var(--c) 60%, transparent);
+}
+.box .box-label{ font-family:var(--font-mono); font-size:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--c); display:block; margin-bottom:10px; }
+.box .box-text{ font-family:var(--font-body); font-size:26px; line-height:1.3; color:var(--text); }
+
+/* NÚMERO/ESTATÍSTICA grande com glow (slide 6) */
+.stat{ position:relative; --c:var(--c-cyan); text-align:left; padding:34px 32px;
+    background:linear-gradient(160deg, rgba(18,34,64,.8), rgba(7,14,32,.6));
+    border:1px solid color-mix(in srgb,var(--c) 42%, transparent); border-radius:22px;
+    box-shadow:0 24px 50px rgba(0,0,0,.5), 0 0 60px -16px color-mix(in srgb,var(--c) 70%, transparent), inset 0 1px 0 rgba(255,255,255,.06);
+    transition:transform .4s var(--ease);
+}
+.stat:hover{ transform:translateY(-6px); }
+.stat .stat-num{ font-family:var(--font-display); font-weight:700; font-size:var(--t-stat); line-height:.95; color:var(--c);
+    text-shadow:0 0 38px color-mix(in srgb,var(--c) 60%, transparent); letter-spacing:-.02em; }
+.stat .stat-label{ font-family:var(--font-body); font-size:21px; color:var(--text-soft); margin-top:12px; display:block; }
+
+/* =========================================================================
+   FLUXO HORIZONTAL (slide 4) — etapas + setas, revelação em sequência
+   ========================================================================= */
+.flow{ display:flex; align-items:stretch; gap:0; width:100%; }
+.flow-step{ position:relative; flex:1; --c:var(--c-cyan);
+    background:linear-gradient(165deg, rgba(18,34,64,.82), rgba(7,14,32,.6));
+    border:1px solid color-mix(in srgb,var(--c) 45%, transparent);
+    border-radius:18px; padding:26px 20px 24px; text-align:center; min-height:280px;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    box-shadow:0 18px 40px rgba(0,0,0,.45), 0 0 44px -18px color-mix(in srgb,var(--c) 65%, transparent);
+}
+.flow-step .step-n{ font-family:var(--font-mono); font-size:13px; letter-spacing:.18em; color:var(--c); }
+.flow-step .step-ico{ color:var(--c); width:56px; height:56px; display:flex; align-items:center; justify-content:center;
+    border:1px solid color-mix(in srgb,var(--c) 40%, transparent); border-radius:14px; background:color-mix(in srgb,var(--c) 10%, transparent); }
+.flow-step h4{ font-family:var(--font-display); font-weight:600; font-size:21px; color:var(--text); line-height:1.12; }
+.flow-step p{ font-family:var(--font-body); font-size:15px; color:var(--text-dim); line-height:1.3; }
+/* seta entre etapas */
+.flow-arrow{ flex:0 0 46px; display:flex; align-items:center; justify-content:center; color:var(--text-dim); }
+.flow-arrow svg{ width:30px; height:30px; }
+
+/* =========================================================================
+   RANKING (slide 7) — barras horizontais coloridas por prioridade
+   ========================================================================= */
+.rank{ display:flex; flex-direction:column; gap:14px; width:100%; }
+.rank-row{ display:grid; grid-template-columns:54px 360px 1fr 150px; align-items:center; gap:22px; }
+.rank-pos{ font-family:var(--font-display); font-weight:700; font-size:30px; color:var(--text-dim); text-align:center; }
+.rank-name{ font-family:var(--font-body); font-weight:500; font-size:22px; color:var(--text); line-height:1.1; }
+.rank-tag{ font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--c); margin-top:3px; display:block; }
+.rank-track{ position:relative; height:26px; border-radius:999px; background:rgba(255,255,255,.05); overflow:hidden; box-shadow:inset 0 1px 0 rgba(255,255,255,.05); }
+.rank-fill{ position:absolute; left:0; top:0; bottom:0; width:0; border-radius:999px;
+    background:linear-gradient(90deg, color-mix(in srgb,var(--c) 55%, transparent), var(--c));
+    box-shadow:0 0 24px -2px color-mix(in srgb,var(--c) 80%, transparent);
+    transition:width 1s var(--ease); transition-delay:var(--d,0s); }
+.slide.visible .rank-fill{ width:var(--w,50%); }
+.rank-score{ font-family:var(--font-display); font-weight:700; font-size:32px; color:var(--c); text-align:right;
+    text-shadow:0 0 26px color-mix(in srgb,var(--c) 50%, transparent); }
+
+/* navio de fechamento / frases finais */
+.kicker-line{ font-family:var(--font-mono); font-size:22px; color:var(--text); letter-spacing:.01em; }
+
+/* =========================================================================
+   5) ANIMAÇÕES DE ENTRADA  ——  classe .reveal + atraso via --d
+   Ex.: <h2 class="h2 reveal" style="--d:.1s">  (entra após 0,1s)
+   ========================================================================= */
+.reveal{ opacity:0; transform:translateY(30px); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease); transition-delay:var(--d,0s); }
+.slide.visible .reveal{ opacity:1; transform:none; }
+.reveal-x{ opacity:0; transform:translateX(-36px); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease); transition-delay:var(--d,0s); }
+.slide.visible .reveal-x{ opacity:1; transform:none; }
+.reveal-s{ opacity:0; transform:scale(.92); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease); transition-delay:var(--d,0s); }
+.slide.visible .reveal-s{ opacity:1; transform:none; }
+
+/* pulso de glow suave (usado em pontos do mapa e ícone de interdição) */
+@keyframes pulseGlow{ 0%,100%{ filter:drop-shadow(0 0 4px currentColor);} 50%{ filter:drop-shadow(0 0 16px currentColor);} }
+.pulse{ animation:pulseGlow 2.4s ease-in-out infinite; }
+
+/* linha de rota "desenhando" (SVG) */
+@keyframes drawLine{ to{ stroke-dashoffset:0; } }
+.slide.visible .draw{ animation:drawLine 1.6s var(--ease) forwards; animation-delay:var(--d,.3s); }
+
+/* =========================================================================
+   6) FRAME DE NAVEGADOR (slide 5) — mockup do simulador
+   ========================================================================= */
+.browser{ border-radius:16px; overflow:hidden; border:1px solid rgba(41,227,212,.3);
+    box-shadow:0 40px 80px rgba(0,0,0,.6), 0 0 70px -20px rgba(41,227,212,.45); background:#0a1426; }
+.browser-bar{ height:42px; display:flex; align-items:center; gap:9px; padding:0 18px; background:#0c1830; border-bottom:1px solid rgba(255,255,255,.06); }
+.browser-bar i{ width:13px; height:13px; border-radius:50%; display:block; }
+.browser-bar .url{ margin-left:14px; font-family:var(--font-mono); font-size:14px; color:var(--text-dim);
+    background:rgba(255,255,255,.05); padding:6px 16px; border-radius:8px; flex:1; }
+.browser img{ display:block; width:100%; height:auto; }
+
+/* legenda de criticidade (slides 1/3) */
+.legend{ display:flex; flex-direction:column; gap:9px; }
+.legend .li{ display:flex; align-items:center; gap:11px; font-family:var(--font-mono); font-size:15px; color:var(--text-soft); }
+.legend .dot{ width:13px; height:13px; border-radius:50%; box-shadow:0 0 12px currentColor; }
+
+/* numeração de etapas pequena (rodapé técnico) */
+.tech-note{ font-family:var(--font-mono); font-size:15px; color:var(--text-dim); letter-spacing:.02em; line-height:1.5; }
+.tech-note b{ color:var(--text-soft); font-weight:700; }
+
+/* =========================================================================
+   7) CHROME DA APRESENTAÇÃO  (barra de progresso, números, botões)
+   Tudo isto fica FORA do palco escalado.
+   ========================================================================= */
+/* barra de progresso animada no topo */
+.progress{ position:fixed; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,.06); z-index:1200; }
+.progress .bar{ height:100%; width:0; background:linear-gradient(90deg,var(--c-cyan),var(--c-blue),var(--c-green));
+    box-shadow:0 0 16px rgba(41,227,212,.7); transition:width .5s var(--ease); }
+
+/* contador de slides (rodapé direito) */
+.counter{ position:fixed; right:30px; bottom:26px; z-index:1200; font-family:var(--font-mono); font-size:16px;
+    color:var(--text-soft); letter-spacing:.12em; }
+.counter b{ color:var(--c-cyan); font-weight:700; }
+
+/* rótulo do projeto (rodapé esquerdo) */
+.brandtag{ position:fixed; left:30px; bottom:26px; z-index:1200; font-family:var(--font-mono); font-size:15px;
+    color:var(--text-dim); letter-spacing:.16em; text-transform:uppercase; }
+
+/* botões prev/next discretos */
+.navbtn{ position:fixed; top:50%; transform:translateY(-50%); z-index:1200; width:54px; height:54px; border-radius:50%;
+    background:rgba(12,24,48,.55); border:1px solid rgba(41,227,212,.28); color:var(--text-soft); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; backdrop-filter:blur(6px);
+    transition:all .3s var(--ease); opacity:.4; }
+.navbtn:hover{ opacity:1; border-color:var(--c-cyan); color:var(--c-cyan); box-shadow:0 0 28px -6px var(--c-cyan); }
+.navbtn.prev{ left:26px; } .navbtn.next{ right:26px; }
+.navbtn svg{ width:22px; height:22px; }
+
+/* dots de navegação (centro inferior) */
+.dots{ position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:1200; display:flex; gap:11px; }
+.dots b{ width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.22); cursor:pointer; transition:all .3s var(--ease); }
+.dots b.on{ background:var(--c-cyan); box-shadow:0 0 12px var(--c-cyan); width:26px; border-radius:6px; }
+
+/* =========================================================================
+   8) EDIÇÃO INLINE (modo edição)  — tecla "E" ou canto superior esquerdo
+   ========================================================================= */
+.edit-hotzone{ position:fixed; top:0; left:0; width:80px; height:80px; z-index:10000; cursor:pointer; }
+.edit-toggle{ position:fixed; top:16px; left:16px; z-index:10001; width:44px; height:44px; border-radius:12px;
+    border:1px solid rgba(41,227,212,.4); background:rgba(12,24,48,.8); color:var(--c-cyan); font-size:18px; cursor:pointer;
+    opacity:0; pointer-events:none; transition:opacity .3s ease; }
+.edit-toggle.show,.edit-toggle.active{ opacity:1; pointer-events:auto; }
+.edit-toggle.active{ background:var(--c-cyan); color:#04121f; }
+body.editing [contenteditable]{ outline:1px dashed rgba(41,227,212,.5); outline-offset:4px; border-radius:4px; cursor:text; }
+body.editing [contenteditable]:focus{ outline:2px solid var(--c-cyan); background:rgba(41,227,212,.06); }
+.edit-toast{ position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(20px); z-index:10002;
+    font-family:var(--font-mono); font-size:14px; padding:10px 20px; border-radius:10px; background:rgba(12,24,48,.95);
+    border:1px solid rgba(41,227,212,.4); color:var(--c-cyan); opacity:0; pointer-events:none; transition:all .35s var(--ease); }
+.edit-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- barra de progresso (topo) -->
+<div class="progress"><div class="bar" id="progressBar"></div></div>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+    <!-- ===================================================================
+         SLIDE 1 — ABERTURA / PROBLEMA
+         Fundo: assets/slide01_fundo_mapa_digital.png (rota verde + ruptura vermelha)
+         Para trocar a imagem, edite a URL em style="background-image:url(...)".
+         =================================================================== -->
+    <section class="slide title-slide active" data-slide="1">
+        <div class="bg-image" style="background-image:url('assets/slide01_hero_aereo.png');"></div>
+        <div class="netgrid"></div>
+        <div class="slide-inner">
+            <p class="eyebrow reveal" style="--d:.05s">OAE-SIM · Resiliência de redes viárias</p>
+
+            <h1 class="h1 reveal" style="--d:.15s; margin-top:26px; max-width:1240px;">
+                Resiliência da Rede Viária diante da<br>
+                Interdição de <span class="gradient-text">OAEs Críticas</span>
+            </h1>
+
+            <p class="msg reveal" style="--d:.3s; margin-top:24px;">
+                OAE-SIM <span style="color:var(--text-dim)">|</span> simulação web, análise de redes e priorização de manutenção
+            </p>
+
+            <!-- chips de legenda do mapa -->
+            <div class="chip-row reveal" style="--d:.42s; margin-top:30px;">
+                <span class="chip" style="--c:var(--c-cyan)">● Ligações ilha–continente</span>
+                <span class="chip" style="--c:var(--c-red)">● Ponte interditada</span>
+            </div>
+
+            <!-- duas caixas: O problema / Pergunta-chave -->
+            <div style="display:flex; gap:28px; margin-top:auto; max-width:1320px;">
+                <div class="box reveal" style="--c:var(--c-cyan); --d:.55s; flex:1.3;">
+                    <span class="box-label">O problema</span>
+                    <p class="box-text">Quando uma OAE crítica é interditada, a rede ainda pode ter caminho — <b style="color:var(--c-green)">mas com desvio operacional elevado.</b></p>
+                </div>
+                <div class="box reveal" style="--c:var(--c-orange); --d:.7s; flex:1;">
+                    <span class="box-label">Pergunta-chave</span>
+                    <p class="box-text" style="color:var(--c-orange); font-family:var(--font-display); font-weight:600;">Como medir o impacto da interdição na malha?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 2 — POSICIONAMENTO CIENTÍFICO (bibliometria)
+         Grafo de palavras desenhado em SVG (combina com o tema escuro).
+         Imagem real opcional: assets/slide02_bibliometria_vosviewer.png
+         =================================================================== -->
+    <section class="slide" data-slide="2">
+        <!-- SLIDE 2 = imagem finalizada da bibliometria (já no tema escuro).
+             Para voltar à versão construída em SVG: troque a <img> abaixo por
+             <div class="netgrid"></div> e remova o style="display:none" do .slide-inner. -->
+        <img class="slide-full reveal-s" src="assets/slide02_bibliometria_full.png" alt="Posicionamento científico do OAE-SIM — bibliometria, clusters e presença global da produção científica">
+        <div class="slide-inner" style="display:none;">
+            <p class="eyebrow reveal">Posicionamento científico</p>
+            <h2 class="h2 reveal" style="--d:.1s; margin-top:16px;">Posicionamento científico do OAE-SIM</h2>
+            <p class="msg reveal" style="--d:.2s; margin-top:14px;">
+                A bibliometria mostra o trabalho na <b>interseção</b> entre resiliência de redes, pontes/OAEs, WebGIS, simulação e apoio à decisão.
+            </p>
+
+            <!-- métricas em chips -->
+            <div class="chip-row reveal" style="--d:.28s; margin-top:22px;">
+                <span class="chip" style="--c:var(--c-cyan)">158 trabalhos acadêmicos</span>
+                <span class="chip" style="--c:var(--c-blue)">13 palavras-chave</span>
+                <span class="chip" style="--c:var(--c-orange)">2 clusters</span>
+            </div>
+
+            <div style="display:flex; gap:44px; margin-top:30px; align-items:center; flex:1;">
+                <!-- GRAFO BIBLIOMÉTRICO (SVG) -->
+                <div class="reveal-s" style="--d:.3s; flex:1.15; height:520px;">
+                    <svg viewBox="0 0 720 540" style="width:100%; height:100%;" aria-label="Grafo bibliométrico">
+                        <!-- linhas do cluster (verde = resiliência) -->
+                        <g stroke="rgba(54,224,122,.45)" stroke-width="1.4" fill="none" class="draw"
+                           stroke-dasharray="900" stroke-dashoffset="900" style="--d:.4s">
+                            <path d="M210,250 L120,150 M210,250 L100,330 M210,250 L235,400 M210,250 L330,170 M210,250 L150,250 M330,170 L360,270"/>
+                        </g>
+                        <!-- linhas do cluster (laranja/vermelho = ponte/interdição) -->
+                        <g stroke="rgba(255,138,52,.45)" stroke-width="1.4" fill="none" class="draw"
+                           stroke-dasharray="900" stroke-dashoffset="900" style="--d:.6s">
+                            <path d="M500,260 L470,150 M500,260 L600,180 M500,260 L620,300 M500,260 L520,410 M500,260 L400,360 M500,260 L360,270"/>
+                        </g>
+                        <!-- ponte entre clusters -->
+                        <path d="M360,270 L500,260" stroke="rgba(41,227,212,.6)" stroke-width="2" fill="none"
+                              class="draw" stroke-dasharray="200" stroke-dashoffset="200" style="--d:.9s"/>
+
+                        <!-- NÓS cluster verde -->
+                        <g font-family="Space Mono, monospace" font-size="14" fill="#eaf1ff">
+                            <g class="reveal-s" style="--d:.9s">
+                                <circle cx="210" cy="250" r="13" fill="#36e07a" filter="url(#g1)"/>
+                                <text x="210" y="232" text-anchor="middle" fill="#bdeccb">Resiliência</text>
+                            </g>
+                            <circle cx="120" cy="150" r="8" fill="#36e07a"/><text x="120" y="138" text-anchor="middle" fill="#9fb6cf">Vulnerabilidade</text>
+                            <circle cx="100" cy="330" r="8" fill="#36e07a"/><text x="100" y="352" text-anchor="middle" fill="#9fb6cf">Acessibilidade</text>
+                            <circle cx="235" cy="400" r="8" fill="#29e3d4"/><text x="235" y="422" text-anchor="middle" fill="#9fb6cf">WebGIS</text>
+                            <circle cx="150" cy="250" r="6" fill="#36e07a"/><text x="135" y="270" text-anchor="end" fill="#7d90b3">Risco</text>
+                        </g>
+                        <!-- NÓS cluster laranja/vermelho -->
+                        <g font-family="Space Mono, monospace" font-size="14">
+                            <g class="reveal-s" style="--d:1s">
+                                <circle cx="500" cy="260" r="13" fill="#ff8a34"/>
+                                <text x="500" y="242" text-anchor="middle" fill="#ffd0a6">Ponte / OAE</text>
+                            </g>
+                            <circle cx="470" cy="150" r="9" fill="#ff3b52"/><text x="470" y="138" text-anchor="middle" fill="#f0a8b2">Interdição</text>
+                            <circle cx="600" cy="180" r="8" fill="#ff8a34"/><text x="600" y="168" text-anchor="middle" fill="#e7b48f">Manutenção</text>
+                            <circle cx="620" cy="300" r="8" fill="#29e3d4"/><text x="620" y="322" text-anchor="middle" fill="#9fb6cf">Simulação</text>
+                            <circle cx="520" cy="410" r="8" fill="#3b82f6"/><text x="520" y="432" text-anchor="middle" fill="#9fb6cf">Machine Learning</text>
+                            <circle cx="400" cy="360" r="6" fill="#ff8a34"/><text x="400" y="382" text-anchor="middle" fill="#7d90b3">Transporte</text>
+                        </g>
+                        <defs>
+                            <filter id="g1" x="-60%" y="-60%" width="220%" height="220%">
+                                <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- CARDS laterais: Cluster 1, Cluster 2, OAE-SIM -->
+                <div style="flex:.85; display:flex; flex-direction:column; gap:18px;">
+                    <div class="card reveal" style="--c:var(--c-green); --d:.5s; padding:22px 26px;">
+                        <span class="card-kicker">Cluster 1 · resiliência</span>
+                        <div class="chip-row" style="margin-top:14px;">
+                            <span class="chip" style="--c:var(--c-green)">Resiliência</span>
+                            <span class="chip" style="--c:var(--c-green)">Vulnerabilidade</span>
+                            <span class="chip" style="--c:var(--c-green)">Acessibilidade</span>
+                            <span class="chip" style="--c:var(--c-cyan)">WebGIS</span>
+                        </div>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-orange); --d:.62s; padding:22px 26px;">
+                        <span class="card-kicker">Cluster 2 · pontes</span>
+                        <div class="chip-row" style="margin-top:14px;">
+                            <span class="chip" style="--c:var(--c-orange)">Ponte</span>
+                            <span class="chip" style="--c:var(--c-red)">Interdição</span>
+                            <span class="chip" style="--c:var(--c-orange)">Manutenção</span>
+                            <span class="chip" style="--c:var(--c-cyan)">Simulação</span>
+                            <span class="chip" style="--c:var(--c-blue)">Machine Learning</span>
+                        </div>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-cyan); --d:.74s; padding:24px 26px;">
+                        <span class="card-kicker">A síntese</span>
+                        <h3 style="font-size:25px; margin-top:8px;">OAE-SIM = rede viária + OAEs + ferramenta web</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 3 — ESTUDO DE CASO (Vitória/ES)
+         Fundo: assets/slide03_fundo_vitoria_7_oaes.png (mapa escuro + pinos)
+         =================================================================== -->
+    <section class="slide" data-slide="3">
+        <div class="bg-image soft" style="background-image:url('assets/slide03_mapa_criticidade_dark.png'); background-position:center;"></div>
+        <div class="slide-inner">
+            <p class="eyebrow reveal">Estudo de caso · Vitória/ES</p>
+            <h2 class="h2 reveal" style="--d:.1s; margin-top:16px; max-width:1100px;">
+                Vitória/ES: capital insular e <span class="accent">7 OAEs</span> estratégicas
+            </h2>
+            <p class="msg reveal" style="--d:.2s; margin-top:14px; max-width:880px;">
+                Sete OAEs urbanas escolhidas pela localização nas conexões entre <b>ilha e continente.</b>
+            </p>
+
+            <!-- 4 cards = imagem PNG transparente sobreposta ao mapa.
+                 A legenda de criticidade já vem embutida no mapa (canto inferior esquerdo). -->
+            <div style="position:absolute; left:0; right:0; bottom:48px; display:flex; justify-content:center;">
+                <img class="reveal-s" src="assets/slide03_cards.png" style="--d:.45s; width:1280px; max-width:88%; height:auto;" alt="Vitória/ES capital insular · 7 OAEs · Base real · 1 interditada">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 4 — FLUXO METODOLÓGICO (6 etapas em sequência)
+         As etapas surgem uma a uma via .reveal + --d crescente.
+         =================================================================== -->
+    <section class="slide" data-slide="4">
+        <div class="netgrid"></div>
+        <div class="slide-inner">
+            <p class="eyebrow reveal">Fluxo metodológico</p>
+            <h2 class="h2 reveal" style="--d:.1s; margin-top:16px;">Fluxo metodológico do OAE-SIM</h2>
+            <p class="msg reveal" style="--d:.2s; margin-top:12px;">
+                O sistema transforma uma <b>base de OAEs</b> em uma simulação de <b>impacto na rede viária.</b>
+            </p>
+
+            <!-- FLUXO -->
+            <div class="flow" style="margin-top:46px;">
+                <!-- 1 -->
+                <div class="flow-step reveal-s" style="--c:var(--c-cyan); --d:.35s;">
+                    <span class="step-n">ETAPA 01</span>
+                    <div class="step-ico">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></svg>
+                    </div>
+                    <h4>Relatórios / base de OAEs</h4>
+                    <p>Dados de inspeção e cadastro</p>
+                </div>
+                <div class="flow-arrow reveal" style="--d:.45s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                <!-- 2 -->
+                <div class="flow-step reveal-s" style="--c:var(--c-cyan); --d:.55s;">
+                    <span class="step-n">ETAPA 02</span>
+                    <div class="step-ico">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
+                    </div>
+                    <h4>Base + mapa de criticidade</h4>
+                    <p>Georreferenciamento + Nota Geral</p>
+                </div>
+                <div class="flow-arrow reveal" style="--d:.65s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                <!-- 3 -->
+                <div class="flow-step reveal-s" style="--c:var(--c-blue); --d:.75s;">
+                    <span class="step-n">ETAPA 03</span>
+                    <div class="step-ico">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5" cy="6" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7 7l8 9M17 7l-8 9"/></svg>
+                    </div>
+                    <h4>Rede viária</h4>
+                    <p>Grafo derivado do OpenStreetMap</p>
+                </div>
+                <div class="flow-arrow reveal" style="--d:.85s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                <!-- 4 -->
+                <div class="flow-step reveal-s" style="--c:var(--c-red); --d:.95s;">
+                    <span class="step-n">ETAPA 04</span>
+                    <div class="step-ico">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg>
+                    </div>
+                    <h4>Interdição simulada</h4>
+                    <p>Remove arestas próximas da OAE</p>
+                </div>
+                <div class="flow-arrow reveal" style="--d:1.05s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                <!-- 5 -->
+                <div class="flow-step reveal-s" style="--c:var(--c-green); --d:1.15s;">
+                    <span class="step-n">ETAPA 05</span>
+                    <div class="step-ico">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="19" r="2.4"/><circle cx="18" cy="5" r="2.4"/><path d="M8 19h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg>
+                    </div>
+                    <h4>Rotas alternativas</h4>
+                    <p>Recálculo do caminho mínimo</p>
+                </div>
+                <div class="flow-arrow reveal" style="--d:1.25s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                <!-- 6 -->
+                <div class="flow-step reveal-s" style="--c:var(--c-cyan); --d:1.35s;">
+                    <span class="step-n">ETAPA 06</span>
+                    <div class="step-ico">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-6 4 14 2-8h6"/></svg>
+                    </div>
+                    <h4>Impacto na resiliência</h4>
+                    <p>Proxy de impacto funcional local</p>
+                </div>
+            </div>
+
+            <!-- nota técnica discreta -->
+            <p class="tech-note reveal" style="--d:1.5s; margin-top:auto;">
+                <b>Sob o capô:</b> base georreferenciada de OAEs → malha viária do OpenStreetMap → rede como grafo →
+                interdição remove arestas próximas da OAE → recálculo de rotas → resultados como proxy de impacto funcional local.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 5 — MVP FUNCIONAL
+         Frame de navegador com print: assets/slide05_print_oae_sim_interface.png
+         =================================================================== -->
+    <section class="slide" data-slide="5">
+        <div class="netgrid"></div>
+        <div class="slide-inner">
+            <p class="eyebrow reveal">MVP funcional</p>
+            <h2 class="h2 reveal" style="--d:.1s; margin-top:14px;">OAE-SIM: simulador web funcional</h2>
+            <p class="msg reveal" style="--d:.2s; margin-top:12px; max-width:1280px;">
+                Não ficou apenas no artigo: um <b>MVP web</b> que executa simulações, calcula rotas alternativas e gera relatórios.
+            </p>
+
+            <div style="display:flex; gap:48px; margin-top:32px; align-items:center; flex:1;">
+                <!-- mockup do simulador -->
+                <div class="browser reveal-s" style="--d:.3s; flex:1.25;">
+                    <div class="browser-bar">
+                        <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
+                        <span class="url">oae-sim.app · Simulador de Resiliência da Rede Viária</span>
+                    </div>
+                    <!-- TROQUE A IMAGEM AQUI -->
+                    <img src="assets/slide05_print_oae_sim_interface.png" alt="Interface do simulador OAE-SIM">
+                </div>
+
+                <!-- 6 cards de funções (2 colunas) -->
+                <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                    <div class="card reveal" style="--c:var(--c-cyan); --d:.45s; padding:20px 22px;">
+                        <span class="card-kicker">Entrada</span><h3 style="font-size:21px">Carregar base</h3><p style="font-size:16px">CSV · XLSX · KML · KMZ</p>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-blue); --d:.55s; padding:20px 22px;">
+                        <span class="card-kicker">Mapa</span><h3 style="font-size:21px">Visualizar</h3><p style="font-size:16px">Criticidade + malha viária</p>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-red); --d:.65s; padding:20px 22px;">
+                        <span class="card-kicker">Cenário</span><h3 style="font-size:21px">Selecionar interdição</h3><p style="font-size:16px">Uma ou múltiplas OAEs</p>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-green); --d:.75s; padding:20px 22px;">
+                        <span class="card-kicker">Cálculo</span><h3 style="font-size:21px">Calcular impacto</h3><p style="font-size:16px">Rota original × alternativa</p>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-orange); --d:.85s; padding:20px 22px;">
+                        <span class="card-kicker">Lote</span><h3 style="font-size:21px">Simulação geral</h3><p style="font-size:16px">Cenários em lote</p>
+                    </div>
+                    <div class="card reveal" style="--c:var(--c-cyan); --d:.95s; padding:20px 22px;">
+                        <span class="card-kicker">Saída</span><h3 style="font-size:21px">Gerar PDF</h3><p style="font-size:16px">Relatório consolidado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 6 — RESULTADOS PRINCIPAIS
+         Números com contagem animada (ver JS: data-count / data-dec / data-suffix)
+         =================================================================== -->
+    <section class="slide" data-slide="6">
+        <div class="bg-image" style="background-image:url('assets/slide01_hero_aereo.png'); opacity:.5;"></div>
+        <div class="netgrid"></div>
+        <div class="slide-inner">
+            <p class="eyebrow reveal">Resultados</p>
+            <h2 class="h2 reveal" style="--d:.1s; margin-top:14px;">Resultados consolidados das simulações</h2>
+            <p class="msg reveal" style="--d:.2s; margin-top:12px;">
+                A rede manteve rotas alternativas em <b style="color:var(--c-green)">todos os cenários</b> — mas com desvios operacionais expressivos.
+            </p>
+
+            <!-- 4 números grandes -->
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:26px; margin-top:auto;">
+                <div class="stat reveal-s" style="--c:var(--c-cyan); --d:.4s;">
+                    <div class="stat-num" data-count="114">0</div>
+                    <span class="stat-label">simulações válidas</span>
+                </div>
+                <div class="stat reveal-s" style="--c:var(--c-green); --d:.55s;">
+                    <div class="stat-num" data-count="114" data-suffix="/114">0</div>
+                    <span class="stat-label">com rota alternativa</span>
+                </div>
+                <div class="stat reveal-s" style="--c:var(--c-orange); --d:.7s;">
+                    <div class="stat-num" data-count="18.01" data-dec="2" data-prefix="+" data-suffix=" km">0</div>
+                    <span class="stat-label">aumento médio de distância</span>
+                </div>
+                <div class="stat reveal-s" style="--c:var(--c-red); --d:.85s;">
+                    <div class="stat-num" data-count="41.69" data-dec="2" data-prefix="+" data-suffix=" km">0</div>
+                    <span class="stat-label">aumento máximo observado</span>
+                </div>
+            </div>
+
+            <!-- frase forte de rodapé -->
+            <div class="reveal" style="--d:1s; margin-top:48px; display:flex; align-items:center; gap:18px;">
+                <span style="font-size:34px;">⚠️</span>
+                <p style="font-family:var(--font-display); font-weight:600; font-size:38px; color:var(--c-orange); line-height:1.1;">
+                    Ter rota alternativa não significa baixo impacto.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 7 — PRIORIZAÇÃO E CONCLUSÃO (ranking real das 7 OAEs)
+         Barras animam via .rank-fill com --w (largura = nota).
+         =================================================================== -->
+    <section class="slide" data-slide="7">
+        <div class="netgrid"></div>
+        <div class="slide-inner">
+            <p class="eyebrow reveal">Priorização & conclusão</p>
+            <h2 class="h2 reveal" style="--d:.1s; margin-top:14px; max-width:1320px;">
+                Priorizar não é só olhar a estrutura — <span class="accent">é olhar a rede</span>
+            </h2>
+            <p class="msg reveal" style="--d:.2s; margin-top:10px;">
+                O OAE-SIM combina <b>condição estrutural</b> e <b>impacto funcional</b> para apoiar manutenção, contingência e planejamento.
+            </p>
+
+            <!-- RANKING -->
+            <div class="rank" style="margin-top:30px;">
+                <!-- linha: posição | nome+tag | barra | nota | (cor via --c, largura via --w) -->
+                <div class="rank-row reveal-x" style="--c:var(--c-red); --d:.35s;">
+                    <div class="rank-pos">1</div>
+                    <div><div class="rank-name">Ponte Ceciliano Abel de Almeida</div><span class="rank-tag">Prioridade alta</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:86.3%; --d:.4s"></div></div>
+                    <div class="rank-score">86,3</div>
+                </div>
+                <div class="rank-row reveal-x" style="--c:var(--c-red); --d:.45s;">
+                    <div class="rank-pos">2</div>
+                    <div><div class="rank-name">Ponte Florentino Avidos</div><span class="rank-tag">Prioridade alta</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:80.1%; --d:.5s"></div></div>
+                    <div class="rank-score">80,1</div>
+                </div>
+                <div class="rank-row reveal-x" style="--c:var(--c-yellow); --d:.55s;">
+                    <div class="rank-pos">3</div>
+                    <div><div class="rank-name">Ponte do Príncipe</div><span class="rank-tag">Prioridade média</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:68.5%; --d:.6s"></div></div>
+                    <div class="rank-score">68,5</div>
+                </div>
+                <div class="rank-row reveal-x" style="--c:var(--c-yellow); --d:.65s;">
+                    <div class="rank-pos">4</div>
+                    <div><div class="rank-name">Ponte da Passagem</div><span class="rank-tag">Prioridade média</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:65.9%; --d:.7s"></div></div>
+                    <div class="rank-score">65,9</div>
+                </div>
+                <div class="rank-row reveal-x" style="--c:var(--c-orange); --d:.75s;">
+                    <div class="rank-pos">5</div>
+                    <div><div class="rank-name">Ponte Des. Paes Barreto</div><span class="rank-tag">Prioridade média</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:51.7%; --d:.8s"></div></div>
+                    <div class="rank-score">51,7</div>
+                </div>
+                <div class="rank-row reveal-x" style="--c:var(--c-orange); --d:.85s;">
+                    <div class="rank-pos">6</div>
+                    <div><div class="rank-name">Ponte Ayrton Senna</div><span class="rank-tag">Prioridade média</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:51.2%; --d:.9s"></div></div>
+                    <div class="rank-score">51,2</div>
+                </div>
+                <div class="rank-row reveal-x" style="--c:var(--c-green); --d:.95s;">
+                    <div class="rank-pos">7</div>
+                    <div><div class="rank-name">Ponte Dep. Darcy C. de Mendonça</div><span class="rank-tag">Prioridade baixa</span></div>
+                    <div class="rank-track"><div class="rank-fill" style="--w:37%; --d:1s"></div></div>
+                    <div class="rank-score">37,0</div>
+                </div>
+            </div>
+
+            <!-- frases finais -->
+            <div class="reveal" style="--d:1.15s; margin-top:auto; display:flex; gap:40px; align-items:center;">
+                <p class="kicker-line">Criticidade estrutural <span style="color:var(--c-red); font-weight:700;">≠</span> criticidade sistêmica.</p>
+                <p class="kicker-line" style="color:var(--c-cyan);">OAE-SIM apoia <b>manutenção, contingência e decisão.</b></p>
+            </div>
+        </div>
+    </section>
+
+</main>
+</div>
+
+<!-- ===== CHROME DA APRESENTAÇÃO (fora do palco) ===== -->
+<div class="brandtag">OAE-SIM</div>
+<div class="counter"><b id="cur">01</b> / <span id="total">07</span></div>
+
+<button class="navbtn prev" id="prevBtn" aria-label="Slide anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+<button class="navbtn next" id="nextBtn" aria-label="Próximo slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+
+<div class="dots" id="dots"></div>
+
+<!-- modo edição -->
+<div class="edit-hotzone" id="editHotzone"></div>
+<button class="edit-toggle" id="editToggle" title="Modo edição (tecla E)">✏️</button>
+<div class="edit-toast" id="editToast"></div>
+
+<script>
+/* =========================================================================
+   CONTROLADOR DA APRESENTAÇÃO
+   - Navegação: → / espaço (próximo), ← (anterior), Home, End
+   - Botões, dots, swipe e roda do mouse
+   - Escala do palco 1920×1080 para qualquer tela (letterbox)
+   ========================================================================= */
+class SlidePresentation{
+    constructor(){
+        this.slides   = Array.from(document.querySelectorAll('.slide'));
+        this.current  = 0;
+        this.stage    = document.getElementById('deckStage');
+        this.progress = document.getElementById('progressBar');
+        this.curEl    = document.getElementById('cur');
+        document.getElementById('total').textContent = String(this.slides.length).padStart(2,'0');
+
+        this.buildDots();
+        this.setupStageScale();
+        this.setupKeyboard();
+        this.setupButtons();
+        this.setupTouch();
+        this.setupWheel();
+        this.show(0);
+    }
+
+    /* escala o palco inteiro mantendo 16:9 (com barras se necessário) */
+    setupStageScale(){
+        const scale = ()=>{
+            const f = Math.min(window.innerWidth/1920, window.innerHeight/1080);
+            const x = (window.innerWidth  - 1920*f)/2;
+            const y = (window.innerHeight - 1080*f)/2;
+            this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+        };
+        scale();
+        window.addEventListener('resize', scale);
+    }
+
+    buildDots(){
+        const wrap = document.getElementById('dots');
+        this.slides.forEach((_,i)=>{
+            const b = document.createElement('b');
+            b.addEventListener('click', ()=>this.show(i));
+            wrap.appendChild(b);
+        });
+        this.dots = Array.from(wrap.children);
+    }
+
+    setupKeyboard(){
+        document.addEventListener('keydown', e=>{
+            // não navega enquanto edita texto
+            if(e.target.getAttribute && e.target.getAttribute('contenteditable')==='true') return;
+            switch(e.key){
+                case 'ArrowRight': case ' ': case 'PageDown': e.preventDefault(); this.next(); break;
+                case 'ArrowLeft':  case 'PageUp':             e.preventDefault(); this.prev(); break;
+                case 'Home': e.preventDefault(); this.show(0); break;
+                case 'End':  e.preventDefault(); this.show(this.slides.length-1); break;
+            }
+        });
+    }
+    setupButtons(){
+        document.getElementById('nextBtn').addEventListener('click', ()=>this.next());
+        document.getElementById('prevBtn').addEventListener('click', ()=>this.prev());
+    }
+    setupTouch(){
+        let x0=null;
+        this.stage.addEventListener('touchstart', e=>x0=e.touches[0].clientX, {passive:true});
+        this.stage.addEventListener('touchend', e=>{
+            if(x0===null) return;
+            const dx = e.changedTouches[0].clientX - x0;
+            if(Math.abs(dx)>60){ dx<0 ? this.next() : this.prev(); }
+            x0=null;
+        }, {passive:true});
+    }
+    setupWheel(){
+        let lock=false;
+        window.addEventListener('wheel', e=>{
+            if(document.body.classList.contains('editing')) return;
+            if(lock) return;
+            if(Math.abs(e.deltaY)<24) return;
+            lock=true; e.deltaY>0 ? this.next() : this.prev();
+            setTimeout(()=>lock=false, 700);
+        }, {passive:true});
+    }
+
+    next(){ this.show(this.current+1); }
+    prev(){ this.show(this.current-1); }
+
+    show(i){
+        this.current = Math.max(0, Math.min(i, this.slides.length-1));
+        this.slides.forEach((s,idx)=>{
+            const on = idx===this.current;
+            s.classList.toggle('active', on);
+            s.classList.toggle('visible', on);
+        });
+        // chrome
+        this.curEl.textContent = String(this.current+1).padStart(2,'0');
+        this.progress.style.width = ((this.current+1)/this.slides.length*100)+'%';
+        this.dots.forEach((d,idx)=>d.classList.toggle('on', idx===this.current));
+        // dispara contadores se o slide tiver números animados
+        this.runCounters(this.slides[this.current]);
+    }
+
+    /* contagem animada dos números (slide 6) */
+    runCounters(slide){
+        slide.querySelectorAll('[data-count]').forEach(el=>{
+            const to   = parseFloat(el.dataset.count);
+            const dec  = parseInt(el.dataset.dec||'0', 10);
+            const pre  = el.dataset.prefix||'';
+            const suf  = el.dataset.suffix||'';
+            const dur  = 1300;
+            let start  = null;
+            const fmt = v => pre + v.toLocaleString('pt-BR',{minimumFractionDigits:dec, maximumFractionDigits:dec}) + suf;
+            const step = ts =>{
+                if(!start) start = ts;
+                const p = Math.min((ts-start)/dur, 1);
+                const eased = 1 - Math.pow(1-p, 3);           // ease-out cubic
+                el.textContent = fmt(to*eased);
+                if(p<1) requestAnimationFrame(step); else el.textContent = fmt(to);
+            };
+            requestAnimationFrame(step);
+        });
+    }
+}
+
+/* =========================================================================
+   EDITOR INLINE  (tecla "E" ou canto superior esquerdo)
+   - clique em qualquer texto para editar
+   - Ctrl+S salva no navegador (localStorage) e baixa cópia .html
+   ========================================================================= */
+class InlineEditor{
+    constructor(stage){
+        this.stage = stage;
+        this.isActive = false;
+        this.sel = 'h1,h2,h3,h4,p,span.box-text,.box-label,.card-kicker,.chip,.stat-label,.rank-name,.rank-tag,.rank-score,.kicker-line,.tech-note,.eyebrow';
+        this.restore();
+        this.bindUI();
+    }
+    bindUI(){
+        const toggle = document.getElementById('editToggle');
+        const hot    = document.getElementById('editHotzone');
+        let hideT=null;
+        toggle.addEventListener('click', ()=>this.toggle());
+        hot.addEventListener('click', ()=>this.toggle());
+        hot.addEventListener('mouseenter', ()=>{ clearTimeout(hideT); toggle.classList.add('show'); });
+        hot.addEventListener('mouseleave', ()=>{ hideT=setTimeout(()=>{ if(!this.isActive) toggle.classList.remove('show'); },400); });
+        toggle.addEventListener('mouseenter', ()=>clearTimeout(hideT));
+        toggle.addEventListener('mouseleave', ()=>{ hideT=setTimeout(()=>{ if(!this.isActive) toggle.classList.remove('show'); },400); });
+        document.addEventListener('keydown', e=>{
+            if((e.key==='e'||e.key==='E') && !(e.target.getAttribute && e.target.getAttribute('contenteditable')==='true')) this.toggle();
+            if((e.ctrlKey||e.metaKey) && e.key==='s' && this.isActive){ e.preventDefault(); this.save(); }
+        });
+    }
+    toggle(){
+        this.isActive = !this.isActive;
+        document.body.classList.toggle('editing', this.isActive);
+        document.getElementById('editToggle').classList.toggle('active', this.isActive);
+        this.stage.querySelectorAll(this.sel).forEach(el=>{
+            if(this.isActive){ el.setAttribute('contenteditable','true'); el.addEventListener('input', this._save=this._save||(()=>this.persist())); }
+            else el.removeAttribute('contenteditable');
+        });
+        this.toast(this.isActive ? 'Modo edição ON — clique nos textos · Ctrl+S salva' : 'Modo edição OFF');
+    }
+    persist(){ try{ localStorage.setItem('oaesim_deck', this.stage.innerHTML); }catch(e){} }
+    restore(){ try{ const h=localStorage.getItem('oaesim_deck'); if(h) this.stage.innerHTML=h; }catch(e){} }
+    save(){
+        this.persist();
+        // baixa o HTML completo já editado
+        const doc='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+        const blob=new Blob([doc],{type:'text/html'});
+        const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='oae-sim-apresentacao.html'; a.click();
+        this.toast('Salvo no navegador + cópia .html baixada');
+    }
+    toast(msg){
+        const t=document.getElementById('editToast'); t.textContent=msg; t.classList.add('show');
+        clearTimeout(this._t); this._t=setTimeout(()=>t.classList.remove('show'),2600);
+    }
+}
+
+/* inicializa */
+const deck = new SlidePresentation();
+new InlineEditor(document.getElementById('deckStage'));
+</script>
+
+<!-- =========================================================================
+     ✏️  GUIA RÁPIDO DE EDIÇÃO  (leia aqui antes de mexer)
+     =========================================================================
+
+  ► COMO TROCAR IMAGENS
+     • As imagens ficam na pasta  assets/  ao lado deste index.html.
+     • No HTML procure  url('assets/...')  (fundos) ou  <img src="assets/...">  (print).
+       - Slide 1 e 6 (fundo):    assets/slide01_hero_aereo.png
+       - Slide 2 (slide pronto): assets/slide02_bibliometria_full.png
+       - Slide 3 (fundo mapa):   assets/slide03_mapa_criticidade_dark.png
+       - Slide 3 (cards PNG):    assets/slide03_cards.png
+       - Slide 5 (print):        assets/slide05_print_oae_sim_interface.png
+     • Para usar outra imagem, basta salvar o arquivo em assets/ e trocar o nome no caminho.
+     • Há imagens alternativas no pacote (ex.: ..._alternativo.png) — é só trocar o nome.
+
+  ► COMO EDITAR TEXTOS
+     • Direto no navegador: tecle  E  (ou passe o mouse no canto superior esquerdo e clique
+       no lápis), clique em qualquer texto, edite e tecle  Ctrl+S  para salvar + baixar cópia.
+     • Ou edite direto no HTML: cada slide é uma <section class="slide">. Os textos estão
+       dentro de <h1>, <h2>, <p>, <span>, etc. Procure pelo conteúdo que quer mudar.
+
+  ► COMO ALTERAR CORES
+     • Tudo é controlado no topo do <style>, no bloco  :root { ... }.
+       --c-cyan / --c-blue / --c-orange / --c-green / --c-red / --c-yellow  = paleta semântica.
+       --text / --text-soft / --text-dim = textos.
+     • Cada card/box/chip aceita uma cor própria via  style="--c:var(--c-orange)".
+       Troque var(--c-orange) por outra variável para mudar o destaque daquele elemento.
+
+  ► COMO MUDAR FONTES
+     • Troque os <link> de fonte no <head> e ajuste --font-display / --font-body / --font-mono.
+
+  ► COMO ADICIONAR OU REMOVER SLIDES
+     • ADICIONAR: copie um bloco  <section class="slide" data-slide="N"> ... </section>
+       inteiro, cole antes de  </main>, e ajuste o número data-slide.
+     • REMOVER: apague a <section class="slide"> inteira do slide indesejado.
+     • O contador, a barra de progresso e os "dots" se ajustam sozinhos (contam os .slide).
+     • Use as classes prontas: .card, .box, .chip, .stat, .flow/.flow-step, .rank/.rank-row,
+       .netgrid (fundo de rede), .bg-image (fundo com imagem), .reveal (animação de entrada).
+
+  ► ANIMAÇÃO DE ENTRADA
+     • Adicione class="reveal" (ou reveal-x / reveal-s) e  style="--d:.3s"  para atrasar a entrada.
+
+     ========================================================================= -->
+</body>
+</html>

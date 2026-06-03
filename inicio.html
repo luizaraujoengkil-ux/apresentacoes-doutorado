@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     ★★★  PÁGINA PRINCIPAL (HUB) — É ESTE O ARQUIVO DA PÁGINA INICIAL.  ★★★
+     Edite AQUI o que aparece na abertura e na navegação entre as matérias.
+     (Cada apresentação fica na sua própria subpasta, no respectivo index.html.)
+     O index.html da raiz é só um redirecionamento para cá — não precisa mexer nele.
+     ============================================================================ -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>★ Página principal · Apresentações por matéria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* ===========================================================================
+   PÁGINA INICIAL (HUB) — lista as apresentações por matéria.
+   Cada matéria fica numa subpasta com seu próprio index.html + assets/.
+   COMO ADICIONAR/EDITAR: duplique um <a class="subject-card"> abaixo e ajuste
+   o href (pasta), o título, o status e a cor (--c).
+   =========================================================================== */
+:root{
+    --bg:#040a16; --bg2:#071426; --cyan:#2fe4d8; --blue:#3b82f6; --green:#36e07a; --amber:#ffa630;
+    --white:#eef4ff; --soft:#aebfda; --dim:#6f83a6;
+    --font:'Manrope',system-ui,sans-serif; --mono:'Space Mono',monospace;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ min-height:100vh; font-family:var(--font); color:var(--white);
+    background:
+        radial-gradient(1100px 720px at 12% 4%, rgba(47,228,216,.12) 0%, transparent 58%),
+        radial-gradient(1200px 800px at 92% 100%, rgba(59,130,246,.14) 0%, transparent 60%),
+        linear-gradient(155deg,#061226 0%, var(--bg) 55%, #03060f 100%);
+    background-attachment:fixed;
+    display:flex; flex-direction:column; align-items:center; padding:72px 24px 56px; }
+/* grade de rede sutil no fundo */
+body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background-image:linear-gradient(rgba(59,130,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.06) 1px,transparent 1px);
+    background-size:64px 64px; mask-image:radial-gradient(120% 100% at 50% 30%,#000 30%,transparent 85%); }
+
+.hub-head{ width:100%; max-width:1080px; }
+.eyebrow{ font-family:var(--mono); font-size:15px; letter-spacing:.28em; text-transform:uppercase; color:var(--cyan);
+    display:inline-flex; align-items:center; gap:14px; }
+.eyebrow::before{ content:""; width:38px; height:2px; background:linear-gradient(90deg,var(--cyan),transparent); box-shadow:0 0 12px var(--cyan); }
+.hub-title{ font-weight:800; font-size:52px; line-height:1.05; letter-spacing:-.02em; margin-top:18px; }
+.hub-title .grad{ background:linear-gradient(100deg,var(--cyan),var(--blue)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hub-sub{ font-size:21px; color:var(--soft); margin-top:14px; max-width:760px; }
+
+/* cards das matérias */
+.subjects{ width:100%; max-width:1080px; margin-top:46px; display:flex; flex-direction:column; gap:20px; }
+.subject-card{ --c:var(--cyan); position:relative; display:flex; align-items:center; gap:26px; padding:28px 32px; border-radius:20px; text-decoration:none; color:inherit;
+    background:linear-gradient(155deg, rgba(13,28,52,.66), rgba(6,14,28,.46)); border:1px solid color-mix(in srgb,var(--c) 38%,transparent);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 22px 50px rgba(0,0,0,.45), 0 0 50px -20px color-mix(in srgb,var(--c) 55%,transparent);
+    transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease; }
+.subject-card::before{ content:""; position:absolute; left:0; top:24px; bottom:24px; width:4px; border-radius:4px; background:var(--c); box-shadow:0 0 16px var(--c); }
+.subject-card.ready:hover{ transform:translateY(-6px); border-color:color-mix(in srgb,var(--c) 70%,transparent);
+    box-shadow:0 30px 64px rgba(0,0,0,.5), 0 0 70px -10px color-mix(in srgb,var(--c) 75%,transparent); }
+.subject-card.soon{ opacity:.62; cursor:default; }
+.subject-card .num{ font-family:var(--font); font-weight:800; font-size:46px; color:var(--c); line-height:1; min-width:64px; text-align:center;
+    text-shadow:0 0 26px color-mix(in srgb,var(--c) 55%,transparent); }
+.subject-card .info{ flex:1; }
+.subject-card .info h2{ font-weight:700; font-size:25px; line-height:1.18; }
+.subject-card .info p{ font-size:16px; color:var(--soft); margin-top:6px; }
+.subject-card .status{ flex:0 0 auto; font-family:var(--mono); font-size:13px; letter-spacing:.1em; text-transform:uppercase; padding:8px 16px; border-radius:999px;
+    border:1px solid color-mix(in srgb,var(--c) 45%,transparent); color:var(--c); background:color-mix(in srgb,var(--c) 12%,transparent); white-space:nowrap; }
+.subject-card .arrow{ flex:0 0 auto; color:var(--c); display:flex; opacity:.8; transition:transform .3s ease; }
+.subject-card.ready:hover .arrow{ transform:translateX(5px); }
+.subject-card.soon .arrow{ display:none; }
+
+.hub-foot{ width:100%; max-width:1080px; margin-top:40px; font-family:var(--mono); font-size:13px; color:var(--dim); letter-spacing:.06em; }
+
+@media (max-width:720px){
+    .hub-title{ font-size:34px; } .subject-card{ flex-wrap:wrap; gap:14px; padding:22px 24px; }
+    .subject-card .num{ font-size:34px; min-width:48px; } .subject-card .status{ order:3; }
+}
+</style>
+</head>
+<body>
+    <div class="hub-head">
+        <p class="eyebrow">Apresentações · Pós-graduação em Transportes</p>
+        <h1 class="hub-title">Apresentações por <span class="grad">matéria</span></h1>
+        <p class="hub-sub">Cada matéria tem sua própria pasta, com o <code>index.html</code> e os <code>assets/</code> isolados. Clique para abrir.</p>
+    </div>
+
+    <div class="subjects">
+
+        <!-- MATÉRIA 1 — pronta (apresentação OAE-SIM) -->
+        <a class="subject-card ready" style="--c:var(--cyan)" href="problemas-especiais-ciencia-dados-deep-learning/index.html">
+            <span class="num">01</span>
+            <span class="info">
+                <h2>Problemas Especiais: Ciência de Dados e Aprendizado Profundo aplicados aos Transportes</h2>
+                <p>Resiliência da Rede Viária diante da Interdição de OAEs Críticas · OAE-SIM (8 slides)</p>
+            </span>
+            <span class="status">Pronta</span>
+            <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <!-- MATÉRIA 2 — em preparação -->
+        <a class="subject-card soon" style="--c:var(--amber)">
+            <span class="num">02</span>
+            <span class="info">
+                <h2>Métodos Estatísticos para Modelos de Transporte</h2>
+                <p>Pasta pronta · aguardando o conteúdo da apresentação</p>
+            </span>
+            <span class="status">Em preparação</span>
+        </a>
+
+        <!-- MATÉRIA 3 — em preparação -->
+        <a class="subject-card soon" style="--c:var(--green)">
+            <span class="num">03</span>
+            <span class="info">
+                <h2>Planejamento de Transportes</h2>
+                <p>Pasta pronta · aguardando o conteúdo da apresentação</p>
+            </span>
+            <span class="status">Em preparação</span>
+        </a>
+
+    </div>
+
+    <p class="hub-foot">slides/ · uma subpasta por matéria · OAE-SIM • Resiliência da Rede Viária</p>
+</body>
+</html>
