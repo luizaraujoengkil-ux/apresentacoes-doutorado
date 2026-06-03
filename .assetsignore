@@ -1,0 +1,8 @@
+# Arquivos que NÃO devem ser publicados (mesmo num deploy local) — órfãos/rascunhos.
+**/ChatGPT Image*.png
+**/Captura de tela*.png
+**/Design sem nome*.svg
+**/2.svg
+.gitignore
+.assetsignore
+README.md

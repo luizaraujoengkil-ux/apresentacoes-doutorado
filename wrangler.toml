@@ -1,0 +1,7 @@
+# Configuração para publicar o site ESTÁTICO no Cloudflare (Workers · assets).
+# Serve os arquivos da pasta atual (".") — inicio.html, index.html e as subpastas das matérias.
+name = "apresentacoes-doutorado"
+compatibility_date = "2026-01-01"
+
+[assets]
+directory = "."
