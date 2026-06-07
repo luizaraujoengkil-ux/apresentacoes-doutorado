@@ -1002,5 +1002,106 @@ new InlineEditor(document.getElementById('deckStage'));
      • Adicione class="reveal" (ou reveal-x / reveal-s) e  style="--d:.3s"  para atrasar a entrada.
 
      ========================================================================= -->
+
+<!-- =========================================================================
+     BOTÃO "ARTIGO" + VISUALIZADOR DE PDF (somente leitura, rolagem contínua)
+     Aparece APENAS no último slide, no canto inferior esquerdo (acima de OAE-SIM).
+     • Clique no botão → abre o artigo num quadro central; role o mouse p/ ver tudo.
+     • É só visualização (a barra do leitor fica oculta: #toolbar=0).
+     • Para trocar o PDF: troque o arquivo em assets/ e o nome na variável PDF abaixo.
+     ========================================================================= -->
+<style>
+.artigo-btn{ position:fixed; left:30px; bottom:64px; z-index:1300;
+    display:inline-flex; align-items:center; gap:9px; padding:11px 18px 11px 14px;
+    font-family:'Space Mono',ui-monospace,SFMono-Regular,monospace; font-size:14px; font-weight:700; letter-spacing:.16em;
+    color:#04121f; background:linear-gradient(135deg,#2fe4d8,#3b82f6); border:0; border-radius:12px; cursor:pointer;
+    box-shadow:0 12px 30px -8px rgba(47,228,216,.6), 0 0 0 1px rgba(47,228,216,.25);
+    opacity:0; transform:translateY(16px) scale(.96); pointer-events:none;
+    transition:opacity .55s ease, transform .55s cubic-bezier(.16,1,.3,1), box-shadow .3s ease; }
+.artigo-btn svg{ flex:0 0 auto; }
+.artigo-btn.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+.artigo-btn.show:hover{ transform:translateY(-2px) scale(1.03);
+    box-shadow:0 16px 40px -6px rgba(47,228,216,.85), 0 0 0 1px rgba(47,228,216,.55); }
+
+.artigo-modal{ position:fixed; inset:0; z-index:10050; display:flex; align-items:center; justify-content:center; }
+.artigo-modal[hidden]{ display:none; }
+.artigo-backdrop{ position:absolute; inset:0; background:rgba(2,6,15,.84);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); opacity:0; transition:opacity .35s ease; cursor:zoom-out; }
+.artigo-modal.open .artigo-backdrop{ opacity:1; }
+.artigo-paper{ position:relative; width:min(920px,94vw); height:94vh; display:flex; flex-direction:column;
+    background:#22262e; border-radius:14px; overflow:hidden;
+    box-shadow:0 50px 130px -20px rgba(0,0,0,.85), 0 0 0 1px rgba(47,228,216,.18);
+    opacity:0; transform:translateY(26px) scale(.97);
+    transition:opacity .35s ease, transform .45s cubic-bezier(.16,1,.3,1); }
+.artigo-modal.open .artigo-paper{ opacity:1; transform:translateY(0) scale(1); }
+.artigo-bar{ flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:11px 12px 11px 20px; background:linear-gradient(180deg,#0b1626,#0a1422); border-bottom:1px solid rgba(47,228,216,.16); }
+.artigo-bar-title{ font-family:'Space Mono',ui-monospace,SFMono-Regular,monospace; font-size:12.5px; letter-spacing:.05em;
+    color:#aebfda; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.artigo-close{ flex:0 0 auto; width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:15px; line-height:1;
+    background:rgba(255,255,255,.06); border:1px solid rgba(47,228,216,.3); color:#eef4ff;
+    display:flex; align-items:center; justify-content:center; transition:all .25s ease; }
+.artigo-close:hover{ background:#2fe4d8; color:#04121f; border-color:#2fe4d8; }
+.artigo-frame{ flex:1 1 auto; width:100%; border:0; background:#34373d; }
+@media (max-width:640px){ .artigo-paper{ width:100vw; height:100vh; border-radius:0; } }
+</style>
+
+<!-- botão (canto inferior esquerdo) -->
+<button class="artigo-btn" id="artigoBtn" type="button" aria-haspopup="dialog" title="Ver o artigo completo (PDF)">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>
+    <span>ARTIGO</span>
+</button>
+
+<!-- visualizador (somente leitura, rolagem contínua) -->
+<div class="artigo-modal" id="artigoModal" role="dialog" aria-modal="true" aria-label="Artigo em PDF" hidden>
+    <div class="artigo-backdrop" data-close></div>
+    <div class="artigo-paper">
+        <div class="artigo-bar">
+            <span class="artigo-bar-title">Artigo — Resiliência da Rede Viária diante da Interdição de OAEs Críticas</span>
+            <button class="artigo-close" id="artigoClose" type="button" title="Fechar (Esc)" data-close aria-label="Fechar">✕</button>
+        </div>
+        <iframe class="artigo-frame" id="artigoFrame" title="Artigo em PDF — somente visualização" src="about:blank"></iframe>
+    </div>
+</div>
+
+<script>
+/* Botão ARTIGO: visível só no último slide; abre o PDF em rolagem contínua (só leitura). */
+(function(){
+    var slides = document.querySelectorAll('.slide');
+    var btn    = document.getElementById('artigoBtn');
+    var modal  = document.getElementById('artigoModal');
+    var frame  = document.getElementById('artigoFrame');
+    if(!slides.length || !btn || !modal || !frame) return;
+    var last = slides[slides.length - 1];
+    var PDF  = 'assets/Araujo_Luiz_Resiliencia_Rede_Viaria_OAE_SIM_R00.pdf#toolbar=0&navpanes=0&statusbar=0&view=FitH';
+
+    /* mostra/esconde o botão conforme o último slide fica .active */
+    function sync(){ btn.classList.toggle('show', last.classList.contains('active')); }
+    new MutationObserver(sync).observe(last, { attributes:true, attributeFilter:['class'] });
+    sync();
+
+    function open(){
+        if(frame.getAttribute('src') !== PDF) frame.setAttribute('src', PDF); /* carrega o PDF só no 1º clique */
+        modal.hidden = false;
+        void modal.offsetWidth;                 /* reflow p/ disparar a transição de entrada */
+        modal.classList.add('open');
+    }
+    function close(){
+        modal.classList.remove('open');
+        setTimeout(function(){ modal.hidden = true; frame.setAttribute('src','about:blank'); }, 360);
+    }
+
+    btn.addEventListener('click', open);
+    modal.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) close(); });
+    /* o scroll sobre o visualizador não troca de slide */
+    modal.addEventListener('wheel', function(e){ e.stopPropagation(); }, { passive:true });
+    /* Esc fecha; com o artigo aberto, as teclas não navegam o deck */
+    document.addEventListener('keydown', function(e){
+        if(modal.hidden) return;
+        if(e.key === 'Escape') close();
+        e.stopPropagation();
+    }, true);
+})();
+</script>
 </body>
 </html>
