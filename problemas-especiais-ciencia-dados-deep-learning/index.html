@@ -323,8 +323,9 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .map-points i{ position:absolute; width:11px; height:11px; border-radius:50%; transform:translate(-50%,-50%); box-shadow:0 0 10px 2px currentColor; }
 
 /* HERO GRAPH (rede viária computável) — o ponto forte do slide */
-.graph-caption{ position:absolute; left:0; right:0; top:520px; z-index:3; text-align:center;
-    font-family:var(--mono); font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--cyan); text-shadow:0 1px 8px #000; }
+.graph-caption{ position:absolute; left:0; right:0; top:600px; z-index:3; text-align:center;
+    font-family:var(--mono); font-size:16px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#8af2e8;
+    text-shadow:0 0 2px rgba(0,0,0,.95), 0 1px 10px rgba(0,0,0,.92), 0 0 22px rgba(47,228,216,.5); }
 .graph-network{ position:absolute; left:0; right:0; top:560px; height:360px; z-index:2; pointer-events:none; }
 .graph-edge{ fill:none; stroke:rgba(47,228,216,.4); stroke-width:1.6; stroke-linecap:round; stroke-dasharray:640; stroke-dashoffset:640; }
 .slide.visible .graph-edge{ animation:caseDraw 1.2s var(--ease) forwards; animation-delay:var(--d,4.5s); }
@@ -337,7 +338,7 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 @keyframes gpulse{ 0%,100%{ opacity:.85 } 50%{ opacity:1; filter:drop-shadow(0 0 11px currentColor) } }
 
 /* nota final (faixa fina translúcida no rodapé) */
-.final-note{ position:absolute; left:var(--pad-x); right:var(--pad-x); bottom:38px; z-index:4;
+.final-note{ position:absolute; left:var(--pad-x); right:var(--pad-x); bottom:72px; z-index:4;
     padding:15px 24px; border-radius:14px; background:rgba(6,14,28,.6); border:1px solid rgba(47,228,216,.28);
     backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
     font-family:var(--font); font-size:19px; color:var(--soft); display:flex; align-items:center; gap:14px; box-shadow:0 14px 36px rgba(0,0,0,.4); }
@@ -384,7 +385,7 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .interdiction-card p{ font-family:var(--font); font-size:18px; color:var(--soft); line-height:1.32; min-height:46px; }
 
 /* frase final forte */
-.final-impact-note{ position:absolute; left:0; right:0; bottom:42px; z-index:5; text-align:center;
+.final-impact-note{ position:absolute; left:0; right:0; bottom:72px; z-index:5; text-align:center;
     font-family:var(--font); font-weight:700; font-size:29px; color:var(--amber); text-shadow:0 0 26px color-mix(in srgb,var(--amber) 45%,transparent); }
 .final-impact-note b{ color:var(--green); }
 
@@ -426,7 +427,7 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .metric-cyan{ --c:var(--cyan); } .metric-green{ --c:var(--green); } .metric-orange{ --c:var(--amber); } .metric-red{ --c:var(--red); }
 
 /* frase final memorável */
-.final-result-note{ position:absolute; left:0; right:0; bottom:42px; z-index:4; text-align:center;
+.final-result-note{ position:absolute; left:0; right:0; bottom:72px; z-index:4; text-align:center;
     font-family:var(--font); font-weight:800; font-size:38px; letter-spacing:-.01em; color:var(--amber); text-shadow:0 0 32px color-mix(in srgb,var(--amber) 45%,transparent); }
 .final-result-note b{ color:var(--green); }
 
@@ -516,7 +517,7 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .ranking-bar-low{ --c:var(--green); }
 
 /* frase final */
-.final-priority-note{ position:absolute; left:0; right:0; bottom:42px; z-index:4; text-align:center;
+.final-priority-note{ position:absolute; left:0; right:0; bottom:72px; z-index:4; text-align:center;
     font-family:var(--font); font-weight:700; font-size:27px; color:var(--soft); }
 .final-priority-note b{ color:var(--cyan); }
 
@@ -550,7 +551,7 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .final-node .fn-tag{ font-family:var(--font); font-weight:800; font-size:19px; letter-spacing:.04em; color:var(--white); text-shadow:0 0 16px rgba(47,228,216,.6); }
 
 /* 3 blocos */
-.final-grid{ position:absolute; left:var(--pad-x); right:var(--pad-x); top:252px; z-index:3; display:flex; gap:26px; }
+.final-grid{ position:absolute; left:var(--pad-x); right:var(--pad-x); top:272px; z-index:3; display:flex; gap:26px; }
 .final-card{ --c:var(--cyan); flex:1; min-width:0; border-radius:18px; padding:20px 24px;
     background:linear-gradient(160deg, rgba(13,28,52,.6), rgba(6,14,28,.42)); border:1px solid color-mix(in srgb,var(--c) 40%,transparent);
     backdrop-filter:blur(13px); -webkit-backdrop-filter:blur(13px);
@@ -1203,7 +1204,7 @@ body.editing [contenteditable]:focus{ outline:2px solid var(--cyan); background:
     </div>
 
     <!-- "recalculando…" (sobre o ponto interditado) -->
-    <div class="recalculate-pulse" style="left:53%; top:23%">↻ recalculando o caminho…</div>
+    <div class="recalculate-pulse" style="left:62%; top:27%">↻ recalculando o caminho…</div>
 
     <!-- === CENA DA SIMULAÇÃO (SVG sobre o mapa) ===
          AJUSTE FINO: edite os atributos d das paths p/ acompanhar as vias da SUA imagem.
@@ -1211,32 +1212,32 @@ body.editing [contenteditable]:focus{ outline:2px solid var(--cyan); background:
          Origem = <circle> ciano; Destino = <rect> ciano. -->
     <svg class="route-scene" viewBox="0 0 1920 1080" preserveAspectRatio="none">
         <!-- ROTA ORIGINAL (ciano) — segue a via cruzando a ponte interditada -->
-        <path class="route-original route-draw" d="M980,432 Q1040,376 1094,322 Q1162,282 1232,246"
-              fill="none" stroke="rgba(47,228,216,.65)" stroke-width="5" stroke-linecap="round" stroke-dasharray="900" stroke-dashoffset="900" style="--d:1.4s"/>
-        <path class="route-run fade" d="M980,432 Q1040,376 1094,322 Q1162,282 1232,246"
+        <path class="route-original route-draw" d="M1283,458 Q1286,426 1286,413 Q1285,400 1286,392 Q1286,384 1293,373 Q1300,361 1302,356 Q1303,351 1295,336 Q1287,320 1284,313 Q1281,306 1282,284 Q1283,262 1291,242 L1298,222"
+              fill="none" stroke="rgba(47,228,216,.65)" stroke-width="5" stroke-linecap="round" stroke-dasharray="259" stroke-dashoffset="259" style="--d:1.4s"/>
+        <path class="route-run fade" d="M1283,458 Q1286,426 1286,413 Q1285,400 1286,392 Q1286,384 1293,373 Q1300,361 1302,356 Q1303,351 1295,336 Q1287,320 1284,313 Q1281,306 1282,284 Q1283,262 1291,242 L1298,222"
               fill="none" stroke="var(--cyan)" stroke-width="6" stroke-linecap="round" stroke-dasharray="34 210" style="--d:1.7s; filter:drop-shadow(0 0 8px var(--cyan))"/>
 
         <!-- anéis de recálculo no ponto interditado -->
         <g style="color:var(--cyan)">
-            <circle class="recalc-ring" cx="1094" cy="322" r="22" style="--d:3.3s"/>
-            <circle class="recalc-ring" cx="1094" cy="322" r="22" style="--d:3.75s"/>
-            <circle class="recalc-ring" cx="1094" cy="322" r="22" style="--d:4.2s"/>
+            <circle class="recalc-ring" cx="1304" cy="353" r="22" style="--d:3.3s"/>
+            <circle class="recalc-ring" cx="1304" cy="353" r="22" style="--d:3.75s"/>
+            <circle class="recalc-ring" cx="1304" cy="353" r="22" style="--d:4.2s"/>
         </g>
 
         <!-- ROTA ALTERNATIVA (verde) — desvio por outra via, contornando o bloqueio -->
-        <path class="route-alternative route-draw" d="M980,432 C858,540 788,690 1012,722 C1244,754 1426,618 1452,466 C1468,352 1320,286 1232,246"
-              fill="none" stroke="rgba(54,224,122,.65)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1500" stroke-dashoffset="1500" style="--d:4.0s"/>
-        <path class="route-run fade" d="M980,432 C858,540 788,690 1012,722 C1244,754 1426,618 1452,466 C1468,352 1320,286 1232,246"
+        <path class="route-alternative route-draw" d="M1283,458 Q1277,466 1275,470 Q1272,474 1267,481 Q1262,488 1258,494 Q1254,499 1251,505 Q1248,510 1244,518 Q1239,525 1234,530 Q1228,534 1227,536 Q1225,537 1222,538 Q1218,539 1212,542 Q1205,544 1195,545 Q1185,545 1175,546 Q1164,547 1162,545 Q1159,542 1159,538 Q1159,534 1160,533 Q1161,531 1159,522 Q1157,512 1157,509 Q1157,505 1156,499 Q1155,493 1152,477 Q1149,460 1148,455 Q1147,450 1145,439 Q1143,428 1143,416 Q1142,404 1138,391 Q1134,378 1134,368 Q1133,357 1132,353 Q1130,348 1129,341 Q1127,333 1123,323 Q1119,312 1120,308 Q1121,303 1124,299 Q1126,295 1128,291 Q1130,287 1133,284 Q1135,280 1136,274 Q1137,268 1139,260 Q1141,251 1146,248 Q1151,245 1157,242 Q1163,238 1168,235 Q1173,232 1182,228 Q1190,223 1199,219 Q1208,215 1217,211 Q1226,207 1230,202 Q1234,197 1239,198 Q1244,198 1257,204 Q1270,209 1274,211 Q1278,213 1288,218 L1298,222"
+              fill="none" stroke="rgba(54,224,122,.65)" stroke-width="5" stroke-linecap="round" stroke-dasharray="658" stroke-dashoffset="658" style="--d:4.0s"/>
+        <path class="route-run fade" d="M1283,458 Q1277,466 1275,470 Q1272,474 1267,481 Q1262,488 1258,494 Q1254,499 1251,505 Q1248,510 1244,518 Q1239,525 1234,530 Q1228,534 1227,536 Q1225,537 1222,538 Q1218,539 1212,542 Q1205,544 1195,545 Q1185,545 1175,546 Q1164,547 1162,545 Q1159,542 1159,538 Q1159,534 1160,533 Q1161,531 1159,522 Q1157,512 1157,509 Q1157,505 1156,499 Q1155,493 1152,477 Q1149,460 1148,455 Q1147,450 1145,439 Q1143,428 1143,416 Q1142,404 1138,391 Q1134,378 1134,368 Q1133,357 1132,353 Q1130,348 1129,341 Q1127,333 1123,323 Q1119,312 1120,308 Q1121,303 1124,299 Q1126,295 1128,291 Q1130,287 1133,284 Q1135,280 1136,274 Q1137,268 1139,260 Q1141,251 1146,248 Q1151,245 1157,242 Q1163,238 1168,235 Q1173,232 1182,228 Q1190,223 1199,219 Q1208,215 1217,211 Q1226,207 1230,202 Q1234,197 1239,198 Q1244,198 1257,204 Q1270,209 1274,211 Q1278,213 1288,218 L1298,222"
               fill="none" stroke="var(--green)" stroke-width="6" stroke-linecap="round" stroke-dasharray="34 300" style="--d:4.3s; filter:drop-shadow(0 0 9px var(--green))"/>
 
         <!-- PONTO INTERDITADO (vermelho, pulsa) — sobre a OAE interditada do mapa -->
         <g class="blocked-bridge fade pulse" style="--d:3.0s; color:var(--red)">
-            <circle cx="1094" cy="322" r="22" fill="rgba(255,68,94,.14)" stroke="var(--red)" stroke-width="4"/>
-            <path d="M1081,309 L1107,335 M1107,309 L1081,335" stroke="var(--red)" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="1304" cy="353" r="22" fill="rgba(255,68,94,.14)" stroke="var(--red)" stroke-width="4"/>
+            <path d="M1291,340 L1317,366 M1317,340 L1291,366" stroke="var(--red)" stroke-width="5" stroke-linecap="round"/>
         </g>
         <!-- ORIGEM (ponto ciano) e DESTINO (quadrado ciano) -->
-        <circle class="fade" cx="980" cy="432" r="10" fill="var(--cyan)" style="--d:1.3s; filter:drop-shadow(0 0 8px var(--cyan))"/>
-        <rect class="fade" x="1221" y="235" width="22" height="22" rx="4" fill="var(--cyan)" style="--d:1.3s; filter:drop-shadow(0 0 8px var(--cyan))"/>
+        <circle class="fade" cx="1283" cy="458" r="10" fill="var(--cyan)" style="--d:1.3s; filter:drop-shadow(0 0 8px var(--cyan))"/>
+        <rect class="fade" x="1287" y="211" width="22" height="22" rx="4" fill="var(--cyan)" style="--d:1.3s; filter:drop-shadow(0 0 8px var(--cyan))"/>
     </svg>
 
     <!-- === 4 CARDS DA SEQUÊNCIA (cada um entra no seu momento) === -->
@@ -1716,19 +1717,22 @@ class TrafficSim{
            sobre esses pontos. Mova/insira pontos para casar com as estradas
            e com as SETAS que você desenhou. O ÚLTIMO ponto = onde param (ponte). */
         this.flows=[
-            { wp:[[1060,-60],[1200,140],[1252,280],[1168,365],[1150,475],[1188,560],[1255,648]] }, // 1) do ALTO
-            { wp:[[600,275],[710,355],[835,440],[975,510],[1110,575],[1255,648]] },                // 2) da ESQUERDA
-            { wp:[[520,940],[690,765],[825,650],[960,588],[1110,608],[1255,648]] },                // 3) de BAIXO-ESQUERDA
-            { wp:[[1730,15],[1520,180],[1420,330],[1360,470],[1312,585],[1255,648]] },             // 4) da DIREITA
+            // Vias do trânsito (sobre as ruas da imagem) — convergem em [1255,648]
+            { wp:[[1044,39],[1092,54],[1125,63],[1165,71],[1186,74],[1216,85],[1247,94],[1274,101],[1296,107],[1332,119],[1356,125],[1384,136],[1401,141],[1408,144],[1410,149],[1398,155],[1396,158],[1408,177],[1420,194],[1426,204],[1433,211],[1435,216],[1421,218],[1400,220],[1377,218],[1351,222],[1315,226],[1295,226],[1273,228],[1255,229],[1228,238],[1214,241],[1191,247],[1169,250],[1149,254],[1115,263],[1101,267],[1078,275],[1059,278],[1040,281],[1013,289],[995,294],[979,298],[956,303],[941,307],[920,313],[900,317],[870,325],[843,332],[821,338],[787,345],[759,360],[742,375],[729,392],[734,405],[765,440],[780,463],[799,477],[832,501],[849,524],[875,542],[890,556],[899,575],[907,596],[916,618],[929,634],[960,647],[997,656],[1029,658],[1044,657],[1074,650],[1097,641],[1116,628],[1131,621],[1153,607],[1255,648]] }, // via TOPO (desenhada — refazer o início no topo-direita)
+            { wp:[[1847,204],[1752,180],[1668,150],[1580,191],[1557,198],[1545,206],[1540,217],[1526,231],[1514,243],[1513,253],[1487,275],[1479,288],[1463,299],[1456,306],[1445,314],[1429,325],[1410,343],[1401,351],[1395,364],[1392,381],[1384,389],[1361,400],[1339,413],[1325,422],[1317,437],[1312,449],[1303,472],[1301,492],[1300,506],[1296,522],[1285,529],[1276,536],[1252,556],[1235,562],[1220,570],[1211,575],[1194,579],[1171,593],[1157,603],[1255,648]] }, // via DIREITA (desenhada)
+            { wp:[[143,1069],[232,1048],[298,1031],[417,983],[468,955],[511,934],[555,906],[608,873],[630,859],[655,834],[672,816],[686,801],[712,770],[727,756],[744,739],[792,700],[815,682],[827,675],[843,665],[879,643],[908,635],[915,634],[964,643],[973,650],[985,653],[996,657],[1011,657],[1022,657],[1043,655],[1055,652],[1066,647],[1079,644],[1089,635],[1098,630],[1117,621],[1125,619],[1130,616],[1140,615],[1143,612],[1158,602],[1255,648]] }, // via INFERIOR-ESQUERDA (desenhada)
         ];
-        /* ===== ROTA DE SAÍDA (resolução) — após o pipeline, o fluxo "se resolve":
-           as bolinhas ficam VERDES e ATRAVESSAM a ponte para a direita (seta amarela),
-           dissipando ao sair da tela. Edite estes pontos para acompanhar a sua imagem. */
-        this.exitWp=[[1255,648],[1300,560],[1362,455],[1520,468],[1700,482],[1880,495],[2030,512]];
+        /* ===== ROTAS DE SAÍDA (resolução) — após o pipeline, as bolinhas ficam VERDES,
+           se DIVIDEM entre estas rotas e dissipam ao sair da tela. Adicione/edite rotas. */
+        this.exits=[
+            [[1255,648],[1158,604],[1173,591],[1214,578],[1243,557],[1265,548],[1281,530],[1291,515],[1296,497],[1304,474],[1310,459],[1319,435],[1331,438],[1350,442],[1374,449],[1396,457],[1443,469],[1481,476],[1497,488],[1531,498],[1563,505],[1599,522],[1647,532],[1669,538],[1690,548],[1722,562],[1762,574],[1789,585],[1819,597],[1846,607],[1873,619],[1899,633],[2010,690]], // SAÍDA 1 (desenhada — direita)
+            [[1255,648],[1200,624],[1162,611],[1158,597],[1189,584],[1224,569],[1260,555],[1277,542],[1287,524],[1295,494],[1303,460],[1312,438],[1334,437],[1359,446],[1393,457],[1430,469],[1478,480],[1509,490],[1547,501],[1598,521],[1626,527],[1663,537],[1686,547],[1715,536],[1739,520],[1765,503],[1786,489],[1805,473],[1835,466],[1865,456],[1889,448],[1906,444],[2060,410]], // SAÍDA 2 (desenhada — ponte de cima-direita)
+        ];
 
         /* ===== PARÂMETROS DO TRÂNSITO =============================== */
-        this.perFlow=30;      // bolinhas POR FLUXO  ->  4×30 = 120 no engarrafamento
+        this.perFlow=40;      // bolinhas POR FLUXO  ->  3×40 = 120 no engarrafamento
         this.vmax=250;        // velocidade livre (px/s)
+        this.vmaxOut=370;     // velocidade na DISSIPAÇÃO (fase 2) — maior = some ~1s mais rápido
         this.carLen=13;       // espaçamento mínimo (densidade do engarrafamento)
         this.headway=0.2;     // distância de segurança (menor = fluxo mais denso e rápido)
         this.radius=6;        // tamanho da bolinha
@@ -1736,10 +1740,12 @@ class TrafficSim{
         this.spawnEvery=0.2;  // intervalo entre bolinhas entrando (s)
         this.holdAfter=2.6;   // segura o jam cheio (s) antes de reiniciar o ciclo
 
-        this.flows.forEach(f=>this.build(f));
-        this.exitSeg=[]; this.exitLen=0;                 // segmentos da rota de saída
-        for(let i=0;i<this.exitWp.length-1;i++){ const a=this.exitWp[i],b=this.exitWp[i+1],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy);
-            this.exitSeg.push({a,b,l,acc:this.exitLen}); this.exitLen+=l; }
+        this.flows.forEach(f=>{ f.wp=this.smoothWp(f.wp); this.build(f); });   // suaviza p/ movimento fluido
+        this.exits=this.exits.map(wp=>this.smoothWp(wp));
+        this.exitSegs=[]; this.exitLens=[];              // segmentos de CADA rota de saída
+        for(const wp of this.exits){ const seg=[]; let len=0;
+            for(let i=0;i<wp.length-1;i++){ const a=wp[i],b=wp[i+1],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy); seg.push({a,b,l,acc:len}); len+=l; }
+            this.exitSegs.push(seg); this.exitLens.push(len); }
         this.reset(); this.last=null; this._on=false;
         requestAnimationFrame(t=>this.loop(t));
     }
@@ -1747,13 +1753,19 @@ class TrafficSim{
     build(f){ f.seg=[]; f.len=0;
         for(let i=0;i<f.wp.length-1;i++){ const a=f.wp[i],b=f.wp[i+1],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy);
             f.seg.push({a,b,l,acc:f.len}); f.len+=l; } }
+    smoothWp(wp){ if(!wp||wp.length<5) return wp;           // suaviza tremidinha dos cliques (média móvel); mantém início/fim
+        const o=[];
+        for(let i=0;i<wp.length;i++){ if(i===0||i===wp.length-1){ o.push([wp[i][0],wp[i][1]]); continue; }
+            let sx=0,sy=0,n=0; for(let k=-2;k<=2;k++){ const j=i+k; if(j>=0&&j<wp.length){ sx+=wp[j][0]; sy+=wp[j][1]; n++; } }
+            o.push([Math.round(sx/n),Math.round(sy/n)]); }
+        return o; }
     pos(f,d){ d=Math.max(0,Math.min(d,f.len)); let s=f.seg[0];
         for(const g of f.seg){ if(d<=g.acc+g.l){ s=g; break; } s=g; }
         const t=(d-s.acc)/s.l; return {x:s.a[0]+(s.b[0]-s.a[0])*t, y:s.a[1]+(s.b[1]-s.a[1])*t}; }
-    posExit(d){ d=Math.max(0,Math.min(d,this.exitLen)); let s=this.exitSeg[0];
-        for(const g of this.exitSeg){ if(d<=g.acc+g.l){ s=g; break; } s=g; }
+    posExit(ei,d){ const seg=this.exitSegs[ei], len=this.exitLens[ei]; d=Math.max(0,Math.min(d,len)); let s=seg[0];
+        for(const g of seg){ if(d<=g.acc+g.l){ s=g; break; } s=g; }
         const t=(d-s.acc)/s.l; return {x:s.a[0]+(s.b[0]-s.a[0])*t, y:s.a[1]+(s.b[1]-s.a[1])*t}; }
-    carPos(f,d){ return d<=f.len ? this.pos(f,d) : this.posExit(d-f.len); } // posição (rota + saída)
+    carPos(f,car){ return car.d<=f.len ? this.pos(f,car.d) : this.posExit(car.exit||0, car.d-f.len); } // rota + saída escolhida
     limit(f,d){ const r=d/f.len; if(r<this.jamStart) return this.vmax;
         return this.vmax*Math.max(0, 1-(r-this.jamStart)/(1-this.jamStart)); }
     loop(t){ if(this.last==null)this.last=t; let dt=(t-this.last)/1000; this.last=t; if(dt>0.05)dt=0.05;
@@ -1770,7 +1782,7 @@ class TrafficSim{
             f.spawnAcc+=dt; const first=f.cars[0];
             // entrada das bolinhas, uma a uma, até cada fluxo completar perFlow
             if(f.spawned<this.perFlow && (!first || first.d>this.carLen*1.3) && f.spawnAcc>=this.spawnEvery){
-                f.cars.unshift({d:0,v:this.vmax}); f.spawned++; f.spawnAcc=0;
+                f.cars.unshift({d:0,v:this.vmax,exit:f.spawned%this.exits.length}); f.spawned++; f.spawnAcc=0;
             }
             // car-following; a 1ª bolinha "bate" na parede da ponte (f.len) e NÃO atravessa
             for(let i=f.cars.length-1;i>=0;i--){
@@ -1804,12 +1816,12 @@ class TrafficSim{
                 const car=f.cars[i], lead=f.cars[i+1];
                 const leadD = lead ? lead.d : Infinity;        // sem líder = via livre (atravessa)
                 const gap = leadD - car.d - this.carLen;
-                const target=Math.min(this.vmax, Math.max(0, gap/this.headway));
-                const rate=(target>car.v?340:900)*dt;          // acelera -> fica verde
+                const target=Math.min(this.vmaxOut, Math.max(0, gap/this.headway));
+                const rate=(target>car.v?480:900)*dt;          // acelera rápido -> fica verde e some ~1s antes
                 car.v+=Math.max(-rate, Math.min(rate, target-car.v)); if(car.v<0)car.v=0;
                 car.d+=car.v*dt;
             }
-            f.cars=f.cars.filter(c=> c.d < f.len + this.exitLen);  // saiu da tela -> dissipa
+            f.cars=f.cars.filter(c=> c.d < f.len + this.exitLens[c.exit||0]);  // saiu da tela -> dissipa
         }
     }
     color(sp){ sp=Math.max(0,Math.min(1,sp)); let r,g,b;       // verde→amarelo→vermelho
@@ -1817,7 +1829,7 @@ class TrafficSim{
         else { const k=sp/0.5; r=255; g=68*(1-k)+207*k; b=94*(1-k)+77*k; }
         return `rgb(${r|0},${g|0},${b|0})`; }
     draw(){ const ctx=this.ctx; ctx.clearRect(0,0,1920,1080);
-        for(const f of this.flows) for(const car of f.cars){ const p=this.carPos(f,car.d), col=this.color(car.v/this.vmax);
+        for(const f of this.flows) for(const car of f.cars){ const p=this.carPos(f,car), col=this.color(car.v/this.vmax);
             ctx.beginPath(); ctx.arc(p.x,p.y,this.radius,0,6.2832);
             ctx.fillStyle=col; ctx.shadowColor=col; ctx.shadowBlur=12; ctx.fill(); }
         ctx.shadowBlur=0; }
