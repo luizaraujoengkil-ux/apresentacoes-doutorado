@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     SIMULADOR ANALÍTICO PMAV — APRESENTAÇÃO (8 slides)
+     Matéria: Métodos Estatísticos para Modelos de Transporte · Doutorado em Transportes
+     ----------------------------------------------------------------------------
+     Arquivos:  index.html (este) · styles.css · script.js · assets/
+     Abrir:     dê duplo clique neste arquivo OU use "Open with Live Server" (VS Code).
+     Navegar:   ← →  (ou Espaço/PageUp/PageDown) · botões inferiores · dots à direita.
+     Editar:    o TEXTO de cada slide está em <section class="slide ...">. Os DADOS
+                numéricos (cenários/gráficos) ficam em script.js (objeto DATA).
+     ============================================================================ -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador Analítico PMAV — Previsão de custos e apoio à decisão em manutenção preventiva</title>
+
+<!-- FONTES: Manrope (texto) + Space Mono (técnico/mono) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+
+<!-- ESTILO -->
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- barra de progresso (topo) -->
+<div class="deck-progress"><span id="progressBar"></span></div>
+
+<!-- HUD (marca + nº do slide + volta ao hub) -->
+<div class="hud-corner">
+    <span class="brand"><b>PMAV</b> · Simulador Analítico</span>
+    <a href="../inicio.html" title="Voltar às matérias">◂ matérias</a>
+</div>
+
+<!-- indicador de slides (dots) — preenchido por script.js -->
+<nav class="deck-dots" id="deckDots" aria-label="Ir para slide"></nav>
+
+<!-- =========================================================================
+     PALCO FIXO 16:9 — todos os slides são desenhados em 1920×1080 e o palco
+     inteiro é escalado para caber na tela (notebook/projetor).
+     ========================================================================= -->
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ======================================================================= -->
+<!-- SLIDE 1 — CAPA / TESE CENTRAL                                            -->
+<!-- ======================================================================= -->
+<section class="slide active s1" data-slide="1">
+    <div class="orb" style="width:520px;height:520px;background:rgba(47,228,216,.18);left:-120px;top:-90px;" data-orb="1"></div>
+    <div class="orb" style="width:600px;height:600px;background:rgba(59,130,246,.16);right:-160px;bottom:-180px;" data-orb="2"></div>
+
+    <div class="slide-inner">
+        <p class="kicker s1-eyebrow reveal" style="--d:.05s">Doutorado em Transportes · Métodos Estatísticos para Modelos de Transporte</p>
+        <h1 class="s1-title reveal" style="--d:.18s">Simulador Analítico <span class="grad">PMAV</span></h1>
+        <p class="s1-sub reveal" style="--d:.42s">Previsão de custos, cenários e apoio à decisão em manutenção preventiva de ativos</p>
+        <p class="s1-support reveal" style="--d:.62s">Da manutenção programada à <em>manutenção analiticamente interpretada</em>.</p>
+    </div>
+
+    <!-- rodapé: autor · doutorado · instituição (edite os valores em <em>) -->
+    <div class="s1-foot reveal fade" style="--d:.9s">
+        <div class="blk"><div class="lab">Autor</div><div class="val"><em>[ Nome do autor ]</em></div></div>
+        <div class="blk"><div class="lab">Programa</div><div class="val">Doutorado em <em>Transportes</em></div></div>
+        <div class="blk"><div class="lab">Instituição</div><div class="val"><em>[ Instituição ]</em></div></div>
+    </div>
+
+    <!-- mockup estilizado do simulador entrando pela direita -->
+    <div class="s1-mock reveal right" style="--d:.78s" data-float>
+        <div class="sim-shell">
+            <div class="sim-bar">
+                <div class="sim-dots"><i></i><i></i><i></i></div>
+                <div class="sim-brand"><span class="logo">P</span><b>PMAV</b><span>· analytics</span></div>
+            </div>
+            <div class="sim-body" style="grid-template-columns:1fr 250px;">
+                <div class="sim-main" style="padding:18px;">
+                    <div class="sim-kpis" style="grid-template-columns:1fr 1fr;">
+                        <div class="sim-kpi" style="--c:var(--cyan)"><div class="l">Custo previsto</div><div class="v">R$ 12,7M</div></div>
+                        <div class="sim-kpi" style="--c:var(--green)"><div class="l">Custo ajustado</div><div class="v">R$ 11,4M</div></div>
+                        <div class="sim-kpi" style="--c:var(--blue)"><div class="l">Sistemas</div><div class="v">15</div></div>
+                        <div class="sim-kpi" style="--c:var(--red)"><div class="l">Alertas</div><div class="v">10</div></div>
+                    </div>
+                    <div class="sim-chart-wrap">
+                        <div class="ch-head"><h5>Custo por sistema</h5><span class="model">OLS</span></div>
+                        <div class="sim-canvas-box"><canvas id="mockChart1"></canvas></div>
+                    </div>
+                </div>
+                <div class="sim-side">
+                    <div><h6>Ranking</h6>
+                        <div class="sim-rank">
+                            <div class="r"><span class="nm">Estrutural</span><span class="br"><i style="--w:96%;--c:var(--red)"></i></span></div>
+                            <div class="r"><span class="nm">Eletromec.</span><span class="br"><i style="--w:88%;--c:var(--amber)"></i></span></div>
+                            <div class="r"><span class="nm">Hidráulico</span><span class="br"><i style="--w:62%;--c:var(--cyan)"></i></span></div>
+                            <div class="r"><span class="nm">Elétrico</span><span class="br"><i style="--w:48%;--c:var(--blue)"></i></span></div>
+                        </div>
+                    </div>
+                    <div><h6>Alertas</h6>
+                        <div class="sim-alerts">
+                            <span class="sim-alert now">● 10 imediatos</span>
+                            <span class="sim-alert pred">● 50 preditivos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 2 — PROBLEMA                                                       -->
+<!-- ======================================================================= -->
+<section class="slide s2" data-slide="2">
+    <div class="slide-inner">
+        <div class="s2-head">
+            <p class="kicker reveal" style="--d:.05s">O problema</p>
+            <h2 class="slide-title reveal" style="--d:.12s">Muitos dados de manutenção, <span class="grad">pouca decisão</span></h2>
+        </div>
+
+        <div class="s2-grid">
+            <!-- mensagens-chave -->
+            <div class="s2-msgs">
+                <div class="s2-msg reveal left" style="--d:.2s;--c:var(--red)"><span class="dot"></span><p>A manutenção preventiva gera <b>muitos dados</b> — mas dispersos.</p></div>
+                <div class="s2-msg reveal left" style="--d:.3s;--c:var(--red)"><span class="dot"></span><p>Dados isolados <b>não viram decisão</b>.</p></div>
+                <div class="s2-msg reveal left" style="--d:.4s;--c:var(--amber)"><span class="dot"></span><p>Falta leitura <b>integrada</b> entre custo, criticidade e priorização.</p></div>
+                <div class="s2-msg reveal left" style="--d:.5s;--c:var(--amber)"><span class="dot"></span><p>Falta <b>comparação entre cenários</b>.</p></div>
+            </div>
+
+            <!-- dois fluxos: problema (vermelho) → solução (verde) -->
+            <div class="s2-flows">
+                <div class="reveal" style="--d:.35s">
+                    <div class="flow-label bad">Hoje · sem leitura analítica</div>
+                    <div class="flow-row bad">
+                        <div class="flow-block" style="--c:var(--red)">
+                            <span class="fb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span>
+                            <h4>Dados dispersos</h4><p>Planilhas, ordens de serviço e históricos sem integração.</p>
+                        </div>
+                        <div class="flow-arrow muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                        <div class="flow-block" style="--c:var(--amber)">
+                            <span class="fb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v5M12 16h.01"/></svg></span>
+                            <h4>Baixa interpretação analítica</h4><p>O dado existe, mas não é lido como informação de decisão.</p>
+                        </div>
+                        <div class="flow-arrow muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                        <div class="flow-block" style="--c:var(--red)">
+                            <span class="fb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><path d="M9 11l2 2 4-4"/></svg></span>
+                            <h4>Decisão limitada</h4><p>Priorização por intuição, sem visão de custo e risco.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="s2-bridge reveal fade" style="--d:.7s"><span class="ln"></span>PMAV analítico<span class="ln"></span></div>
+
+                <div class="reveal" style="--d:.85s">
+                    <div class="flow-label good">Com o simulador · leitura integrada</div>
+                    <div class="flow-row good">
+                        <div class="flow-block" style="--c:var(--cyan)">
+                            <span class="fb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16M8 16l3-4 3 2 4-6"/></svg></span>
+                            <h4>PMAV analítico</h4><p>Base estruturada + modelo estatístico integram os dados.</p>
+                        </div>
+                        <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                        <div class="flow-block" style="--c:var(--blue)">
+                            <span class="fb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
+                            <h4>Simulação de cenários</h4><p>Compara contextos operacionais e ambientais.</p>
+                        </div>
+                        <div class="flow-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+                        <div class="flow-block" style="--c:var(--green)">
+                            <span class="fb-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+                            <h4>Apoio à decisão</h4><p>Custo, criticidade e alerta em uma só leitura.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 3 — ORIGINALIDADE DO TRABALHO                                      -->
+<!-- ======================================================================= -->
+<section class="slide s3" data-slide="3">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">Originalidade & contribuição</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Não é só um app — é <span class="grad">integração analítica</span></h2>
+
+        <div class="s3-claim reveal fade" style="--d:.26s">
+            <p class="c-big">A originalidade não está em criar uma ferramenta, e sim em <b>integrar</b>, em um único fluxo, uma <em>base estruturada de manutenção</em>, <em>regressão linear múltipla</em>, <em>simulação de cenários</em>, um <em>dashboard analítico</em> e o <em>apoio técnico-financeiro à decisão</em>.</p>
+        </div>
+
+        <!-- cadeia de 5 blocos conectados -->
+        <div class="s3-chain">
+            <div class="s3-node lit reveal scale" style="--d:.4s;--c:var(--cyan)">
+                <span class="n-step">01</span>
+                <span class="n-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+                <h3>Dados</h3><p>Base estruturada de manutenção preventiva (PMAV), variáveis e histórico.</p>
+            </div>
+            <div class="s3-link reveal fade" style="--d:.5s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+
+            <div class="s3-node lit reveal scale" style="--d:.58s;--c:var(--blue)">
+                <span class="n-step">02</span>
+                <span class="n-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5M4 19h16M7 15l4-5 3 3 5-7"/></svg></span>
+                <h3>Modelo estatístico</h3><p>Regressão linear múltipla (OLS) estima o custo a partir das variáveis.</p>
+            </div>
+            <div class="s3-link reveal fade" style="--d:.68s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+
+            <div class="s3-node lit reveal scale" style="--d:.76s;--c:var(--teal)">
+                <span class="n-step">03</span>
+                <span class="n-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
+                <h3>Simulação</h3><p>Cenários operacionais e ambientais variam parâmetros e recalculam.</p>
+            </div>
+            <div class="s3-link reveal fade" style="--d:.86s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+
+            <div class="s3-node lit reveal scale" style="--d:.94s;--c:var(--amber)">
+                <span class="n-step">04</span>
+                <span class="n-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+                <h3>Painel analítico</h3><p>KPIs, gráficos, ranking e alertas tornam o resultado interpretável.</p>
+            </div>
+            <div class="s3-link reveal fade" style="--d:1.04s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+
+            <div class="s3-node lit reveal scale" style="--d:1.12s;--c:var(--green)">
+                <span class="n-step">05</span>
+                <span class="n-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+                <h3>Decisão</h3><p>Apoio técnico-financeiro: priorizar, planejar e justificar investimentos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 4 — BASE TEÓRICA E POSICIONAMENTO (rede de temas)                  -->
+<!-- ======================================================================= -->
+<section class="slide s4" data-slide="4">
+    <div class="slide-inner" style="padding-bottom:0;">
+        <p class="kicker amber reveal" style="--d:.05s">Base teórica & posicionamento</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Na convergência de <span class="amber">campos consolidados</span></h2>
+    </div>
+
+    <!-- palco da rede: SVG (ligações) + nós em HTML -->
+    <div class="s4-stage">
+        <svg class="s4-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+            <!-- ligações centro → temas (desenhadas via stroke-dashoffset) -->
+            <g fill="none" stroke-width="2" stroke-linecap="round">
+                <line class="netlink" style="--len:330;--d:.5s" x1="960" y1="600" x2="640" y2="380" stroke="#2fe4d8" opacity=".55"/>
+                <line class="netlink" style="--len:300;--d:.6s" x1="960" y1="600" x2="960" y2="330" stroke="#3b82f6" opacity=".55"/>
+                <line class="netlink" style="--len:330;--d:.7s" x1="960" y1="600" x2="1290" y2="380" stroke="#19b6c4" opacity=".55"/>
+                <line class="netlink" style="--len:300;--d:.8s" x1="960" y1="600" x2="620" y2="720" stroke="#ffa630" opacity=".55"/>
+                <line class="netlink" style="--len:300;--d:.9s" x1="960" y1="600" x2="1300" y2="720" stroke="#36e07a" opacity=".55"/>
+                <line class="netlink" style="--len:330;--d:1s"  x1="960" y1="600" x2="960" y2="880" stroke="#ff445e" opacity=".5"/>
+                <!-- ligações entre temas (rede) -->
+                <line class="netlink" style="--len:420;--d:1.1s" x1="640" y1="380" x2="960" y2="330" stroke="#3b82f6" opacity=".22"/>
+                <line class="netlink" style="--len:420;--d:1.15s" x1="960" y1="330" x2="1290" y2="380" stroke="#19b6c4" opacity=".22"/>
+                <line class="netlink" style="--len:420;--d:1.2s" x1="620" y1="720" x2="960" y2="880" stroke="#ffa630" opacity=".2"/>
+                <line class="netlink" style="--len:420;--d:1.25s" x1="960" y1="880" x2="1300" y2="720" stroke="#36e07a" opacity=".2"/>
+                <line class="netlink" style="--len:380;--d:1.3s" x1="640" y1="380" x2="620" y2="720" stroke="#2fe4d8" opacity=".18"/>
+                <line class="netlink" style="--len:380;--d:1.35s" x1="1290" y1="380" x2="1300" y2="720" stroke="#19b6c4" opacity=".18"/>
+            </g>
+        </svg>
+
+        <!-- nó central: a proposta -->
+        <div class="netnode center reveal" style="--d:.3s;left:960px;top:600px;">
+            <div class="nn-orb"><div><div class="nn-title">Simulador<br>Analítico PMAV</div><div class="nn-tag">a proposta</div></div></div>
+        </div>
+
+        <!-- temas (nós periféricos) -->
+        <div class="netnode reveal" style="--d:.55s;left:640px;top:380px;--c:var(--cyan)">
+            <div class="nn-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2l1.5 3.5L19 7l-3.5 1.5L14 12l-1.5-3.5L9 7l3.5-1.5z"/><path d="M5 14l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg></div>
+            <div class="nn-label">Manutenção preventiva</div><div class="nn-sub">planejada</div>
+        </div>
+        <div class="netnode reveal" style="--d:.65s;left:960px;top:330px;--c:var(--blue)">
+            <div class="nn-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+            <div class="nn-label">Manutenção preditiva</div><div class="nn-sub">baseada em dados</div>
+        </div>
+        <div class="netnode reveal" style="--d:.75s;left:1290px;top:380px;--c:var(--teal)">
+            <div class="nn-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22a10 10 0 100-20 10 10 0 000 20z"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="nn-label">Confiabilidade</div><div class="nn-sub">falha & vida útil</div>
+        </div>
+        <div class="netnode reveal" style="--d:.85s;left:620px;top:720px;--c:var(--amber)">
+            <div class="nn-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></div>
+            <div class="nn-label">Gestão de ativos</div><div class="nn-sub">ciclo de vida</div>
+        </div>
+        <div class="netnode reveal" style="--d:.95s;left:1300px;top:720px;--c:var(--green)">
+            <div class="nn-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+            <div class="nn-label">Custos</div><div class="nn-sub">técnico-financeiro</div>
+        </div>
+        <div class="netnode reveal" style="--d:1.05s;left:960px;top:880px;--c:var(--red)">
+            <div class="nn-orb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+            <div class="nn-label">Apoio à decisão</div><div class="nn-sub">priorização</div>
+        </div>
+    </div>
+
+    <div class="s4-msg reveal fade" style="--d:1.2s">
+        <p>O trabalho se posiciona na <b>convergência</b> entre manutenção, modelagem estatística, simulação e decisão — não em um campo isolado.</p>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 5 — METODOLOGIA (5 etapas + fórmula da regressão)                  -->
+<!-- ======================================================================= -->
+<section class="slide s5" data-slide="5">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">Metodologia</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Da base ao simulador, em <span class="grad">cinco etapas</span></h2>
+
+        <div class="s5-split">
+            <!-- etapas numeradas (fluxograma vertical) -->
+            <div class="s5-steps">
+                <div class="s5-step reveal left" style="--d:.28s">
+                    <div class="num">1</div>
+                    <div class="body"><h3>Organização da base PMAV</h3><p>Consolidação e padronização dos registros de manutenção preventiva em uma base estruturada.</p></div>
+                </div>
+                <div class="s5-step reveal left" style="--d:.4s">
+                    <div class="num">2</div>
+                    <div class="body"><h3>Definição das variáveis analíticas</h3><p>Periodicidade, criticidade, frequência e horizonte como preditores do custo.</p></div>
+                </div>
+                <div class="s5-step reveal left" style="--d:.52s">
+                    <div class="num">3</div>
+                    <div class="body"><h3>Regressão linear múltipla <span class="tag">OLS</span></h3><p>Estimação dos coeficientes por mínimos quadrados ordinários.</p></div>
+                </div>
+                <div class="s5-step reveal left" style="--d:.64s">
+                    <div class="num">4</div>
+                    <div class="body"><h3>Simulação de cenários</h3><p>Variação de parâmetros para representar contextos operacionais e ambientais.</p></div>
+                </div>
+                <div class="s5-step reveal left" style="--d:.76s">
+                    <div class="num">5</div>
+                    <div class="body"><h3>Operacionalização em simulador</h3><p>Modelo embarcado em um painel analítico interativo de apoio à decisão.</p></div>
+                </div>
+            </div>
+
+            <!-- fórmula da regressão + variáveis -->
+            <div class="s5-right">
+                <div class="s5-formula reveal scale" style="--d:1s">
+                    <div class="f-label">Modelo de regressão linear múltipla</div>
+                    <div class="s5-eq">
+                        <span class="y">Custo</span> <span class="op">=</span> <span class="b">β₀</span>
+                        <span class="op">+</span> <span class="b">β₁</span><span class="op">·</span><span class="v">Periodicidade</span>
+                        <span class="op">+</span> <span class="b">β₂</span><span class="op">·</span><span class="v">Criticidade</span>
+                        <span class="op">+</span> <span class="b">β₃</span><span class="op">·</span><span class="v">Frequência</span>
+                        <span class="op">+</span> <span class="b">β₄</span><span class="op">·</span><span class="v">Horizonte</span>
+                        <span class="op">+</span> <span class="e">ε</span>
+                    </div>
+                </div>
+                <div class="s5-vars reveal fade" style="--d:1.15s">
+                    <div class="s5-var"><div class="vk">β₁ · Periodicidade</div><div class="vn">intervalo entre intervenções</div></div>
+                    <div class="s5-var"><div class="vk">β₂ · Criticidade</div><div class="vn">importância do sistema</div></div>
+                    <div class="s5-var"><div class="vk">β₃ · Frequência</div><div class="vn">recorrência de manutenção</div></div>
+                    <div class="s5-var"><div class="vk">β₄ · Horizonte</div><div class="vn">janela de planejamento</div></div>
+                </div>
+                <p class="muted reveal fade" style="--d:1.25s;font-size:15px;line-height:1.5;">
+                    <span class="mono" style="color:var(--green)">ε</span> = termo de erro · <span class="mono" style="color:var(--amber)">β₀</span> = intercepto. Os coeficientes são estimados a partir da base e alimentam a simulação.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 6 — O SIMULADOR (showcase com chamadas)                            -->
+<!-- ======================================================================= -->
+<section class="slide s6" data-slide="6">
+    <div class="slide-inner">
+        <div class="s6-top">
+            <div>
+                <p class="kicker reveal" style="--d:.05s">A ferramenta</p>
+                <h2 class="slide-title reveal" style="--d:.12s;font-size:46px;">Um simulador <span class="grad">funcional</span>, com cara de produto</h2>
+            </div>
+            <span class="chip reveal fade" style="--d:.2s">● interface analítica · dados ilustrativos</span>
+        </div>
+
+        <div class="s6-stage">
+            <!-- INTERFACE RECRIADA (inspirada em dashboard analítico PMAV / VistoPred) -->
+            <div class="sim-shell reveal scale" style="--d:.3s">
+                <div class="sim-bar">
+                    <div class="sim-dots"><i></i><i></i><i></i></div>
+                    <div class="sim-brand"><span class="logo">P</span><b>Simulador Analítico PMAV</b><span>· manutenção preventiva</span></div>
+                    <div class="sim-scn">
+                        <button class="on">Base</button>
+                        <button>Ambiente agressivo</button>
+                        <button>＋ cenário</button>
+                    </div>
+                </div>
+                <div class="sim-body">
+                    <!-- rail -->
+                    <div class="sim-rail">
+                        <i class="on" title="Visão geral"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></i>
+                        <i title="Sistemas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></i>
+                        <i title="Cenários"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></i>
+                        <i title="Alertas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v5M12 16h.01"/></svg></i>
+                        <i title="Relatório"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg></i>
+                    </div>
+                    <!-- central -->
+                    <div class="sim-main">
+                        <div class="sim-kpis">
+                            <div class="sim-kpi" style="--c:var(--cyan)"><div class="l">Custo previsto</div><div class="v">R$ 12,7M</div><div class="d ok">base · OLS</div></div>
+                            <div class="sim-kpi" style="--c:var(--green)"><div class="l">Custo ajustado</div><div class="v">R$ 11,4M</div><div class="d ok">−10,0%</div></div>
+                            <div class="sim-kpi" style="--c:var(--blue)"><div class="l">Sistemas</div><div class="v">15</div><div class="d">avaliados</div></div>
+                            <div class="sim-kpi" style="--c:var(--red)"><div class="l">Alertas imediatos</div><div class="v">10</div><div class="d up">+ 50 preditivos</div></div>
+                        </div>
+                        <div class="sim-chart-wrap">
+                            <div class="ch-head"><h5>Custo previsto por sistema</h5><span class="model">Regressão OLS</span></div>
+                            <div class="sim-canvas-box"><canvas id="simChart"></canvas></div>
+                        </div>
+                    </div>
+                    <!-- coluna direita -->
+                    <div class="sim-side">
+                        <div><h6>Ranking de sistemas</h6>
+                            <div class="sim-rank">
+                                <div class="r"><span class="nm">Estrutural</span><span class="br"><i style="--w:96%;--c:var(--red)"></i></span></div>
+                                <div class="r"><span class="nm">Eletromecânico</span><span class="br"><i style="--w:88%;--c:var(--amber)"></i></span></div>
+                                <div class="r"><span class="nm">Hidráulico</span><span class="br"><i style="--w:64%;--c:var(--cyan)"></i></span></div>
+                                <div class="r"><span class="nm">Elétrico</span><span class="br"><i style="--w:50%;--c:var(--blue)"></i></span></div>
+                                <div class="r"><span class="nm">Cobertura</span><span class="br"><i style="--w:38%;--c:var(--teal)"></i></span></div>
+                            </div>
+                        </div>
+                        <div><h6>Alertas</h6>
+                            <div class="sim-alerts">
+                                <span class="sim-alert now">● 10 imediatos</span>
+                                <span class="sim-alert pred">● 50 preditivos</span>
+                            </div>
+                        </div>
+                        <div><h6>Resumo executivo</h6>
+                            <div class="sim-summary">Sistema mais crítico: <b>Estrutural</b>. Maior custo previsto: <b>Eletromecânico</b>. Recomenda-se priorizar inspeção estrutural e provisionar o orçamento eletromecânico.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAMADAS apontando para cada região -->
+            <div class="callout" style="--d:.7s;top:118px;left:42px;">
+                <div class="tag"><b>KPIs</b> · custo, sistemas, alertas</div><div class="lead"></div><div class="pin"></div>
+            </div>
+            <div class="callout flip amber" style="--d:.82s;top:6px;right:60px;">
+                <div class="pin"></div><div class="lead"></div><div class="tag"><b>Cenários</b> · Base × agressivo</div>
+            </div>
+            <div class="callout" style="--d:.94s;top:430px;left:6px;">
+                <div class="tag"><b>Modelo estatístico</b> · OLS</div><div class="lead"></div><div class="pin"></div>
+            </div>
+            <div class="callout" style="--d:1.06s;top:610px;left:300px;">
+                <div class="tag"><b>Gráficos</b> · custo por sistema</div><div class="lead"></div><div class="pin"></div>
+            </div>
+            <div class="callout flip" style="--d:1.18s;top:300px;right:30px;">
+                <div class="pin"></div><div class="lead"></div><div class="tag"><b>Ranking</b> de sistemas</div>
+            </div>
+            <div class="callout flip red" style="--d:1.3s;top:470px;right:30px;">
+                <div class="pin"></div><div class="lead"></div><div class="tag"><b>Alertas</b> · imediatos & preditivos</div>
+            </div>
+            <div class="callout flip green" style="--d:1.42s;top:660px;right:24px;">
+                <div class="pin"></div><div class="lead"></div><div class="tag"><b>Resumo executivo</b></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 7 — RESULTADO PRINCIPAL: BASE × AMBIENTE AGRESSIVO                  -->
+<!-- ======================================================================= -->
+<section class="slide s7" data-slide="7">
+    <div class="slide-inner">
+        <div class="s7-top">
+            <div>
+                <p class="kicker amber reveal" style="--d:.05s">Resultado principal</p>
+                <h2 class="slide-title reveal" style="--d:.12s;font-size:46px;">Base <span class="dim">×</span> <span class="amber">Ambiente agressivo</span></h2>
+            </div>
+            <!-- toggle de cenário (interativo) -->
+            <div class="s7-toggle reveal fade" style="--d:.2s" id="s7Toggle">
+                <button data-scn="base" class="on">Base</button>
+                <button data-scn="agressivo">Ambiente agressivo</button>
+                <button data-scn="comparar">Comparar</button>
+            </div>
+        </div>
+
+        <div class="s7-grid">
+            <!-- coluna BASE -->
+            <div class="scn-col base reveal up" style="--d:.3s" data-scn-col="base">
+                <div class="scn-head"><span class="badge">Cenário Base</span><h3>Operação normal</h3></div>
+                <div class="scn-cost">
+                    <div class="cost">
+                        <div class="l">Custo total previsto</div>
+                        <div class="v" data-count="12695387" data-money="1" data-prefix="R$ " data-dur="1500">R$ 0</div>
+                        <div class="bar"><i style="--d:.4s" data-bar="79"></i></div>
+                    </div>
+                    <div class="cost">
+                        <div class="l">Custo total ajustado</div>
+                        <div class="v" data-count="11429442" data-money="1" data-prefix="R$ " data-dur="1500" data-delay="180">R$ 0</div>
+                        <div class="bar"><i style="--d:.5s" data-bar="71"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- coluna AMBIENTE AGRESSIVO (conta a partir da Base → mostra a alta) -->
+            <div class="scn-col agressivo reveal up" style="--d:.5s" data-scn-col="agressivo">
+                <div class="scn-head"><span class="badge">Ambiente agressivo</span><h3>Contexto severo</h3></div>
+                <div class="scn-cost">
+                    <div class="cost">
+                        <div class="l">Custo total previsto</div>
+                        <div class="v" data-count="16050954" data-from="12695387" data-money="1" data-prefix="R$ " data-dur="1700" data-delay="900">R$ 0</div>
+                        <div class="bar"><i style="--d:1s" data-bar="100"></i></div>
+                    </div>
+                    <div class="cost">
+                        <div class="l">Custo total ajustado</div>
+                        <div class="v" data-count="14425399" data-from="11429442" data-money="1" data-prefix="R$ " data-dur="1700" data-delay="1080">R$ 0</div>
+                        <div class="bar"><i style="--d:1.1s" data-bar="90"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- coluna COMPARAÇÃO -->
+            <div class="s7-compare reveal right" style="--d:.7s">
+                <h4><span style="color:var(--red)">▲</span> Variação Base → Agressivo</h4>
+                <div class="s7-delta">
+                    <div class="delta"><div class="dv" data-count="26.4" data-decimals="1" data-prefix="+" data-suffix="%" data-dur="1500" data-delay="1900">+0%</div><div class="dl">custo previsto</div></div>
+                    <div class="delta"><div class="dv" data-count="26.2" data-decimals="1" data-prefix="+" data-suffix="%" data-dur="1500" data-delay="2000">+0%</div><div class="dl">custo ajustado</div></div>
+                </div>
+                <div class="s7-chartbox"><canvas id="compareChart"></canvas></div>
+                <div class="s7-stable">
+                    <div class="row"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Sistema mais crítico</span><span class="vv crit" style="color:var(--red)">Estrutural</span></div>
+                    <div class="row"><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Maior custo previsto</span><span class="vv"><em>Eletromecânico</em></span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- faixa de constantes (estabilidade da hierarquia) -->
+        <div class="s7-foot reveal fade" style="--d:.9s">
+            <span class="lab">Estável entre cenários</span>
+            <div class="items">
+                <span class="it"><b>15</b> sistemas avaliados</span>
+                <span class="it"><b>10</b> alertas imediatos</span>
+                <span class="it"><b>50</b> alertas preditivos</span>
+                <span class="it crit">mais crítico: <b>Estrutural</b></span>
+            </div>
+            <span class="chip green" style="font-size:12px;">hierarquia estável · simulador sensível ao contexto</span>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 8 — CONCLUSÃO / FECHAMENTO                                         -->
+<!-- ======================================================================= -->
+<section class="slide s8" data-slide="8">
+    <div class="orb" style="width:560px;height:560px;background:rgba(47,228,216,.16);right:-160px;top:-120px;" data-orb="3"></div>
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">Conclusão</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Apoio à decisão, <span class="grad">não substituto do julgamento</span></h2>
+
+        <!-- 3 cards de conclusão -->
+        <div class="s8-cards">
+            <div class="s8-card reveal up" style="--d:.26s;--c:var(--cyan)">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5M4 19h16M7 15l4-6 3 3 5-8"/></svg></span>
+                <h3>Planejamento ampliado</h3>
+                <p>Amplia a capacidade de planejamento técnico e financeiro da manutenção preventiva.</p>
+            </div>
+            <div class="s8-card reveal up" style="--d:.38s;--c:var(--blue)">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></span>
+                <h3>Cenários & prioridades</h3>
+                <p>Permite comparar cenários e priorizar sistemas conforme custo e criticidade.</p>
+            </div>
+            <div class="s8-card reveal up" style="--d:.5s;--c:var(--green)">
+                <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+                <h3>Leitura integrada</h3>
+                <p>Integra custo, criticidade e alerta em uma mesma leitura analítica.</p>
+            </div>
+        </div>
+
+        <!-- frase final em destaque + acesso (link + QR) -->
+        <div class="s8-final">
+            <div class="s8-quote reveal left" style="--d:.62s">
+                <span class="q-mark">“</span>
+                <p>Ferramenta de apoio à decisão, <span class="grad">não substituto do julgamento técnico.</span></p>
+                <div class="disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9l-8 14A2 2 0 004 21h16a2 2 0 001.7-3.1l-8-14a2 2 0 00-3.4 0z"/></svg>
+                    Não substitui a análise de profissional tecnicamente capacitado.</div>
+            </div>
+
+            <div class="s8-access reveal right" style="--d:.78s">
+                <div class="s8-qr"><div class="qr-grid" id="qrGrid"></div><div class="qr-cap">aponte a câmera</div></div>
+                <a class="s8-link" href="https://simulador-analitico-pmav.streamlit.app" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
+                    abrir simulador
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="s8-foot reveal fade" style="--d:1s">
+        <span>Simulador Analítico PMAV · Métodos Estatísticos para Modelos de Transporte</span>
+        <span>simulador-analitico-pmav.streamlit.app · <em style="color:var(--soft);font-style:normal">[ contato / rodapé ]</em></span>
+    </div>
+</section>
+
+</main>
+</div>
+
+<!-- controles inferiores (avançar/voltar + contador) -->
+<div class="deck-controls">
+    <button id="btnPrev" aria-label="Slide anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <span class="counter"><b id="curNum">01</b> / <span id="totNum">08</span></span>
+    <button id="btnNext" aria-label="Próximo slide"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg></button>
+</div>
+
+<!-- dica de teclado -->
+<div class="kb-hint" id="kbHint"><kbd>←</kbd><kbd>→</kbd> navegar · <kbd>F</kbd> tela cheia</div>
+
+<!-- ============================ BIBLIOTECAS (CDN) ============================ -->
+<!-- Chart.js (gráficos reais) · GSAP (animações ambientes). Funciona com internet;
+     offline, a apresentação ainda roda — gráficos e floats são degradados com elegância. -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+<!-- LÓGICA DA APRESENTAÇÃO -->
+<script src="script.js"></script>
+</body>
+</html>
