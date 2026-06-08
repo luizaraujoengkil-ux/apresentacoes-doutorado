@@ -108,6 +108,25 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 /* camada de conteúdo acima do fundo */
 .slide-inner{ position:absolute; inset:0; z-index:2; padding:var(--pad-y) var(--pad-x); }
 
+/* ----------------------------------------------------------------------------
+   FUNDO FOTOGRÁFICO POR SLIDE (imagens em assets/bg-*.png)
+   Estrutura no HTML:  <div class="s-bg"><i style="background-image:url('assets/bg-x.png')"></i></div>
+   • <i> = imagem com leve Ken Burns (zoom lento)
+   • ::after = véu escuro que garante leitura do texto por cima
+   • .faint  = versão mais discreta (slides com muito conteúdo)
+   ---------------------------------------------------------------------------- */
+.s-bg{ position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.s-bg i{ position:absolute; inset:-4%; background-size:cover; background-position:center; display:block;
+    opacity:.44; animation:sbgKB 36s ease-in-out infinite alternate; will-change:transform; }
+.s-bg.faint i{ opacity:.26; }
+.s-bg::after{ content:""; position:absolute; inset:0;
+    background:
+        linear-gradient(105deg, rgba(3,8,18,.95) 0%, rgba(3,8,18,.7) 40%, rgba(3,8,18,.42) 72%, rgba(3,8,18,.72) 100%),
+        linear-gradient(0deg, rgba(3,8,18,.92) 0%, rgba(3,8,18,.25) 40%, transparent 62%); }
+.s-bg.veil-strong::after{ background:linear-gradient(105deg, rgba(3,8,18,.96) 0%, rgba(3,8,18,.82) 50%, rgba(3,8,18,.7) 100%),
+        linear-gradient(0deg, rgba(3,8,18,.9), transparent 55%); }
+@keyframes sbgKB{ from{ transform:scale(1.05) translate(0,0); } to{ transform:scale(1.13) translate(-1.4%,-1%); } }
+
 /* ============================================================================
    4) CHROME — kicker, título, HUD, progresso, dots, controles
    ============================================================================ */
