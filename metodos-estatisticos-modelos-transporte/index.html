@@ -569,15 +569,20 @@
             </div>
 
             <div class="s8-access reveal right" style="--d:.78s">
-                <div class="s8-qr"><div class="qr-grid" id="qrGrid"></div><div class="qr-cap">aponte a câmera</div></div>
-                <div class="s8-btns">
-                    <a class="s8-link" href="https://simulador-pmav-vistopred.streamlit.app" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
-                        abrir simulador
-                    </a>
-                    <a class="s8-link alt" href="assets/artigo-pmav.pdf" target="_blank" rel="noopener">
+                <!-- imagem REAL do simulador — clique abre a ferramenta em nova aba -->
+                <a class="s8-simshot" href="https://simulador-pmav-vistopred.streamlit.app" target="_blank" rel="noopener" title="Abrir o Simulador Analítico PMAV (nova aba)">
+                    <img src="assets/simulador-pmav.png" alt="Simulador Analítico PMAV — clique para abrir">
+                    <span class="ss-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg> abrir simulador</span>
+                </a>
+                <!-- QR (público escaneia) + botão que abre o artigo em PDF na própria tela -->
+                <div class="s8-access-row">
+                    <div class="s8-qrwrap">
+                        <div class="s8-qr"><div class="qr-grid" id="qrGrid"></div></div>
+                        <span class="qr-cap">aponte a câmera</span>
+                    </div>
+                    <a class="s8-link alt" href="assets/artigo-pmav.pdf" data-pdf target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
-                        artigo (PDF)
+                        ver artigo (PDF)
                     </a>
                 </div>
             </div>
@@ -602,6 +607,21 @@
 
 <!-- dica de teclado -->
 <div class="kb-hint" id="kbHint"><kbd>←</kbd><kbd>→</kbd> navegar · <kbd>F</kbd> tela cheia</div>
+
+<!-- VISUALIZADOR DO ARTIGO (PDF) — abre sobre a tela ao clicar em "ver artigo (PDF)" -->
+<div class="pdf-modal" id="pdfModal" aria-hidden="true">
+    <div class="pdf-backdrop" data-close></div>
+    <div class="pdf-frame">
+        <div class="pdf-head">
+            <span class="pdf-title">Artigo — Modelagem estatística e simulação aplicadas à previsão de custos de manutenção</span>
+            <div class="pdf-actions">
+                <a href="assets/artigo-pmav.pdf" target="_blank" rel="noopener">abrir em nova aba ↗</a>
+                <button type="button" data-close>✕ fechar</button>
+            </div>
+        </div>
+        <iframe id="pdfFrame" title="Artigo em PDF"></iframe>
+    </div>
+</div>
 
 <!-- ============================ BIBLIOTECAS (CDN) ============================ -->
 <!-- Chart.js (gráficos reais) · GSAP (animações ambientes). Funciona com internet;

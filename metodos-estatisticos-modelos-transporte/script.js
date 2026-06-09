@@ -240,6 +240,7 @@ class Deck {
         this.btnNext.addEventListener('click', () => this.next());
 
         document.addEventListener('keydown', e => {
+            if (window.__pdfOpen) return;            // PDF aberto: não navega slides
             switch (e.key) {
                 case 'ArrowRight': case ' ': case 'PageDown': case 'ArrowDown':
                     e.preventDefault(); this.next(); break;
@@ -253,6 +254,7 @@ class Deck {
 
         /* scroll travado: um gesto = um slide */
         window.addEventListener('wheel', e => {
+            if (window.__pdfOpen) return;            // PDF aberto: deixa rolar o documento
             e.preventDefault();
             if (this.wheelLock || Math.abs(e.deltaY) < 14) return;
             this.wheelLock = true;
@@ -419,6 +421,22 @@ function ambientGSAP() {
     gsap.to('[data-orb="3"]', { x: -26, y: 20, duration: 10, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 }
 
+/* visualizador do artigo em PDF (abre sobre a tela; fecha no ✕, no fundo ou Esc) */
+function bindPdfModal() {
+    const modal = document.getElementById('pdfModal');
+    if (!modal) return;
+    const frame = document.getElementById('pdfFrame');
+    const PDF = 'assets/artigo-pmav.pdf';
+
+    const open = () => { if (frame) frame.src = PDF + '#view=FitH'; modal.classList.add('open'); window.__pdfOpen = true; };
+    const close = () => { modal.classList.remove('open'); window.__pdfOpen = false; setTimeout(() => { if (frame) frame.src = ''; }, 350); };
+
+    // qualquer link/botão com [data-pdf] abre o visualizador (em vez de nova aba)
+    document.querySelectorAll('[data-pdf]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); open(); }));
+    modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+}
+
 /* ============================================================================
    BOOT
    ============================================================================ */
@@ -426,6 +444,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupChartDefaults();
     buildQR();
     bindScenarioToggle();
+    bindPdfModal();
     ambientGSAP();
     window.deck = new Deck();   // exposto p/ depuração no console
 });
