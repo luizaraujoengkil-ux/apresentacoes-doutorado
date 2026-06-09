@@ -570,17 +570,23 @@
 
             <div class="s8-access reveal right" style="--d:.78s">
                 <div class="s8-qr"><div class="qr-grid" id="qrGrid"></div><div class="qr-cap">aponte a câmera</div></div>
-                <a class="s8-link" href="https://simulador-analitico-pmav.streamlit.app" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
-                    abrir simulador
-                </a>
+                <div class="s8-btns">
+                    <a class="s8-link" href="https://simulador-pmav-vistopred.streamlit.app" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></svg>
+                        abrir simulador
+                    </a>
+                    <a class="s8-link alt" href="assets/artigo-pmav.pdf" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+                        artigo (PDF)
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="s8-foot reveal fade" style="--d:1s">
         <span><em style="color:var(--soft);font-style:normal">Luiz Araujo de Souza Junior · IME — Instituto Militar de Engenharia</em></span>
-        <span><em style="color:var(--soft);font-style:normal">simulador-analitico-pmav.streamlit.app</em></span>
+        <span><em style="color:var(--soft);font-style:normal">simulador-pmav-vistopred.streamlit.app</em></span>
     </div>
 </section>
 
@@ -602,6 +608,7 @@
      offline, a apresentação ainda roda — gráficos e floats são degradados com elegância. -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 
 <!-- LÓGICA DA APRESENTAÇÃO -->
 <script src="script.js"></script>

@@ -375,10 +375,25 @@ function runS6Compile() {
     }
 }
 
-/* QR placeholder estilizado (decorativo) — 11×11 com 3 marcadores de canto */
+/* QR REAL e escaneável apontando para o simulador (biblioteca via CDN).
+   Se a biblioteca não carregar (offline), cai num placeholder estilizado. */
+const SIM_URL = 'https://simulador-pmav-vistopred.streamlit.app';
 function buildQR() {
     const grid = document.getElementById('qrGrid');
     if (!grid) return;
+
+    if (typeof window.qrcode === 'function') {
+        try {
+            const qr = window.qrcode(0, 'M');   // tipo auto, correção média
+            qr.addData(SIM_URL);
+            qr.make();
+            grid.innerHTML = qr.createImgTag(6, 0);
+            grid.classList.add('real');
+            return;
+        } catch (e) { /* segue para o placeholder */ }
+    }
+
+    // placeholder estilizado (fallback) — 11×11 com 3 marcadores de canto
     const N = 11;
     let seed = 7;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;

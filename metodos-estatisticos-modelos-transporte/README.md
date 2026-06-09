@@ -56,4 +56,6 @@ metodos-estatisticos-modelos-transporte/
 
 ## Simulador
 
-Link da ferramenta: <https://simulador-analitico-pmav.streamlit.app>
+Link da ferramenta: <https://simulador-pmav-vistopred.streamlit.app>
+
+O botão **ARTIGO (PDF)** no slide 8 aponta para `assets/artigo-pmav.pdf` — coloque o PDF do artigo nesse caminho/nome.
