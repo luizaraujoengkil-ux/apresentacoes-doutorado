@@ -565,7 +565,7 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .s7-stable .row .vv{ font-weight:700; color:var(--white); }
 .s7-stable .row .vv em{ font-style:normal; color:var(--cyan); }
 /* faixa de constantes na base do slide */
-.s7-foot{ margin-top:22px; display:flex; align-items:center; gap:18px; padding:16px 24px; border-radius:14px;
+.s7-foot{ margin-top:22px; margin-bottom:86px; display:flex; align-items:center; gap:18px; padding:16px 24px; border-radius:14px;
     background:rgba(6,14,28,.55); border:1px solid var(--line); }
 .s7-foot .lab{ font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); }
 .s7-foot .items{ display:flex; gap:30px; flex:1; }
