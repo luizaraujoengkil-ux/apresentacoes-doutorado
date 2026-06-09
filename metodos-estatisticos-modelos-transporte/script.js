@@ -141,7 +141,9 @@ function buildSystemsChart(canvasId) {
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            animation: { duration: REDUCED ? 0 : 1200, easing: 'easeOutQuart' },
+            // crescimento lento e escalonado (barra a barra) — sensação de "compilando"
+            animation: { duration: REDUCED ? 0 : 1900, easing: 'easeOutQuart',
+                delay: REDUCED ? 0 : (ctx) => (ctx.type === 'data' && ctx.mode === 'default') ? ctx.dataIndex * 230 : 0 },
             plugins: { tooltip: { callbacks: { label: c => fmtMi(c.parsed.y) } } },
             scales: {
                 x: { grid: { display: false }, ticks: { font: { size: 10 } } },
@@ -303,7 +305,12 @@ class Deck {
         runBars(slide);
 
         if (i === 0) buildSystemsChart('mockChart1');                 // capa
-        if (i === 5) buildSystemsChart('simChart');                   // simulador
+        if (i === 5) {                                                // simulador
+            const had = !!charts.simChart;
+            buildSystemsChart('simChart');
+            if (had && charts.simChart) { charts.simChart.reset(); charts.simChart.update(); } // replay ao revisitar
+            runS6Compile();
+        }
         if (i === 6) { buildCompareChart(); setScenario('comparar'); } // resultado
     }
 
@@ -341,6 +348,31 @@ function bindScenarioToggle() {
         const b = e.target.closest('button');
         if (b) setScenario(b.dataset.scn);
     });
+}
+
+/* slide 6 — sequência "compilando dados": barra de progresso + rótulo de estado.
+   Reinicia a cada visita ao slide. (Os contadores e barras já animam via runCounters/runBars.) */
+function runS6Compile() {
+    const bar = document.getElementById('s6progress');
+    const st  = document.getElementById('s6state');
+    if (bar) {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        bar.style.opacity = '1';
+        if (REDUCED) { bar.style.width = '100%'; bar.style.opacity = '0'; }
+        else requestAnimationFrame(() => requestAnimationFrame(() => {
+            bar.style.transition = 'width 2.6s linear, opacity .6s ease';
+            bar.style.width = '100%';
+            setTimeout(() => { bar.style.opacity = '0'; }, 2700);
+        }));
+    }
+    if (st) {
+        if (REDUCED) { st.textContent = '● dados atualizados'; st.classList.add('done'); return; }
+        st.textContent = '● compilando dados…';
+        st.classList.remove('done');
+        clearTimeout(st._t);
+        st._t = setTimeout(() => { st.textContent = '● dados atualizados'; st.classList.add('done'); }, 2800);
+    }
 }
 
 /* QR placeholder estilizado (decorativo) — 11×11 com 3 marcadores de canto */

@@ -456,6 +456,14 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .sim-scn button{ font-family:var(--mono); font-size:11.5px; padding:6px 13px; border-radius:8px; cursor:pointer;
     border:1px solid var(--line); background:rgba(120,160,220,.06); color:var(--soft); }
 .sim-scn button.on{ border-color:var(--cyan); color:var(--cyan); background:rgba(47,228,216,.12); box-shadow:0 0 14px -4px var(--cyan); }
+/* estado "compilando" + barra de carregamento (sensação de dados sendo processados) */
+.sim-state{ font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--cyan); white-space:nowrap; }
+.sim-state.done{ color:var(--green); }
+.sim-state:not(.done){ animation:s6blink 1.1s ease-in-out infinite; }
+@keyframes s6blink{ 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
+.sim-loadbar{ height:3px; background:rgba(120,160,220,.1); position:relative; overflow:hidden; }
+.sim-loadbar i{ display:block; height:100%; width:0; border-radius:2px;
+    background:linear-gradient(90deg, var(--cyan), var(--blue)); box-shadow:0 0 12px var(--cyan); }
 
 .sim-body{ display:grid; grid-template-columns:64px 1fr 300px; min-height:466px; }
 /* LEGENDA das 7 capacidades (preenche o espaço abaixo do painel) */
@@ -497,6 +505,8 @@ img,video,canvas,svg{ max-width:100%; max-height:100%; }
 .sim-rank .r .nm{ font-size:12.5px; color:var(--soft); width:96px; flex:0 0 auto; }
 .sim-rank .r .br{ flex:1; height:8px; border-radius:4px; background:rgba(120,160,220,.12); overflow:hidden; }
 .sim-rank .r .br i{ display:block; height:100%; border-radius:4px; background:linear-gradient(90deg,var(--c,var(--cyan)),color-mix(in srgb,var(--c,var(--cyan)) 40%,transparent)); width:var(--w,50%); }
+/* no slide 6 as barras do ranking crescem do zero (escalonadas) */
+.s6 .sim-rank .r .br i{ width:0; transition:width 1.5s var(--ease); transition-delay:var(--d,0s); }
 .sim-alerts{ display:flex; flex-wrap:wrap; gap:8px; }
 .sim-alert{ font-family:var(--mono); font-size:11px; padding:6px 10px; border-radius:8px; display:flex; align-items:center; gap:7px; }
 .sim-alert.now{ color:var(--red); background:rgba(255,68,94,.1); border:1px solid color-mix(in srgb,var(--red) 35%,transparent); }

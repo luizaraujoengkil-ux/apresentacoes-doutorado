@@ -379,12 +379,14 @@
                 <div class="sim-bar">
                     <div class="sim-dots"><i></i><i></i><i></i></div>
                     <div class="sim-brand"><span class="logo">P</span><b>Simulador Analítico PMAV</b><span>· manutenção preventiva</span></div>
+                    <span class="sim-state" id="s6state">● compilando dados…</span>
                     <div class="sim-scn">
                         <button class="on">Base</button>
                         <button>Ambiente agressivo</button>
                         <button>＋ cenário</button>
                     </div>
                 </div>
+                <div class="sim-loadbar"><i id="s6progress"></i></div>
                 <div class="sim-body">
                     <!-- rail -->
                     <div class="sim-rail">
@@ -397,10 +399,10 @@
                     <!-- central -->
                     <div class="sim-main">
                         <div class="sim-kpis">
-                            <div class="sim-kpi" style="--c:var(--cyan)"><div class="l">Custo previsto</div><div class="v">R$ 12,7M</div><div class="d ok">base · OLS</div></div>
-                            <div class="sim-kpi" style="--c:var(--green)"><div class="l">Custo ajustado</div><div class="v">R$ 11,4M</div><div class="d ok">−10,0%</div></div>
-                            <div class="sim-kpi" style="--c:var(--blue)"><div class="l">Sistemas</div><div class="v">15</div><div class="d">avaliados</div></div>
-                            <div class="sim-kpi" style="--c:var(--red)"><div class="l">Alertas imediatos</div><div class="v">10</div><div class="d up">+ 50 preditivos</div></div>
+                            <div class="sim-kpi" style="--c:var(--cyan)"><div class="l">Custo previsto</div><div class="v" data-count="12.7" data-decimals="1" data-prefix="R$ " data-suffix="M" data-dur="1900">R$ 0,0M</div><div class="d ok">base · OLS</div></div>
+                            <div class="sim-kpi" style="--c:var(--green)"><div class="l">Custo ajustado</div><div class="v" data-count="11.4" data-decimals="1" data-prefix="R$ " data-suffix="M" data-dur="1900" data-delay="200">R$ 0,0M</div><div class="d ok">−10,0%</div></div>
+                            <div class="sim-kpi" style="--c:var(--blue)"><div class="l">Sistemas</div><div class="v" data-count="15" data-dur="1700" data-delay="400">0</div><div class="d">avaliados</div></div>
+                            <div class="sim-kpi" style="--c:var(--red)"><div class="l">Alertas imediatos</div><div class="v" data-count="10" data-dur="1700" data-delay="600">0</div><div class="d up">+ 50 preditivos</div></div>
                         </div>
                         <div class="sim-chart-wrap">
                             <div class="ch-head"><h5>Custo previsto por sistema</h5><span class="model">Regressão OLS</span></div>
@@ -411,11 +413,11 @@
                     <div class="sim-side">
                         <div><h6>Ranking de sistemas</h6>
                             <div class="sim-rank">
-                                <div class="r"><span class="nm">Estrutural</span><span class="br"><i style="--w:96%;--c:var(--red)"></i></span></div>
-                                <div class="r"><span class="nm">Eletromecânico</span><span class="br"><i style="--w:88%;--c:var(--amber)"></i></span></div>
-                                <div class="r"><span class="nm">Hidráulico</span><span class="br"><i style="--w:64%;--c:var(--cyan)"></i></span></div>
-                                <div class="r"><span class="nm">Elétrico</span><span class="br"><i style="--w:50%;--c:var(--blue)"></i></span></div>
-                                <div class="r"><span class="nm">Cobertura</span><span class="br"><i style="--w:38%;--c:var(--teal)"></i></span></div>
+                                <div class="r"><span class="nm">Estrutural</span><span class="br"><i data-bar="96" style="--c:var(--red);--d:.15s"></i></span></div>
+                                <div class="r"><span class="nm">Eletromecânico</span><span class="br"><i data-bar="88" style="--c:var(--amber);--d:.3s"></i></span></div>
+                                <div class="r"><span class="nm">Hidráulico</span><span class="br"><i data-bar="64" style="--c:var(--cyan);--d:.45s"></i></span></div>
+                                <div class="r"><span class="nm">Elétrico</span><span class="br"><i data-bar="50" style="--c:var(--blue);--d:.6s"></i></span></div>
+                                <div class="r"><span class="nm">Cobertura</span><span class="br"><i data-bar="38" style="--c:var(--teal);--d:.75s"></i></span></div>
                             </div>
                         </div>
                         <div><h6>Alertas</h6>
