@@ -978,45 +978,75 @@
     <div class="slide-inner">
         <p class="kicker green reveal left" style="--d:.05s">A decisão · Luiz</p>
         <h2 class="slide-title reveal up" style="--d:.12s">Da simulação à <span class="grad-green">priorização</span></h2>
-        <p class="slide-lead reveal up" style="--d:.2s">O ALIME não para no diagnóstico — ele <b>ranqueia combinações de obra</b> e mostra o quanto cada uma elimina de atraso.</p>
+        <p class="slide-lead reveal up" style="--d:.2s">O ALIME transforma <b>interferências urbanas</b> em cenários comparáveis, <b>ranqueia combinações de obra</b> e mostra o benefício potencial de cada decisão.</p>
 
-        <div class="s10-grid">
-            <div class="s10-left reveal left" style="--d:.28s">
-                <h4><span class="h4-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Ranking de intervenções <span class="mut">· saída do ALIME</span></h4>
-                <div class="rank top"><span class="rk">1</span><span class="rn">PN01 + PN02 + RF01 + RF02</span><b class="rb"><span class="rb-dot"></span>atraso residual&nbsp;0</b></div>
-                <div class="rank"><span class="rk">2</span><span class="rn">PN02 + RF01 + RF02</span><b>R$ 11,8 mi/ano</b></div>
-                <div class="rank"><span class="rk">3</span><span class="rn">PN01 + PN02 + RF01</span><b>R$ 8,6 mi/ano</b></div>
-                <div class="rank"><span class="rk">4</span><span class="rn">RF01 + RF02</span><b>R$ 8,1 mi/ano</b></div>
-                <p class="s10-note">O ganho máximo vem de tratar as interferências <b>em conjunto</b> — não isoladas.</p>
+        <div class="dec-grid">
+            <!-- ===== ÁREA 1 — RANKING ===== -->
+            <div class="dec-rank">
+                <h4 class="reveal left" style="--d:.28s"><span class="h4-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Ranking de intervenções <span class="mut">· saída do ALIME</span></h4>
+                <div class="rank top" style="--ri:0">
+                    <span class="rk">1</span>
+                    <div class="rk-body"><span class="rn">PN01 + PN02 + RF01 + RF02</span><span class="rk-seal">★ melhor cenário</span></div>
+                    <b class="rb"><span class="rb-dot"></span>atraso residual&nbsp;0</b>
+                </div>
+                <div class="rank" style="--ri:1"><span class="rk">2</span><div class="rk-body"><span class="rn">PN02 + RF01 + RF02</span></div><b>R$ 11,8 mi/ano</b></div>
+                <div class="rank" style="--ri:2"><span class="rk">3</span><div class="rk-body"><span class="rn">PN01 + PN02 + RF01</span></div><b>R$ 8,6 mi/ano</b></div>
+                <div class="rank" style="--ri:3"><span class="rk">4</span><div class="rk-body"><span class="rn">RF01 + RF02</span></div><b>R$ 8,1 mi/ano</b></div>
+                <p class="dec-note reveal fade" style="--d:.8s"><span class="dn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15 19a4.6 4.6 0 0 1 6.5-4.2"/></svg></span>O maior ganho ocorre quando as interferências são tratadas <b>em conjunto</b> — não como pontos isolados.</p>
             </div>
 
-            <div class="s10-right reveal right" style="--d:.34s">
-                <h4><span class="h4-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.2-4 3 2 4-6.2"/></svg></span>O ganho de análise do simulador</h4>
-                <div class="cmp2">
-                    <div class="cc">
-                        <div class="cl">Conta manual <i>(artigo)</i></div>
-                        <b class="cv">R$ 1,53 mi/ano</b>
-                        <div class="cpb">payback <b>~17 anos</b></div>
+            <!-- ===== ÁREA 2 + 3 ===== -->
+            <div class="dec-right">
+                <!-- comparação dos cálculos -->
+                <div class="dec-cmp reveal right" style="--d:.4s">
+                    <h4><span class="h4-ic gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.2-4 3 2 4-6.2"/></svg></span>O ganho de análise do simulador</h4>
+                    <div class="cmp2">
+                        <div class="cc">
+                            <div class="cl">Conta conservadora</div>
+                            <b class="cv">R$ <span class="num" data-count="1.53" data-decimals="2" data-delay="700">0,00</span> mi/ano</b>
+                            <div class="cdesc">considera apenas <b>1.500 viagens/dia</b> diretamente afetadas</div>
+                            <div class="cpb">payback <b>~17 anos</b></div>
+                        </div>
+                        <div class="cc-mid">
+                            <span class="cc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 6l6 6-6 6"/></svg></span>
+                            <span class="cc-al">recorte manual<br>→ leitura sistêmica</span>
+                        </div>
+                        <div class="cc hot">
+                            <div class="cl">Simulação completa ALIME</div>
+                            <b class="cv">R$ <span class="num" data-count="12.26" data-decimals="2" data-delay="950">0,00</span> mi/ano</b>
+                            <div class="cdesc">atraso do <b>sistema inteiro</b>, pares O-D afetados e combinações de cenário</div>
+                            <div class="cpb">payback <b>~2,1 anos</b></div>
+                        </div>
                     </div>
-                    <span class="cc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 6l6 6-6 6"/></svg></span>
-                    <div class="cc hot">
-                        <div class="cl">Simulador completo</div>
-                        <b class="cv">R$ 12,26 mi/ano</b>
-                        <div class="cpb">payback <b>~2,1 anos</b></div>
-                    </div>
+                    <p class="dec-mininote">A diferença <b>não é erro</b>: é mudança de escala da análise. A conta manual é conservadora; o simulador avalia o <b>sistema completo</b>.</p>
                 </div>
-                <p class="cmp2-why">Diferença = <b>recorte</b>: o simulador conta o <b>atraso do sistema inteiro</b> (72 pares) e testa <b>vários cenários</b>; a conta manual contou só 1.500 viagens.</p>
 
-                <div class="s10-cta">
-                    <div class="qr" id="qrGrid" aria-label="QR do simulador ALIME"></div>
-                    <div class="qr-txt">
-                        <span class="qr-lab">Teste o ALIME no ar</span>
-                        <a href="https://anzhkry7bnjfiwup4xjesf.streamlit.app" target="_blank" rel="noopener">anzhkry7bnjfiwup4xjesf.streamlit.app</a>
+                <!-- links / QR -->
+                <div class="dec-links reveal up" style="--d:.62s">
+                    <div class="link-card todo">
+                        <span class="lc-ico pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span>
+                        <div class="lc-tx"><b>Artigo em PDF</b><span>Leia o artigo completo</span><i class="lc-todo">link a definir</i></div>
+                        <div class="qr-slot" aria-label="QR do artigo (a definir)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="3" y="15" width="6" height="6" rx="1"/><path d="M15 15h2.5M15 18v3M18 15v3h3M21 21h.01"/></svg></div>
                     </div>
+                    <a class="link-card sim" href="https://anzhkry7bnjfiwup4xjesf.streamlit.app" target="_blank" rel="noopener">
+                        <span class="lc-ico sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6" cy="6.5" r=".6" fill="currentColor"/><circle cx="8.4" cy="6.5" r=".6" fill="currentColor"/></svg></span>
+                        <div class="lc-tx"><b>Simulador ALIME</b><span>Teste o modelo no navegador</span><i class="lc-url">anzhkry7bnjfiwup4xjesf.streamlit.app</i></div>
+                        <div class="qr sm" data-qr="https://anzhkry7bnjfiwup4xjesf.streamlit.app" aria-label="QR do simulador ALIME"></div>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="s10-foot reveal fade" style="--d:.85s">
+
+        <!-- ===== FAIXA DE FECHAMENTO ===== -->
+        <div class="dec-final reveal up" style="--d:.84s">
+            <span class="df-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg></span>
+            <div class="df-tx">
+                <b>A pergunta deixa de ser apenas <span class="muted">onde há conflito</span> — e passa a ser <span class="hl">qual intervenção gera maior retorno</span> para a cidade.</b>
+                <span>Diagnosticar é o começo. <i>Priorizar é transformar dado em decisão.</i></span>
+            </div>
+        </div>
+
+        <div class="s10-foot reveal fade" style="--d:.95s">
             <span><b>Luiz Araujo de Souza Junior</b> · <b>Wagner de Almeida Tavares</b></span>
             <span>IME — Planejamento de Transportes · 2026</span>
         </div>

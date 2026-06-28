@@ -191,35 +191,39 @@ class Deck {
 const SIM_URL = 'https://anzhkry7bnjfiwup4xjesf.streamlit.app';
 
 function buildQR() {
-    const grid = document.getElementById('qrGrid');
-    if (!grid) return;
+    document.querySelectorAll('[data-qr]').forEach(grid => {
+        const url = grid.dataset.qr || '';
+        const real = /^https?:\/\//i.test(url);   // só gera QR escaneável p/ URL http(s)
 
-    if (typeof window.qrcode === 'function') {
-        try {
-            const qr = window.qrcode(0, 'M');
-            qr.addData(SIM_URL);
-            qr.make();
-            grid.innerHTML = qr.createImgTag(5, 0);
-            return;
-        } catch (e) { /* cai no placeholder */ }
-    }
-
-    // placeholder offline (11×11 com marcadores de canto)
-    grid.classList.add('placeholder');
-    const N = 11;
-    let seed = 7;
-    const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
-    const inFinder = (r, c) => (r < 3 && c < 3) || (r < 3 && c > N - 4) || (r > N - 4 && c < 3);
-    for (let r = 0; r < N; r++) {
-        for (let c = 0; c < N; c++) {
-            const cell = document.createElement('i');
-            const on = inFinder(r, c)
-                ? !((r === 1 || r === N - 2) && (c === 1 || c === N - 2))
-                : rnd() > 0.52;
-            if (on) cell.className = 'on';
-            grid.appendChild(cell);
+        if (real && typeof window.qrcode === 'function') {
+            try {
+                const qr = window.qrcode(0, 'M');
+                qr.addData(url);
+                qr.make();
+                grid.innerHTML = qr.createImgTag(5, 0);
+                grid.classList.remove('placeholder');
+                return;
+            } catch (e) { /* cai no placeholder */ }
         }
-    }
+
+        // placeholder decorativo (11×11 com marcadores de canto) — usado p/ link a definir
+        grid.classList.add('placeholder');
+        grid.innerHTML = '';
+        const N = 11;
+        let seed = 7 + url.length;
+        const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+        const inFinder = (r, c) => (r < 3 && c < 3) || (r < 3 && c > N - 4) || (r > N - 4 && c < 3);
+        for (let r = 0; r < N; r++) {
+            for (let c = 0; c < N; c++) {
+                const cell = document.createElement('i');
+                const on = inFinder(r, c)
+                    ? !((r === 1 || r === N - 2) && (c === 1 || c === N - 2))
+                    : rnd() > 0.52;
+                if (on) cell.className = 'on';
+                grid.appendChild(cell);
+            }
+        }
+    });
 }
 
 function ambientGSAP() {
