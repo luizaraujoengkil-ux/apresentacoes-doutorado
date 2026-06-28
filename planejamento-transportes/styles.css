@@ -793,22 +793,135 @@ html,body{ width:100%; height:100%; overflow:hidden; background:var(--stage-bg);
 .still .odm-step::before, .still .odm-arrow, .still .ok-dot{ animation:none!important; }
 
 /* ============================================================================
-   === SLIDE 5 — IMPACTO ECONÔMICO ===
+   === SLIDE 6 — IMPACTO: do atraso ao investimento (classe .s5.imp) ===
+   Faixa-fórmula (conta montada passo a passo) → custo → obra/payback →
+   mapas antes/depois (PN01 em conflito → viaduto) → insight.
    ============================================================================ */
-.s5-chain{ display:flex; align-items:stretch; gap:16px; margin-top:42px; }
-.c5{ flex:1; background:var(--card-soft); border:1px solid var(--card-bd); border-radius:16px; padding:22px 24px; text-align:center; }
-.c5 b{ font-size:40px; color:var(--gold-2); display:block; }
-.c5 span{ font-size:16px; color:var(--soft); margin-top:8px; display:block; } .c5 span i{ color:var(--dim); font-style:normal; }
-.c5op{ align-self:center; font-size:30px; color:var(--dim); }
-.s5-out{ display:flex; gap:20px; margin-top:34px; }
-.o5{ flex:1; background:var(--card); border:1px solid var(--card-bd); border-radius:16px; padding:22px 26px; }
-.o5 .lab{ font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
-.o5 b{ font-size:48px; display:block; margin-top:8px; color:var(--white); }
-.o5.big b{ color:var(--gold); }
-.o5.hl{ border-color:rgba(243,177,60,.5); background:linear-gradient(155deg, rgba(243,177,60,.16), rgba(6,15,30,.4)); }
-.o5.hl b{ color:var(--gold-2); }
-.s5-foot{ font-size:19px; color:var(--soft); margin-top:30px; } .s5-foot b{ color:var(--white); }
-.s5-foot .handoff{ color:var(--gold); font-weight:600; }
+.imp .slide-inner{ display:flex; flex-direction:column; padding:42px 76px 72px; }
+.imp .slide-title{ margin-top:9px; } .imp .slide-lead{ margin-top:8px; font-size:20px; }
+
+/* —— faixa-fórmula —— */
+.imp-calc{ display:flex; align-items:stretch; gap:9px; margin-top:17px; }
+.imp-factor{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:12px 12px; border-radius:14px; position:relative; overflow:hidden;
+    background:linear-gradient(155deg, rgba(15,32,58,.5), rgba(6,14,28,.38)); border:1px solid rgba(120,160,220,.18);
+    box-shadow:0 14px 34px rgba(0,0,0,.34), inset 0 1px 0 rgba(160,200,255,.05); backdrop-filter:blur(6px);
+    transition:transform .4s var(--ease), border-color .4s var(--ease), box-shadow .4s var(--ease); }
+.imp-factor:hover{ transform:translateY(-3px); border-color:rgba(243,177,60,.4); box-shadow:0 20px 44px rgba(0,0,0,.45), 0 0 22px rgba(243,177,60,.12); }
+.imp-factor b{ font-family:var(--mono); font-weight:700; font-size:29px; color:var(--gold-2); font-variant-numeric:tabular-nums;
+    line-height:1; text-shadow:0 0 18px rgba(243,177,60,.3); }
+.imp-factor span{ font-size:12.5px; color:var(--soft); margin-top:7px; line-height:1.3; } .imp-factor span i{ color:var(--dim); font-style:normal; }
+.imp-op{ flex:0 0 auto; align-self:center; font-family:var(--mono); font-size:22px; color:var(--dim); }
+.imp-eq{ flex:0 0 auto; align-self:center; font-family:var(--mono); font-size:30px; font-weight:700; color:var(--gold);
+    text-shadow:0 0 14px rgba(243,177,60,.5); padding:0 2px; }
+.imp-result{ flex:0 0 396px; display:flex; align-items:center; gap:14px; padding:12px 20px; border-radius:15px; position:relative; overflow:hidden;
+    background:linear-gradient(150deg, rgba(243,177,60,.2), rgba(6,15,30,.42)); border:1px solid rgba(243,177,60,.5);
+    box-shadow:0 16px 40px rgba(0,0,0,.4), 0 0 30px rgba(243,177,60,.16), inset 0 1px 0 rgba(255,212,121,.12); }
+.imp-result::after{ content:""; position:absolute; top:0; bottom:0; width:36%; pointer-events:none;
+    background:linear-gradient(100deg, transparent, rgba(255,212,121,.14), transparent); animation:sfdSheen 6s ease-in-out 2.4s infinite; }
+.ir-ico{ width:46px; height:46px; flex:0 0 auto; display:grid; place-items:center; border-radius:13px; color:var(--gold);
+    background:rgba(243,177,60,.14); border:1px solid rgba(243,177,60,.34); box-shadow:0 0 18px rgba(243,177,60,.2); }
+.ir-ico svg{ width:25px; height:25px; }
+.ir-lab{ font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-2); }
+.ir-tx b{ display:block; font-family:var(--mono); font-weight:700; font-size:32px; line-height:1.04; margin-top:3px; color:var(--gold);
+    letter-spacing:-.01em; white-space:nowrap; font-variant-numeric:tabular-nums; text-shadow:0 0 24px rgba(243,177,60,.4); }
+
+/* —— consequência —— */
+.imp-consq{ display:flex; justify-content:flex-end; gap:13px; margin-top:11px; }
+.imp-cq{ display:flex; align-items:center; gap:13px; padding:10px 18px; border-radius:13px; min-width:300px;
+    background:linear-gradient(155deg, rgba(15,32,58,.5), rgba(6,14,28,.36)); border:1px solid rgba(120,160,220,.18);
+    box-shadow:0 12px 30px rgba(0,0,0,.32); transition:transform .35s var(--ease), border-color .35s; }
+.imp-cq:hover{ transform:translateY(-2px); }
+.imp-cq.hl{ border-color:rgba(243,177,60,.45); background:linear-gradient(150deg, rgba(243,177,60,.14), rgba(6,15,30,.4)); }
+.cq-ico{ width:38px; height:38px; flex:0 0 auto; display:grid; place-items:center; border-radius:11px; color:var(--soft);
+    background:rgba(120,160,220,.1); border:1px solid rgba(120,160,220,.2); }
+.imp-cq.hl .cq-ico{ color:var(--gold); background:rgba(243,177,60,.12); border-color:rgba(243,177,60,.3); }
+.cq-ico svg{ width:21px; height:21px; }
+.cq-lab{ font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+.imp-cq b{ display:block; font-family:var(--mono); font-weight:700; font-size:27px; line-height:1.05; color:var(--white); font-variant-numeric:tabular-nums; }
+.imp-cq.hl b{ color:var(--gold-2); }
+.imp-cq i{ font-style:normal; font-size:11.5px; color:var(--dim); }
+
+/* —— mapas antes → depois —— */
+.imp-maps{ display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:stretch; margin-top:15px; flex:1; min-height:0; }
+.imp-map{ position:relative; border-radius:16px; overflow:hidden; min-height:0; margin:0;
+    border:1px solid rgba(120,160,220,.2); box-shadow:0 16px 40px rgba(0,0,0,.4);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease); }
+.imp-map.atual{ border-color:rgba(255,70,94,.34); } .imp-map.sol{ border-color:rgba(57,214,232,.36); }
+.imp-map:hover{ transform:translateY(-3px); }
+.imp-map.atual:hover{ box-shadow:0 22px 50px rgba(0,0,0,.5), 0 0 26px rgba(255,70,94,.16); }
+.imp-map.sol:hover{ box-shadow:0 22px 50px rgba(0,0,0,.5), 0 0 26px rgba(57,214,232,.18); }
+.im-air{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+    filter:saturate(.62) brightness(.46) contrast(1.06); }
+.im-scrim{ position:absolute; inset:0; pointer-events:none; }
+.im-scrim.red{ background:radial-gradient(70% 80% at 50% 56%, rgba(255,70,94,.32), transparent 70%), linear-gradient(180deg, rgba(4,8,18,.55), rgba(4,8,18,.2)); }
+.im-scrim.cy{ background:radial-gradient(70% 80% at 50% 50%, rgba(57,214,232,.28), transparent 70%), linear-gradient(180deg, rgba(4,8,18,.5), rgba(4,8,18,.2)); }
+.im-svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+/* atual — conflito */
+.im-road{ fill:none; stroke:rgba(57,214,232,.45); stroke-width:5; stroke-linecap:round; }
+.im-rail{ fill:none; stroke:var(--rail); stroke-width:5; stroke-linecap:round; stroke-dasharray:2 12;
+    filter:drop-shadow(0 0 6px rgba(255,90,126,.7)); }
+.im-rail.calm{ stroke:rgba(255,90,126,.7); filter:drop-shadow(0 0 4px rgba(255,90,126,.4)); }
+.im-queue circle{ fill:var(--red); opacity:0; filter:drop-shadow(0 0 5px rgba(255,70,94,.8)); }
+.imp.visible .atual .im-queue circle{ animation:imQueue 2.6s ease-in-out infinite; }
+.imp.visible .atual .im-queue circle:nth-child(2){ animation-delay:.2s; }
+.imp.visible .atual .im-queue circle:nth-child(3){ animation-delay:.4s; }
+.imp.visible .atual .im-queue circle:nth-child(4){ animation-delay:.6s; }
+@keyframes imQueue{ 0%,100%{ opacity:.25; } 50%{ opacity:.95; } }
+.im-node.red{ fill:rgba(255,70,94,.22); stroke:var(--red); stroke-width:3; transform-origin:404px 196px;
+    filter:drop-shadow(0 0 10px rgba(255,70,94,.8)); }
+.imp.visible .atual .im-node.red{ animation:imNode 1.8s ease-in-out infinite; }
+@keyframes imNode{ 0%,100%{ transform:scale(.86); opacity:.85; } 50%{ transform:scale(1.12); opacity:1; } }
+.im-x{ stroke:#fff; stroke-width:4; stroke-linecap:round; filter:drop-shadow(0 0 4px rgba(255,70,94,.9)); }
+
+/* solução — viaduto */
+.im-pillars path{ fill:none; stroke:rgba(57,214,232,.5); stroke-width:3; stroke-linecap:round; opacity:0; }
+.imp.visible .sol .im-pillars path{ animation:imFade .5s ease forwards 1.05s; }
+@keyframes imFade{ to{ opacity:1; } }
+.im-via{ fill:none; stroke:var(--cyan); stroke-width:6; stroke-linecap:round; stroke-linejoin:round;
+    filter:drop-shadow(0 0 8px rgba(57,214,232,.7)); stroke-dasharray:1100; stroke-dashoffset:1100; }
+.imp.visible .sol .im-via{ animation:imDraw 1.5s ease .35s forwards; }
+@keyframes imDraw{ to{ stroke-dashoffset:0; } }
+.im-flow{ fill:var(--cyan); filter:drop-shadow(0 0 7px rgba(57,214,232,.9)); opacity:0; }
+.imp.visible .sol .im-flow{ animation:imFade .4s ease forwards 1.7s; }
+.im-check{ fill:none; stroke:var(--green); stroke-width:5; stroke-linecap:round; stroke-linejoin:round;
+    filter:drop-shadow(0 0 6px rgba(55,224,126,.8)); stroke-dasharray:70; stroke-dashoffset:70; }
+.imp.visible .sol .im-check{ animation:imDraw .5s ease 1.85s forwards; }
+
+/* legendas + tags dos mapas */
+.im-cap{ position:absolute; top:12px; left:14px; z-index:3; display:flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:13px; letter-spacing:.04em; color:var(--white);
+    background:rgba(3,8,18,.6); padding:6px 12px; border-radius:9px; backdrop-filter:blur(4px); }
+.im-cap .dot{ width:9px; height:9px; border-radius:50%; }
+.im-cap .dot.red{ background:var(--red); box-shadow:0 0 10px var(--red); } .im-cap .dot.cy{ background:var(--cyan); box-shadow:0 0 10px var(--cyan); }
+.im-tag{ position:absolute; z-index:3; font-family:var(--mono); font-size:11px; letter-spacing:.02em; padding:4px 10px; border-radius:8px;
+    background:rgba(3,8,18,.62); backdrop-filter:blur(3px); white-space:nowrap; }
+.im-tag.t-rail{ top:13px; right:14px; color:var(--rail); border:1px solid rgba(255,90,126,.4); }
+.im-tag.t-ret{ bottom:48px; left:26px; color:#ffd0d8; border:1px solid rgba(255,70,94,.45); background:rgba(60,8,16,.6); }
+.im-tag.t-conf{ bottom:14px; left:14px; color:#fff; border:1px solid rgba(255,70,94,.55); background:rgba(120,18,30,.6); box-shadow:0 0 16px rgba(255,70,94,.25); }
+.im-tag.t-blue{ top:13px; right:14px; color:var(--cyan); border:1px solid rgba(57,214,232,.42); }
+.im-tag.t-ok{ bottom:14px; left:14px; color:#dffaff; border:1px solid rgba(57,214,232,.55); background:rgba(8,52,64,.62); box-shadow:0 0 16px rgba(57,214,232,.25); }
+.imp-arrow{ flex:0 0 auto; align-self:center; width:40px; display:grid; place-items:center; color:var(--cyan);
+    animation:odmArrow 2.2s ease-in-out infinite; }
+.imp-arrow svg{ width:36px; height:24px; filter:drop-shadow(0 0 7px rgba(57,214,232,.6)); }
+
+/* —— insight —— */
+.imp-insight{ display:flex; align-items:center; gap:14px; margin-top:14px; padding:12px 24px; font-size:18px; color:var(--soft);
+    border-radius:14px; position:relative; overflow:hidden;
+    background:linear-gradient(155deg, rgba(57,214,232,.1), rgba(6,15,30,.34)); border:1px solid rgba(57,214,232,.3);
+    box-shadow:0 0 24px rgba(57,214,232,.07), inset 0 1px 0 rgba(160,230,255,.08); clip-path:inset(0 100% 0 0); opacity:0; }
+.imp.visible .imp-insight{ animation:sfdFootWipe 1s var(--ease) forwards; animation-delay:1.95s; }
+.imp-insight b{ color:var(--gold-2); } .imp-insight b.cy{ color:var(--cyan); }
+.ii-ico{ width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center; border-radius:9px; color:var(--cyan);
+    background:rgba(57,214,232,.12); border:1px solid rgba(57,214,232,.3); }
+.ii-ico svg{ width:21px; height:21px; }
+
+/* —— modo de revisão estática (?still) —— */
+.still .imp .im-queue circle, .still .imp .im-node.red, .still .imp .im-pillars path, .still .imp .im-flow{ animation:none!important; opacity:1!important; }
+.still .imp .im-via, .still .imp .im-check{ animation:none!important; stroke-dashoffset:0!important; }
+.still .imp-insight{ opacity:1!important; clip-path:none!important; animation:none!important; }
+.still .imp-result::after, .still .imp-arrow{ animation:none!important; }
 
 /* ============================================================================
    === SLIDE 6 — O QUE É O ALIME ===
