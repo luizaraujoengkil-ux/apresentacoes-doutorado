@@ -143,6 +143,51 @@ html,body{ width:100%; height:100%; overflow:hidden; background:var(--stage-bg);
     transition:opacity .5s ease; } .kb-hint b{ color:var(--soft); } .kb-hint.hide{ opacity:0; }
 
 /* ============================================================================
+   CRONÔMETRO REGRESSIVO GLOBAL (10 min) — canto superior direito
+   clique: inicia/pausa · duplo clique: reinicia · botão ⟲: reinicia
+   aos 5:00 → pisca + toast "Trocar apresentador"; aos 0:00 → "Tempo esgotado"
+   ============================================================================ */
+.deck-timer{ position:fixed; top:52px; right:32px; z-index:1002; display:flex; align-items:center; gap:9px;
+    padding:7px 9px 7px 13px; border-radius:999px; cursor:pointer; user-select:none;
+    font-family:var(--mono); font-size:18px; font-weight:700; letter-spacing:.04em; color:var(--white);
+    background:linear-gradient(155deg, rgba(13,28,52,.86), rgba(6,14,28,.72)); border:1px solid var(--line);
+    backdrop-filter:blur(8px); box-shadow:0 8px 22px rgba(0,0,0,.35); transition:border-color .3s, box-shadow .3s; }
+.deck-timer:hover{ border-color:var(--gold); }
+.tk-dot{ width:9px; height:9px; border-radius:50%; background:var(--dim); flex:0 0 auto; transition:background .3s; }
+.deck-timer.running .tk-dot{ background:var(--green); box-shadow:0 0 8px var(--green); animation:tkPulse 1.4s ease-in-out infinite; }
+.deck-timer.paused .tk-dot{ background:var(--gold-2); box-shadow:0 0 8px var(--gold-2); }
+.tk-time{ min-width:60px; text-align:center; white-space:nowrap; }
+.tk-reset{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); background:rgba(120,160,220,.1);
+    color:var(--soft); font-size:13px; line-height:1; cursor:pointer; flex:0 0 auto; padding:0; transition:all .25s; }
+.tk-reset:hover{ border-color:var(--gold); color:var(--gold); }
+@keyframes tkPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
+/* aviso aos 5 min (pisca dourado por alguns segundos) */
+.deck-timer.warn{ animation:tkBlinkGold .8s steps(1) 8; }
+@keyframes tkBlinkGold{ 0%,100%{ border-color:var(--line); box-shadow:0 8px 22px rgba(0,0,0,.35); }
+    50%{ border-color:var(--gold); box-shadow:0 0 24px rgba(243,177,60,.65); } }
+/* tempo esgotado (pisca vermelho/dourado, contínuo) */
+.deck-timer.done{ color:var(--gold-2); animation:tkBlinkRed 1s steps(1) infinite; }
+.deck-timer.done .tk-dot{ background:var(--red); box-shadow:0 0 10px var(--red); }
+@keyframes tkBlinkRed{ 0%,100%{ border-color:var(--red); box-shadow:0 0 10px rgba(255,70,94,.45); }
+    50%{ border-color:var(--gold); box-shadow:0 0 26px rgba(255,70,94,.7); } }
+
+/* toast discreto (trocar apresentador / tempo esgotado) */
+.deck-toast{ position:fixed; top:96px; right:32px; z-index:1002; max-width:260px;
+    padding:11px 16px; border-radius:12px; font-family:var(--font); font-size:15px; font-weight:700; color:#1a1205;
+    background:linear-gradient(155deg, rgba(243,177,60,.96), rgba(255,212,121,.9));
+    box-shadow:0 12px 30px rgba(0,0,0,.4); opacity:0; transform:translateY(-8px); pointer-events:none;
+    transition:opacity .4s ease, transform .4s ease; }
+.deck-toast.show{ opacity:1; transform:translateY(0); }
+.deck-toast.danger{ background:linear-gradient(155deg, rgba(255,70,94,.96), rgba(243,177,60,.92)); color:#1a0608; }
+
+/* ============================================================================
+   Contador de páginas discreto — canto inferior direito
+   ============================================================================ */
+.page-counter{ position:fixed; right:34px; bottom:26px; z-index:1000; font-family:var(--mono); font-size:14px;
+    letter-spacing:.1em; color:var(--dim); opacity:.7; user-select:none; }
+.page-counter b{ color:var(--soft); } .page-counter i{ margin:0 5px; font-style:normal; opacity:.55; }
+
+/* ============================================================================
    5) REVEAL — entrada por elemento (--d = atraso)
    ============================================================================ */
 .reveal{ opacity:0; transform:translateY(18px);
@@ -178,22 +223,35 @@ html,body{ width:100%; height:100%; overflow:hidden; background:var(--stage-bg);
 .d.rail{ background:var(--rail); box-shadow:0 0 8px var(--rail); }
 
 /* ============================================================================
-   === SLIDE 1 — CAPA ===
+   === SLIDE 1 — CAPA  (Slide 1 layout refinado) ===
    ============================================================================ */
 .s1-photo{ position:absolute; inset:0; z-index:0; overflow:hidden; }
 .s1-photo i{ position:absolute; inset:0; background-size:cover; background-position:center right;
     display:block; animation:s1KB 40s ease-in-out infinite alternate; }
 .s1-photo::after{ content:""; position:absolute; inset:0;
-    background:linear-gradient(95deg, rgba(3,7,16,.96) 0%, rgba(3,7,16,.82) 34%, rgba(3,7,16,.4) 62%, rgba(3,7,16,.55) 100%); }
+    background:linear-gradient(95deg, rgba(3,7,16,.96) 0%, rgba(3,7,16,.84) 36%, rgba(3,7,16,.42) 64%, rgba(3,7,16,.55) 100%); }
 @keyframes s1KB{ from{ transform:scale(1.04); } to{ transform:scale(1.12); } }
-.s1 .slide-inner{ display:flex; flex-direction:column; justify-content:center; }
-.s1-wordmark{ font-size:150px; font-weight:800; letter-spacing:-.03em; line-height:.9; margin-top:10px; }
-.s1-name{ font-size:34px; font-weight:700; color:var(--white); margin-top:8px; letter-spacing:-.01em; }
-.s1-support{ font-size:23px; color:var(--soft); margin-top:22px; max-width:880px; line-height:1.45; }
-.s1-support em{ color:var(--gold-2); font-style:normal; }
-.s1-foot{ position:absolute; left:var(--pad-x); bottom:var(--pad-y); display:flex; gap:64px; z-index:2; }
-.s1-foot .lab{ font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim); }
-.s1-foot .val{ font-size:18px; color:var(--soft); margin-top:5px; } .s1-foot .val em{ color:var(--white); font-style:normal; font-weight:600; }
+
+/* bloco de texto à esquerda — centralizado na vertical, com folga p/ os autores embaixo */
+.s1 .slide-inner{ display:flex; flex-direction:column; justify-content:center;
+    padding-left:128px; padding-bottom:190px; }
+.s1 .kicker{ font-size:17px; letter-spacing:.34em; margin-bottom:30px; }          /* (2) texto institucional */
+.s1-wordmark{ font-size:178px; font-weight:800; letter-spacing:-.03em; line-height:.84; }  /* (3) ALIME */
+.s1-name{ font-size:41px; font-weight:700; color:var(--white); margin-top:16px; letter-spacing:-.01em; }  /* (4) subtítulo */
+
+/* (5) frase em destaque — box translúcido, 2 linhas, "estudo de caso" em dourado */
+.s1-support{ margin-top:32px; max-width:760px; font-size:24px; line-height:1.5; color:var(--soft);
+    background:linear-gradient(155deg, rgba(15,32,58,.52), rgba(6,15,30,.34)); border:1px solid var(--card-bd);
+    border-left:3px solid var(--gold); border-radius:14px; padding:20px 28px;
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+.s1-support b{ display:block; color:var(--white); font-weight:700; font-size:27px; margin-bottom:5px; }
+.s1-support em{ color:var(--gold-2); font-style:normal; font-weight:700; }
+
+/* (6) autores + instituição — mais ao centro e levemente maiores */
+.s1-foot{ position:absolute; left:128px; bottom:116px; display:flex; gap:84px; z-index:2; }
+.s1-foot .lab{ font-family:var(--mono); font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:var(--dim); }
+.s1-foot .val{ font-size:21px; color:var(--soft); margin-top:7px; }
+.s1-foot .val em{ color:var(--white); font-style:normal; font-weight:600; }
 
 /* ============================================================================
    === SLIDE 2 — MATIAS BARBOSA (fundo noturno em destaque + efeitos de tráfego) ===

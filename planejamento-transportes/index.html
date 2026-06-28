@@ -41,6 +41,14 @@
     <a href="../inicio.html" title="Voltar às matérias">◂ matérias</a>
 </div>
 
+<!-- Cronômetro regressivo global (10 min) — clique: iniciar/pausar · duplo clique: reiniciar -->
+<div class="deck-timer" id="deckTimer" role="timer" title="Clique: iniciar/pausar · Duplo clique: reiniciar (10:00)">
+    <span class="tk-dot" aria-hidden="true"></span>
+    <span class="tk-time" id="timerTime">10:00</span>
+    <button class="tk-reset" id="timerReset" type="button" aria-label="Reiniciar cronômetro" title="Reiniciar">⟲</button>
+</div>
+<div class="deck-toast" id="deckToast" role="status" aria-live="polite"></div>
+
 <!-- dots (preenchidos por script.js) -->
 <nav class="deck-dots" id="deckDots" aria-label="Ir para slide"></nav>
 
@@ -62,8 +70,10 @@
         <p class="kicker reveal" style="--d:.05s">Doutorado em Transportes · Planejamento de Transportes · IME</p>
         <h1 class="s1-wordmark reveal" style="--d:.16s"><span class="grad">ALIME</span></h1>
         <p class="s1-name reveal" style="--d:.30s">Análise Local Integrada de Mobilidade e Engenharia</p>
-        <p class="s1-support reveal" style="--d:.46s">Rodovias, ferrovias e mobilidade urbana em municípios de pequeno porte —
-            <em>estudo de caso de Matias Barbosa/MG</em>.</p>
+        <p class="s1-support reveal" style="--d:.46s">
+            <b>Rodovias, ferrovias e mobilidade urbana</b>
+            em municípios de pequeno porte — <em>estudo de caso de Matias Barbosa/MG</em>.
+        </p>
 
         <div class="s1-foot reveal fade" style="--d:.7s">
             <div class="blk"><div class="lab">Autores</div><div class="val"><em>Luiz Araujo de Souza Junior</em> · <em>Wagner de Almeida Tavares</em></div></div>
@@ -167,29 +177,28 @@
                     <li><span class="src-tag gold">IBGE · Censo 2022</span> população (14.121 hab) e domicílios (5.269) por setor censitário → vetores de produção</li>
                     <li><span class="src-tag gold">RAIS</span> vínculos formais de emprego → vetores de atração</li>
                     <li><span class="src-tag gold">INEP</span> matrículas escolares → polos de atração</li>
-                    <li><span class="src-tag rail">CNT · Tabela 4</span> transporte de carga ferroviária em Matias Barbosa → intensidade de uso da ferrovia</li>
+                    <li><span class="src-tag rail">CNT · 2025</span> tráfego ferroviário no Corredor MRS (Linha do Centro) → intensidade de uso da ferrovia</li>
                     <li><span class="src-tag cyan">OpenStreetMap · OSMnx</span> malha viária e ferroviária georreferenciada</li>
                 </ul>
                 <div class="cnt-card">
-                    <div class="cnt-h">Tabela 4 — CNT · carga ferroviária (Matias Barbosa)</div>
-                    <!-- PREENCHER com os valores oficiais da Tabela 4 do artigo -->
-                    <div class="cnt-row"><span>Trens de carga / dia</span><b class="todo">a confirmar</b></div>
-                    <div class="cnt-row"><span>Volume anual transportado</span><b class="todo">a confirmar</b></div>
-                    <div class="cnt-row"><span>Bloqueio médio por passagem</span><b class="todo">a confirmar</b></div>
+                    <div class="cnt-h">Tabela 2 — tráfego ferroviário · Corredor MRS · fonte CNT (2025)</div>
+                    <div class="cnt-row"><span>Trem de minério</span><b>~30 trens/dia</b></div>
+                    <div class="cnt-row"><span>Trem de carga geral</span><b>~15 trens/dia</b></div>
+                    <div class="cnt-row tot"><span>Circulação total</span><b>~45 trens/dia · ~16,4 mil/ano</b></div>
                 </div>
             </div>
 
             <!-- 4.2 — PARAMETRIZAÇÃO -->
             <div class="sfd-col reveal up" style="--d:.42s">
                 <div class="sfd-h"><span class="sec">4.2</span> Parametrização</div>
-                <p class="sfd-p">Cada zona é uma <b>agregação de setores censitários</b> do IBGE, respeitando as barreiras
-                    físicas — ferrovia, BR-040 e LMG-874 — que separam os bairros.</p>
+                <p class="sfd-p">No Censo 2022 o IBGE dividiu Matias Barbosa em <b>38 setores censitários</b>, aqui agrupados em
+                    zonas respeitando as barreiras físicas — ferrovia, BR-040 e LMG-874.</p>
                 <div class="zt-map">
-                    <div class="zt-row"><b>ZT01</b> Centro e Rodoviária <span class="sc todo">?? setores</span></div>
-                    <div class="zt-row"><b>ZT02</b> Monte Alegre <span class="sc todo">?? setores</span></div>
-                    <div class="zt-row"><b>ZT03</b> N. Sra. da Penha · MG-874 <span class="sc todo">?? setores</span></div>
-                    <div class="zt-row"><b>ZT04</b> Cedofeita e Expansão <span class="sc todo">?? setores</span></div>
-                    <div class="zt-row"><b>ZT05</b> Área rural e Distrito <span class="sc todo">?? setores</span></div>
+                    <div class="zt-row"><b>ZT01</b> Centro e Rodoviária <span class="sc">9 setores</span></div>
+                    <div class="zt-row"><b>ZT02</b> Monte Alegre <span class="sc">7 setores</span></div>
+                    <div class="zt-row"><b>ZT03</b> N. Sra. da Penha · LMG-874 <span class="sc">8 setores</span></div>
+                    <div class="zt-row"><b>ZT04</b> Cedofeita · Expansão · BR-040 <span class="sc">5 setores</span></div>
+                    <div class="zt-row"><b>ZT05</b> Área rural e Distrito <span class="sc">9 setores</span></div>
                     <div class="zt-row ext"><b>ZTE01–04</b> Juiz de Fora · Simão Pereira · Três Rios · Rio de Janeiro</div>
                 </div>
             </div>
@@ -443,13 +452,14 @@
 </main>
 </div>
 
-<!-- controles inferiores -->
+<!-- controles inferiores (navegação) -->
 <div class="deck-controls">
     <button id="btnPrev" class="dc-btn" aria-label="Anterior">◂</button>
-    <span class="dc-count"><b id="curNum">01</b><i>/</i><span id="totNum">11</span></span>
     <button id="btnNext" class="dc-btn" aria-label="Próximo">▸</button>
     <button id="btnFs" class="dc-btn fs" aria-label="Tela cheia">⛶</button>
 </div>
+<!-- Contador de páginas discreto (canto inferior direito) -->
+<div class="page-counter" aria-label="Slide atual"><b id="curNum">01</b><i>/</i><span id="totNum">11</span></div>
 <div class="kb-hint" id="kbHint">use <b>← →</b> para navegar · <b>F</b> tela cheia</div>
 
 <script src="script.js"></script>

@@ -229,12 +229,108 @@ function ambientGSAP() {
 }
 
 /* ============================================================================
+   5) CRONÔMETRO REGRESSIVO GLOBAL (10 min)
+   ----------------------------------------------------------------------------
+   - começa parado em 10:00
+   - clique simples: inicia/pausa · duplo clique: reinicia · botão ⟲: reinicia
+   - aos 5:00 pisca e mostra o toast "Trocar apresentador" (sem alert())
+   - aos 0:00 pisca em vermelho/dourado e mostra "Tempo esgotado"
+   - é global: continua contando ao trocar de slide
+   ============================================================================ */
+function setupTimer() {
+    const el = document.getElementById('deckTimer');
+    const out = document.getElementById('timerTime');
+    const resetBtn = document.getElementById('timerReset');
+    const toast = document.getElementById('deckToast');
+    if (!el || !out) return;
+
+    const START = 600;          // 10:00 em segundos
+    const WARN = 300;           // 5:00 → trocar apresentador
+    let remaining = START;
+    let running = false;
+    let ticker = null;
+    let warned = false;
+    let clickT = null;          // p/ distinguir clique simples de duplo
+
+    const fmt = s => {
+        s = Math.max(0, s);
+        const m = Math.floor(s / 60), ss = s % 60;
+        return String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+    };
+    const render = () => { out.textContent = fmt(remaining); };
+
+    function showToast(msg, danger, ms) {
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.toggle('danger', !!danger);
+        toast.classList.add('show');
+        if (ms) setTimeout(() => toast.classList.remove('show'), ms);
+    }
+
+    function stop() { running = false; if (ticker) { clearInterval(ticker); ticker = null; } }
+
+    function tick() {
+        if (!running) return;
+        remaining--;
+        if (remaining <= 0) {
+            remaining = 0; stop();
+            el.classList.remove('running', 'paused', 'warn');
+            el.classList.add('done');
+            out.textContent = 'Tempo esgotado';
+            showToast('⏱ Tempo esgotado', true, 0);
+            return;
+        }
+        if (!warned && remaining <= WARN) {
+            warned = true;
+            el.classList.add('warn');
+            showToast('🔄 Trocar apresentador', false, 6000);
+            setTimeout(() => el.classList.remove('warn'), 6400);
+        }
+        render();
+    }
+
+    function start() {
+        if (running || remaining <= 0) return;
+        running = true;
+        el.classList.remove('paused', 'done');
+        el.classList.add('running');
+        ticker = setInterval(tick, 1000);
+    }
+    function pause() { stop(); el.classList.remove('running'); el.classList.add('paused'); }
+    function toggle() { running ? pause() : start(); }
+    function reset() {
+        stop();
+        remaining = START; warned = false;
+        el.classList.remove('running', 'paused', 'warn', 'done');
+        if (toast) toast.classList.remove('show');
+        render();
+    }
+
+    // clique simples = inicia/pausa (com pequeno atraso p/ não disparar junto do duplo clique)
+    el.addEventListener('click', e => {
+        if (e.target === resetBtn) return;
+        if (clickT) return;
+        clickT = setTimeout(() => { toggle(); clickT = null; }, 220);
+    });
+    // duplo clique = reinicia
+    el.addEventListener('dblclick', e => {
+        if (e.target === resetBtn) return;
+        if (clickT) { clearTimeout(clickT); clickT = null; }
+        reset();
+    });
+    if (resetBtn) resetBtn.addEventListener('click', e => { e.stopPropagation(); reset(); });
+
+    render();
+}
+
+/* ============================================================================
    BOOT
    ============================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
     if (STILL) document.body.classList.add('still');
     buildQR();
     ambientGSAP();
+    setupTimer();
     window.deck = new Deck();
 
     /* deep-link opcional: index.html#5 abre direto no slide 5 */
