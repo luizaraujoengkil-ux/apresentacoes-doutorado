@@ -883,32 +883,90 @@
 <section class="slide s9" data-slide="10">
     <div class="slide-inner">
         <p class="kicker reveal left" style="--d:.05s">Os cenários · Luiz</p>
-        <h2 class="slide-title reveal up" style="--d:.12s">Cenário 0 <span class="grad">×</span> intervenção</h2>
-        <p class="slide-lead reveal up" style="--d:.2s">A geração total não muda (<b>9.176 viagens/dia</b>) — o que muda é <b>para onde</b> e <b>como</b> as viagens acontecem.</p>
+        <h2 class="slide-title reveal up" style="--d:.12s">Com <span class="grad-rail">barreira</span> <span class="grad">×</span> com <span class="grad-green">transposição</span></h2>
+        <p class="slide-lead reveal up" style="--d:.2s">A geração total permanece <b>9.176 viagens/dia</b> — o que muda é a <b>integração entre zonas</b> e a forma como as viagens se distribuem.</p>
 
         <div class="s9-cols">
+            <!-- ===== CENÁRIO 0 (com PN) ===== -->
             <div class="s9c bad reveal left" style="--d:.32s">
-                <div class="s9-head"><span class="badge bad">Cenário 0</span><div><b>COM passagens em nível</b><i>situação atual</i></div></div>
-                <div class="fam"><span class="fl">Intrazonais</span><span class="fbar"><i data-bar="55.5" style="--c:linear-gradient(90deg,rgba(255,90,126,.5),var(--rail))"></i></span><b>2.775</b></div>
-                <div class="fam"><span class="fl">Interzonais internas</span><span class="fbar"><i data-bar="41.3" style="--c:linear-gradient(90deg,rgba(255,90,126,.5),var(--rail))"></i></span><b>2.067</b></div>
-                <div class="fam"><span class="fl">Pendulares / externas</span><span class="fbar"><i data-bar="86.7" style="--c:linear-gradient(90deg,rgba(255,90,126,.5),var(--rail))"></i></span><b>4.334</b></div>
+                <div class="sc-head">
+                    <div class="sc-ttl"><b>Cenário 0 — com passagens em nível</b><i>situação atual · cidade fragmentada</i></div>
+                    <span class="sc-seal bad">COM PN</span>
+                </div>
+                <div class="sc-vis">
+                    <span class="sc-ico bad"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 13 35 35M35 13 13 35"/><path d="M24 6v6M24 36v6"/><path d="M6 30h36" stroke-dasharray="4 4"/></svg></span>
+                    <div class="sc-map bad">
+                        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                            <path class="road" d="M40 18 L150 132M250 20 L160 132M0 75 Q150 58 320 86"/>
+                            <path class="rail" d="M8 92 Q95 66 168 72 Q250 78 312 58"/>
+                            <path class="rail" d="M168 72 Q236 84 305 94"/>
+                            <g class="xmk" transform="translate(92,72)"><path d="M-6 -6 6 6M6 -6 -6 6"/></g>
+                            <g class="xmk" transform="translate(168,72)"><path d="M-6 -6 6 6M6 -6 -6 6"/></g>
+                            <g class="xmk" transform="translate(238,68)"><path d="M-6 -6 6 6M6 -6 -6 6"/></g>
+                            <g class="xmk" transform="translate(290,62)"><path d="M-6 -6 6 6M6 -6 -6 6"/></g>
+                            <circle class="rdot" cx="8" cy="92" r="3.4"/><circle class="rdot" cx="305" cy="94" r="3.4"/><circle class="rdot" cx="312" cy="58" r="3.4"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="sc-bars">
+                    <div class="fam"><span class="fl">Intrazonais</span><span class="fbar"><i data-bar="58" style="--c:linear-gradient(90deg,rgba(255,90,126,.45),var(--rail)); --bd:.1s"></i></span><b class="num" data-count="2775" data-money="1" data-delay="600">0</b></div>
+                    <div class="fam"><span class="fl">Interzonais internas</span><span class="fbar"><i data-bar="43.2" style="--c:linear-gradient(90deg,rgba(255,90,126,.45),var(--rail)); --bd:.25s"></i></span><b class="num" data-count="2067" data-money="1" data-delay="750">0</b></div>
+                    <div class="fam"><span class="fl">Pendulares / externas</span><span class="fbar"><i data-bar="90.6" style="--c:linear-gradient(90deg,rgba(255,90,126,.45),var(--rail)); --bd:.4s"></i></span><b class="num" data-count="4334" data-money="1" data-delay="900">0</b></div>
+                </div>
             </div>
 
-            <div class="s9-mid reveal fade" style="--d:.52s">
-                <span class="s9-cross"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
-                <span class="s9-cl">OAE</span>
+            <!-- ===== CORREDOR / OAE ===== -->
+            <div class="s9-mid reveal fade" style="--d:.62s">
+                <div class="s9-arrow">
+                    <svg viewBox="0 0 116 58" aria-hidden="true">
+                        <defs><linearGradient id="s9arr" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#39d6e8"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+                        <path class="ar-body" d="M6 21 H70 V9 L110 29 L70 49 V37 H6 Z"/>
+                        <circle class="ar-spark" r="2.8"><animateMotion dur="2.4s" repeatCount="indefinite" path="M8 29 H104"/></circle>
+                    </svg>
+                </div>
+                <b class="s9-ml">OAE / viaduto</b>
+                <span class="s9-ms">transposição em desnível</span>
             </div>
 
-            <div class="s9c good reveal right" style="--d:.32s">
-                <div class="s9-head"><span class="badge good">SEM PN + OAE</span><div><b>Com transposição em desnível</b><i>cenário planejado</i></div></div>
-                <div class="fam"><span class="fl">Intrazonais</span><span class="fbar"><i data-bar="36.6" style="--c:linear-gradient(90deg,rgba(55,224,126,.5),var(--green))"></i></span><b>1.830</b><span class="fd good">▼ 945</span></div>
-                <div class="fam"><span class="fl">Interzonais internas</span><span class="fbar"><i data-bar="51.3" style="--c:linear-gradient(90deg,rgba(55,224,126,.5),var(--green))"></i></span><b>2.565</b><span class="fd good">▲ 498</span></div>
-                <div class="fam"><span class="fl">Pendulares / externas</span><span class="fbar"><i data-bar="95.6" style="--c:linear-gradient(90deg,rgba(55,224,126,.5),var(--green))"></i></span><b>4.781</b><span class="fd good">▲ 447</span></div>
+            <!-- ===== CENÁRIO COM TRANSPOSIÇÃO ===== -->
+            <div class="s9c good reveal right" style="--d:.78s">
+                <div class="sc-head">
+                    <div class="sc-ttl"><b>Cenário com transposição em desnível</b><i>cenário planejado · cidade integrada</i></div>
+                    <span class="sc-seal good">SEM PN + OAE</span>
+                </div>
+                <div class="sc-vis">
+                    <span class="sc-ico good"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 33 Q24 9 43 33"/><path d="M3 39h42"/><path d="M11 39v-7M24 39v-9M37 39v-7"/></svg></span>
+                    <div class="sc-map good">
+                        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                            <path class="road" d="M40 12 L160 150M250 8 L150 150M0 70 Q150 50 320 80"/>
+                            <path class="flow" d="M10 28 Q95 56 160 75"/>
+                            <path class="flow" d="M10 122 Q95 96 160 75"/>
+                            <path class="flow" d="M160 75 Q235 54 312 30"/>
+                            <path class="flow" d="M160 75 Q235 98 312 120"/>
+                            <path class="flow faint" d="M12 75 H308"/>
+                            <g class="fdots"><circle cx="55" cy="44" r="2.4"/><circle cx="100" cy="60" r="2.4"/><circle cx="62" cy="106" r="2.4"/><circle cx="108" cy="88" r="2.4"/><circle cx="210" cy="60" r="2.4"/><circle cx="265" cy="44" r="2.4"/><circle cx="210" cy="90" r="2.4"/><circle cx="265" cy="106" r="2.4"/></g>
+                            <circle class="gnodeA" cx="160" cy="75" r="6"/>
+                            <circle class="gnodeA" cx="10" cy="28" r="4.4"/><circle class="gnodeA" cx="10" cy="122" r="4.4"/><circle class="gnodeA" cx="312" cy="30" r="4.4"/><circle class="gnodeA" cx="312" cy="120" r="4.4"/>
+                            <circle class="gspark2" r="2.8"><animateMotion dur="3.4s" repeatCount="indefinite" path="M10 28 Q95 56 160 75 Q235 98 312 120"/></circle>
+                            <circle class="gspark2" r="2.8"><animateMotion dur="3.4s" begin="1.1s" repeatCount="indefinite" path="M10 122 Q95 96 160 75 Q235 54 312 30"/></circle>
+                        </svg>
+                    </div>
+                </div>
+                <div class="sc-bars">
+                    <div class="fam"><span class="fl">Intrazonais</span><span class="fbar"><i data-bar="38.3" style="--c:linear-gradient(90deg,rgba(55,224,126,.45),var(--green)); --bd:.85s"></i></span><b class="num" data-count="1830" data-money="1" data-delay="1300">0</b><span class="fd good" style="--fdd:1.85s">▼ 945</span></div>
+                    <div class="fam"><span class="fl">Interzonais internas</span><span class="fbar"><i data-bar="53.6" style="--c:linear-gradient(90deg,rgba(55,224,126,.45),var(--green)); --bd:1s"></i></span><b class="num" data-count="2565" data-money="1" data-delay="1450">0</b><span class="fd good" style="--fdd:2.05s">▲ 498</span></div>
+                    <div class="fam"><span class="fl">Pendulares / externas</span><span class="fbar"><i data-bar="100" style="--c:linear-gradient(90deg,rgba(55,224,126,.45),var(--green)); --bd:1.15s"></i></span><b class="num" data-count="4781" data-money="1" data-delay="1600">0</b><span class="fd good" style="--fdd:2.25s">▲ 447</span></div>
+                </div>
             </div>
         </div>
-        <div class="s9-insight reveal fade" style="--d:.7s">
-            <span class="ii-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span>
-            <span>Com as PN a cidade <b class="rd">se fecha</b>; com a transposição ela <b class="gr">se reabre</b> — menos viagens presas, mais integração entre zonas e com a região.</span>
+
+        <!-- ===== FAIXA FINAL ===== -->
+        <div class="s9-final reveal up" style="--d:1.4s">
+            <span class="sf-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20" opacity=".5"/><rect x="13" y="20" width="7" height="13"/><rect x="22" y="15" width="7" height="18"/><circle cx="16.5" cy="14" r="2"/><circle cx="33" cy="22" r="2"/><path d="M16.5 16v2.5M31.2 22.8 24.5 17M29 24h2"/></svg></span>
+            <div class="sf-tx">
+                <b>Com as passagens em nível, a cidade <span class="rd">se fecha</span>; com a transposição, ela <span class="gr">se reabre</span>.</b>
+                <span>O total permanece <i>9.176 viagens/dia</i>; o ganho está na <b>redistribuição</b> e na <b>integração entre zonas</b>.</span>
+            </div>
         </div>
     </div>
 </section>
