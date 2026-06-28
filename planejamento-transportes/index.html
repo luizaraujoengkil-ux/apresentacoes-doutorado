@@ -314,48 +314,72 @@
 <!-- ======================================================================= -->
 <section class="slide sfd" data-slide="4">
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">A base de dados · Wagner</p>
-        <h2 class="slide-title reveal" style="--d:.12s">Tudo a partir de <span class="grad">dados públicos</span></h2>
-        <p class="slide-lead reveal" style="--d:.2s">A premissa do ALIME é usar só <b>fontes oficiais e abertas</b> — por isso a mesma
+        <p class="kicker reveal left" style="--d:.05s">A base de dados · Wagner</p>
+        <h2 class="slide-title reveal up" style="--d:.14s">Tudo a partir de <span class="grad">dados públicos</span></h2>
+        <p class="slide-lead reveal up" style="--d:.24s">A premissa do ALIME é usar só <b>fontes oficiais e abertas</b> — por isso a mesma
             análise se repete em <b>qualquer município de pequeno porte</b>, sem pesquisa de campo cara.</p>
 
         <div class="sfd-grid">
-            <!-- 4.1 — FONTE DE DADOS -->
-            <div class="sfd-col reveal up" style="--d:.3s">
-                <div class="sfd-h"><span class="sec">4.1</span> Fonte de dados</div>
+            <!-- FONTE DE DADOS -->
+            <article class="sfd-card src reveal left" style="--d:.34s">
+                <header class="sfd-card-h">
+                    <span class="sfd-ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 11v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/></svg>
+                    </span>
+                    <h3>Fonte de dados</h3>
+                </header>
                 <ul class="src-list">
-                    <li><span class="src-tag gold">IBGE · Censo 2022</span> população (14.121 hab) e domicílios (5.269) por setor censitário → vetores de produção</li>
-                    <li><span class="src-tag gold">RAIS</span> vínculos formais de emprego → vetores de atração</li>
-                    <li><span class="src-tag gold">INEP</span> matrículas escolares → polos de atração</li>
-                    <li><span class="src-tag rail">CNT · 2025</span> tráfego ferroviário no Corredor MRS (Linha do Centro) → intensidade de uso da ferrovia</li>
-                    <li><span class="src-tag cyan">OpenStreetMap · OSMnx</span> malha viária e ferroviária georreferenciada</li>
+                    <li class="src-item" style="--i:0"><span class="src-tag gold">IBGE · Censo 2022</span>
+                        <span class="src-desc">população (<b>14.121 hab</b>) e domicílios (<b>5.269</b>) por setor censitário <span class="src-out">→ vetores de produção</span></span></li>
+                    <li class="src-item" style="--i:1"><span class="src-tag gold">RAIS</span>
+                        <span class="src-desc">vínculos formais de emprego <span class="src-out">→ vetores de atração</span></span></li>
+                    <li class="src-item" style="--i:2"><span class="src-tag gold">INEP</span>
+                        <span class="src-desc">matrículas escolares <span class="src-out">→ polos de atração</span></span></li>
+                    <li class="src-item" style="--i:3"><span class="src-tag rail">CNT · 2025</span>
+                        <span class="src-desc">tráfego ferroviário no Corredor MRS (Linha do Centro) <span class="src-out">→ intensidade de uso da ferrovia</span></span></li>
+                    <li class="src-item" style="--i:4"><span class="src-tag cyan">OpenStreetMap · OSMnx</span>
+                        <span class="src-desc">malha viária e ferroviária georreferenciada</span></li>
                 </ul>
                 <div class="cnt-card">
-                    <div class="cnt-h">Tabela 2 — tráfego ferroviário · Corredor MRS · fonte CNT (2025)</div>
-                    <div class="cnt-row"><span>Trem de minério</span><b>~30 trens/dia</b></div>
-                    <div class="cnt-row"><span>Trem de carga geral</span><b>~15 trens/dia</b></div>
-                    <div class="cnt-row tot"><span>Circulação total</span><b>~45 trens/dia · ~16,4 mil/ano</b></div>
+                    <div class="cnt-h"><span class="cnt-dot"></span>Tabela 2 — tráfego ferroviário · Corredor MRS · fonte CNT (2025)</div>
+                    <div class="cnt-row"><span class="cnt-lbl">Trem de minério</span>
+                        <span class="cnt-val"><b class="num" data-count="30" data-prefix="~" data-delay="980" data-dur="1100"></b><small>trens/dia</small></span></div>
+                    <div class="cnt-row"><span class="cnt-lbl">Trem de carga geral</span>
+                        <span class="cnt-val"><b class="num" data-count="15" data-prefix="~" data-delay="1080" data-dur="1100"></b><small>trens/dia</small></span></div>
+                    <div class="cnt-row tot"><span class="cnt-lbl">Circulação total</span>
+                        <span class="cnt-val"><b class="num" data-count="45" data-prefix="~" data-delay="1220" data-dur="1300"></b><small>trens/dia</small><em>·</em><b class="num" data-count="16.4" data-decimals="1" data-prefix="~" data-delay="1220" data-dur="1300"></b><small>mil/ano</small></span></div>
                 </div>
-            </div>
+            </article>
 
-            <!-- 4.2 — PARAMETRIZAÇÃO -->
-            <div class="sfd-col reveal up" style="--d:.42s">
-                <div class="sfd-h"><span class="sec">4.2</span> Parametrização</div>
-                <p class="sfd-p">No Censo 2022 o IBGE dividiu Matias Barbosa em <b>38 setores censitários</b>, aqui agrupados em
-                    zonas respeitando as barreiras físicas — ferrovia, BR-040 e LMG-874.</p>
+            <!-- PARAMETRIZAÇÃO -->
+            <article class="sfd-card parm reveal right" style="--d:.46s">
+                <header class="sfd-card-h">
+                    <span class="sfd-ico gold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3.3"/><path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2M5 5l2.2 2.2M16.8 16.8 19 19M19 5l-2.2 2.2M7.2 16.8 5 19"/></svg>
+                    </span>
+                    <h3>Parametrização</h3>
+                </header>
+                <p class="sfd-p">No Censo 2022 o IBGE dividiu Matias Barbosa em <span class="hl-38">38 setores censitários</span>, aqui
+                    agrupados em zonas respeitando as <b>barreiras físicas</b> — ferrovia, BR-040 e LMG-874.</p>
                 <div class="zt-map">
-                    <div class="zt-row"><b>ZT01</b> Centro e Rodoviária <span class="sc">9 setores</span></div>
-                    <div class="zt-row"><b>ZT02</b> Monte Alegre <span class="sc">7 setores</span></div>
-                    <div class="zt-row"><b>ZT03</b> N. Sra. da Penha · LMG-874 <span class="sc">8 setores</span></div>
-                    <div class="zt-row"><b>ZT04</b> Cedofeita · Expansão · BR-040 <span class="sc">5 setores</span></div>
-                    <div class="zt-row"><b>ZT05</b> Área rural e Distrito <span class="sc">9 setores</span></div>
-                    <div class="zt-row ext"><b>ZTE01–04</b> Juiz de Fora · Simão Pereira · Três Rios · Rio de Janeiro</div>
+                    <div class="zt-row" style="--i:0"><span class="zt-badge">ZT01</span><span class="zt-name">Centro e Rodoviária</span><span class="zt-pill">9 setores</span></div>
+                    <div class="zt-row" style="--i:1"><span class="zt-badge">ZT02</span><span class="zt-name">Monte Alegre</span><span class="zt-pill">7 setores</span></div>
+                    <div class="zt-row" style="--i:2"><span class="zt-badge">ZT03</span><span class="zt-name">N. Sra. da Penha · LMG-874</span><span class="zt-pill">8 setores</span></div>
+                    <div class="zt-row" style="--i:3"><span class="zt-badge">ZT04</span><span class="zt-name">Cedofeita · Expansão · BR-040</span><span class="zt-pill">5 setores</span></div>
+                    <div class="zt-row" style="--i:4"><span class="zt-badge">ZT05</span><span class="zt-name">Área rural e Distrito</span><span class="zt-pill">9 setores</span></div>
+                    <div class="zt-row ext" style="--i:5"><span class="zt-badge">ZTE01–04</span><span class="zt-name">Juiz de Fora · Simão Pereira · Três Rios · Rio de Janeiro</span></div>
                 </div>
-            </div>
+            </article>
         </div>
 
-        <div class="sfd-foot reveal fade" style="--d:.7s">
-            <b>Dados abertos e oficiais</b> → o ALIME refaz esta base para qualquer cidade de pequeno porte.
+        <div class="sfd-foot">
+            <span class="sfd-foot-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
+            </span>
+            <span><b>Base replicável com dados abertos e oficiais</b> — o método pode ser reaplicado em qualquer município de pequeno porte.</span>
         </div>
     </div>
 </section>
