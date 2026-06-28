@@ -118,6 +118,7 @@ class Deck {
         if (this.btnFs) this.btnFs.addEventListener('click', () => this.toggleFullscreen());
 
         document.addEventListener('keydown', e => {
+            if (document.body.classList.contains('modal-open')) return;   // PDF/overlay aberto: não navega
             switch (e.key) {
                 case 'ArrowRight': case ' ': case 'PageDown': case 'ArrowDown':
                     e.preventDefault(); this.next(); break;
@@ -565,6 +566,38 @@ function setupSlide9() {
 }
 
 /* ============================================================================
+   VISUALIZADOR DE PDF — abre o arquivo na própria tela (modal), sem sair do deck
+   ============================================================================ */
+function setupPdfViewer() {
+    const modal = document.getElementById('pdfModal');
+    const frame = document.getElementById('pdfFrame');
+    const openLink = document.getElementById('pdfOpen');
+    const closeBtn = document.getElementById('pdfClose');
+    const titleEl = document.getElementById('pdfTitle');
+    if (!modal || !frame) return;
+
+    const open = (src, title) => {
+        frame.src = src;
+        if (openLink) openLink.href = src;
+        if (titleEl && title) titleEl.textContent = title;
+        modal.hidden = false;
+        document.body.classList.add('modal-open');   // trava navegação por teclado
+    };
+    const close = () => {
+        modal.hidden = true;
+        frame.src = 'about:blank';                    // interrompe o render do PDF
+        document.body.classList.remove('modal-open');
+    };
+
+    document.querySelectorAll('[data-pdf]').forEach(el => {
+        el.addEventListener('click', e => { e.preventDefault(); open(el.dataset.pdf, el.dataset.pdfTitle); });
+    });
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) close(); });
+}
+
+/* ============================================================================
    BOOT
    ============================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
@@ -576,6 +609,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupSlide5();
     setupSlide8();
     setupSlide9();
+    setupPdfViewer();
     window.deck = new Deck();
 
     /* deep-link opcional: index.html#5 abre direto no slide 5 */
