@@ -63,21 +63,67 @@
 <!-- ======================================================================= -->
 <section class="slide active s1" data-slide="1">
     <div class="s1-photo"><i style="background-image:url('assets/01-capa-alime.png')"></i></div>
+
+    <!-- camada de efeitos sobre o mapa (direita): linhas com glow lento + faíscas viajando -->
+    <div class="s1-fx" aria-hidden="true">
+        <svg class="s1-flow" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+            <defs>
+                <path id="s1pA" d="M 1170 196 C 1300 360 1372 520 1452 662 C 1520 782 1576 868 1648 940"/>
+                <path id="s1pB" d="M 1044 558 C 1230 522 1392 566 1556 520 C 1716 476 1812 452 1892 426"/>
+                <path id="s1pC" d="M 1268 770 C 1356 826 1480 862 1626 884"/>
+                <radialGradient id="s1sparkGold" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="38%" stop-color="#ffd479"/>
+                    <stop offset="100%" stop-color="#ffd479" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="s1sparkCyan" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="38%" stop-color="#39d6e8"/>
+                    <stop offset="100%" stop-color="#39d6e8" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
+            <use href="#s1pA" class="s1-line"/>
+            <use href="#s1pB" class="s1-line cyan"/>
+            <use href="#s1pC" class="s1-line dim"/>
+            <circle r="5.5" fill="url(#s1sparkGold)" class="s1-spark">
+                <animateMotion dur="8.5s" repeatCount="indefinite" rotate="auto"><mpath href="#s1pA"/></animateMotion>
+            </circle>
+            <circle r="5" fill="url(#s1sparkCyan)" class="s1-spark cyan">
+                <animateMotion dur="11s" begin="-3s" repeatCount="indefinite"><mpath href="#s1pB"/></animateMotion>
+            </circle>
+            <circle r="4.5" fill="url(#s1sparkGold)" class="s1-spark">
+                <animateMotion dur="7s" begin="-1.6s" repeatCount="indefinite"><mpath href="#s1pC"/></animateMotion>
+            </circle>
+        </svg>
+    </div>
+
     <div class="orb" style="width:520px;height:520px;background:rgba(243,177,60,.16);left:-140px;top:-110px;" data-orb="1"></div>
     <div class="orb" style="width:560px;height:560px;background:rgba(57,214,232,.14);left:120px;bottom:-200px;" data-orb="2"></div>
 
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">Doutorado em Transportes · Planejamento de Transportes · IME</p>
-        <h1 class="s1-wordmark reveal" style="--d:.16s"><span class="grad">ALIME</span></h1>
-        <p class="s1-name reveal" style="--d:.30s">Análise Local Integrada de Mobilidade e Engenharia</p>
-        <p class="s1-support reveal" style="--d:.46s">
-            <b>Rodovias, ferrovias e mobilidade urbana</b>
-            em municípios de pequeno porte — <em>estudo de caso de Matias Barbosa/MG</em>.
-        </p>
+        <!-- cabeçalho institucional -->
+        <p class="slide-kicker reveal down" style="--d:.08s">Doutorado em Transportes · Planejamento de Transportes · IME</p>
 
-        <div class="s1-foot reveal fade" style="--d:.7s">
-            <div class="blk"><div class="lab">Autores</div><div class="val"><em>Luiz Araujo de Souza Junior</em> · <em>Wagner de Almeida Tavares</em></div></div>
-            <div class="blk"><div class="lab">Instituição</div><div class="val"><em>IME</em> — Instituto Militar de Engenharia</div></div>
+        <!-- selo discreto: o ALIME deixa de ser o protagonista e vira marca/protótipo -->
+        <div class="alime-badge reveal left" style="--d:.34s">
+            <span class="ab-dot" aria-hidden="true"></span>
+            <span class="ab-txt"><b>Protótipo ALIME</b><i>Análise Local Integrada de Mobilidade e Engenharia</i></span>
+        </div>
+
+        <!-- título do artigo (protagonista) -->
+        <h1 class="title-main reveal" style="--d:.56s">Ferramenta de<br><span class="hl-gold">baixo custo</span></h1>
+        <p class="title-sub reveal up" style="--d:.98s">para diagnóstico de <span class="hl-cyan">conflitos rodoferroviários</span><br>em municípios de pequeno porte</p>
+
+        <!-- faixa técnica -->
+        <div class="technical-card reveal scale" style="--d:1.2s">
+            <span class="tc-eyebrow">Método</span>
+            <span class="tc-txt">Modelo de <b>Quatro Etapas</b> e <b>análise custo-benefício</b> aplicados a <em>Matias Barbosa/MG</em></span>
+        </div>
+
+        <!-- autores no rodapé -->
+        <div class="authors-block reveal fade" style="--d:1.5s">
+            <div class="ab-blk"><div class="lab">Autores</div><div class="val"><em>Luiz Araujo de Souza Junior</em> · <em>Wagner de Almeida Tavares</em></div></div>
+            <div class="ab-blk"><div class="lab">Instituição</div><div class="val"><em>IME</em> — Instituto Militar de Engenharia</div></div>
         </div>
     </div>
 </section>
