@@ -398,6 +398,137 @@ function setupSlide3() {
 }
 
 /* ============================================================================
+   7) SLIDE 5 — MATRIZ O-D (gráfico P×A + heatmap gravitacional)
+   ----------------------------------------------------------------------------
+   - barras P×A por zona (alturas via --h, animam ao entrar no slide)
+   - heatmap 9×9: células conhecidas = valores reais do simulador; demais
+     preenchidas por modelo gravitacional (atração × impedância) respeitando
+     a soma da linha = produção da zona → matriz coerente e balanceada
+   - hover na célula realça a linha + coluna (origem ↔ destino)
+   ============================================================================ */
+function setupSlide5() {
+    const slide = document.querySelector('.odm');
+    if (!slide) return;
+
+    /* zonas: produção / atração balanceadas + coordenada p/ impedância espacial */
+    const Z = [
+        { id: 'ZT01',  P: 1615, A: 3032.52, x: 0,    y: 0 },
+        { id: 'ZT02',  P: 1310, A: 731.99,  x: 1.3,  y: 0.7 },
+        { id: 'ZT03',  P: 1107, A: 627.42,  x: -1.1, y: 1.1 },
+        { id: 'ZT04',  P: 881,  A: 1097.98, x: 0.9,  y: -1.3 },
+        { id: 'ZT05',  P: 1038, A: 313.71,  x: -1.6, y: -1.4 },
+        { id: 'ZTE01', P: 3050, A: 3189.38, x: 5.6,  y: 2.1 },
+        { id: 'ZTE02', P: 95,   A: 99.34,   x: 8.2,  y: 1.1 },
+        { id: 'ZTE03', P: 50,   A: 52.28,   x: 11.5, y: -2.2 },
+        { id: 'ZTE04', P: 30,   A: 31.37,   x: 16.5, y: -5.2 },
+    ];
+    const N = Z.length;
+
+    /* células conhecidas — valores reais (Tabela O-D do simulador) */
+    const known = {
+        'ZTE01>ZT01': 1335.65, 'ZT02>ZT01': 1180.50, 'ZT01>ZT02': 1010.12,
+        'ZTE01>ZT04': 866.73,  'ZT03>ZT01': 683.75,  'ZT05>ZT01': 468.65,
+        'ZT04>ZT01': 364.64,   'ZT01>ZT03': 337.53,  'ZTE01>ZT03': 338.90,
+        'ZTE01>ZT02': 290.51,
+    };
+
+    const dist = (a, b) => { const d = Math.hypot(Z[a].x - Z[b].x, Z[a].y - Z[b].y); return d < 0.6 ? 0.6 : d; };
+    const imp = (a, b) => Math.pow(dist(a, b), -1.5);
+
+    /* monta a matriz: fixa os conhecidos; distribui o resto da produção da
+       linha pela gravidade (atração × impedância) → soma da linha = P_i */
+    const M = Array.from({ length: N }, () => new Array(N).fill(0));
+    for (let i = 0; i < N; i++) {
+        const isK = new Array(N).fill(false); let kSum = 0;
+        for (let j = 0; j < N; j++) {
+            const key = Z[i].id + '>' + Z[j].id;
+            if (key in known) { M[i][j] = known[key]; kSum += known[key]; isK[j] = true; }
+        }
+        let rem = Z[i].P - kSum; if (rem < 0) rem = 0;
+        const w = new Array(N).fill(0); let wSum = 0;
+        for (let j = 0; j < N; j++) if (!isK[j]) { w[j] = Z[j].A * imp(i, j); wSum += w[j]; }
+        for (let j = 0; j < N; j++) if (!isK[j] && wSum > 0) M[i][j] = rem * w[j] / wSum;
+    }
+    let max = 0; for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) if (M[i][j] > max) max = M[i][j];
+
+    /* rampa de cor (combina com a legenda): navy → laranja → âmbar claro */
+    const STOPS = [[0, [12, 28, 51]], [0.4, [122, 58, 30]], [0.7, [213, 106, 32]], [1, [255, 200, 97]]];
+    const lerp = (a, b, t) => Math.round(a + (b - a) * t);
+    function colorFor(t) {
+        t = Math.max(0, Math.min(1, t));
+        for (let s = 1; s < STOPS.length; s++) {
+            if (t <= STOPS[s][0]) {
+                const [p0, c0] = STOPS[s - 1], [p1, c1] = STOPS[s];
+                const k = (t - p0) / (p1 - p0);
+                return `rgb(${lerp(c0[0], c1[0], k)},${lerp(c0[1], c1[1], k)},${lerp(c0[2], c1[2], k)})`;
+            }
+        }
+        return `rgb(255,200,97)`;
+    }
+    const fmt = v => Math.round(v).toLocaleString('pt-BR');
+
+    /* ---- HEATMAP ---- */
+    const heat = slide.querySelector('#odmHeat');
+    if (heat) {
+        const cells = Array.from({ length: N }, () => new Array(N));
+        const colH = [], rowH = [];
+        heat.innerHTML = '';
+        const corner = document.createElement('div'); corner.className = 'hcorner'; heat.appendChild(corner);
+        Z.forEach((z, c) => { const h = document.createElement('div'); h.className = 'hcol'; h.textContent = z.id; heat.appendChild(h); colH[c] = h; });
+        let ci = 0;
+        for (let i = 0; i < N; i++) {
+            const rh = document.createElement('div'); rh.className = 'hrow'; rh.textContent = Z[i].id; heat.appendChild(rh); rowH[i] = rh;
+            for (let j = 0; j < N; j++) {
+                const v = M[i][j];
+                const t = Math.pow(v / max, 0.62);
+                const cell = document.createElement('div');
+                cell.className = 'hc';
+                cell.style.background = colorFor(t);
+                cell.style.setProperty('--ci', ci++);
+                cell.dataset.r = i; cell.dataset.c = j;
+                if (t > 0.1) { cell.textContent = fmt(v); cell.style.color = t > 0.56 ? '#2a1405' : 'rgba(238,244,255,.82)'; }
+                if (t > 0.82) cell.style.boxShadow = '0 0 14px rgba(255,180,80,.45)';
+                heat.appendChild(cell); cells[i][j] = cell;
+            }
+        }
+        if (!NOANIM) {
+            const setFocus = (r, c, on) => {
+                heat.classList.toggle('focus', on);
+                for (let j = 0; j < N; j++) cells[r][j].classList.toggle('keep', on);
+                for (let i = 0; i < N; i++) cells[i][c].classList.toggle('keep', on);
+                colH[c].classList.toggle('keep', on); rowH[r].classList.toggle('keep', on);
+            };
+            cells.forEach((row, i) => row.forEach((cell, j) => {
+                cell.addEventListener('mouseenter', () => setFocus(i, j, true));
+                cell.addEventListener('mouseleave', () => setFocus(i, j, false));
+            }));
+        }
+    }
+
+    /* ---- GRÁFICO P × A ---- */
+    const bars = slide.querySelector('#odmBars');
+    if (bars) {
+        const cMax = Z.reduce((m, z) => Math.max(m, z.P, z.A), 0) * 1.06;   // folga p/ os rótulos
+        bars.innerHTML = '';
+        Z.forEach((z, i) => {
+            const g = document.createElement('div'); g.className = 'ocg'; g.dataset.zone = z.id;
+            const pair = document.createElement('div'); pair.className = 'ocg-bars';
+            const bp = document.createElement('div'); bp.className = 'ocb prod';
+            bp.style.setProperty('--h', (z.P / cMax * 100).toFixed(1) + '%');
+            bp.style.setProperty('--bd', (0.9 + i * 0.05).toFixed(2) + 's');
+            bp.innerHTML = `<i>${fmt(z.P)}</i>`;
+            const ba = document.createElement('div'); ba.className = 'ocb attr';
+            ba.style.setProperty('--h', (z.A / cMax * 100).toFixed(1) + '%');
+            ba.style.setProperty('--bd', (0.96 + i * 0.05).toFixed(2) + 's');
+            ba.innerHTML = `<i>${fmt(z.A)}</i>`;
+            pair.appendChild(bp); pair.appendChild(ba);
+            const xl = document.createElement('span'); xl.className = 'ocg-x'; xl.textContent = z.id;
+            g.appendChild(pair); g.appendChild(xl); bars.appendChild(g);
+        });
+    }
+}
+
+/* ============================================================================
    BOOT
    ============================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
@@ -406,6 +537,7 @@ window.addEventListener('DOMContentLoaded', () => {
     ambientGSAP();
     setupTimer();
     setupSlide3();
+    setupSlide5();
     window.deck = new Deck();
 
     /* deep-link opcional: index.html#5 abre direto no slide 5 */

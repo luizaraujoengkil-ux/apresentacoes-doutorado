@@ -387,26 +387,73 @@
 <!-- ======================================================================= -->
 <!-- SLIDE 5 — DOS DADOS À MATRIZ O-D                                (Wagner) -->
 <!-- ======================================================================= -->
-<section class="slide s4" data-slide="5">
+<section class="slide s4 odm" data-slide="5">
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">A demanda · Wagner</p>
-        <h2 class="slide-title reveal" style="--d:.12s">Dos dados à <span class="grad">matriz origem-destino</span></h2>
+        <!-- BLOCO A — topo -->
+        <p class="kicker reveal left" style="--d:.05s">A demanda · Wagner</p>
+        <h2 class="slide-title reveal up" style="--d:.13s">Dos dados à <span class="grad">matriz origem-destino</span></h2>
+        <p class="slide-lead reveal up" style="--d:.22s">O ALIME converte <b>produção</b> e <b>atração</b> por zona em uma <b>matriz O-D balanceada</b>,
+            distribuindo <b>9.176 viagens/dia</b> com base em impedância espacial e equilíbrio entre totais.</p>
 
-        <div class="s4-flow">
-            <div class="fstep reveal up" style="--d:.26s"><span class="fi">01</span><b>Vetores de produção</b><p>população e domicílios → viagens geradas por zona</p></div>
-            <span class="farrow reveal fade" style="--d:.32s">→</span>
-            <div class="fstep reveal up" style="--d:.36s"><span class="fi">02</span><b>Vetores de atração</b><p>empregos, escolas e comércio → viagens atraídas</p></div>
-            <span class="farrow reveal fade" style="--d:.42s">→</span>
-            <div class="fstep reveal up" style="--d:.46s"><span class="fi">03</span><b>Modelo gravitacional</b><p>distribui as viagens · atrito espacial β = 1,50</p></div>
+        <!-- BLOCO B — faixa metodológica -->
+        <div class="odm-flow">
+            <div class="odm-step reveal up" style="--d:.3s">
+                <span class="os-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M10 19v-5h4v5"/></svg></span>
+                <div class="os-tx"><span class="os-n">01</span><b>Vetores de produção</b><p>população e domicílios → viagens geradas por zona</p></div>
+            </div>
+            <span class="odm-arrow reveal fade" style="--d:.38s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+            <div class="odm-step reveal up" style="--d:.42s">
+                <span class="os-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1.5"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg></span>
+                <div class="os-tx"><span class="os-n">02</span><b>Vetores de atração</b><p>empregos, escolas e comércio → viagens atraídas</p></div>
+            </div>
+            <span class="odm-arrow reveal fade" style="--d:.5s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+            <div class="odm-step reveal up" style="--d:.54s">
+                <span class="os-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
+                <div class="os-tx"><span class="os-n">03</span><b>Modelo gravitacional</b><p>distribui as viagens · atrito espacial β = 1,50</p></div>
+            </div>
+            <span class="odm-arrow reveal fade" style="--d:.62s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+            <div class="odm-step reveal up" style="--d:.66s">
+                <span class="os-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14"/><path d="M5 7l-2.6 6.2a2.8 2.8 0 0 0 5.2 0L5 7zM19 7l-2.6 6.2a2.8 2.8 0 0 0 5.2 0L19 7z"/></svg></span>
+                <div class="os-tx"><span class="os-n">04</span><b>Balanceamento</b><p>ajuste das atrações para igualar produções</p></div>
+            </div>
         </div>
 
-        <div class="s4-result reveal up" style="--d:.62s">
-            <div class="big-kpi">
-                <b class="num" data-count="9176" data-money="1" data-delay="300">0</b>
-                <span>viagens/dia na matriz O-D</span>
+        <!-- BLOCO C — painel analítico -->
+        <div class="odm-panel">
+            <!-- lado esquerdo -->
+            <div class="odm-left">
+                <div class="odm-kpiblock reveal up" style="--d:.72s">
+                    <div class="odm-kpi">
+                        <b class="num" data-count="9176" data-money="1" data-delay="780" data-dur="1500">0</b>
+                        <span>viagens/dia<br>na matriz O-D</span>
+                    </div>
+                    <div class="odm-mini-grid">
+                        <div class="odm-mini"><span class="om-l">Método aplicado</span><b class="om-v sm">Ajustar atrações para igualar produções</b></div>
+                        <div class="odm-mini"><span class="om-l">Fator aplicado</span><b class="om-v gold">1,045698</b></div>
+                        <div class="odm-mini"><span class="om-l">Erro relativo final</span><b class="om-v cyan">0,000%</b></div>
+                        <div class="odm-mini"><span class="om-l">Status final</span><b class="om-v ok"><span class="ok-dot"></span>Balanceado</b></div>
+                    </div>
+                </div>
+                <div class="odm-chart reveal up" style="--d:.82s">
+                    <div class="oc-head"><b>Comparação P × A por zona</b>
+                        <span class="oc-leg"><i class="lg prod"></i>Produção<i class="lg attr"></i>Atração</span>
+                    </div>
+                    <div class="oc-bars" id="odmBars"></div>
+                </div>
             </div>
-            <p class="s4-note">Maior concentração em <b>ZT01</b> (Centro) e <b>ZTE01</b> (Juiz de Fora) —
-                coerente com a dependência funcional do polo regional.</p>
+            <!-- lado direito -->
+            <div class="odm-right reveal up" style="--d:.78s">
+                <div class="oh-head"><b>Heatmap da matriz O-D <span>(viagens/dia)</span></b>
+                    <span class="oh-leg"><i>0</i><span class="oh-grad"></span><i>1.336</i></span>
+                </div>
+                <div class="odm-heat" id="odmHeat"></div>
+            </div>
+        </div>
+
+        <!-- faixa de insight -->
+        <div class="odm-insight">
+            <span class="oi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.3"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg></span>
+            <span>Maior concentração em <b>ZT01</b> (Centro/Rodoviária) e <b class="cy">ZTE01</b> (Juiz de Fora/MG), coerente com a <b>dependência funcional do polo regional</b>.</span>
         </div>
     </div>
 </section>
