@@ -324,6 +324,80 @@ function setupTimer() {
 }
 
 /* ============================================================================
+   6) SLIDE 3 — PAINEL DE DIAGNÓSTICO (cards ↔ mapa · modal de zoom)
+   ----------------------------------------------------------------------------
+   - hover no card: destaca o marcador correspondente no mapa
+   - clique no card/marcador: flash temporário no ponto do mapa
+   - duplo clique: abre o modal de zoom com a foto e os dados da PN
+   - modal fecha com ESC, clique fora ou no ✕ (sem alert())
+   ============================================================================ */
+function setupSlide3() {
+    const slide = document.querySelector('.s3');
+    if (!slide) return;
+    const cards = slide.querySelectorAll('.pncard');
+    const markers = {};
+    slide.querySelectorAll('.mk').forEach(m => markers[m.dataset.pn] = m);
+
+    const modal = document.getElementById('pnModal');
+    const pmAir = document.getElementById('pmAir');
+    const pmSt = document.getElementById('pmSt');
+    const pmBadge = document.getElementById('pmBadge');
+    const pmZones = document.getElementById('pmZones');
+    const pmList = document.getElementById('pmList');
+    const pmAxis = document.getElementById('pmAxis');
+    const pmX = document.getElementById('pnModalX');
+
+    const PAR = 'Eixo paralelo · PN01 + PN02 entre ZT01–ZT03 (~0,64 km)';
+    const SER = 'Eixo em série · PN03 + PN04 entre ZT01–ZT04 (~1,54 km)';
+    const DATA = {
+        PN01: { zones: 'ZT01–ZT03', crit: true, lines: [['ic-par', 'Paralela ao corredor'], ['ic-ret', 'Retenção frequente']], axis: PAR },
+        PN02: { zones: 'ZT01–ZT03', lines: [['ic-par', 'Paralela ao corredor'], ['ic-ret', 'Retenção frequente']], axis: PAR },
+        PN03: { zones: 'ZT01–ZT04', lines: [['ic-ser', 'Em série no corredor'], ['ic-perc', 'Aumento de percurso']], axis: SER },
+        PN04: { zones: 'ZT01–ZT04', lines: [['ic-ser', 'Em série no corredor'], ['ic-perc', 'Aumento de percurso']], axis: SER },
+    };
+
+    const highlight = (pn, on) => { const m = markers[pn]; if (m) m.classList.toggle('hot', on); };
+    function flash(pn) {
+        const m = markers[pn]; if (!m) return;
+        m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash');
+        setTimeout(() => m.classList.remove('flash'), 1500);
+    }
+    function openModal(pn) {
+        const d = DATA[pn]; if (!d || !modal) return;
+        const id = pn.toLowerCase();
+        pmAir.src = `assets/${id}-air.png`; pmAir.alt = `${pn} — vista aérea`;
+        pmSt.src = `assets/${id}-st.png`; pmSt.alt = `${pn} — nível da rua`;
+        pmBadge.textContent = pn;
+        pmZones.textContent = d.zones;
+        pmList.innerHTML = d.lines.map(([ic, txt]) => `<li><svg class="ic"><use href="#${ic}"/></svg>${txt}</li>`).join('');
+        pmAxis.textContent = d.axis;
+        modal.classList.toggle('crit', !!d.crit);
+        modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+    }
+    function closeModal() { if (!modal) return; modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); }
+
+    cards.forEach(card => {
+        const pn = card.dataset.pn;
+        card.addEventListener('mouseenter', () => highlight(pn, true));
+        card.addEventListener('mouseleave', () => highlight(pn, false));
+        card.addEventListener('click', () => flash(pn));
+        card.addEventListener('dblclick', () => openModal(pn));
+        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(pn); } });
+    });
+    Object.values(markers).forEach(m => {
+        const pn = m.dataset.pn;
+        m.addEventListener('mouseenter', () => highlight(pn, true));
+        m.addEventListener('mouseleave', () => highlight(pn, false));
+        m.addEventListener('click', () => flash(pn));
+        m.addEventListener('dblclick', () => openModal(pn));
+    });
+
+    if (pmX) pmX.addEventListener('click', closeModal);
+    if (modal) modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal(); });
+}
+
+/* ============================================================================
    BOOT
    ============================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
@@ -331,6 +405,7 @@ window.addEventListener('DOMContentLoaded', () => {
     buildQR();
     ambientGSAP();
     setupTimer();
+    setupSlide3();
     window.deck = new Deck();
 
     /* deep-link opcional: index.html#5 abre direto no slide 5 */

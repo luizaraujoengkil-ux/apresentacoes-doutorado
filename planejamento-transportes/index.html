@@ -174,33 +174,137 @@
 <!-- SLIDE 3 — PASSAGENS EM NÍVEL                                    (Wagner) -->
 <!-- ======================================================================= -->
 <section class="slide s3" data-slide="3">
-    <div class="slide-inner">
-        <p class="kicker rail reveal" style="--d:.05s">O conflito · Wagner</p>
-        <h2 class="slide-title reveal" style="--d:.12s">Quatro <span class="grad-rail">passagens em nível</span></h2>
-        <p class="slide-lead reveal" style="--d:.2s">Onde a ferrovia cruza o sistema viário no mesmo nível, o trem
-            <b>bloqueia o trânsito</b> — retenção, fila e aumento de percurso, várias vezes ao dia.</p>
+    <!-- ícones de linha reutilizáveis (painel técnico) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+        <symbol id="ic-par" viewBox="0 0 24 24"><path d="M10 3 6 21M18 3 14 21"/></symbol>
+        <symbol id="ic-ser" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3.1"/><circle cx="17" cy="17" r="3.1"/><path d="M9.4 9.4 14.6 14.6"/></symbol>
+        <symbol id="ic-ret" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3"/><path d="M12 7.6V12l3 2"/></symbol>
+        <symbol id="ic-perc" viewBox="0 0 24 24"><path d="M4 18h7a4 4 0 0 0 4-4V8.5"/><path d="M11 11.5 15 7.5 19 11.5"/></symbol>
+        <symbol id="ic-train" viewBox="0 0 24 24"><rect x="6" y="3.5" width="12" height="13" rx="3"/><path d="M6 11h12M9.5 20l-2 1.5M14.5 20l2 1.5"/><circle cx="9.4" cy="13.6" r=".7" fill="currentColor"/><circle cx="14.6" cy="13.6" r=".7" fill="currentColor"/></symbol>
+    </defs></svg>
 
-        <div class="s3-grid">
-            <div class="pn reveal up" style="--d:.3s">
-                <div class="img-slot has-img"><img class="fig" src="assets/pn01.png" alt="PN01 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 4 — PN01</span></div>
-                <div class="pn-cap"><b>PN01</b> · ZT01–ZT03</div>
+    <div class="slide-inner s3-inner">
+        <!-- ===== COLUNA ESQUERDA: título + cards + eixos ===== -->
+        <div class="s3-left">
+            <p class="kicker rail reveal" style="--d:.05s">O conflito · Wagner</p>
+            <h2 class="slide-title reveal" style="--d:.12s">Quatro <span class="grad-rail">passagens em nível</span></h2>
+            <p class="s3-sub reveal" style="--d:.2s">Onde a ferrovia cruza o sistema viário no mesmo nível, o trem
+                <b>bloqueia o trânsito</b> — retenção, fila e aumento de percurso, várias vezes ao dia.</p>
+
+            <div class="s3-cards">
+                <article class="pncard crit reveal up" style="--d:.34s" data-pn="PN01" tabindex="0" role="button" aria-label="PN01 — ver detalhe">
+                    <img class="pc-air" src="assets/pn01-air.png" alt="PN01 — vista aérea da passagem em nível">
+                    <span class="pc-scrim"></span>
+                    <div class="pc-txt">
+                        <div class="pc-head"><b>PN01</b><span>ZT01–ZT03</span></div>
+                        <div class="pc-meta">
+                            <span class="pc-line par"><svg class="ic"><use href="#ic-par"/></svg>Paralela ao corredor</span>
+                            <span class="pc-line"><svg class="ic"><use href="#ic-ret"/></svg>Retenção frequente</span>
+                        </div>
+                    </div>
+                    <img class="pc-st" src="assets/pn01-st.png" alt="PN01 — nível da rua">
+                </article>
+
+                <article class="pncard warm reveal up" style="--d:.42s" data-pn="PN02" tabindex="0" role="button" aria-label="PN02 — ver detalhe">
+                    <img class="pc-air" src="assets/pn02-air.png" alt="PN02 — vista aérea da passagem em nível">
+                    <span class="pc-scrim"></span>
+                    <div class="pc-txt">
+                        <div class="pc-head"><b>PN02</b><span>ZT01–ZT03</span></div>
+                        <div class="pc-meta">
+                            <span class="pc-line par"><svg class="ic"><use href="#ic-par"/></svg>Paralela ao corredor</span>
+                            <span class="pc-line"><svg class="ic"><use href="#ic-ret"/></svg>Retenção frequente</span>
+                        </div>
+                    </div>
+                    <img class="pc-st" src="assets/pn02-st.png" alt="PN02 — nível da rua">
+                </article>
+
+                <article class="pncard warm reveal up" style="--d:.5s" data-pn="PN03" tabindex="0" role="button" aria-label="PN03 — ver detalhe">
+                    <img class="pc-air" src="assets/pn03-air.png" alt="PN03 — vista aérea da passagem em nível">
+                    <span class="pc-scrim"></span>
+                    <div class="pc-txt">
+                        <div class="pc-head"><b>PN03</b><span>ZT01–ZT04</span></div>
+                        <div class="pc-meta">
+                            <span class="pc-line ser"><svg class="ic"><use href="#ic-ser"/></svg>Em série no corredor</span>
+                            <span class="pc-line"><svg class="ic"><use href="#ic-perc"/></svg>Aumento de percurso</span>
+                        </div>
+                    </div>
+                    <img class="pc-st" src="assets/pn03-st.png" alt="PN03 — nível da rua">
+                </article>
+
+                <article class="pncard warm reveal up" style="--d:.58s" data-pn="PN04" tabindex="0" role="button" aria-label="PN04 — ver detalhe">
+                    <img class="pc-air" src="assets/pn04-air.png" alt="PN04 — vista aérea da passagem em nível">
+                    <span class="pc-scrim"></span>
+                    <div class="pc-txt">
+                        <div class="pc-head"><b>PN04</b><span>ZT01–ZT04</span></div>
+                        <div class="pc-meta">
+                            <span class="pc-line ser"><svg class="ic"><use href="#ic-ser"/></svg>Em série no corredor</span>
+                            <span class="pc-line"><svg class="ic"><use href="#ic-perc"/></svg>Aumento de percurso</span>
+                        </div>
+                    </div>
+                    <img class="pc-st" src="assets/pn04-st.png" alt="PN04 — nível da rua">
+                </article>
             </div>
-            <div class="pn reveal up" style="--d:.38s">
-                <div class="img-slot has-img"><img class="fig" src="assets/pn02.png" alt="PN02 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 5 — PN02</span></div>
-                <div class="pn-cap"><b>PN02</b> · ZT01–ZT03</div>
-            </div>
-            <div class="pn reveal up" style="--d:.46s">
-                <div class="img-slot has-img"><img class="fig" src="assets/pn03.png" alt="PN03 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 6 — PN03</span></div>
-                <div class="pn-cap"><b>PN03</b> · ZT01–ZT04</div>
-            </div>
-            <div class="pn reveal up" style="--d:.54s">
-                <div class="img-slot has-img"><img class="fig" src="assets/pn04.png" alt="PN04 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 7 — PN04</span></div>
-                <div class="pn-cap"><b>PN04</b> · ZT01–ZT04</div>
+
+            <div class="s3-axes">
+                <div class="axiscard crit reveal fade" style="--d:.74s">
+                    <span class="ax-ic"><svg class="ic"><use href="#ic-par"/></svg></span>
+                    <span class="ax-tx"><b>PN01 + PN02</b> · paralelas entre ZT01–ZT03 <em>(~0,64 km)</em></span>
+                </div>
+                <div class="axiscard warm reveal fade" style="--d:.82s">
+                    <span class="ax-ic"><svg class="ic"><use href="#ic-ser"/></svg></span>
+                    <span class="ax-tx"><b>PN03 + PN04</b> · em série entre ZT01–ZT04 <em>(~1,54 km)</em></span>
+                </div>
             </div>
         </div>
-        <div class="s3-notes reveal fade" style="--d:.66s">
-            <span><b>PN01 + PN02</b> paralelas entre ZT01–ZT03 (~0,64 km)</span>
-            <span><b>PN03 + PN04</b> em série entre ZT01–ZT04 (~1,54 km)</span>
+
+        <!-- ===== COLUNA DIREITA: mapa estilizado de diagnóstico ===== -->
+        <div class="s3-map reveal fade" style="--d:.3s">
+            <div class="s3-map-bg"></div>
+            <svg class="s3-map-svg" viewBox="0 0 720 940" preserveAspectRatio="none" aria-hidden="true">
+                <!-- vias principais (ciano) -->
+                <path class="rd" d="M 40 300 C 240 270 360 350 720 300"/>
+                <path class="rd" d="M 120 632 C 320 612 430 560 712 604"/>
+                <path class="rd" d="M 372 940 C 352 760 520 600 712 520"/>
+                <!-- ferrovia: leito + dormentes + trilho que se desenha + fluxo -->
+                <path class="rail-bed"  d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                <path class="rail-ties" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                <path class="rail-glow" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                <path class="rail-flow" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+            </svg>
+
+            <!-- marcadores PN (HTML p/ interação) -->
+            <button class="mk crit" data-pn="PN01" style="--x:61.9%;--y:19%;--md:1.0s" aria-label="PN01 no mapa">
+                <span class="mk-tag">PN01</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+            </button>
+            <button class="mk warm" data-pn="PN02" style="--x:55%;--y:39%;--md:1.16s" aria-label="PN02 no mapa">
+                <span class="mk-tag">PN02</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+            </button>
+            <button class="mk warm" data-pn="PN03" style="--x:53%;--y:58%;--md:1.32s" aria-label="PN03 no mapa">
+                <span class="mk-tag">PN03</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+            </button>
+            <button class="mk warm" data-pn="PN04" style="--x:56%;--y:75%;--md:1.48s" aria-label="PN04 no mapa">
+                <span class="mk-tag">PN04</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+            </button>
+
+            <!-- rosa dos ventos -->
+            <div class="northrose" aria-hidden="true"><span>N</span><i></i></div>
+        </div>
+    </div>
+
+    <!-- modal de zoom (duplo clique no card) -->
+    <div class="pnmodal" id="pnModal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="pnmodal-card">
+            <button class="pnmodal-x" id="pnModalX" type="button" aria-label="Fechar">✕</button>
+            <div class="pnmodal-media">
+                <img id="pmAir" src="" alt="">
+                <img id="pmSt" class="pm-st" src="" alt="">
+                <span class="pm-badge" id="pmBadge">PN01</span>
+            </div>
+            <div class="pnmodal-info">
+                <div class="pm-zones" id="pmZones">ZT01–ZT03</div>
+                <ul class="pm-list" id="pmList"></ul>
+                <div class="pm-axis" id="pmAxis"></div>
+            </div>
         </div>
     </div>
 </section>
