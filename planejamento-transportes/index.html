@@ -566,13 +566,26 @@
 
         <div class="s6-grid">
             <div class="s6-left">
-                <p class="lead reveal" style="--d:.22s">Um <b>simulador web</b> de apoio à decisão preliminar para
-                    municípios de pequeno porte (até ~20 mil hab) — onde falta dado e verba para um estudo completo.</p>
-                <ul class="s6-list">
-                    <li class="reveal left" style="--d:.32s"><b>Genérico:</b> serve a qualquer cidade — Matias Barbosa é só o caso demonstrativo.</li>
-                    <li class="reveal left" style="--d:.40s"><b>Aberto:</b> Python · Streamlit · OSMnx · NetworkX, rodando no navegador.</li>
-                    <li class="reveal left" style="--d:.48s"><b>Exploratório:</b> não substitui EVTEA, contagem, O-D domiciliar nem microssimulação.</li>
-                </ul>
+                <p class="lead reveal up" style="--d:.22s">Um <b>simulador web</b> de apoio à decisão preliminar para
+                    municípios de <b>pequeno porte</b> (até ~20 mil hab) — onde falta dado e verba para um estudo completo.</p>
+                <div class="s6-feats">
+                    <div class="s6-feat reveal left" style="--d:.32s">
+                        <span class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3.2M12 19.2v3.2M1.6 12h3.2M19.2 12h3.2"/></svg></span>
+                        <div><b>Genérico</b><p>serve a qualquer cidade — Matias Barbosa é só o caso demonstrativo.</p></div>
+                    </div>
+                    <div class="s6-feat reveal left" style="--d:.40s">
+                        <span class="sf-ico cy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/><path d="M13.5 5l-3 14"/></svg></span>
+                        <div><b>Aberto</b><p>roda no navegador, com bibliotecas livres de análise de redes.</p></div>
+                    </div>
+                    <div class="s6-feat reveal left" style="--d:.48s">
+                        <span class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+                        <div><b>Exploratório</b><p>não substitui EVTEA, contagem, O-D domiciliar nem microssimulação.</p></div>
+                    </div>
+                </div>
+                <div class="s6-stack reveal up" style="--d:.58s">
+                    <span class="stk-l">stack aberta</span>
+                    <span class="stk">Python</span><span class="stk">Streamlit</span><span class="stk">OSMnx</span><span class="stk">NetworkX</span><span class="stk">Folium</span>
+                </div>
             </div>
 
             <div class="s6-right reveal right" style="--d:.4s">
@@ -603,28 +616,56 @@
 <!-- ======================================================================= -->
 <section class="slide s7" data-slide="8">
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">O método · Luiz</p>
-        <h2 class="slide-title reveal" style="--d:.12s">Modelo de <span class="grad">quatro etapas</span></h2>
+        <p class="kicker reveal left" style="--d:.05s">O método · Luiz</p>
+        <h2 class="slide-title reveal up" style="--d:.12s">Modelo de <span class="grad">quatro etapas</span></h2>
+        <p class="slide-lead reveal up" style="--d:.2s">Quatro perguntas encadeadas transformam <b>zonas</b> em <b>fluxos sobre a rede viária</b>.</p>
 
         <div class="s7-steps">
-            <div class="step reveal up" style="--d:.26s"><span class="q">Vou?</span><b>Geração</b><p>vetores de produção e atração por zona</p></div>
-            <div class="step reveal up" style="--d:.34s"><span class="q">Para onde?</span><b>Distribuição</b><p>matriz O-D por modelo gravitacional</p></div>
-            <div class="step reveal up" style="--d:.42s"><span class="q">Como?</span><b>Repartição modal</b><p>ativo · individual · coletivo</p></div>
-            <div class="step reveal up" style="--d:.50s"><span class="q">Por onde?</span><b>Atribuição</b><p>caminho mínimo · all-or-nothing</p></div>
+            <div class="step reveal up" style="--d:.3s">
+                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></span>
+                <span class="st-n">01</span><span class="q">Vou?</span><b>Geração</b><p>produção e atração por zona</p>
+            </div>
+            <span class="st-arrow reveal fade" style="--d:.38s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+            <div class="step reveal up" style="--d:.42s">
+                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.2 10.2 6.4 6.4M13.8 10.2l3.8-3.8M10.2 13.8l-3.8 3.8M13.8 13.8l3.8 3.8"/></svg></span>
+                <span class="st-n">02</span><span class="q">Para onde?</span><b>Distribuição</b><p>matriz O-D · modelo gravitacional</p>
+            </div>
+            <span class="st-arrow reveal fade" style="--d:.5s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+            <div class="step reveal up" style="--d:.54s">
+                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 11h16"/><circle cx="8" cy="20" r="1.4"/><circle cx="16" cy="20" r="1.4"/></svg></span>
+                <span class="st-n">03</span><span class="q">Como?</span><b>Repartição modal</b><p>ativo · individual · coletivo</p>
+            </div>
+            <span class="st-arrow reveal fade" style="--d:.62s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+            <div class="step reveal up" style="--d:.66s">
+                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.4 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.6"/></svg></span>
+                <span class="st-n">04</span><span class="q">Por onde?</span><b>Atribuição</b><p>caminho mínimo · all-or-nothing</p>
+            </div>
         </div>
 
-        <div class="s7-hook reveal up" style="--d:.66s">
-            <p>Com as passagens em nível ativas, a rede empurra a escolha modal:</p>
+        <div class="s7-hook reveal up" style="--d:.82s">
+            <div class="hook-head"><span class="hh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></span>
+                <b>Com as passagens em nível ativas, a rede <span class="warn">empurra a escolha modal</span> — penaliza o ônibus e premia o carro.</b></div>
             <div class="modal-cmp">
-                <div class="mc"><span class="ml">Transporte coletivo</span>
-                    <span class="mbar"><i data-bar="42" style="--c:var(--cyan)"></i></span><b>42%</b>
-                    <span class="arrow">→</span>
-                    <span class="mbar down"><i data-bar="26.4" style="--c:var(--rail)"></i></span><b class="bad">26,4%</b></div>
-                <div class="mc"><span class="ml">Individual motorizado</span>
-                    <span class="mbar"><i data-bar="41.8" style="--c:var(--gold)"></i></span><b>41,8%</b>
-                    <span class="arrow">→</span>
-                    <span class="mbar up"><i data-bar="50.6" style="--c:var(--gold-2)"></i></span><b class="warn">50,6%</b></div>
+                <div class="mc">
+                    <span class="ml"><i class="mdot cy"></i>Transporte coletivo</span>
+                    <span class="mbar"><i data-bar="42" style="--c:linear-gradient(90deg,#8fecf4,var(--cyan))"></i></span><b class="mv">42%</b>
+                    <span class="mc-arrow">→</span>
+                    <span class="mbar"><i data-bar="26.4" style="--c:linear-gradient(90deg,#ff90a8,var(--rail))"></i></span><b class="mv bad">26,4%</b>
+                    <span class="mc-delta bad">▼ 15,6 pp</span>
+                </div>
+                <div class="mc">
+                    <span class="ml"><i class="mdot gd"></i>Individual motorizado</span>
+                    <span class="mbar"><i data-bar="41.8" style="--c:linear-gradient(90deg,var(--gold-2),var(--gold))"></i></span><b class="mv">41,8%</b>
+                    <span class="mc-arrow">→</span>
+                    <span class="mbar"><i data-bar="50.6" style="--c:linear-gradient(90deg,#ffd479,var(--gold))"></i></span><b class="mv warn">50,6%</b>
+                    <span class="mc-delta warn">▲ 8,8 pp</span>
+                </div>
             </div>
+        </div>
+
+        <div class="s7-insight reveal fade" style="--d:1s">
+            <span class="ii-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.7.6 1.1 1.3 1.2 2.4h5.2c.1-1.1.5-1.8 1.2-2.4A6 6 0 0 0 12 3z"/></svg></span>
+            <span>Sem priorizar a transposição, a passagem em nível <b>empobrece o transporte público</b> — exatamente o oposto do que a cidade precisa.</span>
         </div>
     </div>
 </section>
@@ -637,6 +678,8 @@
         <p class="kicker reveal" style="--d:.05s">A rede · Luiz</p>
         <h2 class="slide-title reveal" style="--d:.12s">A cidade como um <span class="grad">grafo</span> · Dijkstra</h2>
 
+        <p class="slide-lead reveal up" style="--d:.2s">Cada passagem em nível vira <b>peso a mais</b> na aresta — o Dijkstra recalcula o caminho mínimo e o <b>atraso aparece</b>.</p>
+
         <div class="s8-grid">
             <div class="s8-graph reveal right" style="--d:.34s">
                 <img class="graph-fig" src="assets/grafo-dijkstra.png" alt="Análise de caminhos mínimos entre zonas pelo algoritmo de Dijkstra — rede viária simplificada com pesos em km">
@@ -644,14 +687,26 @@
             </div>
 
             <div class="s8-right">
-                <p class="lead reveal" style="--d:.24s">Cada passagem em nível vira <b>peso a mais</b> na aresta.
-                    O Dijkstra recalcula o caminho mínimo — e o atraso aparece.</p>
                 <div class="s8-stats">
-                    <div class="st reveal up" style="--d:.36s"><b class="num" data-count="73.42" data-decimals="2" data-suffix=" min">0</b><span>tempo médio sistêmico <i>(de 69,44 → +5,7%)</i></span></div>
-                    <div class="st reveal up" style="--d:.46s"><b><span class="num" data-count="26">0</span>/72</b><span>pares O-D afetados pela ferrovia</span></div>
-                    <div class="st crit reveal up" style="--d:.56s"><b>18 → <span class="num" data-count="38.44" data-decimals="2">0</span> min</b><span>ZT03–ZT04 (duas PN em série) — o mais crítico</span></div>
+                    <div class="st reveal up" style="--d:.4s">
+                        <span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg></span>
+                        <div><b class="num" data-count="73.42" data-decimals="2" data-suffix=" min" data-delay="600">0 min</b><span>tempo médio sistêmico <i>(69,44 → +5,7%)</i></span></div>
+                    </div>
+                    <div class="st reveal up" style="--d:.5s">
+                        <span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7.8 7.4 10.5 16M16.4 8.8 13.2 16M8 6.4h8"/></svg></span>
+                        <div><b><span class="num" data-count="26" data-delay="750">0</span>/72</b><span>pares O-D afetados pela ferrovia</span></div>
+                    </div>
+                    <div class="st crit reveal up" style="--d:.6s">
+                        <span class="st-ic red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v4.5M12 17.6h.01"/></svg></span>
+                        <div><b>18 → <span class="num" data-count="38.44" data-decimals="2" data-delay="900">0</span> min</b><span>ZT03–ZT04 (duas PN em série) — <em>o trecho mais crítico</em></span></div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <div class="s8-insight reveal fade" style="--d:.78s">
+            <span class="ii-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.3"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg></span>
+            <span>O atraso não se vê na rua — só aparece quando a <b>rede inteira é recalculada</b> aresta a aresta.</span>
         </div>
     </div>
 </section>
@@ -661,33 +716,34 @@
 <!-- ======================================================================= -->
 <section class="slide s9" data-slide="10">
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">Os cenários · Luiz</p>
-        <h2 class="slide-title reveal" style="--d:.12s">Cenário 0 <span class="grad">×</span> intervenção</h2>
-        <p class="slide-lead reveal" style="--d:.2s">A geração total não muda (9.176 viagens/dia) — o que muda é <b>para onde</b> e <b>como</b> as viagens acontecem.</p>
+        <p class="kicker reveal left" style="--d:.05s">Os cenários · Luiz</p>
+        <h2 class="slide-title reveal up" style="--d:.12s">Cenário 0 <span class="grad">×</span> intervenção</h2>
+        <p class="slide-lead reveal up" style="--d:.2s">A geração total não muda (<b>9.176 viagens/dia</b>) — o que muda é <b>para onde</b> e <b>como</b> as viagens acontecem.</p>
 
         <div class="s9-cols">
             <div class="s9c bad reveal left" style="--d:.32s">
-                <div class="s9-head"><span class="badge bad">Cenário 0</span> COM passagens em nível <i>(atual)</i></div>
-                <div class="fam"><span>Intrazonais</span><b>2.775</b></div>
-                <div class="fam"><span>Interzonais internas</span><b>2.067</b></div>
-                <div class="fam"><span>Pendulares / externas</span><b>4.334</b></div>
+                <div class="s9-head"><span class="badge bad">Cenário 0</span><div><b>COM passagens em nível</b><i>situação atual</i></div></div>
+                <div class="fam"><span class="fl">Intrazonais</span><span class="fbar"><i data-bar="55.5" style="--c:linear-gradient(90deg,rgba(255,90,126,.5),var(--rail))"></i></span><b>2.775</b></div>
+                <div class="fam"><span class="fl">Interzonais internas</span><span class="fbar"><i data-bar="41.3" style="--c:linear-gradient(90deg,rgba(255,90,126,.5),var(--rail))"></i></span><b>2.067</b></div>
+                <div class="fam"><span class="fl">Pendulares / externas</span><span class="fbar"><i data-bar="86.7" style="--c:linear-gradient(90deg,rgba(255,90,126,.5),var(--rail))"></i></span><b>4.334</b></div>
             </div>
 
-            <div class="s9-mid reveal fade" style="--d:.5s">
-                <div class="d9"><span>intrazonais</span><b class="up">+945</b></div>
-                <div class="d9"><span>interzonais</span><b class="down">−498</b></div>
-                <div class="d9"><span>externas</span><b class="down">−447</b></div>
+            <div class="s9-mid reveal fade" style="--d:.52s">
+                <span class="s9-cross"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+                <span class="s9-cl">OAE</span>
             </div>
 
             <div class="s9c good reveal right" style="--d:.32s">
-                <div class="s9-head"><span class="badge good">SEM PN + OAE</span> com transposição em desnível</div>
-                <div class="fam"><span>Intrazonais</span><b>1.830</b></div>
-                <div class="fam"><span>Interzonais internas</span><b>2.565</b></div>
-                <div class="fam"><span>Pendulares / externas</span><b>4.781</b></div>
+                <div class="s9-head"><span class="badge good">SEM PN + OAE</span><div><b>Com transposição em desnível</b><i>cenário planejado</i></div></div>
+                <div class="fam"><span class="fl">Intrazonais</span><span class="fbar"><i data-bar="36.6" style="--c:linear-gradient(90deg,rgba(55,224,126,.5),var(--green))"></i></span><b>1.830</b><span class="fd good">▼ 945</span></div>
+                <div class="fam"><span class="fl">Interzonais internas</span><span class="fbar"><i data-bar="51.3" style="--c:linear-gradient(90deg,rgba(55,224,126,.5),var(--green))"></i></span><b>2.565</b><span class="fd good">▲ 498</span></div>
+                <div class="fam"><span class="fl">Pendulares / externas</span><span class="fbar"><i data-bar="95.6" style="--c:linear-gradient(90deg,rgba(55,224,126,.5),var(--green))"></i></span><b>4.781</b><span class="fd good">▲ 447</span></div>
             </div>
         </div>
-        <p class="s9-foot reveal fade" style="--d:.66s">Com as PN, a cidade <b>se fecha</b>: mais viagens presas dentro da própria zona,
-            menos integração entre zonas e com a região.</p>
+        <div class="s9-insight reveal fade" style="--d:.7s">
+            <span class="ii-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span>
+            <span>Com as PN a cidade <b class="rd">se fecha</b>; com a transposição ela <b class="gr">se reabre</b> — menos viagens presas, mais integração entre zonas e com a região.</span>
+        </div>
     </div>
 </section>
 
@@ -696,46 +752,47 @@
 <!-- ======================================================================= -->
 <section class="slide s10" data-slide="11">
     <div class="slide-inner">
-        <p class="kicker green reveal" style="--d:.05s">A decisão · Luiz</p>
-        <h2 class="slide-title reveal" style="--d:.12s">Da simulação à <span class="grad-green">priorização</span></h2>
+        <p class="kicker green reveal left" style="--d:.05s">A decisão · Luiz</p>
+        <h2 class="slide-title reveal up" style="--d:.12s">Da simulação à <span class="grad-green">priorização</span></h2>
+        <p class="slide-lead reveal up" style="--d:.2s">O ALIME não para no diagnóstico — ele <b>ranqueia combinações de obra</b> e mostra o quanto cada uma elimina de atraso.</p>
 
         <div class="s10-grid">
-            <div class="s10-left reveal left" style="--d:.26s">
-                <h4>Ranking de intervenções <span>(saída do ALIME)</span></h4>
-                <div class="rank top"><span class="rn">PN01 + PN02 + RF01 + RF02</span><b class="rb">atraso residual&nbsp;<em>0</em></b></div>
-                <div class="rank"><span class="rn">PN02 + RF01 + RF02</span><b>R$ 11,8 mi/ano</b></div>
-                <div class="rank"><span class="rn">PN01 + PN02 + RF01</span><b>R$ 8,6 mi/ano</b></div>
-                <div class="rank"><span class="rn">RF01 + RF02</span><b>R$ 8,1 mi/ano</b></div>
+            <div class="s10-left reveal left" style="--d:.28s">
+                <h4><span class="h4-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Ranking de intervenções <span class="mut">· saída do ALIME</span></h4>
+                <div class="rank top"><span class="rk">1</span><span class="rn">PN01 + PN02 + RF01 + RF02</span><b class="rb"><span class="rb-dot"></span>atraso residual&nbsp;0</b></div>
+                <div class="rank"><span class="rk">2</span><span class="rn">PN02 + RF01 + RF02</span><b>R$ 11,8 mi/ano</b></div>
+                <div class="rank"><span class="rk">3</span><span class="rn">PN01 + PN02 + RF01</span><b>R$ 8,6 mi/ano</b></div>
+                <div class="rank"><span class="rk">4</span><span class="rn">RF01 + RF02</span><b>R$ 8,1 mi/ano</b></div>
                 <p class="s10-note">O ganho máximo vem de tratar as interferências <b>em conjunto</b> — não isoladas.</p>
             </div>
 
-            <div class="s10-right reveal right" style="--d:.32s">
-                <h4>O ganho de análise do simulador</h4>
+            <div class="s10-right reveal right" style="--d:.34s">
+                <h4><span class="h4-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.2-4 3 2 4-6.2"/></svg></span>O ganho de análise do simulador</h4>
                 <div class="cmp2">
                     <div class="cc">
                         <div class="cl">Conta manual <i>(artigo)</i></div>
                         <b class="cv">R$ 1,53 mi/ano</b>
                         <div class="cpb">payback <b>~17 anos</b></div>
                     </div>
+                    <span class="cc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 6l6 6-6 6"/></svg></span>
                     <div class="cc hot">
                         <div class="cl">Simulador completo</div>
                         <b class="cv">R$ 12,26 mi/ano</b>
                         <div class="cpb">payback <b>~2,1 anos</b></div>
                     </div>
                 </div>
-                <p class="cmp2-why">Diferença = recorte: o simulador conta o <b>atraso do sistema inteiro</b>
-                    (72 pares) e testa <b>vários cenários</b>; a conta manual contou só 1.500 viagens.</p>
+                <p class="cmp2-why">Diferença = <b>recorte</b>: o simulador conta o <b>atraso do sistema inteiro</b> (72 pares) e testa <b>vários cenários</b>; a conta manual contou só 1.500 viagens.</p>
 
                 <div class="s10-cta">
                     <div class="qr" id="qrGrid" aria-label="QR do simulador ALIME"></div>
                     <div class="qr-txt">
-                        <span>Teste o ALIME no ar</span>
+                        <span class="qr-lab">Teste o ALIME no ar</span>
                         <a href="https://anzhkry7bnjfiwup4xjesf.streamlit.app" target="_blank" rel="noopener">anzhkry7bnjfiwup4xjesf.streamlit.app</a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="s10-foot reveal fade" style="--d:.8s">
+        <div class="s10-foot reveal fade" style="--d:.85s">
             <span><b>Luiz Araujo de Souza Junior</b> · <b>Wagner de Almeida Tavares</b></span>
             <span>IME — Planejamento de Transportes · 2026</span>
         </div>
