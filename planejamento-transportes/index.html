@@ -76,36 +76,40 @@
 <!-- SLIDE 2 — MATIAS BARBOSA / MG                                   (Wagner) -->
 <!-- ======================================================================= -->
 <section class="slide s2" data-slide="2">
+    <!-- FUNDO EM DESTAQUE: mapa noturno de Matias Barbosa (zonas ZT + interferência ferrovia × viário) -->
+    <div class="s2-photo"><i style="background-image:url('assets/matias-noturno.png')"></i></div>
+
+    <!-- EFEITOS: tráfego escorrendo pelo corredor (polylines animadas) + pulsos nas interferências -->
+    <div class="s2-fx" aria-hidden="true">
+        <svg class="flow" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+            <path class="flowline"    d="M 864 842 Q 950 740 979 637 Q 1100 500 1210 389 Q 1380 300 1555 227"/>
+            <path class="flowline d2" d="M 979 637 Q 1240 690 1498 799"/>
+            <path class="flowline d3" d="M 979 637 Q 650 770 346 892"/>
+        </svg>
+        <span class="pulse red"   style="left:52.5%; top:59%"></span>
+        <span class="pulse amber" style="left:63%; top:36%"></span>
+        <span class="pulse amber" style="left:59%; top:46%"></span>
+        <span class="pulse-tag"   style="left:52.5%; top:59%">trânsito retido · PN</span>
+    </div>
+
     <div class="slide-inner">
         <p class="kicker reveal" style="--d:.05s">O território · Wagner</p>
         <h2 class="slide-title reveal" style="--d:.12s">Matias Barbosa/MG — <span class="grad">onde o regional corta o local</span></h2>
-
-        <div class="s2-grid">
-            <div class="s2-left">
-                <p class="lead reveal" style="--d:.22s">Cidade pequena na <b>Zona da Mata mineira</b>, no eixo Rio–Juiz de Fora.
-                    Três eixos estruturantes cruzam a malha urbana:</p>
-                <div class="s2-axes">
-                    <div class="axis reveal left" style="--d:.32s;--c:var(--gold)"><span class="tag">BR-040</span> rodovia federal</div>
-                    <div class="axis reveal left" style="--d:.40s;--c:var(--gold-2)"><span class="tag">LMG-874</span> União Indústria</div>
-                    <div class="axis reveal left" style="--d:.48s;--c:var(--rail)"><span class="tag">Ferrovia</span> linha férrea (efeito barreira)</div>
-                </div>
-                <div class="s2-stats reveal up" style="--d:.6s">
-                    <div class="stat"><b class="num" data-count="14121" data-money="1">0</b><span>habitantes</span></div>
-                    <div class="stat"><b class="num" data-count="5269" data-money="1">0</b><span>domicílios</span></div>
-                    <div class="stat"><b class="num" data-count="9">0</b><span>zonas (5 internas + 4 externas)</span></div>
-                </div>
-            </div>
-
-            <div class="s2-right reveal right" style="--d:.4s">
-                <!-- Fig. 2 do artigo — zoneamento + rede analítica -->
-                <div class="img-slot tall has-img">
-                    <img class="fig fit" src="assets/zoneamento.png" alt="Zoneamento de Matias Barbosa/MG — 5 zonas internas (ZT) e 4 externas (ZTE) e os corredores BR-040 / LMG-874">
-                </div>
-                <div class="zlegend">
-                    <span><i class="d gold"></i> ZT01–ZT05 internas</span>
-                    <span><i class="d cyan"></i> ZTE01–ZTE04 externas</span>
-                </div>
-            </div>
+        <p class="lead reveal" style="--d:.22s">Cidade pequena na <b>Zona da Mata mineira</b>, no eixo Rio–Juiz de Fora.
+            Três eixos estruturantes cruzam a malha urbana:</p>
+        <div class="s2-axes">
+            <div class="axis reveal left" style="--d:.32s;--c:var(--gold)"><span class="tag">BR-040</span> rodovia federal</div>
+            <div class="axis reveal left" style="--d:.40s;--c:var(--gold-2)"><span class="tag">LMG-874</span> União Indústria</div>
+            <div class="axis reveal left" style="--d:.48s;--c:var(--rail)"><span class="tag">Ferrovia</span> linha férrea (efeito barreira)</div>
+        </div>
+        <div class="s2-stats reveal up" style="--d:.6s">
+            <div class="stat"><b class="num" data-count="14121" data-money="1">0</b><span>habitantes</span></div>
+            <div class="stat"><b class="num" data-count="5269" data-money="1">0</b><span>domicílios</span></div>
+            <div class="stat"><b class="num" data-count="9">0</b><span>zonas (5 internas + 4 externas)</span></div>
+        </div>
+        <div class="s2-legend reveal fade" style="--d:.74s">
+            <span><i class="ld zt"></i> zonas de tráfego · ZT01–ZT05</span>
+            <span><i class="ld itf"></i> interferências ferrovia × viário — trânsito retido</span>
         </div>
     </div>
 </section>

@@ -196,22 +196,59 @@ html,body{ width:100%; height:100%; overflow:hidden; background:var(--stage-bg);
 .s1-foot .val{ font-size:18px; color:var(--soft); margin-top:5px; } .s1-foot .val em{ color:var(--white); font-style:normal; font-weight:600; }
 
 /* ============================================================================
-   === SLIDE 2 — MATIAS BARBOSA ===
+   === SLIDE 2 — MATIAS BARBOSA (fundo noturno em destaque + efeitos de tráfego) ===
    ============================================================================ */
-.s2-grid{ display:grid; grid-template-columns:1fr 720px; gap:54px; margin-top:34px; align-items:start; }
+.s2 .slide-inner{ display:flex; flex-direction:column; }
+.s2 .slide-title{ max-width:1080px; text-shadow:0 2px 18px rgba(3,7,16,.85); }
+.s2 .kicker{ text-shadow:0 2px 14px rgba(3,7,16,.9); }
+.s2 .lead{ max-width:600px; margin-top:18px; text-shadow:0 2px 14px rgba(3,7,16,.9); }
+
+/* fundo em destaque — mapa noturno cobrindo o slide */
+.s2-photo{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.s2-photo i{ position:absolute; inset:0; background-size:cover; background-position:center;
+    display:block; animation:s2KB 46s ease-in-out infinite alternate; }
+.s2-photo::after{ content:""; position:absolute; inset:0; background:
+    linear-gradient(100deg, rgba(3,7,16,.95) 0%, rgba(3,7,16,.8) 25%, rgba(3,7,16,.32) 48%, rgba(3,7,16,.08) 70%, rgba(3,7,16,.5) 100%),
+    linear-gradient(0deg, rgba(3,7,16,.55) 0%, transparent 28%); }
+@keyframes s2KB{ from{ transform:scale(1.05); } to{ transform:scale(1.12); } }
+
+/* camada de efeitos: tráfego (polylines animadas) + pulsos nas interferências */
+.s2-fx{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+.s2-fx .flow{ position:absolute; inset:0; width:100%; height:100%; }
+.flowline{ fill:none; stroke:var(--cyan); stroke-width:3.5; stroke-linecap:round;
+    stroke-dasharray:16 24; opacity:.9; filter:drop-shadow(0 0 7px rgba(57,214,232,.85));
+    animation:flowMove 1.5s linear infinite; }
+.flowline.d2{ stroke:var(--gold-2); filter:drop-shadow(0 0 7px rgba(255,212,121,.8)); animation-duration:2.1s; }
+.flowline.d3{ stroke:var(--cyan); opacity:.65; animation-duration:2.6s; }
+@keyframes flowMove{ to{ stroke-dashoffset:-40; } }
+
+.pulse{ position:absolute; width:18px; height:18px; transform:translate(-50%,-50%); }
+.pulse::before{ content:""; position:absolute; inset:5px; border-radius:50%;
+    background:var(--rail); box-shadow:0 0 14px var(--rail); }
+.pulse::after{ content:""; position:absolute; inset:0; border-radius:50%; border:2px solid var(--rail);
+    animation:pulseRing 1.9s ease-out infinite; }
+.pulse.red{ width:24px; height:24px; }
+.pulse.amber::before{ background:var(--gold); box-shadow:0 0 12px var(--gold); }
+.pulse.amber::after{ border-color:var(--gold); }
+@keyframes pulseRing{ 0%{ transform:scale(1); opacity:.85; } 100%{ transform:scale(4.6); opacity:0; } }
+.pulse-tag{ position:absolute; transform:translate(-50%,-280%); font-family:var(--mono); font-size:13px;
+    color:#fff; background:rgba(255,90,126,.92); padding:4px 10px; border-radius:8px; white-space:nowrap;
+    box-shadow:0 6px 16px rgba(0,0,0,.45); }
+.pulse-tag::after{ content:""; position:absolute; left:50%; bottom:-5px; transform:translateX(-50%);
+    border:5px solid transparent; border-top-color:rgba(255,90,126,.92); }
+
+/* eixos + stats + legenda (sobre o fundo) */
 .s2-axes{ display:flex; flex-direction:column; gap:14px; margin-top:26px; }
-.axis{ font-size:20px; color:var(--soft); display:flex; align-items:center; gap:14px; }
+.axis{ font-size:20px; color:var(--soft); display:flex; align-items:center; gap:14px; text-shadow:0 1px 10px rgba(3,7,16,.85); }
 .axis .tag{ font-family:var(--mono); font-weight:700; font-size:15px; color:#06121f; background:var(--c,var(--gold));
     padding:6px 12px; border-radius:8px; letter-spacing:.04em; min-width:96px; text-align:center; }
-.s2-stats{ display:flex; gap:46px; margin-top:40px; }
-.s2-stats .stat b{ font-size:46px; color:var(--gold); display:block; }
-.s2-stats .stat span{ font-size:15px; color:var(--dim); max-width:160px; display:block; margin-top:2px; }
-.zmap{ position:absolute; inset:0; }
-.z{ position:absolute; transform:translate(-50%,-50%); font-family:var(--mono); font-size:14px; font-weight:700;
-    padding:8px 12px; border-radius:10px; border:1px solid; white-space:nowrap; }
-.z.zt{ color:var(--gold); border-color:rgba(243,177,60,.5); background:rgba(243,177,60,.1); box-shadow:0 0 18px rgba(243,177,60,.18); }
-.z.zte{ color:var(--cyan); border-color:rgba(57,214,232,.45); background:rgba(57,214,232,.09); font-size:12.5px; }
-.zlegend{ display:flex; gap:26px; margin-top:14px; font-size:14px; color:var(--soft); }
+.s2-stats{ display:flex; gap:46px; margin-top:38px; }
+.s2-stats .stat b{ font-size:46px; color:var(--gold); display:block; text-shadow:0 2px 16px rgba(3,7,16,.85); }
+.s2-stats .stat span{ font-size:15px; color:var(--soft); max-width:160px; display:block; margin-top:2px; }
+.s2-legend{ display:flex; gap:30px; margin-top:34px; font-size:15px; color:var(--soft); text-shadow:0 1px 10px rgba(3,7,16,.85); }
+.s2-legend i.ld{ width:12px; height:12px; border-radius:50%; display:inline-block; vertical-align:middle; margin-right:8px; }
+.s2-legend i.ld.zt{ background:var(--gold); box-shadow:0 0 10px var(--gold); }
+.s2-legend i.ld.itf{ background:var(--rail); box-shadow:0 0 10px var(--rail); }
 
 /* ============================================================================
    === SLIDE 3 — PASSAGENS EM NÍVEL ===
