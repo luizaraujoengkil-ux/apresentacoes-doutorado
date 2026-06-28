@@ -670,52 +670,113 @@
         <h2 class="slide-title reveal up" style="--d:.12s">Modelo de <span class="grad">quatro etapas</span></h2>
         <p class="slide-lead reveal up" style="--d:.2s">Quatro perguntas encadeadas transformam <b>zonas</b> em <b>fluxos sobre a rede viária</b>.</p>
 
-        <div class="s7-steps">
-            <div class="step reveal up" style="--d:.3s">
-                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></span>
-                <span class="st-n">01</span><span class="q">Vou?</span><b>Geração</b><p>produção e atração por zona</p>
+        <!-- ===== FLUXO HORIZONTAL: Entrada → 4 etapas → Saída ===== -->
+        <div class="m4-flow">
+            <span class="m4-line" aria-hidden="true"><i class="m4-spark"></i></span>
+
+            <div class="m4-end in reveal up" style="--d:.28s">
+                <span class="me-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5 12 12l9-4.5L12 3z"/><path d="M3 12l9 4.5L21 12"/><path d="M3 16.5 12 21l9-4.5"/></svg></span>
+                <b>Entrada</b>
+                <p>zonas, população, empregos e escolas</p>
             </div>
-            <span class="st-arrow reveal fade" style="--d:.38s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
-            <div class="step reveal up" style="--d:.42s">
-                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.2 10.2 6.4 6.4M13.8 10.2l3.8-3.8M10.2 13.8l-3.8 3.8M13.8 13.8l3.8 3.8"/></svg></span>
-                <span class="st-n">02</span><span class="q">Para onde?</span><b>Distribuição</b><p>matriz O-D · modelo gravitacional</p>
-            </div>
-            <span class="st-arrow reveal fade" style="--d:.5s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
-            <div class="step reveal up" style="--d:.54s">
-                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 11h16"/><circle cx="8" cy="20" r="1.4"/><circle cx="16" cy="20" r="1.4"/></svg></span>
-                <span class="st-n">03</span><span class="q">Como?</span><b>Repartição modal</b><p>ativo · individual · coletivo</p>
-            </div>
-            <span class="st-arrow reveal fade" style="--d:.62s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
-            <div class="step reveal up" style="--d:.66s">
-                <span class="st-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.4 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.6"/></svg></span>
-                <span class="st-n">04</span><span class="q">Por onde?</span><b>Atribuição</b><p>caminho mínimo · all-or-nothing</p>
+
+            <span class="m4-arrow reveal fade" style="--d:.36s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+
+            <button class="m4-card cy reveal up" style="--d:.44s" data-step type="button">
+                <span class="mc-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></span>
+                <span class="mc-q">Vou?</span>
+                <b>Geração</b>
+                <p>produção e atração por zona</p>
+                <span class="mc-num">01</span>
+            </button>
+
+            <span class="m4-arrow reveal fade" style="--d:.52s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+
+            <button class="m4-card gd reveal up" style="--d:.6s" data-step type="button">
+                <span class="mc-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.2 10.2 6.4 6.4M13.8 10.2l3.8-3.8M10.2 13.8l-3.8 3.8M13.8 13.8l3.8 3.8"/></svg></span>
+                <span class="mc-q">Para onde?</span>
+                <b>Distribuição</b>
+                <p>matriz O-D · modelo gravitacional</p>
+                <span class="mc-num">02</span>
+            </button>
+
+            <span class="m4-arrow reveal fade" style="--d:.68s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+
+            <button class="m4-card cy reveal up" style="--d:.76s" data-step type="button">
+                <span class="mc-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="13" rx="2"/><path d="M4 11h16"/><circle cx="8" cy="20" r="1.4"/><circle cx="16" cy="20" r="1.4"/></svg></span>
+                <span class="mc-q">Como?</span>
+                <b>Repartição modal</b>
+                <p>ativo · individual · coletivo</p>
+                <span class="mc-num">03</span>
+            </button>
+
+            <span class="m4-arrow reveal fade" style="--d:.84s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+
+            <button class="m4-card gd reveal up" style="--d:.92s" data-step type="button">
+                <span class="mc-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.4 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.6"/></svg></span>
+                <span class="mc-q">Por onde?</span>
+                <b>Atribuição</b>
+                <p>caminho mínimo · all-or-nothing</p>
+                <span class="mc-num">04</span>
+            </button>
+
+            <span class="m4-arrow reveal fade" style="--d:1s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h13M12 6l6 6-6 6"/></svg></span>
+
+            <div class="m4-end out reveal up" style="--d:1.08s">
+                <span class="me-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.1 11 16 6.6M8.1 13l7.9 4.4"/></svg></span>
+                <b>Saída</b>
+                <p>fluxos na rede, rotas críticas e cenários</p>
             </div>
         </div>
 
-        <div class="s7-hook reveal up" style="--d:.82s">
-            <div class="hook-head"><span class="hh-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></span>
-                <b>Com as passagens em nível ativas, a rede <span class="warn">empurra a escolha modal</span> — penaliza o ônibus e premia o carro.</b></div>
-            <div class="modal-cmp">
-                <div class="mc">
-                    <span class="ml"><i class="mdot cy"></i>Transporte coletivo</span>
-                    <span class="mbar"><i data-bar="42" style="--c:linear-gradient(90deg,#8fecf4,var(--cyan))"></i></span><b class="mv">42%</b>
-                    <span class="mc-arrow">→</span>
-                    <span class="mbar"><i data-bar="26.4" style="--c:linear-gradient(90deg,#ff90a8,var(--rail))"></i></span><b class="mv bad">26,4%</b>
-                    <span class="mc-delta bad">▼ 15,6 pp</span>
+        <!-- ===== PAINEL DE IMPACTO MODAL ===== -->
+        <div class="m4-panel reveal up" style="--d:1.2s">
+            <div class="mp-head">
+                <span class="mp-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><rect x="7" y="11" width="3" height="5"/><rect x="13" y="7" width="3" height="9"/></svg></span>
+                <div>
+                    <b>Efeito observado no cenário com passagens em nível ativas</b>
+                    <span>O aumento da impedância reduz a atratividade do transporte coletivo e reforça a dependência do modo individual.</span>
                 </div>
-                <div class="mc">
-                    <span class="ml"><i class="mdot gd"></i>Individual motorizado</span>
-                    <span class="mbar"><i data-bar="41.8" style="--c:linear-gradient(90deg,var(--gold-2),var(--gold))"></i></span><b class="mv">41,8%</b>
-                    <span class="mc-arrow">→</span>
-                    <span class="mbar"><i data-bar="50.6" style="--c:linear-gradient(90deg,#ffd479,var(--gold))"></i></span><b class="mv warn">50,6%</b>
-                    <span class="mc-delta warn">▲ 8,8 pp</span>
-                </div>
+            </div>
+
+            <div class="mp-cols">
+                <span></span>
+                <span>Antes <i>(referência)</i></span>
+                <span>Depois <i>(passagens ativas)</i></span>
+                <span class="mp-cv">Variação</span>
+            </div>
+
+            <div class="mp-row" data-mrow="coletivo">
+                <span class="mp-lab"><i class="mdot cy"></i>Transporte coletivo</span>
+                <span class="mp-cell">
+                    <span class="mp-track"><i data-bar="42" style="--c:linear-gradient(90deg,#8fecf4,var(--cyan))"></i></span>
+                    <b class="mp-val" data-count="42" data-decimals="1" data-suffix="%" data-delay="1500" data-dur="1100">0,0%</b>
+                </span>
+                <span class="mp-cell">
+                    <span class="mp-track"><i data-bar="26.4" style="--c:linear-gradient(90deg,#ff90a8,var(--rail))"></i></span>
+                    <b class="mp-val bad" data-count="26.4" data-decimals="1" data-suffix="%" data-delay="1700" data-dur="1100">0,0%</b>
+                </span>
+                <span class="mp-delta bad">▼ 15,6 p.p.</span>
+            </div>
+
+            <div class="mp-row" data-mrow="individual">
+                <span class="mp-lab"><i class="mdot gd"></i>Individual motorizado</span>
+                <span class="mp-cell">
+                    <span class="mp-track"><i data-bar="41.8" style="--c:linear-gradient(90deg,var(--gold-2),var(--gold))"></i></span>
+                    <b class="mp-val" data-count="41.8" data-decimals="1" data-suffix="%" data-delay="1600" data-dur="1100">0,0%</b>
+                </span>
+                <span class="mp-cell">
+                    <span class="mp-track"><i data-bar="50.6" style="--c:linear-gradient(90deg,#ffb347,#ff8a3c)"></i></span>
+                    <b class="mp-val warn" data-count="50.6" data-decimals="1" data-suffix="%" data-delay="1800" data-dur="1100">0,0%</b>
+                </span>
+                <span class="mp-delta warn">▲ 8,8 p.p.</span>
             </div>
         </div>
 
-        <div class="s7-insight reveal fade" style="--d:1s">
-            <span class="ii-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.7.6 1.1 1.3 1.2 2.4h5.2c.1-1.1.5-1.8 1.2-2.4A6 6 0 0 0 12 3z"/></svg></span>
-            <span>Sem priorizar a transposição, a passagem em nível <b>empobrece o transporte público</b> — exatamente o oposto do que a cidade precisa.</span>
+        <!-- ===== FRASE DE SÍNTESE ===== -->
+        <div class="m4-synth reveal fade" style="--d:1.5s">
+            <span class="ms-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.7.6 1.1 1.3 1.2 2.4h5.2c.1-1.1.5-1.8 1.2-2.4A6 6 0 0 0 12 3z"/></svg></span>
+            <span>O efeito barreira não elimina a viagem; ele <b>muda a forma, o caminho e o custo</b> do deslocamento.</span>
         </div>
     </div>
 </section>

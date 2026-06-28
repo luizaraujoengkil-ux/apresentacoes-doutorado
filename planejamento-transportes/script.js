@@ -529,6 +529,23 @@ function setupSlide5() {
 }
 
 /* ============================================================================
+   SLIDE 8 — destaque temporário ao clicar em cada etapa do fluxo
+   ============================================================================ */
+function setupSlide8() {
+    const slide = document.querySelector('.s7[data-slide="8"]');
+    if (!slide) return;
+    slide.querySelectorAll('.m4-card[data-step]').forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.remove('lit');
+            void card.offsetWidth;            // reinicia o realce se reclicado
+            card.classList.add('lit');
+            clearTimeout(card._litT);
+            card._litT = setTimeout(() => card.classList.remove('lit'), 1300);
+        });
+    });
+}
+
+/* ============================================================================
    BOOT
    ============================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
@@ -538,6 +555,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupTimer();
     setupSlide3();
     setupSlide5();
+    setupSlide8();
     window.deck = new Deck();
 
     /* deep-link opcional: index.html#5 abre direto no slide 5 */
