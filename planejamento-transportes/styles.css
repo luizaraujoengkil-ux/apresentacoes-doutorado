@@ -1,0 +1,367 @@
+/* ============================================================================
+   ALIME — FOLHA DE ESTILO
+   Planejamento de Transportes · Matias Barbosa/MG
+   ----------------------------------------------------------------------------
+   Editar:
+   • Cores / fontes  → bloco 1) TEMA (:root).
+   • Palco fixo 16:9 → bloco 2) (NÃO remover).
+   • Cada slide tem seu bloco comentado (=== SLIDE N ===).
+   ============================================================================ */
+
+/* ============================================================================
+   1) TEMA — VARIÁVEIS GLOBAIS
+   ============================================================================ */
+:root{
+    /* —— Paleta: navy profundo + DOURADO (estradas) + ciano + magenta (ferrovia) —— */
+    --navy-900:#03070f;
+    --navy-850:#050c18;
+    --navy-800:#071426;
+    --navy-700:#0b1f38;
+    --navy-650:#102844;
+
+    --gold:#f3b13c;       /* dourado — cor primária (rodovias da capa) */
+    --gold-2:#ffd479;     /* dourado claro — apoio */
+    --cyan:#39d6e8;       /* ciano — destaque secundário */
+    --teal:#1ea7b6;
+    --blue:#3b82f6;       /* azul — conexões */
+    --rail:#ff5a7e;       /* magenta — ferrovia / penalidade */
+    --green:#37e07e;      /* verde — solução / decisão */
+    --red:#ff465e;        /* vermelho — alerta */
+
+    --white:#eef4ff;
+    --soft:#aebfda;
+    --dim:#6f83a6;
+    --line:rgba(120,160,220,.16);
+
+    --stage-bg:#02050c;
+    --slide-bg:#040a16;
+
+    --card:linear-gradient(155deg, rgba(15,32,58,.72), rgba(6,15,30,.5));
+    --card-soft:linear-gradient(155deg, rgba(13,28,52,.5), rgba(6,14,28,.32));
+    --card-bd:rgba(120,160,220,.18);
+    --shadow:0 24px 60px rgba(0,0,0,.5);
+
+    --font:'Manrope', system-ui, sans-serif;
+    --mono:'Space Mono', monospace;
+    --t-h2:54px;
+    --t-lead:27px;
+    --t-body:21px;
+    --t-small:16px;
+
+    --ease:cubic-bezier(.16,1,.3,1);
+
+    --pad-x:104px;
+    --pad-y:80px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+/* ============================================================================
+   2) PALCO FIXO 16:9
+   ============================================================================ */
+html,body{ width:100%; height:100%; overflow:hidden; background:var(--stage-bg);
+    font-family:var(--font); color:var(--white); -webkit-font-smoothing:antialiased; }
+.deck-viewport{ position:fixed; inset:0; overflow:hidden; background:var(--stage-bg); }
+.deck-stage{ position:absolute; left:0; top:0; width:1920px; height:1080px; overflow:hidden;
+    transform-origin:0 0; background:var(--slide-bg); }
+.slide{ position:absolute; inset:0; width:1920px; height:1080px; overflow:hidden;
+    visibility:hidden; opacity:0; pointer-events:none; background:var(--slide-bg); }
+.slide.active,.slide.visible{ visibility:visible; opacity:1; pointer-events:auto; z-index:1; }
+
+@media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{ animation-duration:.01ms!important; animation-iteration-count:1!important;
+        transition-duration:.2s!important; }
+}
+
+/* ============================================================================
+   3) FUNDO COMUM — gradientes + grade técnica + orbes
+   ============================================================================ */
+.slide{ background:
+        radial-gradient(1100px 760px at 6% 0%, rgba(243,177,60,.10) 0%, transparent 56%),
+        radial-gradient(1200px 820px at 100% 100%, rgba(57,214,232,.10) 0%, transparent 60%),
+        linear-gradient(160deg, #061227 0%, var(--slide-bg) 55%, #03060f 100%); }
+.slide::before{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(120,160,220,.045) 1px,transparent 1px),
+                     linear-gradient(90deg, rgba(120,160,220,.045) 1px,transparent 1px);
+    background-size:66px 66px;
+    mask-image:radial-gradient(130% 105% at 50% 30%, #000 26%, transparent 84%); }
+.orb{ position:absolute; border-radius:50%; filter:blur(64px); opacity:.5; z-index:0; pointer-events:none; }
+
+.slide-inner{ position:absolute; inset:0; z-index:2; padding:var(--pad-y) var(--pad-x); }
+
+/* ============================================================================
+   4) CHROME — kicker, título, HUD, progresso, dots, controles
+   ============================================================================ */
+.kicker{ font-family:var(--mono); font-size:15px; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--gold); display:inline-flex; align-items:center; gap:14px; }
+.kicker::before{ content:""; width:36px; height:2px;
+    background:linear-gradient(90deg, var(--gold), transparent); box-shadow:0 0 12px var(--gold); }
+.kicker.amber{ color:var(--gold-2); } .kicker.amber::before{ background:linear-gradient(90deg,var(--gold-2),transparent); box-shadow:0 0 12px var(--gold-2); }
+.kicker.rail{ color:var(--rail); } .kicker.rail::before{ background:linear-gradient(90deg,var(--rail),transparent); box-shadow:0 0 12px var(--rail); }
+.kicker.green{ color:var(--green); } .kicker.green::before{ background:linear-gradient(90deg,var(--green),transparent); box-shadow:0 0 12px var(--green); }
+
+.slide-title{ font-weight:800; font-size:var(--t-h2); line-height:1.05; letter-spacing:-.02em; margin-top:16px; }
+.grad{ background:linear-gradient(100deg, var(--gold), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.grad-gold{ background:linear-gradient(100deg, var(--gold), var(--gold-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.grad-rail{ background:linear-gradient(100deg, var(--rail), var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.grad-green{ background:linear-gradient(100deg, var(--green), var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.slide-lead,.lead{ font-size:var(--t-lead); color:var(--soft); line-height:1.42; margin-top:14px; max-width:1180px; }
+.lead b{ color:var(--white); }
+
+.hud-corner{ position:fixed; top:24px; right:32px; z-index:1000; display:flex; align-items:center; gap:18px;
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); }
+.hud-corner .brand{ color:var(--soft); } .hud-corner .brand b{ color:var(--gold); font-weight:700; }
+.hud-corner a{ color:var(--dim); text-decoration:none; transition:color .25s; }
+.hud-corner a:hover{ color:var(--gold); }
+
+.deck-progress{ position:fixed; top:0; left:0; right:0; height:4px; z-index:1001; background:rgba(120,160,220,.1); }
+.deck-progress span{ display:block; height:100%; width:10%;
+    background:linear-gradient(90deg, var(--gold), var(--cyan)); box-shadow:0 0 16px rgba(243,177,60,.55);
+    transition:width .5s var(--ease); }
+
+.deck-dots{ position:fixed; right:28px; top:50%; transform:translateY(-50%); z-index:1000;
+    display:flex; flex-direction:column; gap:12px; }
+.deck-dots button{ width:11px; height:11px; border-radius:50%; border:1px solid var(--line);
+    background:rgba(120,160,220,.14); cursor:pointer; padding:0; transition:all .3s var(--ease); }
+.deck-dots button:hover{ border-color:var(--gold); }
+.deck-dots button.on{ background:var(--gold); border-color:var(--gold); box-shadow:0 0 12px var(--gold);
+    height:26px; border-radius:6px; }
+
+.deck-controls{ position:fixed; left:50%; bottom:20px; transform:translateX(-50%); z-index:1000;
+    display:flex; align-items:center; gap:14px; padding:8px 14px; border-radius:999px;
+    background:linear-gradient(155deg, rgba(13,28,52,.8), rgba(6,14,28,.62)); border:1px solid var(--line);
+    backdrop-filter:blur(8px); }
+.dc-btn{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line); cursor:pointer;
+    background:rgba(120,160,220,.08); color:var(--soft); font-size:16px; transition:all .25s var(--ease); }
+.dc-btn:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
+.dc-btn:disabled{ opacity:.32; cursor:default; }
+.dc-btn.fs{ font-size:14px; }
+.dc-count{ font-family:var(--mono); font-size:14px; color:var(--dim); letter-spacing:.1em; }
+.dc-count b{ color:var(--white); } .dc-count i{ margin:0 4px; font-style:normal; }
+.kb-hint{ position:fixed; left:50%; bottom:68px; transform:translateX(-50%); z-index:1000;
+    font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--dim); opacity:.8;
+    transition:opacity .5s ease; } .kb-hint b{ color:var(--soft); } .kb-hint.hide{ opacity:0; }
+
+/* ============================================================================
+   5) REVEAL — entrada por elemento (--d = atraso)
+   ============================================================================ */
+.reveal{ opacity:0; transform:translateY(18px);
+    transition:opacity .7s var(--ease), transform .7s var(--ease); transition-delay:var(--d,0s); }
+.reveal.left{ transform:translateX(-28px); }
+.reveal.right{ transform:translateX(28px); }
+.reveal.up{ transform:translateY(26px); }
+.reveal.fade{ transform:none; }
+.slide.visible .reveal{ opacity:1; transform:none; }
+/* modo de revisão estática (?still): mostra tudo sem animação */
+.still .reveal{ opacity:1!important; transform:none!important; transition:none!important; }
+.still .mc .mbar i{ transition:none!important; }
+
+/* números mono */
+.num{ font-family:var(--mono); font-weight:700; font-variant-numeric:tabular-nums; }
+
+/* placeholder de imagem (troque por <img> quando tiver a figura) */
+.img-slot{ position:relative; border:1.5px dashed rgba(120,160,220,.3); border-radius:16px;
+    background:linear-gradient(155deg, rgba(15,32,58,.4), rgba(6,15,30,.25));
+    display:flex; align-items:center; justify-content:center; overflow:hidden; min-height:140px; }
+.img-slot.tall{ min-height:560px; }
+.img-tag{ position:absolute; bottom:10px; left:10px; font-family:var(--mono); font-size:12px;
+    letter-spacing:.08em; color:var(--dim); background:rgba(3,8,18,.6); padding:3px 8px; border-radius:6px; }
+
+/* pontos de legenda */
+.d{ width:11px; height:11px; border-radius:50%; display:inline-block; vertical-align:middle; margin-right:6px; }
+.d.gold{ background:var(--gold); box-shadow:0 0 8px var(--gold); }
+.d.cyan{ background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+.d.rail{ background:var(--rail); box-shadow:0 0 8px var(--rail); }
+
+/* ============================================================================
+   === SLIDE 1 — CAPA ===
+   ============================================================================ */
+.s1-photo{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.s1-photo i{ position:absolute; inset:0; background-size:cover; background-position:center right;
+    display:block; animation:s1KB 40s ease-in-out infinite alternate; }
+.s1-photo::after{ content:""; position:absolute; inset:0;
+    background:linear-gradient(95deg, rgba(3,7,16,.96) 0%, rgba(3,7,16,.82) 34%, rgba(3,7,16,.4) 62%, rgba(3,7,16,.55) 100%); }
+@keyframes s1KB{ from{ transform:scale(1.04); } to{ transform:scale(1.12); } }
+.s1 .slide-inner{ display:flex; flex-direction:column; justify-content:center; }
+.s1-wordmark{ font-size:150px; font-weight:800; letter-spacing:-.03em; line-height:.9; margin-top:10px; }
+.s1-name{ font-size:34px; font-weight:700; color:var(--white); margin-top:8px; letter-spacing:-.01em; }
+.s1-support{ font-size:23px; color:var(--soft); margin-top:22px; max-width:880px; line-height:1.45; }
+.s1-support em{ color:var(--gold-2); font-style:normal; }
+.s1-foot{ position:absolute; left:var(--pad-x); bottom:var(--pad-y); display:flex; gap:64px; z-index:2; }
+.s1-foot .lab{ font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--dim); }
+.s1-foot .val{ font-size:18px; color:var(--soft); margin-top:5px; } .s1-foot .val em{ color:var(--white); font-style:normal; font-weight:600; }
+
+/* ============================================================================
+   === SLIDE 2 — MATIAS BARBOSA ===
+   ============================================================================ */
+.s2-grid{ display:grid; grid-template-columns:1fr 720px; gap:54px; margin-top:34px; align-items:start; }
+.s2-axes{ display:flex; flex-direction:column; gap:14px; margin-top:26px; }
+.axis{ font-size:20px; color:var(--soft); display:flex; align-items:center; gap:14px; }
+.axis .tag{ font-family:var(--mono); font-weight:700; font-size:15px; color:#06121f; background:var(--c,var(--gold));
+    padding:6px 12px; border-radius:8px; letter-spacing:.04em; min-width:96px; text-align:center; }
+.s2-stats{ display:flex; gap:46px; margin-top:40px; }
+.s2-stats .stat b{ font-size:46px; color:var(--gold); display:block; }
+.s2-stats .stat span{ font-size:15px; color:var(--dim); max-width:160px; display:block; margin-top:2px; }
+.zmap{ position:absolute; inset:0; }
+.z{ position:absolute; transform:translate(-50%,-50%); font-family:var(--mono); font-size:14px; font-weight:700;
+    padding:8px 12px; border-radius:10px; border:1px solid; white-space:nowrap; }
+.z.zt{ color:var(--gold); border-color:rgba(243,177,60,.5); background:rgba(243,177,60,.1); box-shadow:0 0 18px rgba(243,177,60,.18); }
+.z.zte{ color:var(--cyan); border-color:rgba(57,214,232,.45); background:rgba(57,214,232,.09); font-size:12.5px; }
+.zlegend{ display:flex; gap:26px; margin-top:14px; font-size:14px; color:var(--soft); }
+
+/* ============================================================================
+   === SLIDE 3 — PASSAGENS EM NÍVEL ===
+   ============================================================================ */
+.s3-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:36px; }
+.pn .img-slot{ min-height:330px; border-color:rgba(255,90,126,.3); }
+.pn-cap{ margin-top:12px; font-size:18px; color:var(--soft); }
+.pn-cap b{ color:var(--rail); font-family:var(--mono); }
+.s3-notes{ display:flex; gap:40px; margin-top:26px; font-size:17px; color:var(--soft); }
+.s3-notes b{ color:var(--white); }
+
+/* ============================================================================
+   === SLIDE 4 — DADOS ===
+   ============================================================================ */
+.s4-flow{ display:flex; align-items:stretch; gap:18px; margin-top:46px; }
+.fstep{ flex:1; background:var(--card); border:1px solid var(--card-bd); border-radius:16px; padding:24px 26px; }
+.fstep .fi{ font-family:var(--mono); font-size:14px; color:var(--gold); letter-spacing:.1em; }
+.fstep b{ display:block; font-size:23px; margin-top:10px; }
+.fstep p{ font-size:16px; color:var(--dim); margin-top:8px; }
+.farrow{ align-self:center; font-size:28px; color:var(--gold); }
+.s4-result{ display:flex; align-items:center; gap:48px; margin-top:52px; }
+.big-kpi{ display:flex; flex-direction:column; }
+.big-kpi b{ font-size:104px; line-height:.9; color:var(--gold);
+    background:linear-gradient(100deg,var(--gold),var(--gold-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.big-kpi span{ font-size:21px; color:var(--soft); margin-top:8px; }
+.s4-note{ font-size:20px; color:var(--soft); max-width:560px; line-height:1.45; } .s4-note b{ color:var(--gold-2); }
+
+/* ============================================================================
+   === SLIDE 5 — IMPACTO ECONÔMICO ===
+   ============================================================================ */
+.s5-chain{ display:flex; align-items:stretch; gap:16px; margin-top:42px; }
+.c5{ flex:1; background:var(--card-soft); border:1px solid var(--card-bd); border-radius:16px; padding:22px 24px; text-align:center; }
+.c5 b{ font-size:40px; color:var(--gold-2); display:block; }
+.c5 span{ font-size:16px; color:var(--soft); margin-top:8px; display:block; } .c5 span i{ color:var(--dim); font-style:normal; }
+.c5op{ align-self:center; font-size:30px; color:var(--dim); }
+.s5-out{ display:flex; gap:20px; margin-top:34px; }
+.o5{ flex:1; background:var(--card); border:1px solid var(--card-bd); border-radius:16px; padding:22px 26px; }
+.o5 .lab{ font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); }
+.o5 b{ font-size:48px; display:block; margin-top:8px; color:var(--white); }
+.o5.big b{ color:var(--gold); }
+.o5.hl{ border-color:rgba(243,177,60,.5); background:linear-gradient(155deg, rgba(243,177,60,.16), rgba(6,15,30,.4)); }
+.o5.hl b{ color:var(--gold-2); }
+.s5-foot{ font-size:19px; color:var(--soft); margin-top:30px; } .s5-foot b{ color:var(--white); }
+.s5-foot .handoff{ color:var(--gold); font-weight:600; }
+
+/* ============================================================================
+   === SLIDE 6 — O QUE É O ALIME ===
+   ============================================================================ */
+.s6-grid{ display:grid; grid-template-columns:1fr 760px; gap:54px; margin-top:30px; align-items:center; }
+.s6-list{ list-style:none; margin-top:26px; display:flex; flex-direction:column; gap:16px; }
+.s6-list li{ font-size:20px; color:var(--soft); padding-left:26px; position:relative; line-height:1.4; }
+.s6-list li::before{ content:""; position:absolute; left:0; top:11px; width:11px; height:11px; border-radius:3px;
+    background:var(--gold); box-shadow:0 0 10px var(--gold); }
+.s6-list b{ color:var(--white); }
+.app-shell{ background:var(--card); border:1px solid var(--card-bd); border-radius:18px; overflow:hidden; box-shadow:var(--shadow); }
+.app-bar{ display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--line);
+    background:rgba(6,14,28,.6); font-family:var(--mono); font-size:14px; }
+.app-bar b{ color:var(--gold); letter-spacing:.06em; } .app-bar .mut{ color:var(--dim); }
+.app-bar .dots{ display:flex; gap:6px; } .app-bar .dots i{ width:11px; height:11px; border-radius:50%; background:rgba(120,160,220,.3); }
+.app-body{ display:grid; grid-template-columns:1fr 200px; gap:0; }
+.app-map{ min-height:420px; border:none; border-radius:0; margin:16px; }
+.app-side{ border-left:1px solid var(--line); padding:16px; display:flex; flex-direction:column; gap:7px; }
+.ai-step{ font-family:var(--mono); font-size:14px; color:var(--dim); padding:8px 12px; border-radius:8px; }
+.ai-step.on{ color:#06121f; background:var(--gold); font-weight:700; }
+
+/* ============================================================================
+   === SLIDE 7 — QUATRO ETAPAS ===
+   ============================================================================ */
+.s7-steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:38px; }
+.step{ background:var(--card); border:1px solid var(--card-bd); border-radius:16px; padding:24px; position:relative; }
+.step .q{ font-family:var(--mono); font-size:15px; color:var(--cyan); }
+.step b{ display:block; font-size:25px; margin-top:12px; color:var(--gold); }
+.step p{ font-size:16px; color:var(--soft); margin-top:8px; line-height:1.4; }
+.s7-hook{ margin-top:34px; background:var(--card-soft); border:1px solid var(--card-bd); border-radius:16px; padding:24px 30px; }
+.s7-hook p{ font-size:19px; color:var(--soft); margin-bottom:16px; }
+.modal-cmp{ display:flex; flex-direction:column; gap:14px; }
+.mc{ display:flex; align-items:center; gap:14px; font-size:18px; }
+.mc .ml{ width:230px; color:var(--white); }
+.mc .mbar{ width:200px; height:14px; border-radius:8px; background:rgba(120,160,220,.12); overflow:hidden; }
+.mc .mbar i{ display:block; height:100%; width:0; border-radius:8px; background:var(--c,var(--gold));
+    transition:width 1.1s var(--ease); }
+.mc b{ font-family:var(--mono); width:64px; } .mc b.bad{ color:var(--rail); } .mc b.warn{ color:var(--gold-2); }
+.mc .arrow{ color:var(--dim); font-size:20px; margin:0 4px; }
+
+/* ============================================================================
+   === SLIDE 8 — GRAFOS / DIJKSTRA ===
+   ============================================================================ */
+.s8-grid{ display:grid; grid-template-columns:600px 1fr; gap:54px; margin-top:24px; align-items:center; }
+.s8-graph{ background:var(--card-soft); border:1px solid var(--card-bd); border-radius:18px; padding:18px; }
+.graph{ width:100%; height:auto; }
+.graph .edge{ stroke:rgba(120,160,220,.35); stroke-width:2.5; }
+.graph .edge.ext{ stroke:rgba(57,214,232,.4); stroke-dasharray:2 7; stroke-linecap:round; }
+.graph .edge.pn{ stroke:var(--rail); stroke-width:3.5; }
+.graph .edge.faint{ opacity:.4; }
+.graph .node circle{ fill:rgba(243,177,60,.14); stroke:var(--gold); stroke-width:2; }
+.graph .node.zte circle{ fill:rgba(57,214,232,.12); stroke:var(--cyan); }
+.graph .node.crit circle{ fill:rgba(255,90,126,.16); stroke:var(--rail); stroke-width:2.5; }
+.graph .node text{ fill:var(--white); font-family:var(--mono); font-size:13px; font-weight:700; text-anchor:middle; }
+.graph .pntag rect{ fill:var(--rail); }
+.graph .pntag text{ fill:#1a0510; font-family:var(--mono); font-size:12px; font-weight:700; text-anchor:middle; }
+.g-legend{ display:flex; gap:26px; margin-top:8px; font-size:14px; color:var(--soft); padding-left:6px; }
+.s8-stats{ display:flex; flex-direction:column; gap:18px; margin-top:26px; }
+.s8-stats .st{ background:var(--card); border:1px solid var(--card-bd); border-radius:14px; padding:18px 22px; }
+.s8-stats .st b{ font-size:34px; color:var(--gold); display:block; }
+.s8-stats .st span{ font-size:16px; color:var(--soft); } .s8-stats .st span i{ color:var(--dim); font-style:normal; }
+.s8-stats .st.crit{ border-color:rgba(255,90,126,.45); } .s8-stats .st.crit b{ color:var(--rail); }
+
+/* ============================================================================
+   === SLIDE 9 — CENÁRIOS ===
+   ============================================================================ */
+.s9-cols{ display:grid; grid-template-columns:1fr 200px 1fr; gap:24px; margin-top:34px; align-items:center; }
+.s9c{ background:var(--card); border:1px solid var(--card-bd); border-radius:18px; padding:26px 30px; }
+.s9c.bad{ border-color:rgba(255,90,126,.4); }
+.s9c.good{ border-color:rgba(55,224,126,.4); }
+.s9-head{ font-size:19px; color:var(--soft); margin-bottom:18px; line-height:1.4; } .s9-head i{ color:var(--dim); font-style:normal; }
+.badge{ display:inline-block; font-family:var(--mono); font-size:13px; font-weight:700; padding:5px 11px; border-radius:8px; margin-right:8px; }
+.badge.bad{ background:rgba(255,90,126,.18); color:var(--rail); }
+.badge.good{ background:rgba(55,224,126,.18); color:var(--green); }
+.fam{ display:flex; justify-content:space-between; align-items:center; padding:13px 0; border-top:1px solid var(--line); font-size:19px; }
+.fam span{ color:var(--soft); } .fam b{ font-family:var(--mono); font-size:24px; color:var(--white); }
+.s9-mid{ display:flex; flex-direction:column; gap:18px; align-items:center; }
+.d9{ text-align:center; } .d9 span{ display:block; font-size:14px; color:var(--dim); }
+.d9 b{ font-family:var(--mono); font-size:26px; } .d9 b.up{ color:var(--rail); } .d9 b.down{ color:var(--green); }
+.s9-foot{ font-size:19px; color:var(--soft); margin-top:30px; text-align:center; } .s9-foot b{ color:var(--white); }
+
+/* ============================================================================
+   === SLIDE 10 — DECISÃO ===
+   ============================================================================ */
+.s10-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:28px; }
+.s10-left h4,.s10-right h4{ font-size:18px; color:var(--soft); margin-bottom:16px; font-weight:700; }
+.s10-left h4 span{ color:var(--dim); font-weight:400; font-family:var(--mono); font-size:14px; }
+.rank{ display:flex; justify-content:space-between; align-items:center; gap:14px; padding:14px 18px; border-radius:12px;
+    background:var(--card-soft); border:1px solid var(--card-bd); margin-bottom:10px; }
+.rank .rn{ font-family:var(--mono); font-size:15px; color:var(--soft); }
+.rank b{ font-family:var(--mono); font-size:16px; color:var(--white); white-space:nowrap; }
+.rank.top{ border-color:rgba(55,224,126,.5); background:linear-gradient(155deg, rgba(55,224,126,.14), rgba(6,15,30,.4)); }
+.rank.top .rn{ color:var(--white); } .rank.top .rb{ color:var(--green); } .rank.top .rb em{ font-style:normal; font-size:20px; }
+.s10-note{ font-size:16px; color:var(--dim); margin-top:14px; } .s10-note b{ color:var(--gold-2); }
+.cmp2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.cc{ background:var(--card); border:1px solid var(--card-bd); border-radius:14px; padding:20px 22px; }
+.cc .cl{ font-size:15px; color:var(--dim); } .cc .cl i{ font-style:normal; }
+.cc .cv{ display:block; font-family:var(--mono); font-size:30px; margin-top:8px; color:var(--white); }
+.cc .cpb{ font-size:15px; color:var(--soft); margin-top:6px; } .cc .cpb b{ color:var(--gold-2); }
+.cc.hot{ border-color:rgba(243,177,60,.55); background:linear-gradient(155deg, rgba(243,177,60,.16), rgba(6,15,30,.4)); }
+.cc.hot .cv{ color:var(--gold); } .cc.hot .cpb b{ color:var(--green); }
+.cmp2-why{ font-size:15px; color:var(--dim); margin-top:14px; line-height:1.45; } .cmp2-why b{ color:var(--soft); }
+.s10-cta{ display:flex; align-items:center; gap:18px; margin-top:22px; padding-top:20px; border-top:1px solid var(--line); }
+.qr{ width:104px; height:104px; background:#fff; border-radius:10px; padding:7px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+.qr img{ width:100%; height:100%; image-rendering:pixelated; }
+.qr-txt span{ display:block; font-size:14px; color:var(--dim); }
+.qr-txt a{ font-family:var(--mono); font-size:15px; color:var(--gold); text-decoration:none; word-break:break-all; }
+.s10-foot{ position:absolute; left:var(--pad-x); right:var(--pad-x); bottom:40px; display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:13px; color:var(--dim); letter-spacing:.06em; } .s10-foot b{ color:var(--soft); }
+
+/* fallback do QR (offline) */
+.qr.placeholder{ display:grid; grid-template-columns:repeat(11,1fr); gap:0; background:#fff; }
+.qr.placeholder i{ background:#fff; } .qr.placeholder i.on{ background:#04101e; }

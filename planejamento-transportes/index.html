@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     ALIME — APRESENTAÇÃO (10 slides)
+     Matéria: Planejamento de Transportes · Doutorado em Transportes · IME
+     Estudo de caso: Matias Barbosa/MG  ·  dupla: Wagner (1–5) · Luiz (6–10)
+     ----------------------------------------------------------------------------
+     Arquivos:  index.html (este) · styles.css · script.js · assets/
+     Abrir:     duplo clique OU "Open with Live Server" (VS Code).
+     Navegar:   ← →  (Espaço/PageUp/PageDown) · botões inferiores · dots à direita · F = tela cheia.
+     Editar:    o TEXTO está em cada <section class="slide ...">. Números animados usam data-count.
+     ============================================================================ -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALIME — Análise Local Integrada de Mobilidade e Engenharia · Matias Barbosa/MG</title>
+
+<!-- FONTES -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+
+<!-- QR real (gera o código do simulador); degrada p/ placeholder se faltar internet -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<!-- GSAP só para o leve flutuar dos orbes (opcional) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- barra de progresso (topo) -->
+<div class="deck-progress"><span id="progressBar"></span></div>
+
+<!-- HUD canto superior -->
+<div class="hud-corner">
+    <span class="brand"><b>ALIME</b> · Planejamento de Transportes</span>
+    <a href="../inicio.html" title="Voltar às matérias">◂ matérias</a>
+</div>
+
+<!-- dots (preenchidos por script.js) -->
+<nav class="deck-dots" id="deckDots" aria-label="Ir para slide"></nav>
+
+<!-- =========================================================================
+     PALCO FIXO 16:9 — desenhado em 1920×1080 e escalado para a tela
+     ========================================================================= -->
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ======================================================================= -->
+<!-- SLIDE 1 — CAPA                                                  (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide active s1" data-slide="1">
+    <div class="s1-photo"><i style="background-image:url('assets/01-capa-alime.png')"></i></div>
+    <div class="orb" style="width:520px;height:520px;background:rgba(243,177,60,.16);left:-140px;top:-110px;" data-orb="1"></div>
+    <div class="orb" style="width:560px;height:560px;background:rgba(57,214,232,.14);left:120px;bottom:-200px;" data-orb="2"></div>
+
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">Doutorado em Transportes · Planejamento de Transportes · IME</p>
+        <h1 class="s1-wordmark reveal" style="--d:.16s"><span class="grad">ALIME</span></h1>
+        <p class="s1-name reveal" style="--d:.30s">Análise Local Integrada de Mobilidade e Engenharia</p>
+        <p class="s1-support reveal" style="--d:.46s">Rodovias, ferrovias e mobilidade urbana em municípios de pequeno porte —
+            <em>estudo de caso de Matias Barbosa/MG</em>.</p>
+
+        <div class="s1-foot reveal fade" style="--d:.7s">
+            <div class="blk"><div class="lab">Autores</div><div class="val"><em>Luiz Araujo de Souza Junior</em> · <em>Wagner de Almeida Tavares</em></div></div>
+            <div class="blk"><div class="lab">Instituição</div><div class="val"><em>IME</em> — Instituto Militar de Engenharia</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 2 — MATIAS BARBOSA / MG                                   (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide s2" data-slide="2">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">O território · Wagner</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Matias Barbosa/MG — <span class="grad">onde o regional corta o local</span></h2>
+
+        <div class="s2-grid">
+            <div class="s2-left">
+                <p class="lead reveal" style="--d:.22s">Cidade pequena na <b>Zona da Mata mineira</b>, no eixo Rio–Juiz de Fora.
+                    Três eixos estruturantes cruzam a malha urbana:</p>
+                <div class="s2-axes">
+                    <div class="axis reveal left" style="--d:.32s;--c:var(--gold)"><span class="tag">BR-040</span> rodovia federal</div>
+                    <div class="axis reveal left" style="--d:.40s;--c:var(--gold-2)"><span class="tag">LMG-874</span> União Indústria</div>
+                    <div class="axis reveal left" style="--d:.48s;--c:var(--rail)"><span class="tag">Ferrovia</span> linha férrea (efeito barreira)</div>
+                </div>
+                <div class="s2-stats reveal up" style="--d:.6s">
+                    <div class="stat"><b class="num" data-count="14121" data-money="1">0</b><span>habitantes</span></div>
+                    <div class="stat"><b class="num" data-count="5269" data-money="1">0</b><span>domicílios</span></div>
+                    <div class="stat"><b class="num" data-count="9">0</b><span>zonas (5 internas + 4 externas)</span></div>
+                </div>
+            </div>
+
+            <div class="s2-right reveal right" style="--d:.4s">
+                <!-- TROCAR por Fig. 2 do artigo (zoneamento): assets/zoneamento.png -->
+                <div class="img-slot tall">
+                    <div class="zmap">
+                        <span class="z zt" style="left:46%;top:54%">ZT01</span>
+                        <span class="z zt" style="left:70%;top:40%">ZT02</span>
+                        <span class="z zt" style="left:52%;top:78%">ZT03</span>
+                        <span class="z zt" style="left:30%;top:30%">ZT04</span>
+                        <span class="z zt" style="left:20%;top:62%">ZT05</span>
+                        <span class="z zte" style="left:24%;top:8%">ZTE01</span>
+                        <span class="z zte" style="left:80%;top:70%">ZTE02</span>
+                        <span class="z zte" style="left:86%;top:90%">ZTE03</span>
+                        <span class="z zte" style="left:62%;top:96%">ZTE04</span>
+                    </div>
+                    <span class="img-tag">Fig. 2 — zoneamento analítico (placeholder)</span>
+                </div>
+                <div class="zlegend">
+                    <span><i class="d gold"></i> ZT01–ZT05 internas</span>
+                    <span><i class="d cyan"></i> ZTE01–ZTE04 externas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 3 — PASSAGENS EM NÍVEL                                    (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide s3" data-slide="3">
+    <div class="slide-inner">
+        <p class="kicker rail reveal" style="--d:.05s">O conflito · Wagner</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Quatro <span class="grad-rail">passagens em nível</span></h2>
+        <p class="slide-lead reveal" style="--d:.2s">Onde a ferrovia cruza o sistema viário no mesmo nível, o trem
+            <b>bloqueia o trânsito</b> — retenção, fila e aumento de percurso, várias vezes ao dia.</p>
+
+        <div class="s3-grid">
+            <div class="pn reveal up" style="--d:.3s">
+                <div class="img-slot"><span class="img-tag">Fig. 4 — PN01</span></div>
+                <div class="pn-cap"><b>PN01</b> · ZT01–ZT03</div>
+            </div>
+            <div class="pn reveal up" style="--d:.38s">
+                <div class="img-slot"><span class="img-tag">Fig. 5 — PN02</span></div>
+                <div class="pn-cap"><b>PN02</b> · ZT01–ZT03</div>
+            </div>
+            <div class="pn reveal up" style="--d:.46s">
+                <div class="img-slot"><span class="img-tag">Fig. 6 — PN03</span></div>
+                <div class="pn-cap"><b>PN03</b> · ZT01–ZT04</div>
+            </div>
+            <div class="pn reveal up" style="--d:.54s">
+                <div class="img-slot"><span class="img-tag">Fig. 7 — PN04</span></div>
+                <div class="pn-cap"><b>PN04</b> · ZT01–ZT04</div>
+            </div>
+        </div>
+        <div class="s3-notes reveal fade" style="--d:.66s">
+            <span><b>PN01 + PN02</b> paralelas entre ZT01–ZT03 (~0,64 km)</span>
+            <span><b>PN03 + PN04</b> em série entre ZT01–ZT04 (~1,54 km)</span>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 4 — DADOS USADOS                                          (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide s4" data-slide="4">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">A demanda · Wagner</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Dos dados à <span class="grad">matriz origem-destino</span></h2>
+
+        <div class="s4-flow">
+            <div class="fstep reveal up" style="--d:.26s"><span class="fi">01</span><b>População &amp; domicílios</b><p>IBGE 2022 → vetores de produção por zona</p></div>
+            <span class="farrow reveal fade" style="--d:.32s">→</span>
+            <div class="fstep reveal up" style="--d:.36s"><span class="fi">02</span><b>Empregos, escolas, comércio</b><p>RAIS · INEP → vetores de atração</p></div>
+            <span class="farrow reveal fade" style="--d:.42s">→</span>
+            <div class="fstep reveal up" style="--d:.46s"><span class="fi">03</span><b>Modelo gravitacional</b><p>atrito espacial β = 1,50</p></div>
+        </div>
+
+        <div class="s4-result reveal up" style="--d:.62s">
+            <div class="big-kpi">
+                <b class="num" data-count="9176" data-money="1" data-delay="300">0</b>
+                <span>viagens/dia na matriz O-D</span>
+            </div>
+            <p class="s4-note">Maior concentração em <b>ZT01</b> (Centro) e <b>ZTE01</b> (Juiz de Fora) —
+                coerente com a dependência funcional do polo regional.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 5 — IMPACTO ECONÔMICO (conservador)                       (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide s5" data-slide="5">
+    <div class="slide-inner">
+        <p class="kicker amber reveal" style="--d:.05s">O custo do atraso · Wagner</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Quanto custa <span class="grad-gold">parar no cruzamento?</span></h2>
+
+        <div class="s5-chain">
+            <div class="c5 reveal up" style="--d:.26s"><b class="num" data-count="0.3991" data-decimals="4" data-prefix="R$ ">0</b><span>valor do tempo /min<br><i>2,6 salários mínimos</i></span></div>
+            <span class="c5op reveal fade" style="--d:.3s">×</span>
+            <div class="c5 reveal up" style="--d:.36s"><b class="num" data-count="10.22" data-decimals="2" data-suffix=" min">0</b><span>penalidade média<br><i>por par afetado</i></span></div>
+            <span class="c5op reveal fade" style="--d:.4s">×</span>
+            <div class="c5 reveal up" style="--d:.46s"><b class="num" data-count="1500" data-money="1">0</b><span>viagens/dia presas<br><i>hipótese conservadora</i></span></div>
+        </div>
+
+        <div class="s5-out">
+            <div class="o5 big reveal up" style="--d:.62s"><div class="lab">Custo social</div><b class="num" data-count="1.53" data-decimals="2" data-prefix="R$ " data-suffix=" mi/ano" data-delay="300">0</b></div>
+            <div class="o5 reveal up" style="--d:.72s"><div class="lab">Obra (4 × R$ 6,5 mi)</div><b class="num" data-count="26" data-prefix="R$ " data-suffix=" mi">0</b></div>
+            <div class="o5 hl reveal up" style="--d:.82s"><div class="lab">Payback simples</div><b class="num" data-count="17" data-suffix=" anos">0</b></div>
+        </div>
+        <p class="s5-foot reveal fade" style="--d:.95s">É o <b>piso conservador</b> — só as 1.500 viagens mais presas.
+            Mas como chegamos a esses números? <span class="handoff">É o ALIME — o Luiz mostra. ▸</span></p>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 6 — O QUE É O ALIME                                         (Luiz) -->
+<!-- ======================================================================= -->
+<section class="slide s6" data-slide="6">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">A ferramenta · Luiz</p>
+        <h2 class="slide-title reveal" style="--d:.12s">O <span class="grad">ALIME</span> por trás dos números</h2>
+
+        <div class="s6-grid">
+            <div class="s6-left">
+                <p class="lead reveal" style="--d:.22s">Um <b>simulador web</b> de apoio à decisão preliminar para
+                    municípios de pequeno porte (até ~20 mil hab) — onde falta dado e verba para um estudo completo.</p>
+                <ul class="s6-list">
+                    <li class="reveal left" style="--d:.32s"><b>Genérico:</b> serve a qualquer cidade — Matias Barbosa é só o caso demonstrativo.</li>
+                    <li class="reveal left" style="--d:.40s"><b>Aberto:</b> Python · Streamlit · OSMnx · NetworkX, rodando no navegador.</li>
+                    <li class="reveal left" style="--d:.48s"><b>Exploratório:</b> não substitui EVTEA, contagem, O-D domiciliar nem microssimulação.</li>
+                </ul>
+            </div>
+
+            <div class="s6-right reveal right" style="--d:.4s">
+                <!-- TROCAR por Fig. 3 (interface): assets/alime-interface.png -->
+                <div class="app-shell">
+                    <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>ALIME</b><span class="mut">· análise local</span></div>
+                    <div class="app-body">
+                        <div class="app-map img-slot"><span class="img-tag">Fig. 3 — mapa interativo</span></div>
+                        <div class="app-side">
+                            <div class="ai-step on">1 · Município</div>
+                            <div class="ai-step">2 · Zonas</div>
+                            <div class="ai-step">3 · Geração</div>
+                            <div class="ai-step">4 · Distribuição</div>
+                            <div class="ai-step">5 · Modal</div>
+                            <div class="ai-step">6 · Atribuição</div>
+                            <div class="ai-step">7 · Interferências</div>
+                            <div class="ai-step">8 · Cenários</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 7 — MODELO DE QUATRO ETAPAS                                 (Luiz) -->
+<!-- ======================================================================= -->
+<section class="slide s7" data-slide="7">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">O método · Luiz</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Modelo de <span class="grad">quatro etapas</span></h2>
+
+        <div class="s7-steps">
+            <div class="step reveal up" style="--d:.26s"><span class="q">Vou?</span><b>Geração</b><p>vetores de produção e atração por zona</p></div>
+            <div class="step reveal up" style="--d:.34s"><span class="q">Para onde?</span><b>Distribuição</b><p>matriz O-D por modelo gravitacional</p></div>
+            <div class="step reveal up" style="--d:.42s"><span class="q">Como?</span><b>Repartição modal</b><p>ativo · individual · coletivo</p></div>
+            <div class="step reveal up" style="--d:.50s"><span class="q">Por onde?</span><b>Atribuição</b><p>caminho mínimo · all-or-nothing</p></div>
+        </div>
+
+        <div class="s7-hook reveal up" style="--d:.66s">
+            <p>Com as passagens em nível ativas, a rede empurra a escolha modal:</p>
+            <div class="modal-cmp">
+                <div class="mc"><span class="ml">Transporte coletivo</span>
+                    <span class="mbar"><i data-bar="42" style="--c:var(--cyan)"></i></span><b>42%</b>
+                    <span class="arrow">→</span>
+                    <span class="mbar down"><i data-bar="26.4" style="--c:var(--rail)"></i></span><b class="bad">26,4%</b></div>
+                <div class="mc"><span class="ml">Individual motorizado</span>
+                    <span class="mbar"><i data-bar="41.8" style="--c:var(--gold)"></i></span><b>41,8%</b>
+                    <span class="arrow">→</span>
+                    <span class="mbar up"><i data-bar="50.6" style="--c:var(--gold-2)"></i></span><b class="warn">50,6%</b></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 8 — GRAFOS E DIJKSTRA                                       (Luiz) -->
+<!-- ======================================================================= -->
+<section class="slide s8" data-slide="8">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">A rede · Luiz</p>
+        <h2 class="slide-title reveal" style="--d:.12s">A cidade como um <span class="grad">grafo</span> · Dijkstra</h2>
+
+        <div class="s8-grid">
+            <div class="s8-graph reveal right" style="--d:.34s">
+                <svg viewBox="0 0 560 460" class="graph" aria-label="rede de zonas">
+                    <!-- arestas -->
+                    <line x1="280" y1="240" x2="430" y2="150" class="edge"/>
+                    <line x1="280" y1="240" x2="150" y2="120" class="edge"/>
+                    <line x1="280" y1="240" x2="120" y2="300" class="edge"/>
+                    <line x1="280" y1="240" x2="300" y2="380" class="edge pn"/>
+                    <line x1="280" y1="240" x2="150" y2="120" class="edge pn faint"/>
+                    <line x1="430" y1="150" x2="300" y2="60" class="edge ext"/>
+                    <line x1="300" y1="380" x2="450" y2="410" class="edge ext"/>
+                    <!-- nós internos -->
+                    <g class="node zt"><circle cx="280" cy="240" r="30"/><text x="280" y="245">ZT01</text></g>
+                    <g class="node zt"><circle cx="430" cy="150" r="24"/><text x="430" y="154">ZT02</text></g>
+                    <g class="node zt crit"><circle cx="300" cy="380" r="24"/><text x="300" y="384">ZT03</text></g>
+                    <g class="node zt"><circle cx="150" cy="120" r="24"/><text x="150" y="124">ZT04</text></g>
+                    <g class="node zt"><circle cx="120" cy="300" r="22"/><text x="120" y="304">ZT05</text></g>
+                    <!-- nós externos -->
+                    <g class="node zte"><circle cx="300" cy="60" r="20"/><text x="300" y="64">ZTE01</text></g>
+                    <g class="node zte"><circle cx="450" cy="410" r="18"/><text x="450" y="414">ZTE03</text></g>
+                    <!-- selos de penalidade -->
+                    <g class="pntag"><rect x="232" y="300" width="96" height="26" rx="13"/><text x="280" y="317">+10,22 min</text></g>
+                </svg>
+                <div class="g-legend"><span><i class="d gold"></i>caminho mínimo</span><span><i class="d rail"></i>passagem em nível</span></div>
+            </div>
+
+            <div class="s8-right">
+                <p class="lead reveal" style="--d:.24s">Cada passagem em nível vira <b>peso a mais</b> na aresta.
+                    O Dijkstra recalcula o caminho mínimo — e o atraso aparece.</p>
+                <div class="s8-stats">
+                    <div class="st reveal up" style="--d:.36s"><b class="num" data-count="73.42" data-decimals="2" data-suffix=" min">0</b><span>tempo médio sistêmico <i>(de 69,44 → +5,7%)</i></span></div>
+                    <div class="st reveal up" style="--d:.46s"><b><span class="num" data-count="26">0</span>/72</b><span>pares O-D afetados pela ferrovia</span></div>
+                    <div class="st crit reveal up" style="--d:.56s"><b>18 → <span class="num" data-count="38.44" data-decimals="2">0</span> min</b><span>ZT03–ZT04 (duas PN em série) — o mais crítico</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 9 — CENÁRIOS SIMULADOS                                      (Luiz) -->
+<!-- ======================================================================= -->
+<section class="slide s9" data-slide="9">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">Os cenários · Luiz</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Cenário 0 <span class="grad">×</span> intervenção</h2>
+        <p class="slide-lead reveal" style="--d:.2s">A geração total não muda (9.176 viagens/dia) — o que muda é <b>para onde</b> e <b>como</b> as viagens acontecem.</p>
+
+        <div class="s9-cols">
+            <div class="s9c bad reveal left" style="--d:.32s">
+                <div class="s9-head"><span class="badge bad">Cenário 0</span> COM passagens em nível <i>(atual)</i></div>
+                <div class="fam"><span>Intrazonais</span><b>2.775</b></div>
+                <div class="fam"><span>Interzonais internas</span><b>2.067</b></div>
+                <div class="fam"><span>Pendulares / externas</span><b>4.334</b></div>
+            </div>
+
+            <div class="s9-mid reveal fade" style="--d:.5s">
+                <div class="d9"><span>intrazonais</span><b class="up">+945</b></div>
+                <div class="d9"><span>interzonais</span><b class="down">−498</b></div>
+                <div class="d9"><span>externas</span><b class="down">−447</b></div>
+            </div>
+
+            <div class="s9c good reveal right" style="--d:.32s">
+                <div class="s9-head"><span class="badge good">SEM PN + OAE</span> com transposição em desnível</div>
+                <div class="fam"><span>Intrazonais</span><b>1.830</b></div>
+                <div class="fam"><span>Interzonais internas</span><b>2.565</b></div>
+                <div class="fam"><span>Pendulares / externas</span><b>4.781</b></div>
+            </div>
+        </div>
+        <p class="s9-foot reveal fade" style="--d:.66s">Com as PN, a cidade <b>se fecha</b>: mais viagens presas dentro da própria zona,
+            menos integração entre zonas e com a região.</p>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 10 — APLICAÇÃO E DECISÃO                                    (Luiz) -->
+<!-- ======================================================================= -->
+<section class="slide s10" data-slide="10">
+    <div class="slide-inner">
+        <p class="kicker green reveal" style="--d:.05s">A decisão · Luiz</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Da simulação à <span class="grad-green">priorização</span></h2>
+
+        <div class="s10-grid">
+            <div class="s10-left reveal left" style="--d:.26s">
+                <h4>Ranking de intervenções <span>(saída do ALIME)</span></h4>
+                <div class="rank top"><span class="rn">PN01 + PN02 + RF01 + RF02</span><b class="rb">atraso residual&nbsp;<em>0</em></b></div>
+                <div class="rank"><span class="rn">PN02 + RF01 + RF02</span><b>R$ 11,8 mi/ano</b></div>
+                <div class="rank"><span class="rn">PN01 + PN02 + RF01</span><b>R$ 8,6 mi/ano</b></div>
+                <div class="rank"><span class="rn">RF01 + RF02</span><b>R$ 8,1 mi/ano</b></div>
+                <p class="s10-note">O ganho máximo vem de tratar as interferências <b>em conjunto</b> — não isoladas.</p>
+            </div>
+
+            <div class="s10-right reveal right" style="--d:.32s">
+                <h4>O ganho de análise do simulador</h4>
+                <div class="cmp2">
+                    <div class="cc">
+                        <div class="cl">Conta manual <i>(artigo)</i></div>
+                        <b class="cv">R$ 1,53 mi/ano</b>
+                        <div class="cpb">payback <b>~17 anos</b></div>
+                    </div>
+                    <div class="cc hot">
+                        <div class="cl">Simulador completo</div>
+                        <b class="cv">R$ 12,26 mi/ano</b>
+                        <div class="cpb">payback <b>~2,1 anos</b></div>
+                    </div>
+                </div>
+                <p class="cmp2-why">Diferença = recorte: o simulador conta o <b>atraso do sistema inteiro</b>
+                    (72 pares) e testa <b>vários cenários</b>; a conta manual contou só 1.500 viagens.</p>
+
+                <div class="s10-cta">
+                    <div class="qr" id="qrGrid" aria-label="QR do simulador ALIME"></div>
+                    <div class="qr-txt">
+                        <span>Teste o ALIME no ar</span>
+                        <a href="https://anzhkry7bnjfiwup4xjesf.streamlit.app" target="_blank" rel="noopener">anzhkry7bnjfiwup4xjesf.streamlit.app</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="s10-foot reveal fade" style="--d:.8s">
+            <span><b>Luiz Araujo de Souza Junior</b> · <b>Wagner de Almeida Tavares</b></span>
+            <span>IME — Planejamento de Transportes · 2026</span>
+        </div>
+    </div>
+</section>
+
+</main>
+</div>
+
+<!-- controles inferiores -->
+<div class="deck-controls">
+    <button id="btnPrev" class="dc-btn" aria-label="Anterior">◂</button>
+    <span class="dc-count"><b id="curNum">01</b><i>/</i><span id="totNum">10</span></span>
+    <button id="btnNext" class="dc-btn" aria-label="Próximo">▸</button>
+    <button id="btnFs" class="dc-btn fs" aria-label="Tela cheia">⛶</button>
+</div>
+<div class="kb-hint" id="kbHint">use <b>← →</b> para navegar · <b>F</b> tela cheia</div>
+
+<script src="script.js"></script>
+</body>
+</html>
