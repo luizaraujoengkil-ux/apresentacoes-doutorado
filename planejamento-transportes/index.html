@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <!-- ============================================================================
-     ALIME — APRESENTAÇÃO (10 slides)
+     ALIME — APRESENTAÇÃO (11 slides)
      Matéria: Planejamento de Transportes · Doutorado em Transportes · IME
-     Estudo de caso: Matias Barbosa/MG  ·  dupla: Wagner (1–5) · Luiz (6–10)
+     Estudo de caso: Matias Barbosa/MG  ·  dupla: Wagner (1–6) · Luiz (7–11)
+     Obs.: a numeração real do slide é pela ORDEM dos <section> (o motor conta sozinho).
+           A classe .sN é só um gancho de estilo do CSS — após inserirmos o slide 4 novo,
+           o número da classe fica 1 atrás da posição (ex.: SLIDE 6 usa a classe .s5).
      ----------------------------------------------------------------------------
      Arquivos:  index.html (este) · styles.css · script.js · assets/
      Abrir:     duplo clique OU "Open with Live Server" (VS Code).
@@ -143,19 +146,71 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 4 — DADOS USADOS                                          (Wagner) -->
+<!-- SLIDE 4 — FONTE DE DADOS & PARAMETRIZAÇÃO  · NOVO               (Wagner) -->
 <!-- ======================================================================= -->
-<section class="slide s4" data-slide="4">
+<section class="slide sfd" data-slide="4">
+    <div class="slide-inner">
+        <p class="kicker reveal" style="--d:.05s">A base de dados · Wagner</p>
+        <h2 class="slide-title reveal" style="--d:.12s">Tudo a partir de <span class="grad">dados públicos</span></h2>
+        <p class="slide-lead reveal" style="--d:.2s">A premissa do ALIME é usar só <b>fontes oficiais e abertas</b> — por isso a mesma
+            análise se repete em <b>qualquer município de pequeno porte</b>, sem pesquisa de campo cara.</p>
+
+        <div class="sfd-grid">
+            <!-- 4.1 — FONTE DE DADOS -->
+            <div class="sfd-col reveal up" style="--d:.3s">
+                <div class="sfd-h"><span class="sec">4.1</span> Fonte de dados</div>
+                <ul class="src-list">
+                    <li><span class="src-tag gold">IBGE · Censo 2022</span> população (14.121 hab) e domicílios (5.269) por setor censitário → vetores de produção</li>
+                    <li><span class="src-tag gold">RAIS</span> vínculos formais de emprego → vetores de atração</li>
+                    <li><span class="src-tag gold">INEP</span> matrículas escolares → polos de atração</li>
+                    <li><span class="src-tag rail">CNT · Tabela 4</span> transporte de carga ferroviária em Matias Barbosa → intensidade de uso da ferrovia</li>
+                    <li><span class="src-tag cyan">OpenStreetMap · OSMnx</span> malha viária e ferroviária georreferenciada</li>
+                </ul>
+                <div class="cnt-card">
+                    <div class="cnt-h">Tabela 4 — CNT · carga ferroviária (Matias Barbosa)</div>
+                    <!-- PREENCHER com os valores oficiais da Tabela 4 do artigo -->
+                    <div class="cnt-row"><span>Trens de carga / dia</span><b class="todo">a confirmar</b></div>
+                    <div class="cnt-row"><span>Volume anual transportado</span><b class="todo">a confirmar</b></div>
+                    <div class="cnt-row"><span>Bloqueio médio por passagem</span><b class="todo">a confirmar</b></div>
+                </div>
+            </div>
+
+            <!-- 4.2 — PARAMETRIZAÇÃO -->
+            <div class="sfd-col reveal up" style="--d:.42s">
+                <div class="sfd-h"><span class="sec">4.2</span> Parametrização</div>
+                <p class="sfd-p">Cada zona é uma <b>agregação de setores censitários</b> do IBGE, respeitando as barreiras
+                    físicas — ferrovia, BR-040 e LMG-874 — que separam os bairros.</p>
+                <div class="zt-map">
+                    <div class="zt-row"><b>ZT01</b> Centro e Rodoviária <span class="sc todo">?? setores</span></div>
+                    <div class="zt-row"><b>ZT02</b> Monte Alegre <span class="sc todo">?? setores</span></div>
+                    <div class="zt-row"><b>ZT03</b> N. Sra. da Penha · MG-874 <span class="sc todo">?? setores</span></div>
+                    <div class="zt-row"><b>ZT04</b> Cedofeita e Expansão <span class="sc todo">?? setores</span></div>
+                    <div class="zt-row"><b>ZT05</b> Área rural e Distrito <span class="sc todo">?? setores</span></div>
+                    <div class="zt-row ext"><b>ZTE01–04</b> Juiz de Fora · Simão Pereira · Três Rios · Rio de Janeiro</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sfd-foot reveal fade" style="--d:.7s">
+            <b>Dados abertos e oficiais</b> → o ALIME refaz esta base para qualquer cidade de pequeno porte.
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 5 — DOS DADOS À MATRIZ O-D                                (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide s4" data-slide="5">
     <div class="slide-inner">
         <p class="kicker reveal" style="--d:.05s">A demanda · Wagner</p>
         <h2 class="slide-title reveal" style="--d:.12s">Dos dados à <span class="grad">matriz origem-destino</span></h2>
 
         <div class="s4-flow">
-            <div class="fstep reveal up" style="--d:.26s"><span class="fi">01</span><b>População &amp; domicílios</b><p>IBGE 2022 → vetores de produção por zona</p></div>
+            <div class="fstep reveal up" style="--d:.26s"><span class="fi">01</span><b>Vetores de produção</b><p>população e domicílios → viagens geradas por zona</p></div>
             <span class="farrow reveal fade" style="--d:.32s">→</span>
-            <div class="fstep reveal up" style="--d:.36s"><span class="fi">02</span><b>Empregos, escolas, comércio</b><p>RAIS · INEP → vetores de atração</p></div>
+            <div class="fstep reveal up" style="--d:.36s"><span class="fi">02</span><b>Vetores de atração</b><p>empregos, escolas e comércio → viagens atraídas</p></div>
             <span class="farrow reveal fade" style="--d:.42s">→</span>
-            <div class="fstep reveal up" style="--d:.46s"><span class="fi">03</span><b>Modelo gravitacional</b><p>atrito espacial β = 1,50</p></div>
+            <div class="fstep reveal up" style="--d:.46s"><span class="fi">03</span><b>Modelo gravitacional</b><p>distribui as viagens · atrito espacial β = 1,50</p></div>
         </div>
 
         <div class="s4-result reveal up" style="--d:.62s">
@@ -170,9 +225,9 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 5 — IMPACTO ECONÔMICO (conservador)                       (Wagner) -->
+<!-- SLIDE 6 — IMPACTO ECONÔMICO (conservador)                       (Wagner) -->
 <!-- ======================================================================= -->
-<section class="slide s5" data-slide="5">
+<section class="slide s5" data-slide="6">
     <div class="slide-inner">
         <p class="kicker amber reveal" style="--d:.05s">O custo do atraso · Wagner</p>
         <h2 class="slide-title reveal" style="--d:.12s">Quanto custa <span class="grad-gold">parar no cruzamento?</span></h2>
@@ -196,9 +251,9 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 6 — O QUE É O ALIME                                         (Luiz) -->
+<!-- SLIDE 7 — O QUE É O ALIME                                         (Luiz) -->
 <!-- ======================================================================= -->
-<section class="slide s6" data-slide="6">
+<section class="slide s6" data-slide="7">
     <div class="slide-inner">
         <p class="kicker reveal" style="--d:.05s">A ferramenta · Luiz</p>
         <h2 class="slide-title reveal" style="--d:.12s">O <span class="grad">ALIME</span> por trás dos números</h2>
@@ -238,9 +293,9 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 7 — MODELO DE QUATRO ETAPAS                                 (Luiz) -->
+<!-- SLIDE 8 — MODELO DE QUATRO ETAPAS                                 (Luiz) -->
 <!-- ======================================================================= -->
-<section class="slide s7" data-slide="7">
+<section class="slide s7" data-slide="8">
     <div class="slide-inner">
         <p class="kicker reveal" style="--d:.05s">O método · Luiz</p>
         <h2 class="slide-title reveal" style="--d:.12s">Modelo de <span class="grad">quatro etapas</span></h2>
@@ -269,9 +324,9 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 8 — GRAFOS E DIJKSTRA                                       (Luiz) -->
+<!-- SLIDE 9 — GRAFOS E DIJKSTRA                                       (Luiz) -->
 <!-- ======================================================================= -->
-<section class="slide s8" data-slide="8">
+<section class="slide s8" data-slide="9">
     <div class="slide-inner">
         <p class="kicker reveal" style="--d:.05s">A rede · Luiz</p>
         <h2 class="slide-title reveal" style="--d:.12s">A cidade como um <span class="grad">grafo</span> · Dijkstra</h2>
@@ -296,9 +351,9 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 9 — CENÁRIOS SIMULADOS                                      (Luiz) -->
+<!-- SLIDE 10 — CENÁRIOS SIMULADOS                                     (Luiz) -->
 <!-- ======================================================================= -->
-<section class="slide s9" data-slide="9">
+<section class="slide s9" data-slide="10">
     <div class="slide-inner">
         <p class="kicker reveal" style="--d:.05s">Os cenários · Luiz</p>
         <h2 class="slide-title reveal" style="--d:.12s">Cenário 0 <span class="grad">×</span> intervenção</h2>
@@ -331,9 +386,9 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 10 — APLICAÇÃO E DECISÃO                                    (Luiz) -->
+<!-- SLIDE 11 — APLICAÇÃO E DECISÃO                                    (Luiz) -->
 <!-- ======================================================================= -->
-<section class="slide s10" data-slide="10">
+<section class="slide s10" data-slide="11">
     <div class="slide-inner">
         <p class="kicker green reveal" style="--d:.05s">A decisão · Luiz</p>
         <h2 class="slide-title reveal" style="--d:.12s">Da simulação à <span class="grad-green">priorização</span></h2>
@@ -387,7 +442,7 @@
 <!-- controles inferiores -->
 <div class="deck-controls">
     <button id="btnPrev" class="dc-btn" aria-label="Anterior">◂</button>
-    <span class="dc-count"><b id="curNum">01</b><i>/</i><span id="totNum">10</span></span>
+    <span class="dc-count"><b id="curNum">01</b><i>/</i><span id="totNum">11</span></span>
     <button id="btnNext" class="dc-btn" aria-label="Próximo">▸</button>
     <button id="btnFs" class="dc-btn fs" aria-label="Tela cheia">⛶</button>
 </div>
