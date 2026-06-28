@@ -561,48 +561,98 @@
 <!-- ======================================================================= -->
 <section class="slide s6" data-slide="7">
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">A ferramenta · Luiz</p>
-        <h2 class="slide-title reveal" style="--d:.12s">O <span class="grad">ALIME</span> por trás dos números</h2>
+        <p class="kicker reveal left" style="--d:.05s">A ferramenta · Luiz</p>
+        <h2 class="slide-title reveal up" style="--d:.12s">O <span class="grad">ALIME</span> por trás dos números</h2>
 
         <div class="s6-grid">
             <div class="s6-left">
-                <p class="lead reveal up" style="--d:.22s">Um <b>simulador web</b> de apoio à decisão preliminar para
-                    municípios de <b>pequeno porte</b> (até ~20 mil hab) — onde falta dado e verba para um estudo completo.</p>
+                <p class="lead reveal up" style="--d:.22s">Um <b>simulador web</b> de apoio à decisão preliminar para municípios de
+                    <b>pequeno porte</b> — onde faltam dados, equipe técnica e recursos para um estudo completo.</p>
                 <div class="s6-feats">
                     <div class="s6-feat reveal left" style="--d:.32s">
-                        <span class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.6v3.2M12 19.2v3.2M1.6 12h3.2M19.2 12h3.2"/></svg></span>
-                        <div><b>Genérico</b><p>serve a qualquer cidade — Matias Barbosa é só o caso demonstrativo.</p></div>
+                        <span class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2M5 5l2.2 2.2M16.8 16.8 19 19M19 5l-2.2 2.2M7.2 16.8 5 19"/></svg></span>
+                        <div><b>Replicável</b><p>pode ser aplicado a diferentes municípios de pequeno porte — Matias Barbosa é o caso demonstrativo.</p></div>
                     </div>
                     <div class="s6-feat reveal left" style="--d:.40s">
                         <span class="sf-ico cy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/><path d="M13.5 5l-3 14"/></svg></span>
-                        <div><b>Aberto</b><p>roda no navegador, com bibliotecas livres de análise de redes.</p></div>
+                        <div><b>Aberto</b><p>roda no navegador, com bibliotecas livres de análise espacial e redes.</p></div>
                     </div>
                     <div class="s6-feat reveal left" style="--d:.48s">
-                        <span class="sf-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
-                        <div><b>Exploratório</b><p>não substitui EVTEA, contagem, O-D domiciliar nem microssimulação.</p></div>
+                        <span class="sf-ico bl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg></span>
+                        <div><b>Preliminar</b><p>apoia triagem e priorização antes de EVTEA, contagens, O-D domiciliar e projeto executivo.</p></div>
                     </div>
                 </div>
                 <div class="s6-stack reveal up" style="--d:.58s">
                     <span class="stk-l">stack aberta</span>
                     <span class="stk">Python</span><span class="stk">Streamlit</span><span class="stk">OSMnx</span><span class="stk">NetworkX</span><span class="stk">Folium</span>
                 </div>
+                <div class="s6-seal reveal up" style="--d:.68s">
+                    <span class="ss-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+                    De ferramenta exploratória a <b>apoio preliminar à decisão</b>.
+                </div>
             </div>
 
-            <div class="s6-right reveal right" style="--d:.4s">
-                <!-- TROCAR por Fig. 3 (interface): assets/alime-interface.png -->
-                <div class="app-shell">
-                    <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>ALIME</b><span class="mut">· análise local</span></div>
-                    <div class="app-body">
-                        <div class="app-map img-slot has-img"><img class="fig" src="assets/alime-interface.png" alt="Mapa interativo do ALIME — conectividade da malha viária de Matias Barbosa/MG"></div>
-                        <div class="app-side">
-                            <div class="ai-step on">1 · Município</div>
-                            <div class="ai-step">2 · Zonas</div>
-                            <div class="ai-step">3 · Geração</div>
-                            <div class="ai-step">4 · Distribuição</div>
-                            <div class="ai-step">5 · Modal</div>
-                            <div class="ai-step">6 · Atribuição</div>
-                            <div class="ai-step">7 · Interferências</div>
-                            <div class="ai-step">8 · Cenários</div>
+            <div class="s6-right reveal scale" style="--d:.46s">
+                <div class="al-mock">
+                    <div class="alm-bar"><span class="alm-dots"><i></i><i></i><i></i></span><b>ALIME</b><span class="alm-mut">· simulador web</span><span class="alm-live"><i></i>ao vivo</span></div>
+                    <div class="alm-body">
+                        <div class="alm-main">
+                            <div class="alm-map">
+                                <svg class="alm-svg" viewBox="0 0 600 330" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                                    <g class="alm-lines">
+                                        <line class="ln in" x1="300" y1="168" x2="358" y2="108"/>
+                                        <line class="ln in" x1="300" y1="168" x2="424" y2="156"/>
+                                        <line class="ln in" x1="300" y1="168" x2="336" y2="236"/>
+                                        <line class="ln in" x1="300" y1="168" x2="230" y2="112"/>
+                                        <line class="ln in" x1="300" y1="168" x2="192" y2="206"/>
+                                        <line class="ln faint" x1="230" y1="112" x2="358" y2="108"/>
+                                        <line class="ln faint" x1="424" y1="156" x2="336" y2="236"/>
+                                        <path class="ln ext" id="alA" d="M300 168 L92 56"/>
+                                        <line class="ln ext" x1="300" y1="168" x2="506" y2="116"/>
+                                        <line class="ln ext" x1="300" y1="168" x2="262" y2="300"/>
+                                        <path class="ln ext" id="alC" d="M300 168 L498 286"/>
+                                        <path class="ln in" id="alB" d="M300 168 L424 156"/>
+                                    </g>
+                                    <circle class="alm-dot gold" r="3.2"><animateMotion dur="3.6s" repeatCount="indefinite" begin="0s"><mpath href="#alA"/></animateMotion></circle>
+                                    <circle class="alm-dot cy" r="3.2"><animateMotion dur="3s" repeatCount="indefinite" begin=".8s"><mpath href="#alB"/></animateMotion></circle>
+                                    <circle class="alm-dot gold" r="3.2"><animateMotion dur="4s" repeatCount="indefinite" begin="1.6s"><mpath href="#alC"/></animateMotion></circle>
+                                    <g class="alm-nodes">
+                                        <g class="nd in" style="--ci:1"><circle cx="358" cy="108" r="13"/><text x="358" y="112">ZT01</text></g>
+                                        <g class="nd in" style="--ci:2"><circle cx="424" cy="156" r="13"/><text x="424" y="160">ZT02</text></g>
+                                        <g class="nd in" style="--ci:3"><circle cx="336" cy="236" r="13"/><text x="336" y="240">ZT03</text></g>
+                                        <g class="nd in" style="--ci:4"><circle cx="230" cy="112" r="13"/><text x="230" y="116">ZT04</text></g>
+                                        <g class="nd in" style="--ci:5"><circle cx="192" cy="206" r="13"/><text x="192" y="210">ZT05</text></g>
+                                        <g class="nd ext" style="--ci:6"><circle cx="92" cy="56" r="14"/><text x="92" y="60">ZTE1</text></g>
+                                        <g class="nd ext" style="--ci:7"><circle cx="506" cy="116" r="14"/><text x="506" y="120">ZTE2</text></g>
+                                        <g class="nd ext" style="--ci:8"><circle cx="262" cy="300" r="14"/><text x="262" y="304">ZTE3</text></g>
+                                        <g class="nd ext" style="--ci:9"><circle cx="498" cy="286" r="14"/><text x="498" y="290">ZTE4</text></g>
+                                        <g class="nd hub" style="--ci:0"><circle cx="300" cy="168" r="11"/><circle class="hub-ring" cx="300" cy="168" r="20"/></g>
+                                    </g>
+                                </svg>
+                                <div class="alm-area"><b>Área de estudo</b><span>Matias Barbosa / MG</span></div>
+                                <div class="alm-legend">
+                                    <span><i class="lg in"></i>Zona interna (ZT)</span>
+                                    <span><i class="lg ext"></i>Zona externa (ZTE)</span>
+                                    <span><i class="lg conn"></i>Conexões · malha viária</span>
+                                </div>
+                                <span class="alm-hubtag">Matias Barbosa</span>
+                            </div>
+                            <div class="alm-mods">
+                                <div class="alm-mod" data-mod="od" style="--mi:0"><span class="amm-th"><svg viewBox="0 0 36 24"><rect x="2" y="2" width="6" height="6" opacity=".85"/><rect x="9" y="2" width="6" height="6" opacity=".5"/><rect x="16" y="2" width="6" height="6" opacity=".3"/><rect x="2" y="9" width="6" height="6" opacity=".5"/><rect x="9" y="9" width="6" height="6" opacity=".95"/><rect x="16" y="9" width="6" height="6" opacity=".45"/><rect x="2" y="16" width="6" height="6" opacity=".3"/><rect x="9" y="16" width="6" height="6" opacity=".5"/><rect x="16" y="16" width="6" height="6" opacity=".75"/></svg></span><div><b>Matriz O-D</b><i>origem × destino · viagens/dia</i></div></div>
+                                <div class="alm-mod" data-mod="graph" style="--mi:1"><span class="amm-th"><svg viewBox="0 0 36 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="2.6" fill="currentColor"/><circle cx="26" cy="6" r="2.6" fill="currentColor"/><circle cx="18" cy="17" r="2.6" fill="currentColor"/><circle cx="31" cy="17" r="2.6" fill="currentColor"/><path d="M9 8l8 8M24 8l-5 8M28 8l1 7"/></svg></span><div><b>Grafo viário</b><i>nós e arestas · topologia real</i></div></div>
+                                <div class="alm-mod" data-mod="scen" style="--mi:2"><span class="amm-th"><svg viewBox="0 0 36 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19l8-7 5 4 9-11"/><path d="M25 5h4v4"/></svg></span><div><b>Cenários</b><i>alternativas de intervenção</i></div></div>
+                                <div class="alm-mod gold" data-mod="cost" style="--mi:3"><span class="amm-th rs">R$</span><div><b>Custo social</b><i>tempo · operação · investimento</i></div></div>
+                            </div>
+                        </div>
+                        <div class="alm-side">
+                            <div class="alm-step on" style="--si:0"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><b>1</b>Município</div>
+                            <div class="alm-step" style="--si:1"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></span><b>2</b>Zonas</div>
+                            <div class="alm-step" style="--si:2"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v6M12 15v6M3 12h6M15 12h6M6 6l3 3M15 15l3 3M18 6l-3 3M9 15l-3 3"/></svg></span><b>3</b>Geração</div>
+                            <div class="alm-step" style="--si:3"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="12" r="2.2" fill="currentColor"/><circle cx="18" cy="6" r="2.2" fill="currentColor"/><circle cx="18" cy="18" r="2.2" fill="currentColor"/><path d="M8 11l8-4M8 13l8 4" stroke="currentColor" stroke-linecap="round"/></svg></span><b>4</b>Distribuição</div>
+                            <div class="alm-step" style="--si:4"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="10" rx="2"/><path d="M4 12h16"/><circle cx="8" cy="18" r="1.3"/><circle cx="16" cy="18" r="1.3"/></svg></span><b>5</b>Modal</div>
+                            <div class="alm-step" style="--si:5"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8.2 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.8"/></svg></span><b>6</b>Atribuição</div>
+                            <div class="alm-step" style="--si:6"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span><b>7</b>Interferências</div>
+                            <div class="alm-step" style="--si:7"><span class="as-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><b>8</b>Cenários</div>
                         </div>
                     </div>
                 </div>
