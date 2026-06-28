@@ -94,20 +94,9 @@
             </div>
 
             <div class="s2-right reveal right" style="--d:.4s">
-                <!-- TROCAR por Fig. 2 do artigo (zoneamento): assets/zoneamento.png -->
-                <div class="img-slot tall">
-                    <div class="zmap">
-                        <span class="z zt" style="left:46%;top:54%">ZT01</span>
-                        <span class="z zt" style="left:70%;top:40%">ZT02</span>
-                        <span class="z zt" style="left:52%;top:78%">ZT03</span>
-                        <span class="z zt" style="left:30%;top:30%">ZT04</span>
-                        <span class="z zt" style="left:20%;top:62%">ZT05</span>
-                        <span class="z zte" style="left:24%;top:8%">ZTE01</span>
-                        <span class="z zte" style="left:80%;top:70%">ZTE02</span>
-                        <span class="z zte" style="left:86%;top:90%">ZTE03</span>
-                        <span class="z zte" style="left:62%;top:96%">ZTE04</span>
-                    </div>
-                    <span class="img-tag">Fig. 2 — zoneamento analítico (placeholder)</span>
+                <!-- Fig. 2 do artigo — zoneamento + rede analítica -->
+                <div class="img-slot tall has-img">
+                    <img class="fig fit" src="assets/zoneamento.png" alt="Zoneamento de Matias Barbosa/MG — 5 zonas internas (ZT) e 4 externas (ZTE) e os corredores BR-040 / LMG-874">
                 </div>
                 <div class="zlegend">
                     <span><i class="d gold"></i> ZT01–ZT05 internas</span>
@@ -130,19 +119,19 @@
 
         <div class="s3-grid">
             <div class="pn reveal up" style="--d:.3s">
-                <div class="img-slot"><span class="img-tag">Fig. 4 — PN01</span></div>
+                <div class="img-slot has-img"><img class="fig" src="assets/pn01.png" alt="PN01 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 4 — PN01</span></div>
                 <div class="pn-cap"><b>PN01</b> · ZT01–ZT03</div>
             </div>
             <div class="pn reveal up" style="--d:.38s">
-                <div class="img-slot"><span class="img-tag">Fig. 5 — PN02</span></div>
+                <div class="img-slot has-img"><img class="fig" src="assets/pn02.png" alt="PN02 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 5 — PN02</span></div>
                 <div class="pn-cap"><b>PN02</b> · ZT01–ZT03</div>
             </div>
             <div class="pn reveal up" style="--d:.46s">
-                <div class="img-slot"><span class="img-tag">Fig. 6 — PN03</span></div>
+                <div class="img-slot has-img"><img class="fig" src="assets/pn03.png" alt="PN03 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 6 — PN03</span></div>
                 <div class="pn-cap"><b>PN03</b> · ZT01–ZT04</div>
             </div>
             <div class="pn reveal up" style="--d:.54s">
-                <div class="img-slot"><span class="img-tag">Fig. 7 — PN04</span></div>
+                <div class="img-slot has-img"><img class="fig" src="assets/pn04.png" alt="PN04 — passagem em nível, vista aérea e de rua"><span class="img-tag">Fig. 7 — PN04</span></div>
                 <div class="pn-cap"><b>PN04</b> · ZT01–ZT04</div>
             </div>
         </div>
@@ -230,7 +219,7 @@
                 <div class="app-shell">
                     <div class="app-bar"><span class="dots"><i></i><i></i><i></i></span><b>ALIME</b><span class="mut">· análise local</span></div>
                     <div class="app-body">
-                        <div class="app-map img-slot"><span class="img-tag">Fig. 3 — mapa interativo</span></div>
+                        <div class="app-map img-slot has-img"><img class="fig" src="assets/alime-interface.png" alt="Mapa interativo do ALIME — conectividade da malha viária de Matias Barbosa/MG"></div>
                         <div class="app-side">
                             <div class="ai-step on">1 · Município</div>
                             <div class="ai-step">2 · Zonas</div>
@@ -289,28 +278,8 @@
 
         <div class="s8-grid">
             <div class="s8-graph reveal right" style="--d:.34s">
-                <svg viewBox="0 0 560 460" class="graph" aria-label="rede de zonas">
-                    <!-- arestas -->
-                    <line x1="280" y1="240" x2="430" y2="150" class="edge"/>
-                    <line x1="280" y1="240" x2="150" y2="120" class="edge"/>
-                    <line x1="280" y1="240" x2="120" y2="300" class="edge"/>
-                    <line x1="280" y1="240" x2="300" y2="380" class="edge pn"/>
-                    <line x1="280" y1="240" x2="150" y2="120" class="edge pn faint"/>
-                    <line x1="430" y1="150" x2="300" y2="60" class="edge ext"/>
-                    <line x1="300" y1="380" x2="450" y2="410" class="edge ext"/>
-                    <!-- nós internos -->
-                    <g class="node zt"><circle cx="280" cy="240" r="30"/><text x="280" y="245">ZT01</text></g>
-                    <g class="node zt"><circle cx="430" cy="150" r="24"/><text x="430" y="154">ZT02</text></g>
-                    <g class="node zt crit"><circle cx="300" cy="380" r="24"/><text x="300" y="384">ZT03</text></g>
-                    <g class="node zt"><circle cx="150" cy="120" r="24"/><text x="150" y="124">ZT04</text></g>
-                    <g class="node zt"><circle cx="120" cy="300" r="22"/><text x="120" y="304">ZT05</text></g>
-                    <!-- nós externos -->
-                    <g class="node zte"><circle cx="300" cy="60" r="20"/><text x="300" y="64">ZTE01</text></g>
-                    <g class="node zte"><circle cx="450" cy="410" r="18"/><text x="450" y="414">ZTE03</text></g>
-                    <!-- selos de penalidade -->
-                    <g class="pntag"><rect x="232" y="300" width="96" height="26" rx="13"/><text x="280" y="317">+10,22 min</text></g>
-                </svg>
-                <div class="g-legend"><span><i class="d gold"></i>caminho mínimo</span><span><i class="d rail"></i>passagem em nível</span></div>
+                <img class="graph-fig" src="assets/grafo-dijkstra.png" alt="Análise de caminhos mínimos entre zonas pelo algoritmo de Dijkstra — rede viária simplificada com pesos em km">
+                <div class="g-legend"><span><i class="d gold"></i>caminho mínimo (Dijkstra)</span><span><i class="d cyan"></i>conexões viárias · peso = km</span></div>
             </div>
 
             <div class="s8-right">
