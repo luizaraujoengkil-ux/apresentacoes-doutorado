@@ -546,6 +546,21 @@ function setupSlide8() {
 }
 
 /* ============================================================================
+   SLIDE 9 — hover nos cards destaca o trecho correspondente do grafo
+   ============================================================================ */
+function setupSlide9() {
+    const graph = document.getElementById('dijkGraph');
+    if (!graph) return;
+    const map = { crit: 'hl-crit', affected: 'hl-affected', all: 'hl-all' };
+    document.querySelectorAll('.s8 .st[data-card]').forEach(card => {
+        const cls = map[card.dataset.card];
+        if (!cls) return;
+        card.addEventListener('mouseenter', () => graph.classList.add(cls));
+        card.addEventListener('mouseleave', () => graph.classList.remove(cls));
+    });
+}
+
+/* ============================================================================
    BOOT
    ============================================================================ */
 window.addEventListener('DOMContentLoaded', () => {
@@ -556,6 +571,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setupSlide3();
     setupSlide5();
     setupSlide8();
+    setupSlide9();
     window.deck = new Deck();
 
     /* deep-link opcional: index.html#5 abre direto no slide 5 */

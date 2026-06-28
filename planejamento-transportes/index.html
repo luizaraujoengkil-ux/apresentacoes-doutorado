@@ -786,38 +786,93 @@
 <!-- ======================================================================= -->
 <section class="slide s8" data-slide="9">
     <div class="slide-inner">
-        <p class="kicker reveal" style="--d:.05s">A rede · Luiz</p>
-        <h2 class="slide-title reveal" style="--d:.12s">A cidade como um <span class="grad">grafo</span> · Dijkstra</h2>
-
-        <p class="slide-lead reveal up" style="--d:.2s">Cada passagem em nível vira <b>peso a mais</b> na aresta — o Dijkstra recalcula o caminho mínimo e o <b>atraso aparece</b>.</p>
+        <p class="kicker reveal left" style="--d:.05s">A rede · Luiz</p>
+        <h2 class="slide-title reveal up" style="--d:.12s">Dijkstra: quando o <span class="grad">atraso</span> entra como <span class="grad">peso</span> na rede</h2>
+        <p class="slide-lead reveal up" style="--d:.2s">Cada passagem em nível aumenta o <b>peso da aresta</b>; o algoritmo recalcula o <b>caminho mínimo</b> e o impacto deixa de ser apenas local.</p>
 
         <div class="s8-grid">
-            <div class="s8-graph reveal right" style="--d:.34s">
-                <img class="graph-fig" src="assets/grafo-dijkstra.png" alt="Análise de caminhos mínimos entre zonas pelo algoritmo de Dijkstra — rede viária simplificada com pesos em km">
-                <div class="g-legend"><span><i class="d gold"></i>caminho mínimo (Dijkstra)</span><span><i class="d cyan"></i>conexões viárias · peso = km</span></div>
+            <!-- ===== PAINEL DE GRAFO (SVG sintético) ===== -->
+            <div class="s8-graph reveal scale" style="--d:.32s" id="dijkGraph">
+                <svg class="gsvg" viewBox="0 0 600 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <!-- bússola + rios -->
+                    <g class="g-compass"><path d="M22,40 L22,16 M22,16 L17,24 M22,16 L27,24" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="22" y="52" class="g-comp-t">N</text></g>
+                    <text x="40" y="120" class="g-river">Rio Paraopeba</text>
+                    <text x="505" y="246" class="g-river" text-anchor="end">Rio Paraíba do Sul</text>
+
+                    <!-- ARESTAS — conexões viárias (ciano) -->
+                    <path class="edge draw" style="--ed:.55s" pathLength="1" d="M100,150 Q185,138 272,152"/>
+                    <path class="edge draw" style="--ed:.62s" pathLength="1" d="M92,240 Q86,193 100,150"/>
+                    <path class="edge draw faint" style="--ed:.7s" pathLength="1" d="M272,152 Q178,205 92,240"/>
+                    <path class="edge draw faint" style="--ed:.78s" pathLength="1" d="M452,168 Q378,220 292,258"/>
+                    <path class="edge draw faint" style="--ed:.86s" pathLength="1" d="M272,152 Q400,98 525,52"/>
+                    <path class="edge draw faint" style="--ed:.92s" pathLength="1" d="M452,168 Q498,108 525,52"/>
+                    <path class="edge draw faint" style="--ed:.98s" pathLength="1" d="M292,258 Q332,283 372,302"/>
+
+                    <!-- ARESTAS — caminho mínimo (dourado) -->
+                    <path class="edge draw min" style="--ed:1.08s" pathLength="1" d="M100,150 Q165,95 255,55"/>
+                    <path class="edge draw min" style="--ed:1.2s" pathLength="1" d="M255,55 Q262,103 272,152"/>
+                    <path class="edge draw min" style="--ed:1.32s" pathLength="1" d="M272,152 Q360,150 452,168"/>
+                    <path class="edge draw min" style="--ed:1.44s" pathLength="1" d="M452,168 Q500,180 528,198"/>
+                    <path class="edge draw min" style="--ed:1.56s" pathLength="1" d="M272,152 Q280,205 292,258"/>
+
+                    <!-- ARESTAS — penalidade ferroviária (vermelho tracejado) -->
+                    <path class="edge pen crit" id="eCrit" style="--ed:1.7s" d="M100,150 Q150,235 292,258"/>
+                    <path class="edge pen" style="--ed:1.82s" d="M292,258 Q333,283 372,302"/>
+
+                    <!-- spark de fluxo na artéria dourada -->
+                    <circle class="gspark" r="3.4"><animateMotion dur="5.2s" repeatCount="indefinite" path="M255,55 Q262,103 272,152 Q360,150 452,168 Q500,180 528,198"/></circle>
+
+                    <!-- avisos de PN (duas em série no ZT03–ZT04) -->
+                    <g class="gwarn" style="--ed:1.95s" transform="translate(146,202)"><path d="M0,-8 L8,7 H-8 Z"/><line x1="0" y1="-3.4" x2="0" y2="2"/><circle cx="0" cy="4.6" r="0.9"/></g>
+                    <g class="gwarn" style="--ed:2.05s" transform="translate(197,232)"><path d="M0,-8 L8,7 H-8 Z"/><line x1="0" y1="-3.4" x2="0" y2="2"/><circle cx="0" cy="4.6" r="0.9"/></g>
+
+                    <!-- NÓS -->
+                    <g transform="translate(255,55)"><g class="gnode ext" style="--gi:.5s"><circle r="15"/><text>ZTE01</text></g></g>
+                    <g transform="translate(525,52)"><g class="gnode ext" style="--gi:.58s"><circle r="15"/><text>ZTE02</text></g></g>
+                    <g transform="translate(528,198)"><g class="gnode ext" style="--gi:.66s"><circle r="15"/><text>ZTE03</text></g></g>
+                    <g transform="translate(372,302)"><g class="gnode ext" style="--gi:.74s"><circle r="14"/><text>ZTE04</text></g></g>
+                    <g transform="translate(100,150)"><g class="gnode cy" style="--gi:.82s"><circle r="20"/><text>ZT04</text></g></g>
+                    <g transform="translate(92,240)"><g class="gnode cy" style="--gi:.9s"><circle r="20"/><text>ZT05</text></g></g>
+                    <g transform="translate(452,168)"><g class="gnode cy" style="--gi:.98s"><circle r="20"/><text>ZT02</text></g></g>
+                    <g transform="translate(272,152)"><g class="gnode cy hub" style="--gi:1.08s"><circle r="23"/><text>ZT01</text></g></g>
+                    <g transform="translate(292,258)"><g class="gnode crit" style="--gi:1.2s"><circle r="23"/><text>ZT03</text></g></g>
+                </svg>
+                <div class="g-legend">
+                    <span><i class="d gold"></i>caminho mínimo (Dijkstra)</span>
+                    <span><i class="d cyan"></i>conexões viárias</span>
+                    <span><i class="d pen"></i>peso = tempo + penalidade</span>
+                </div>
             </div>
 
+            <!-- ===== INDICADORES DE IMPACTO ===== -->
             <div class="s8-right">
                 <div class="s8-stats">
-                    <div class="st reveal up" style="--d:.4s">
+                    <div class="st reveal up" style="--d:.5s" data-card="all">
                         <span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg></span>
-                        <div><b class="num" data-count="73.42" data-decimals="2" data-suffix=" min" data-delay="600">0 min</b><span>tempo médio sistêmico <i>(69,44 → +5,7%)</i></span></div>
+                        <div><span class="st-t">Rede recalculada</span><b class="num" data-count="73.42" data-decimals="2" data-suffix=" min" data-delay="900">0 min</b><span class="st-d">tempo médio sistêmico <i>(69,44 → +5,7%)</i></span></div>
                     </div>
-                    <div class="st reveal up" style="--d:.5s">
-                        <span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M7.8 7.4 10.5 16M16.4 8.8 13.2 16M8 6.4h8"/></svg></span>
-                        <div><b><span class="num" data-count="26" data-delay="750">0</span>/72</b><span>pares O-D afetados pela ferrovia</span></div>
+                    <div class="st reveal up" style="--d:.62s" data-card="affected">
+                        <span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15 19a4.6 4.6 0 0 1 6.5-4.2"/></svg></span>
+                        <div><span class="st-t">Impacto seletivo</span><b><span class="num" data-count="26" data-delay="1050">0</span>/72</b><span class="st-d">pares O-D afetados pela ferrovia</span></div>
                     </div>
-                    <div class="st crit reveal up" style="--d:.6s">
+                    <div class="st crit reveal up" style="--d:.74s" data-card="crit">
                         <span class="st-ic red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 22 20H2L12 3.5z"/><path d="M12 10v4.5M12 17.6h.01"/></svg></span>
-                        <div><b>18 → <span class="num" data-count="38.44" data-decimals="2" data-delay="900">0</span> min</b><span>ZT03–ZT04 (duas PN em série) — <em>o trecho mais crítico</em></span></div>
+                        <div><span class="st-t">Trecho crítico</span><b>18 → <span class="num" data-count="38.44" data-decimals="2" data-delay="1200">0</span> min</b><span class="st-d">ZT03–ZT04 · <em>duas PNs em série</em></span></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="s8-insight reveal fade" style="--d:.78s">
+        <!-- ===== FÓRMULA DO PESO ===== -->
+        <div class="s8-formula reveal fade" style="--d:1.05s">
+            <span class="fx-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h9l-5 8 5 8H6"/><path d="M9 12h5"/></svg></span>
+            <span class="fx"><b>peso da aresta</b> = tempo de viagem <i>+</i> <em>penalidade da passagem em nível</em></span>
+        </div>
+
+        <!-- ===== FRASE FINAL ===== -->
+        <div class="s8-insight reveal fade" style="--d:1.18s">
             <span class="ii-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.3"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg></span>
-            <span>O atraso não se vê na rua — só aparece quando a <b>rede inteira é recalculada</b> aresta a aresta.</span>
+            <span>A passagem em nível é um <b>ponto físico</b>, mas seu impacto é <b>sistêmico</b> quando recalculado na rede.</span>
         </div>
     </div>
 </section>
