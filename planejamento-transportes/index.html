@@ -257,37 +257,87 @@
             </div>
         </div>
 
-        <!-- ===== COLUNA DIREITA: mapa estilizado de diagnóstico ===== -->
+        <!-- ===== COLUNA DIREITA: ferrovia (topo) + rede de zoneamento (base) ===== -->
         <div class="s3-map reveal fade" style="--d:.3s">
-            <div class="s3-map-bg"></div>
-            <svg class="s3-map-svg" viewBox="0 0 720 940" preserveAspectRatio="none" aria-hidden="true">
-                <!-- vias principais (ciano) -->
-                <path class="rd" d="M 40 300 C 240 270 360 350 720 300"/>
-                <path class="rd" d="M 120 632 C 320 612 430 560 712 604"/>
-                <path class="rd" d="M 372 940 C 352 760 520 600 712 520"/>
-                <!-- ferrovia: leito + dormentes + trilho que se desenha + fluxo -->
-                <path class="rail-bed"  d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
-                <path class="rail-ties" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
-                <path class="rail-glow" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
-                <path class="rail-flow" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
-            </svg>
+            <!-- — TOPO: visão da ferrovia (4 PNs) — -->
+            <div class="s3-map-rail">
+                <span class="s3-panel-tag rail-tag">Visão da ferrovia · 4 PNs</span>
+                <div class="s3-map-bg"></div>
+                <svg class="s3-map-svg" viewBox="0 0 720 940" preserveAspectRatio="none" aria-hidden="true">
+                    <!-- vias principais (ciano) -->
+                    <path class="rd" d="M 40 300 C 240 270 360 350 720 300"/>
+                    <path class="rd" d="M 120 632 C 320 612 430 560 712 604"/>
+                    <path class="rd" d="M 372 940 C 352 760 520 600 712 520"/>
+                    <!-- ferrovia: leito + dormentes + trilho que se desenha + fluxo -->
+                    <path class="rail-bed"  d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                    <path class="rail-ties" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                    <path class="rail-glow" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                    <path class="rail-flow" d="M 505 24 C 475 110 452 150 446 179 C 432 250 400 320 396 367 C 388 440 380 500 382 545 C 385 615 400 665 403 705 C 408 780 380 840 352 924"/>
+                </svg>
 
-            <!-- marcadores PN (HTML p/ interação) -->
-            <button class="mk crit" data-pn="PN01" style="--x:61.9%;--y:19%;--md:1.0s" aria-label="PN01 no mapa">
-                <span class="mk-tag">PN01</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
-            </button>
-            <button class="mk warm" data-pn="PN02" style="--x:55%;--y:39%;--md:1.16s" aria-label="PN02 no mapa">
-                <span class="mk-tag">PN02</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
-            </button>
-            <button class="mk warm" data-pn="PN03" style="--x:53%;--y:58%;--md:1.32s" aria-label="PN03 no mapa">
-                <span class="mk-tag">PN03</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
-            </button>
-            <button class="mk warm" data-pn="PN04" style="--x:56%;--y:75%;--md:1.48s" aria-label="PN04 no mapa">
-                <span class="mk-tag">PN04</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
-            </button>
+                <!-- marcadores PN (HTML p/ interação) -->
+                <button class="mk crit" data-pn="PN01" style="--x:61.9%;--y:18%;--md:1.0s" aria-label="PN01 no mapa">
+                    <span class="mk-tag">PN01</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+                </button>
+                <button class="mk warm" data-pn="PN02" style="--x:55%;--y:40%;--md:1.16s" aria-label="PN02 no mapa">
+                    <span class="mk-tag">PN02</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+                </button>
+                <button class="mk warm" data-pn="PN03" style="--x:53%;--y:62%;--md:1.32s" aria-label="PN03 no mapa">
+                    <span class="mk-tag">PN03</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+                </button>
+                <button class="mk warm" data-pn="PN04" style="--x:56%;--y:83%;--md:1.48s" aria-label="PN04 no mapa">
+                    <span class="mk-tag">PN04</span><span class="mk-dot"><svg class="ic"><use href="#ic-train"/></svg></span>
+                </button>
 
-            <!-- rosa dos ventos -->
-            <div class="northrose" aria-hidden="true"><span>N</span><i></i></div>
+                <div class="northrose" aria-hidden="true"><span>N</span><i></i></div>
+            </div>
+
+            <!-- — BASE: rede de zoneamento (corredores + acessos) — -->
+            <div class="s3-map-graph">
+                <span class="s3-panel-tag graph-tag">Rede de zoneamento · corredores</span>
+                <svg class="zg-svg" viewBox="0 0 760 380" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                    <!-- ARESTAS — vias locais (sólido) e vicinais (tracejado) -->
+                    <path class="ze loc" style="--zd:.5s" d="M270 200 Q362 216 455 232"/>
+                    <path class="ze loc" style="--zd:.55s" d="M270 200 Q270 260 270 322"/>
+                    <path class="ze rur" style="--zd:.6s" d="M270 200 Q160 248 74 300"/>
+                    <path class="ze rur" style="--zd:.64s" d="M66 150 Q58 226 74 300"/>
+                    <path class="ze rur" style="--zd:.68s" d="M74 300 Q170 314 270 322"/>
+                    <!-- ARESTAS — Corredor MG-874 (coletivo, dourado) -->
+                    <path class="ze mg" style="--zd:.35s" d="M190 46 Q100 86 66 150"/>
+                    <path class="ze mg" style="--zd:.42s" d="M190 46 Q220 120 270 200"/>
+                    <path class="ze mg" style="--zd:.49s" d="M66 150 Q160 172 270 200"/>
+                    <!-- ARESTAS — Eixo BR-040 (autos, azul) -->
+                    <path class="ze br" style="--zd:.56s" d="M190 46 Q340 62 470 120"/>
+                    <path class="ze br" style="--zd:.62s" d="M470 120 Q370 156 270 200"/>
+                    <path class="ze br" style="--zd:.68s" d="M470 120 Q466 176 455 232"/>
+                    <path class="ze br" style="--zd:.74s" d="M470 120 Q548 172 600 232"/>
+                    <path class="ze br" style="--zd:.8s" d="M600 232 Q638 268 662 300"/>
+                    <path class="ze br" style="--zd:.86s" d="M662 300 Q690 328 712 352"/>
+
+                    <!-- sparks de fluxo -->
+                    <circle class="zspark mg" r="3"><animateMotion dur="4.4s" repeatCount="indefinite" path="M190 46 Q100 86 66 150 Q160 172 270 200"/></circle>
+                    <circle class="zspark br" r="3"><animateMotion dur="5.6s" repeatCount="indefinite" path="M190 46 Q340 62 470 120 Q548 172 600 232 Q638 268 662 300 Q690 328 712 352"/></circle>
+
+                    <!-- NÓS -->
+                    <g transform="translate(190,46)"><g class="zn ext" style="--zd:.4s"><circle r="17"/><text>ZTE01</text></g></g>
+                    <g transform="translate(66,150)"><g class="zn cy" style="--zd:.5s"><circle r="18"/><text>ZT04</text></g></g>
+                    <g transform="translate(470,120)"><g class="zn art" style="--zd:.55s"><circle r="19"/><text>BR-040</text></g></g>
+                    <g transform="translate(270,200)"><g class="zn cy hub" style="--zd:.6s"><circle r="20"/><text>ZT01</text></g></g>
+                    <g transform="translate(455,232)"><g class="zn cy" style="--zd:.68s"><circle r="18"/><text>ZT02</text></g></g>
+                    <g transform="translate(74,300)"><g class="zn cy" style="--zd:.72s"><circle r="18"/><text>ZT05</text></g></g>
+                    <g transform="translate(270,322)"><g class="zn cy" style="--zd:.78s"><circle r="18"/><text>ZT03</text></g></g>
+                    <g transform="translate(600,232)"><g class="zn ext" style="--zd:.82s"><circle r="17"/><text>ZTE02</text></g></g>
+                    <g transform="translate(662,300)"><g class="zn ext" style="--zd:.88s"><circle r="16"/><text>ZTE03</text></g></g>
+                    <g transform="translate(712,352)"><g class="zn ext" style="--zd:.96s"><circle r="15"/><text>ZTE04</text></g></g>
+                </svg>
+                <div class="zg-legend">
+                    <span><i class="zl mg"></i>MG-874 · coletivo</span>
+                    <span><i class="zl br"></i>BR-040 · autos</span>
+                    <span><i class="zl rur"></i>locais / vicinais</span>
+                    <span><i class="zl ze cy"></i>ZT</span>
+                    <span><i class="zl ze ext"></i>ZTE</span>
+                </div>
+            </div>
         </div>
     </div>
 
