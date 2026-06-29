@@ -171,9 +171,84 @@
 </section>
 
 <!-- ======================================================================= -->
-<!-- SLIDE 3 — PASSAGENS EM NÍVEL                                    (Wagner) -->
+<!-- SLIDE 3 — FONTE DE DADOS & PARAMETRIZAÇÃO  · NOVO               (Wagner) -->
 <!-- ======================================================================= -->
-<section class="slide s3" data-slide="3">
+<section class="slide sfd" data-slide="3">
+    <div class="slide-inner">
+        <p class="kicker reveal left" style="--d:.05s">A base de dados · Wagner</p>
+        <h2 class="slide-title reveal up" style="--d:.14s">Tudo a partir de <span class="grad">dados públicos</span></h2>
+        <p class="slide-lead reveal up" style="--d:.24s">A premissa do ALIME é usar só <b>fontes oficiais e abertas</b> — por isso a mesma
+            análise se repete em <b>qualquer município de pequeno porte</b>, sem pesquisa de campo cara.</p>
+
+        <div class="sfd-grid">
+            <!-- FONTE DE DADOS -->
+            <article class="sfd-card src reveal left" style="--d:.34s">
+                <header class="sfd-card-h">
+                    <span class="sfd-ico">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 11v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/></svg>
+                    </span>
+                    <h3>Fonte de dados</h3>
+                </header>
+                <ul class="src-list">
+                    <li class="src-item" style="--i:0"><span class="src-tag gold">IBGE · Censo 2022</span>
+                        <span class="src-desc">população (<b>14.121 hab</b>) e domicílios (<b>5.269</b>) por setor censitário <span class="src-out">→ vetores de produção</span></span></li>
+                    <li class="src-item" style="--i:1"><span class="src-tag gold">RAIS</span>
+                        <span class="src-desc">vínculos formais de emprego <span class="src-out">→ vetores de atração</span></span></li>
+                    <li class="src-item" style="--i:2"><span class="src-tag gold">INEP</span>
+                        <span class="src-desc">matrículas escolares <span class="src-out">→ polos de atração</span></span></li>
+                    <li class="src-item" style="--i:3"><span class="src-tag rail">CNT · 2025</span>
+                        <span class="src-desc">tráfego ferroviário no Corredor MRS (Linha do Centro) <span class="src-out">→ intensidade de uso da ferrovia</span></span></li>
+                    <li class="src-item" style="--i:4"><span class="src-tag cyan">OpenStreetMap · OSMnx</span>
+                        <span class="src-desc">malha viária e ferroviária georreferenciada</span></li>
+                </ul>
+                <div class="cnt-card">
+                    <div class="cnt-h"><span class="cnt-dot"></span>Tabela 2 — tráfego ferroviário · Corredor MRS · fonte CNT (2025)</div>
+                    <div class="cnt-row"><span class="cnt-lbl">Trem de minério</span>
+                        <span class="cnt-val"><b class="num" data-count="30" data-prefix="~" data-delay="980" data-dur="1100"></b><small>trens/dia</small></span></div>
+                    <div class="cnt-row"><span class="cnt-lbl">Trem de carga geral</span>
+                        <span class="cnt-val"><b class="num" data-count="15" data-prefix="~" data-delay="1080" data-dur="1100"></b><small>trens/dia</small></span></div>
+                    <div class="cnt-row tot"><span class="cnt-lbl">Circulação total</span>
+                        <span class="cnt-val"><b class="num" data-count="45" data-prefix="~" data-delay="1220" data-dur="1300"></b><small>trens/dia</small><em>·</em><b class="num" data-count="16.4" data-decimals="1" data-prefix="~" data-delay="1220" data-dur="1300"></b><small>mil/ano</small></span></div>
+                </div>
+            </article>
+
+            <!-- PARAMETRIZAÇÃO -->
+            <article class="sfd-card parm reveal right" style="--d:.46s">
+                <header class="sfd-card-h">
+                    <span class="sfd-ico gold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3.3"/><path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2M5 5l2.2 2.2M16.8 16.8 19 19M19 5l-2.2 2.2M7.2 16.8 5 19"/></svg>
+                    </span>
+                    <h3>Parametrização</h3>
+                </header>
+                <p class="sfd-p">No Censo 2022 o IBGE dividiu Matias Barbosa em <span class="hl-38">38 setores censitários</span>, aqui
+                    agrupados em zonas respeitando as <b>barreiras físicas</b> — ferrovia, BR-040 e LMG-874.</p>
+                <div class="zt-map">
+                    <div class="zt-row" style="--i:0"><span class="zt-badge">ZT01</span><span class="zt-name">Centro e Rodoviária</span><span class="zt-pill">9 setores</span></div>
+                    <div class="zt-row" style="--i:1"><span class="zt-badge">ZT02</span><span class="zt-name">Monte Alegre</span><span class="zt-pill">7 setores</span></div>
+                    <div class="zt-row" style="--i:2"><span class="zt-badge">ZT03</span><span class="zt-name">N. Sra. da Penha · LMG-874</span><span class="zt-pill">8 setores</span></div>
+                    <div class="zt-row" style="--i:3"><span class="zt-badge">ZT04</span><span class="zt-name">Cedofeita · Expansão · BR-040</span><span class="zt-pill">5 setores</span></div>
+                    <div class="zt-row" style="--i:4"><span class="zt-badge">ZT05</span><span class="zt-name">Área rural e Distrito</span><span class="zt-pill">9 setores</span></div>
+                    <div class="zt-row ext" style="--i:5"><span class="zt-badge">ZTE01–04</span><span class="zt-name">Juiz de Fora · Simão Pereira · Três Rios · Rio de Janeiro</span></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="sfd-foot">
+            <span class="sfd-foot-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
+            </span>
+            <span><b>Base replicável com dados abertos e oficiais</b> — o método pode ser reaplicado em qualquer município de pequeno porte.</span>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================================= -->
+<!-- SLIDE 4 — PASSAGENS EM NÍVEL                                    (Wagner) -->
+<!-- ======================================================================= -->
+<section class="slide s3" data-slide="4">
     <!-- ícones de linha reutilizáveis (painel técnico) -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
         <symbol id="ic-par" viewBox="0 0 24 24"><path d="M10 3 6 21M18 3 14 21"/></symbol>
@@ -296,12 +371,10 @@
             <div class="s3-map-graph">
                 <span class="s3-panel-tag graph-tag">Rede de zoneamento · corredores</span>
                 <svg class="zg-svg" viewBox="0 0 760 380" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-                    <!-- ARESTAS — vias locais (sólido) e vicinais (tracejado) -->
-                    <path class="ze loc" style="--zd:.5s" d="M270 200 Q362 216 455 232"/>
+                    <!-- ARESTAS — acessos internos: ZT02/ZT03/ZT05 ligam só na ZT01 -->
+                    <path class="ze loc" style="--zd:.5s" d="M270 200 Q355 232 440 260"/>
                     <path class="ze loc" style="--zd:.55s" d="M270 200 Q270 260 270 322"/>
                     <path class="ze rur" style="--zd:.6s" d="M270 200 Q160 248 74 300"/>
-                    <path class="ze rur" style="--zd:.64s" d="M66 150 Q58 226 74 300"/>
-                    <path class="ze rur" style="--zd:.68s" d="M74 300 Q170 314 270 322"/>
                     <!-- ARESTAS — Corredor MG-874 (coletivo, dourado) -->
                     <path class="ze mg" style="--zd:.35s" d="M190 46 Q100 86 66 150"/>
                     <path class="ze mg" style="--zd:.42s" d="M190 46 Q220 120 270 200"/>
@@ -309,7 +382,6 @@
                     <!-- ARESTAS — Eixo BR-040 (autos, azul) -->
                     <path class="ze br" style="--zd:.56s" d="M190 46 Q340 62 470 120"/>
                     <path class="ze br" style="--zd:.62s" d="M470 120 Q370 156 270 200"/>
-                    <path class="ze br" style="--zd:.68s" d="M470 120 Q466 176 455 232"/>
                     <path class="ze br" style="--zd:.74s" d="M470 120 Q548 172 600 232"/>
                     <path class="ze br" style="--zd:.8s" d="M600 232 Q638 268 662 300"/>
                     <path class="ze br" style="--zd:.86s" d="M662 300 Q690 328 712 352"/>
@@ -323,7 +395,7 @@
                     <g transform="translate(66,150)"><g class="zn cy" style="--zd:.5s"><circle r="18"/><text>ZT04</text></g></g>
                     <g transform="translate(470,120)"><g class="zn art" style="--zd:.55s"><circle r="19"/><text>BR-040</text></g></g>
                     <g transform="translate(270,200)"><g class="zn cy hub" style="--zd:.6s"><circle r="20"/><text>ZT01</text></g></g>
-                    <g transform="translate(455,232)"><g class="zn cy" style="--zd:.68s"><circle r="18"/><text>ZT02</text></g></g>
+                    <g transform="translate(440,260)"><g class="zn cy" style="--zd:.68s"><circle r="18"/><text>ZT02</text></g></g>
                     <g transform="translate(74,300)"><g class="zn cy" style="--zd:.72s"><circle r="18"/><text>ZT05</text></g></g>
                     <g transform="translate(270,322)"><g class="zn cy" style="--zd:.78s"><circle r="18"/><text>ZT03</text></g></g>
                     <g transform="translate(600,232)"><g class="zn ext" style="--zd:.82s"><circle r="17"/><text>ZTE02</text></g></g>
@@ -355,81 +427,6 @@
                 <ul class="pm-list" id="pmList"></ul>
                 <div class="pm-axis" id="pmAxis"></div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- ======================================================================= -->
-<!-- SLIDE 4 — FONTE DE DADOS & PARAMETRIZAÇÃO  · NOVO               (Wagner) -->
-<!-- ======================================================================= -->
-<section class="slide sfd" data-slide="4">
-    <div class="slide-inner">
-        <p class="kicker reveal left" style="--d:.05s">A base de dados · Wagner</p>
-        <h2 class="slide-title reveal up" style="--d:.14s">Tudo a partir de <span class="grad">dados públicos</span></h2>
-        <p class="slide-lead reveal up" style="--d:.24s">A premissa do ALIME é usar só <b>fontes oficiais e abertas</b> — por isso a mesma
-            análise se repete em <b>qualquer município de pequeno porte</b>, sem pesquisa de campo cara.</p>
-
-        <div class="sfd-grid">
-            <!-- FONTE DE DADOS -->
-            <article class="sfd-card src reveal left" style="--d:.34s">
-                <header class="sfd-card-h">
-                    <span class="sfd-ico">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v6c0 1.66 3.13 3 7 3s7-1.34 7-3V5"/><path d="M5 11v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/></svg>
-                    </span>
-                    <h3>Fonte de dados</h3>
-                </header>
-                <ul class="src-list">
-                    <li class="src-item" style="--i:0"><span class="src-tag gold">IBGE · Censo 2022</span>
-                        <span class="src-desc">população (<b>14.121 hab</b>) e domicílios (<b>5.269</b>) por setor censitário <span class="src-out">→ vetores de produção</span></span></li>
-                    <li class="src-item" style="--i:1"><span class="src-tag gold">RAIS</span>
-                        <span class="src-desc">vínculos formais de emprego <span class="src-out">→ vetores de atração</span></span></li>
-                    <li class="src-item" style="--i:2"><span class="src-tag gold">INEP</span>
-                        <span class="src-desc">matrículas escolares <span class="src-out">→ polos de atração</span></span></li>
-                    <li class="src-item" style="--i:3"><span class="src-tag rail">CNT · 2025</span>
-                        <span class="src-desc">tráfego ferroviário no Corredor MRS (Linha do Centro) <span class="src-out">→ intensidade de uso da ferrovia</span></span></li>
-                    <li class="src-item" style="--i:4"><span class="src-tag cyan">OpenStreetMap · OSMnx</span>
-                        <span class="src-desc">malha viária e ferroviária georreferenciada</span></li>
-                </ul>
-                <div class="cnt-card">
-                    <div class="cnt-h"><span class="cnt-dot"></span>Tabela 2 — tráfego ferroviário · Corredor MRS · fonte CNT (2025)</div>
-                    <div class="cnt-row"><span class="cnt-lbl">Trem de minério</span>
-                        <span class="cnt-val"><b class="num" data-count="30" data-prefix="~" data-delay="980" data-dur="1100"></b><small>trens/dia</small></span></div>
-                    <div class="cnt-row"><span class="cnt-lbl">Trem de carga geral</span>
-                        <span class="cnt-val"><b class="num" data-count="15" data-prefix="~" data-delay="1080" data-dur="1100"></b><small>trens/dia</small></span></div>
-                    <div class="cnt-row tot"><span class="cnt-lbl">Circulação total</span>
-                        <span class="cnt-val"><b class="num" data-count="45" data-prefix="~" data-delay="1220" data-dur="1300"></b><small>trens/dia</small><em>·</em><b class="num" data-count="16.4" data-decimals="1" data-prefix="~" data-delay="1220" data-dur="1300"></b><small>mil/ano</small></span></div>
-                </div>
-            </article>
-
-            <!-- PARAMETRIZAÇÃO -->
-            <article class="sfd-card parm reveal right" style="--d:.46s">
-                <header class="sfd-card-h">
-                    <span class="sfd-ico gold">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3.3"/><path d="M12 2.2v3.2M12 18.6v3.2M2.2 12h3.2M18.6 12h3.2M5 5l2.2 2.2M16.8 16.8 19 19M19 5l-2.2 2.2M7.2 16.8 5 19"/></svg>
-                    </span>
-                    <h3>Parametrização</h3>
-                </header>
-                <p class="sfd-p">No Censo 2022 o IBGE dividiu Matias Barbosa em <span class="hl-38">38 setores censitários</span>, aqui
-                    agrupados em zonas respeitando as <b>barreiras físicas</b> — ferrovia, BR-040 e LMG-874.</p>
-                <div class="zt-map">
-                    <div class="zt-row" style="--i:0"><span class="zt-badge">ZT01</span><span class="zt-name">Centro e Rodoviária</span><span class="zt-pill">9 setores</span></div>
-                    <div class="zt-row" style="--i:1"><span class="zt-badge">ZT02</span><span class="zt-name">Monte Alegre</span><span class="zt-pill">7 setores</span></div>
-                    <div class="zt-row" style="--i:2"><span class="zt-badge">ZT03</span><span class="zt-name">N. Sra. da Penha · LMG-874</span><span class="zt-pill">8 setores</span></div>
-                    <div class="zt-row" style="--i:3"><span class="zt-badge">ZT04</span><span class="zt-name">Cedofeita · Expansão · BR-040</span><span class="zt-pill">5 setores</span></div>
-                    <div class="zt-row" style="--i:4"><span class="zt-badge">ZT05</span><span class="zt-name">Área rural e Distrito</span><span class="zt-pill">9 setores</span></div>
-                    <div class="zt-row ext" style="--i:5"><span class="zt-badge">ZTE01–04</span><span class="zt-name">Juiz de Fora · Simão Pereira · Três Rios · Rio de Janeiro</span></div>
-                </div>
-            </article>
-        </div>
-
-        <div class="sfd-foot">
-            <span class="sfd-foot-ico">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
-            </span>
-            <span><b>Base replicável com dados abertos e oficiais</b> — o método pode ser reaplicado em qualquer município de pequeno porte.</span>
         </div>
     </div>
 </section>
