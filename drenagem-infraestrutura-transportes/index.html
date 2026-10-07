@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     DRENAGEM — APRESENTAÇÃO (4 slides)
+     Matéria: PG – Drenagem Aplicada à Infra-Estrutura de Transportes · IME
+     Tema: BrIM e risco hidrológico aplicados à manutenção preditiva da drenagem de OAEs
+
+     ESTRUTURA
+       index.html  → conteúdo dos slides (cada <section class="slide">)
+       styles.css  → visual (cores em :root)
+       script.js   → escala 16:9, navegação por teclado e tela cheia
+       assets/     → imagens. Brasão: assets/brasao-ime.png (arquivo original do IME)
+
+     ETAPA ATUAL: somente a CAPA (slide 1), para avaliação visual.
+     ============================================================================ -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrIM e risco hidrológico · Drenagem de OAEs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="progress-top"><i id="progBar"></i></div>
+<div class="viewport">
+<main class="stage" id="stage">
+<p class="stage-foot">Luiz Araujo de Souza Junior · IME · PG – Drenagem Aplicada à Infra-Estrutura de Transportes</p>
+
+<!-- ========================================================================== -->
+<!-- SLIDE 1 — CAPA                                                              -->
+<!-- ========================================================================== -->
+<section class="slide s-cover active" data-title="Capa">
+
+    <!-- Ilustração conceitual (SVG editável): viaduto sob chuva, drenagem do tabuleiro,
+         descida d'água no aterro, fundação no leito do rio e camada BrIM (contornos + rótulos).
+         Não representa estudo de caso real. -->
+    <div class="cover-art" aria-hidden="true">
+        <svg viewBox="60 2 1060 888" preserveAspectRatio="xMidYMid meet">
+            <defs>
+                <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#0f3b52"/>
+                    <stop offset="1" stop-color="#071a2e"/>
+                </linearGradient>
+                <linearGradient id="gGround" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#132843"/>
+                    <stop offset="1" stop-color="#081325"/>
+                </linearGradient>
+                <linearGradient id="gConcrete" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#2c4264"/>
+                    <stop offset="1" stop-color="#192a42"/>
+                </linearGradient>
+                <linearGradient id="gPier" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#1b2d47"/>
+                    <stop offset=".55" stop-color="#2b4264"/>
+                    <stop offset="1" stop-color="#16263e"/>
+                </linearGradient>
+                <radialGradient id="gRisk" cx=".5" cy=".5" r=".5">
+                    <stop offset="0" stop-color="#e3b55b" stop-opacity=".5"/>
+                    <stop offset="1" stop-color="#e3b55b" stop-opacity="0"/>
+                </radialGradient>
+                <pattern id="pGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M40 0H0V40" fill="none" stroke="#3fd0c9" stroke-opacity=".07" stroke-width="1"/>
+                </pattern>
+                <clipPath id="cRain"><path d="M520 0 H1200 V640 H0 V390 H520 Z"/></clipPath>
+            </defs>
+
+            <!-- grade de modelagem ao fundo -->
+            <rect x="0" y="0" width="1200" height="940" fill="url(#pGrid)"/>
+
+            <!-- chuva (linhas geradas pelo script.js; deslocamento lento em CSS) -->
+            <g class="rain" clip-path="url(#cRain)" stroke="#9cc9e6" stroke-linecap="round">
+                <g class="rain-layer r1"></g>
+                <g class="rain-layer r2"></g>
+            </g>
+
+            <!-- terreno: aterros de acesso (pista no nível do tabuleiro) e calha do rio -->
+            <path d="M0 430 L176 430 L330 640 L330 940 L0 940 Z" fill="url(#gGround)"/>
+            <path d="M1200 430 L924 430 L790 640 L790 940 L1200 940 Z" fill="url(#gGround)"/>
+            <path d="M0 430 H176 M924 430 H1200" stroke="#4d6a93" stroke-width="1.5"/>
+            <path d="M330 640 Q560 704 790 640 L790 940 L330 940 Z" fill="#0a1830"/>
+
+            <!-- rio: lâmina d'água e linhas de escoamento -->
+            <path d="M318 624 L802 624 L790 640 Q560 704 330 640 Z" fill="url(#gWater)"/>
+            <rect x="316" y="622" width="488" height="2.5" fill="#5fd6e6" opacity=".6"/>
+            <g class="flow" stroke="#5fd6e6" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".5">
+                <path d="M360 642 h60"/><path d="M500 650 h70"/><path d="M700 644 h50"/>
+                <path d="M400 662 h40"/><path d="M540 672 h60"/><path d="M710 660 h40"/>
+            </g>
+
+            <!-- encontros (cabeceiras) -->
+            <path d="M150 474 H196 V520 L176 520 Z" fill="#1d3150"/>
+            <path d="M950 474 H904 V520 L924 520 Z" fill="#1d3150"/>
+
+            <!-- pilares e blocos de fundação -->
+            <g>
+                <rect x="452" y="486" width="30" height="190" fill="url(#gPier)"/>
+                <rect x="440" y="474" width="54" height="14" rx="2" fill="#2e4669"/>
+                <rect x="426" y="676" width="82" height="22" rx="2" fill="#1d3150"/>
+                <rect x="638" y="486" width="30" height="190" fill="url(#gPier)"/>
+                <rect x="626" y="474" width="54" height="14" rx="2" fill="#2e4669"/>
+                <rect x="612" y="676" width="82" height="22" rx="2" fill="#1d3150"/>
+                <path d="M452 624 h30 M638 624 h30" stroke="#5fd6e6" stroke-opacity=".5" stroke-width="2"/>
+            </g>
+
+            <!-- erosão localizada junto à fundação (contorno discreto) -->
+            <ellipse cx="653" cy="704" rx="82" ry="30" fill="url(#gRisk)" class="risk-glow"/>
+            <path d="M600 699 Q653 728 706 699" fill="none" stroke="#e3b55b" stroke-width="1.8" stroke-dasharray="4 5"/>
+
+            <!-- tabuleiro: barreira, laje, vigas; juntas nos apoios -->
+            <g>
+                <rect x="150" y="416" width="800" height="14" fill="#22385a"/>
+                <rect x="150" y="430" width="800" height="10" fill="#36537d"/>
+                <rect x="150" y="440" width="800" height="34" fill="url(#gConcrete)"/>
+                <path d="M150 474 h800" stroke="#4d6a93" stroke-width="1"/>
+                <path d="M467 416 v58 M653 416 v58" stroke="#0b1629" stroke-width="2"/>
+            </g>
+
+            <!-- drenos do tabuleiro (tubos curtos sob a laje) + gotas -->
+            <g class="drains">
+                <g fill="#7fa9cf">
+                    <rect x="300" y="474" width="5" height="15" rx="1"/>
+                    <rect x="548" y="474" width="5" height="15" rx="1"/>
+                    <rect x="780" y="474" width="5" height="15" rx="1"/>
+                </g>
+                <g class="drops" fill="#9fe3ee">
+                    <circle cx="302.5" cy="493" r="2.2"/><circle cx="550.5" cy="493" r="2.2"/><circle cx="782.5" cy="493" r="2.2"/>
+                </g>
+            </g>
+
+            <!-- descida d'água em degraus no talude -->
+            <path d="M930 432 L914 438 L914 456 L898 462 L898 480 L882 486 L882 504 L866 510 L866 528 L850 534 L850 552 L834 558 L834 576 L818 582 L818 600 L802 606 L802 624" fill="none" stroke="#7fa9cf" stroke-width="3" stroke-linejoin="round"/>
+            <path class="chute-flow" d="M930 432 L914 438 L914 456 L898 462 L898 480 L882 486 L882 504 L866 510 L866 528 L850 534 L850 552 L834 558 L834 576 L818 582 L818 600 L802 606 L802 624" fill="none" stroke="#9fe3ee" stroke-width="1.6" stroke-dasharray="6 14"/>
+
+            <!-- camada BrIM: contornos do modelo + nós -->
+            <g class="brim" fill="none" stroke="#3fd0c9" stroke-width="1.3">
+                <path class="brim-line" d="M150 416 H950 V474 H150 Z"/>
+                <path class="brim-line" d="M452 474 V676 H482 V474 M638 474 V676 H668 V474"/>
+                <path class="brim-line" d="M426 676 H508 V698 H426 Z M612 676 H694 V698 H612 Z"/>
+                <g class="brim-nodes" fill="#3fd0c9" stroke="none">
+                    <circle cx="150" cy="416" r="3.5"/><circle cx="950" cy="416" r="3.5"/>
+                    <circle cx="150" cy="474" r="3.5"/><circle cx="950" cy="474" r="3.5"/>
+                    <circle cx="467" cy="474" r="3.5"/><circle cx="653" cy="474" r="3.5"/>
+                    <circle cx="467" cy="698" r="3.5"/><circle cx="653" cy="698" r="3.5"/>
+                </g>
+            </g>
+
+            <!-- rótulos técnicos -->
+            <g class="tags">
+                <g class="tag" style="--d:2.4s">
+                    <path d="M300 416 V362 H322" stroke="#3fd0c9" stroke-opacity=".7" fill="none"/>
+                    <circle cx="300" cy="416" r="3" fill="#3fd0c9"/>
+                    <text x="330" y="368">MODELO BrIM · ELEMENTOS E ATRIBUTOS</text>
+                </g>
+                <g class="tag" style="--d:1.6s">
+                    <circle cx="550.5" cy="482" r="11" fill="none" stroke="#3fd0c9" stroke-opacity=".85"/>
+                    <path d="M550.5 493 V770" stroke="#3fd0c9" stroke-opacity=".5" stroke-dasharray="3 4" fill="none"/>
+                    <text x="550" y="796" text-anchor="middle">DRENO DO TABULEIRO</text>
+                </g>
+                <g class="tag" style="--d:1.9s">
+                    <path d="M858 540 L900 600 H916" stroke="#3fd0c9" stroke-opacity=".7" fill="none"/>
+                    <text x="922" y="606">DESCIDA D’ÁGUA</text>
+                </g>
+                <g class="tag gold" style="--d:2.1s">
+                    <path d="M700 712 L750 768 H770" stroke="#e3b55b" stroke-opacity=".8" fill="none"/>
+                    <text x="776" y="774">FUNDAÇÃO · EROSÃO</text>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Bloco de texto (HTML, independente da imagem) -->
+    <div class="cover-text">
+
+        <header class="inst reveal" style="--d:.05s">
+            <!-- Brasão original do IME: salve o arquivo em assets/brasao-ime.png (fundo transparente).
+                 object-fit: contain preserva a proporção — nunca deforma. -->
+            <img class="crest" src="assets/brasao-ime.png" alt="Brasão do Instituto Militar de Engenharia"
+                 onerror="this.classList.add('missing')">
+            <div class="inst-txt">
+                <strong>Instituto Militar de Engenharia</strong>
+                <span>Doutorado em Engenharia de Transportes</span>
+            </div>
+        </header>
+
+        <p class="activity reveal" style="--d:.2s">Revisão sistemática do tema e definição dos objetivos</p>
+
+        <h1 class="cover-title reveal" style="--d:.32s">
+            <span class="ln"><span class="hl">BrIM</span> e risco hidrológico</span>
+            <span class="ln">aplicados à manutenção preditiva</span>
+            <span class="ln">da drenagem de <span class="hl">OAEs</span></span>
+        </h1>
+
+        <div class="rule reveal" style="--d:.5s"></div>
+
+        <dl class="meta reveal" style="--d:.6s">
+            <div class="meta-item wide">
+                <dt>Disciplina</dt>
+                <dd>PG – Drenagem Aplicada à Infra-Estrutura de Transportes</dd>
+            </div>
+            <div class="meta-item">
+                <dt>Autor</dt>
+                <dd>Luiz Araujo de Souza Junior</dd>
+            </div>
+            <div class="meta-item">
+                <dt>Professor</dt>
+                <dd>Marcelo de Miranda Reis</dd>
+            </div>
+            <div class="meta-item">
+                <dt>Data</dt>
+                <dd>8 de outubro de 2026</dd>
+            </div>
+        </dl>
+    </div>
+
+    <aside class="notes">
+        Apresentar o tema: integrar risco hidrológico, condição da drenagem e informações BrIM para apoiar a
+        priorização da manutenção de pontes e viadutos. Atividade desta etapa: revisão sistemática do tema e definição dos objetivos.
+    </aside>
+</section>
+
+<!-- ========================================================================== -->
+<!-- SLIDE 2 — DELIMITAÇÃO E MÉTODO DA REVISÃO                                   -->
+<!-- ========================================================================== -->
+<section class="slide s-method" data-title="Delimitação e método">
+    <header class="sl-head">
+        <p class="kicker reveal" style="--d:.05s"><span>02</span>Revisão sistemática · PRISMA 2020</p>
+        <h2 class="sl-title reveal" style="--d:.12s">Delimitação e método da revisão</h2>
+    </header>
+
+    <blockquote class="question reveal" style="--d:.22s">
+        <span class="q-lab">Questão orientadora</span>
+        <p>Como integrar <b>risco hidrológico</b>, <b>condição dos sistemas de drenagem</b> e <b>informações BrIM</b>
+           para apoiar a priorização da manutenção de pontes e viadutos?</p>
+    </blockquote>
+
+    <div class="m-grid">
+        <!-- coluna 1: recorte + método -->
+        <div class="m-col reveal" style="--d:.34s">
+            <h3 class="col-h">Recorte</h3>
+            <p class="col-p">Influência da água, da umidade e das deficiências de drenagem sobre a deterioração das OAEs,
+               com integração das informações para apoiar a manutenção.</p>
+            <h3 class="col-h mt">Método</h3>
+            <p class="col-p">Revisão sistemática com <b>análise bibliométrica</b> e <b>síntese narrativa</b>,
+               utilizando o PRISMA 2020 como orientação.</p>
+        </div>
+
+        <!-- coluna 2: protocolo -->
+        <div class="m-col reveal" style="--d:.44s">
+            <h3 class="col-h">Protocolo de busca</h3>
+            <dl class="proto">
+                <div><dt>Bases</dt><dd>Scopus e Web of Science</dd></div>
+                <div><dt>Buscas</dt><dd>2 de outubro de 2026</dd></div>
+                <div><dt>Período</dt><dd>2021–2026 <i>(2026 incompleto)</i></dd></div>
+                <div><dt>Idiomas</dt><dd>Inglês, português e espanhol</dd></div>
+                <div><dt>Tipos</dt><dd>Artigos, revisões e trabalhos completos de congresso</dd></div>
+            </dl>
+            <div class="crit">
+                <p><b class="in">Inclusão</b> Pontes e viadutos, com contribuição para os eixos digitais, hidrológicos ou de manutenção.</p>
+                <p><b class="out">Exclusão</b> Duplicatas, documentos fora do recorte temporal e estudos sem pertinência ao problema.</p>
+            </div>
+        </div>
+
+        <!-- coluna 3: blocos conceituais e estratégias -->
+        <div class="m-col reveal" style="--d:.54s">
+            <h3 class="col-h">Blocos conceituais e estratégias</h3>
+            <ul class="blocks">
+                <li><b>A</b>Pontes e viadutos</li>
+                <li><b>B</b>BrIM, BIM, gêmeos digitais e modelos de informação</li>
+                <li><b>C</b>Drenagem, chuva, escoamento, inundação, hidráulica e erosão junto às fundações</li>
+                <li><b>D</b>Manutenção, inspeção, deterioração, confiabilidade e monitoramento estrutural</li>
+            </ul>
+            <table class="matrix" aria-label="Combinação de blocos por estratégia">
+                <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+                <tbody>
+                    <tr><th>S1</th><td class="on"></td><td class="on"></td><td></td><td class="on"></td><td class="expr">A AND B AND D</td></tr>
+                    <tr><th>S2</th><td class="on"></td><td></td><td class="on"></td><td class="on"></td><td class="expr">A AND C AND D</td></tr>
+                    <tr><th>S3</th><td class="on"></td><td class="on"></td><td class="on"></td><td></td><td class="expr">A AND B AND C</td></tr>
+                </tbody>
+            </table>
+            <p class="fine">Blocos combinados por AND. As combinações resumem a lógica da busca e não transcrevem
+               integralmente as expressões executadas nas bases.</p>
+        </div>
+    </div>
+
+    <aside class="notes">
+        S1 = A AND B AND D (digital + manutenção) · S2 = A AND C AND D (hidrologia/drenagem + manutenção) ·
+        S3 = A AND B AND C (digital + hidrologia). O PRISMA 2020 orienta o relato; a análise bibliométrica descreve
+        o campo e a síntese narrativa organiza o conteúdo dos estudos.
+    </aside>
+</section>
+
+<!-- ========================================================================== -->
+<!-- SLIDE 3 — MAPEAMENTO BIBLIOGRÁFICO                                          -->
+<!-- ========================================================================== -->
+<section class="slide s-map" data-title="Mapeamento bibliográfico">
+    <header class="sl-head">
+        <p class="kicker reveal" style="--d:.05s"><span>03</span>Resultados da busca · Scopus e Web of Science</p>
+        <h2 class="sl-title reveal" style="--d:.12s">Mapeamento bibliográfico</h2>
+    </header>
+
+    <div class="map-grid">
+        <!-- tabela por estratégia (antes da deduplicação) -->
+        <div class="panel reveal" style="--d:.24s">
+            <h3 class="col-h">Ocorrências por estratégia <span class="mut">· antes da deduplicação</span></h3>
+            <table class="res">
+                <thead>
+                    <tr><th></th><th>Scopus</th><th>Web of Science</th><th class="bar-h">Soma das bases</th></tr>
+                </thead>
+                <tbody>
+                    <tr title="S1 · 455 + 270 = 725 ocorrências">
+                        <th>S1 <i>A·B·D</i></th><td>455</td><td>270</td>
+                        <td class="bar-c"><span class="bar" style="--w:24.4%"></span><b>725</b></td></tr>
+                    <tr title="S2 · 1.664 + 1.312 = 2.976 ocorrências">
+                        <th>S2 <i>A·C·D</i></th><td>1.664</td><td>1.312</td>
+                        <td class="bar-c"><span class="bar" style="--w:100%"></span><b>2.976</b></td></tr>
+                    <tr title="S3 · 5 + 3 = 8 ocorrências">
+                        <th>S3 <i>A·B·C</i></th><td>5</td><td>3</td>
+                        <td class="bar-c"><span class="bar min" style="--w:.27%"></span><b>8</b></td></tr>
+                </tbody>
+                <tfoot>
+                    <tr><th>Total</th><td>2.124</td><td>1.585</td><td class="bar-c"><b>3.709</b></td></tr>
+                </tfoot>
+            </table>
+            <p class="fine">Buscas em 02/10/2026 · período 2021–2026 (2026 incompleto). Uma mesma publicação pode aparecer
+               em mais de uma estratégia e nas duas bases.</p>
+        </div>
+
+        <!-- fluxo de consolidação da base -->
+        <div class="panel reveal" style="--d:.36s">
+            <h3 class="col-h">Consolidação da base</h3>
+            <ol class="flow-list">
+                <li><b>3.709</b><span>ocorrências recuperadas</span></li>
+                <li class="minus"><b>− 1.477</b><span>duplicatas removidas</span></li>
+                <li><b>2.232</b><span>publicações únicas</span></li>
+                <li class="minus"><b>− 6</b><span>registros fora do período</span></li>
+                <li class="final"><b>2.226</b><span>referências para triagem (2021–2026)</span></li>
+            </ol>
+            <p class="fine">Base exportada em RIS compatível com EndNote. As 2.226 referências não correspondem ao número
+               final de artigos incluídos após a avaliação de elegibilidade.</p>
+        </div>
+    </div>
+
+    <div class="synth reveal" style="--d:.5s">
+        <p class="synth-main">A busca reúne trabalhos sobre <b>digitalização e manutenção de pontes</b> e trabalhos sobre
+           <b>hidrologia e drenagem</b>. O estudo investiga como integrar esses campos em uma <b>estrutura BrIM</b>.</p>
+        <p class="synth-note"><b>S3</b> recuperou 8 ocorrências brutas entre as duas bases. Esse número, isoladamente,
+           não comprova ausência de estudos nem estabelece uma lacuna definitiva.</p>
+    </div>
+
+    <aside class="notes">
+        Os valores por estratégia são ocorrências brutas, antes da deduplicação. A base de 2.226 referências segue
+        para triagem e avaliação de elegibilidade. A tabela dos artigos selecionados (título, objetivos, metodologia,
+        resultados e conclusões) é material complementar, fora destes slides.
+    </aside>
+</section>
+
+<!-- ========================================================================== -->
+<!-- SLIDE 4 — OBJETIVOS                                                         -->
+<!-- ========================================================================== -->
+<section class="slide s-obj" data-title="Objetivos">
+    <header class="sl-head">
+        <p class="kicker reveal" style="--d:.05s"><span>04</span>Definição dos objetivos</p>
+        <h2 class="sl-title reveal" style="--d:.12s">Objetivos da pesquisa</h2>
+    </header>
+
+    <div class="goal reveal" style="--d:.24s">
+        <span class="q-lab">Objetivo geral</span>
+        <p><b>Desenvolver</b> uma estrutura BrIM orientada ao risco hidrológico para apoiar a priorização da
+           manutenção preditiva dos sistemas de drenagem de pontes e viadutos.</p>
+    </div>
+
+    <h3 class="col-h obj-h reveal" style="--d:.34s">Objetivos específicos</h3>
+    <ol class="specs">
+        <li class="reveal" style="--d:.42s"><span class="n">1</span><b>Mapear</b>
+            <p>métodos, variáveis e tecnologias relacionados ao tema na literatura.</p></li>
+        <li class="reveal" style="--d:.5s"><span class="n">2</span><b>Relacionar</b>
+            <p>exposição hidrológica, condição da drenagem e consequências estruturais.</p></li>
+        <li class="reveal" style="--d:.58s"><span class="n">3</span><b>Estruturar</b>
+            <p>os indicadores e atributos necessários em ambiente BrIM.</p></li>
+        <li class="reveal" style="--d:.66s"><span class="n">4</span><b>Propor</b>
+            <p>um procedimento de priorização das intervenções de manutenção.</p></li>
+    </ol>
+
+    <p class="fine obj-fine reveal" style="--d:.8s">A priorização proposta baseia-se em risco e não equivale a uma previsão comprovada de falhas.</p>
+
+    <aside class="notes">
+        Estes são objetivos da pesquisa: definem o que será desenvolvido. Não há modelo implementado ou validado nesta etapa.
+    </aside>
+</section>
+
+</main>
+</div>
+
+<!-- painel de apoio (notas do apresentador) — tecla N -->
+<div class="notes-panel" id="notesPanel" aria-live="polite"></div>
+
+<!-- controles discretos -->
+<nav class="controls" aria-label="Navegação">
+    <button id="btnPrev" title="Anterior (←)" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <span class="counter"><b id="cur">01</b> / <span id="tot">04</span></span>
+    <button id="btnNext" title="Próximo (→)" aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <button id="btnNotes" title="Notas (N)" aria-label="Notas do apresentador">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5h14M5 10h14M5 15h9"/></svg>
+    </button>
+    <button id="btnFs" title="Tela cheia (F)" aria-label="Tela cheia">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+</nav>
+
+<script src="script.js"></script>
+</body>
+</html>
