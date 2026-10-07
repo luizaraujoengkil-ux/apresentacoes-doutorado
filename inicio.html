@@ -82,6 +82,19 @@ body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:no
 @keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.35; transform:scale(.7); } }
 
 /* matéria CONCLUÍDA — riscada e apagada, mas continua clicável */
+/* barra de progresso (matérias em andamento) — ajuste o --p (0% a 100%) no style do .progress */
+.progress{ --p:0%; display:flex; align-items:center; gap:12px; margin-top:12px; max-width:520px; }
+.progress .bar{ flex:1; height:8px; border-radius:999px; background:rgba(174,191,218,.12); overflow:hidden; }
+.progress .bar i{ display:block; height:100%; width:var(--p); border-radius:inherit;
+    background:linear-gradient(90deg,color-mix(in srgb,var(--c) 55%,transparent),var(--c)); box-shadow:0 0 12px var(--c); }
+.progress .pct{ font-family:var(--mono); font-size:13px; color:var(--c); white-space:nowrap; }
+.steps{ list-style:none; margin-top:10px; display:flex; flex-direction:column; gap:5px; font-size:15px; color:var(--soft); }
+.steps li{ display:flex; gap:10px; align-items:baseline; }
+.steps li b{ font-family:var(--mono); font-size:12px; font-weight:700; color:var(--c); letter-spacing:.06em; white-space:nowrap; }
+.steps li.now{ color:var(--white); }
+.steps li .due{ font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:2px 8px; border-radius:999px;
+    color:var(--c); border:1px solid color-mix(in srgb,var(--c) 45%,transparent); white-space:nowrap; }
+
 .subject-card.done{ opacity:.55; filter:saturate(.55); box-shadow:0 14px 34px rgba(0,0,0,.35); }
 .subject-card.done:hover{ opacity:.9; filter:none; }
 .subject-card.done .info h2{ text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:color-mix(in srgb,var(--c) 70%,transparent); }
@@ -113,6 +126,7 @@ body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:no
             <span class="info">
                 <h2>Estruturas para Transporte</h2>
                 <p>Apresentação em preparação</p>
+                <span class="progress" style="--p:15%"><span class="bar"><i></i></span><span class="pct">15% concluído</span></span>
             </span>
             <span class="status">Em andamento</span>
         </div>
@@ -123,6 +137,7 @@ body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:no
             <span class="info">
                 <h2>Sistema de Transporte Rodoviário</h2>
                 <p>Apresentação em preparação</p>
+                <span class="progress" style="--p:15%"><span class="bar"><i></i></span><span class="pct">15% concluído</span></span>
             </span>
             <span class="status">Em andamento</span>
         </div>
@@ -132,9 +147,13 @@ body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:no
             <span class="num">06</span>
             <span class="info">
                 <h2>Drenagem Aplicada à Infraestrutura de Transportes</h2>
-                <p>Apresentação em preparação</p>
+                <ul class="steps">
+                    <li class="now"><b>ETAPA 1</b><span>Revisão sistemática do tema no EndNote e definição dos objetivos</span><span class="due">Entrega 08/10</span></li>
+                    <li><b>ETAPA 2</b><span>Apresentação final</span></li>
+                </ul>
+                <span class="progress" style="--p:50%"><span class="bar"><i></i></span><span class="pct">50% concluído</span></span>
             </span>
-            <span class="status">Em andamento</span>
+            <span class="status">Etapa 1 de 2</span>
         </div>
 
         <p class="group-label">Concluídas</p>
