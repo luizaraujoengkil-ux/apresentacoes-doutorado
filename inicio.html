@@ -68,6 +68,26 @@ body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:no
 .subject-card.ready:hover .arrow{ transform:translateX(5px); }
 .subject-card.soon .arrow{ display:none; }
 
+/* títulos de seção (em andamento / concluídas) */
+.group-label{ font-family:var(--mono); font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:14px; margin-top:14px; }
+.group-label::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,rgba(111,131,166,.4),transparent); }
+.group-label:first-child{ margin-top:0; }
+
+/* matéria EM ANDAMENTO — ainda sem apresentação, sem link */
+.subject-card.doing{ cursor:default; }
+.subject-card.doing .status{ display:inline-flex; align-items:center; gap:9px; }
+.subject-card.doing .status::before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--c); box-shadow:0 0 10px var(--c);
+    animation:pulse 1.6s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.35; transform:scale(.7); } }
+
+/* matéria CONCLUÍDA — riscada e apagada, mas continua clicável */
+.subject-card.done{ opacity:.55; filter:saturate(.55); box-shadow:0 14px 34px rgba(0,0,0,.35); }
+.subject-card.done:hover{ opacity:.9; filter:none; }
+.subject-card.done .info h2{ text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:color-mix(in srgb,var(--c) 70%,transparent); }
+.subject-card.done .num{ text-shadow:none; }
+.subject-card.done .status{ display:inline-flex; align-items:center; gap:7px; }
+
 .hub-foot{ width:100%; max-width:1080px; margin-top:40px; font-family:var(--mono); font-size:13px; color:var(--dim); letter-spacing:.06em; }
 
 @media (max-width:720px){
@@ -80,41 +100,75 @@ body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:no
     <div class="hub-head">
         <p class="eyebrow">Apresentações · Pós-graduação em Transportes</p>
         <h1 class="hub-title">Apresentações por <span class="grad">matéria</span></h1>
-        <p class="hub-sub">Cada matéria tem sua própria pasta, com o <code>index.html</code> e os <code>assets/</code> isolados. Clique para abrir.</p>
+        <p class="hub-sub">Cada matéria tem sua própria pasta, com o <code>index.html</code> e os <code>assets/</code> isolados. As concluídas continuam abertas: é só clicar.</p>
     </div>
 
     <div class="subjects">
 
-        <!-- MATÉRIA 1 — pronta (apresentação OAE-SIM) -->
-        <a class="subject-card ready" style="--c:var(--cyan)" href="problemas-especiais-ciencia-dados-deep-learning/index.html">
+        <p class="group-label">Em andamento</p>
+
+        <!-- MATÉRIA 4 — em andamento (ainda sem apresentação; quando tiver, troque <div> por <a href="pasta/index.html"> e a classe "doing" por "ready") -->
+        <div class="subject-card doing" style="--c:var(--green)">
+            <span class="num">04</span>
+            <span class="info">
+                <h2>Estruturas para Transporte</h2>
+                <p>Apresentação em preparação</p>
+            </span>
+            <span class="status">Em andamento</span>
+        </div>
+
+        <!-- MATÉRIA 5 — em andamento -->
+        <div class="subject-card doing" style="--c:var(--blue)">
+            <span class="num">05</span>
+            <span class="info">
+                <h2>Sistema de Transporte Rodoviário</h2>
+                <p>Apresentação em preparação</p>
+            </span>
+            <span class="status">Em andamento</span>
+        </div>
+
+        <!-- MATÉRIA 6 — em andamento -->
+        <div class="subject-card doing" style="--c:#a78bfa">
+            <span class="num">06</span>
+            <span class="info">
+                <h2>Drenagem Aplicada à Infraestrutura de Transportes</h2>
+                <p>Apresentação em preparação</p>
+            </span>
+            <span class="status">Em andamento</span>
+        </div>
+
+        <p class="group-label">Concluídas</p>
+
+        <!-- MATÉRIA 1 — concluída (apresentação OAE-SIM) -->
+        <a class="subject-card ready done" style="--c:var(--cyan)" href="problemas-especiais-ciencia-dados-deep-learning/index.html">
             <span class="num">01</span>
             <span class="info">
                 <h2>Problemas Especiais: Ciência de Dados e Aprendizado Profundo aplicados aos Transportes</h2>
                 <p>Resiliência da Rede Viária diante da Interdição de OAEs Críticas · OAE-SIM (8 slides)</p>
             </span>
-            <span class="status">Pronta</span>
+            <span class="status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>Concluída</span>
             <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
 
-        <!-- MATÉRIA 2 — pronta (apresentação Simulador Analítico PMAV) -->
-        <a class="subject-card ready" style="--c:var(--amber)" href="metodos-estatisticos-modelos-transporte/index.html">
+        <!-- MATÉRIA 2 — concluída (apresentação Simulador Analítico PMAV) -->
+        <a class="subject-card ready done" style="--c:var(--amber)" href="metodos-estatisticos-modelos-transporte/index.html">
             <span class="num">02</span>
             <span class="info">
                 <h2>Métodos Estatísticos para Modelos de Transporte</h2>
                 <p>Simulador Analítico PMAV · previsão de custos e apoio à decisão (8 slides)</p>
             </span>
-            <span class="status">Pronta</span>
+            <span class="status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>Concluída</span>
             <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
 
-        <!-- MATÉRIA 3 — pronta (apresentação ALIME · Matias Barbosa/MG) · dourado p/ casar com o deck -->
-        <a class="subject-card ready" style="--c:#f3b13c" href="planejamento-transportes/index.html">
+        <!-- MATÉRIA 3 — concluída (apresentação ALIME · Matias Barbosa/MG) · dourado p/ casar com o deck -->
+        <a class="subject-card ready done" style="--c:#f3b13c" href="planejamento-transportes/index.html">
             <span class="num">03</span>
             <span class="info">
                 <h2>Planejamento de Transportes</h2>
                 <p>ALIME · mobilidade urbana em municípios de pequeno porte · caso Matias Barbosa/MG (10 slides)</p>
             </span>
-            <span class="status">Pronta</span>
+            <span class="status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>Concluída</span>
             <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
 
