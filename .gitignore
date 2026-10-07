@@ -8,3 +8,6 @@
 Thumbs.db
 .DS_Store
 desktop.ini
+
+# Evidências locais de verificação visual (não publicar)
+/design-qa.md

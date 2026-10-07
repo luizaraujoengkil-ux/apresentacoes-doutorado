@@ -1,216 +1,137 @@
 <!DOCTYPE html>
-<!-- ============================================================================
-     ★★★  PÁGINA PRINCIPAL (HUB) — É ESTE O ARQUIVO DA PÁGINA INICIAL.  ★★★
-     Edite AQUI o que aparece na abertura e na navegação entre as matérias.
-     (Cada apresentação fica na sua própria subpasta, no respectivo index.html.)
-     O index.html da raiz é só um redirecionamento para cá — não precisa mexer nele.
-     ============================================================================ -->
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>★ Página principal · Apresentações por matéria</title>
-<meta name="description" content="Apresentações acadêmicas de Luiz Araujo de Souza Junior, doutorando em Engenharia de Transportes no IME, organizadas por disciplina.">
-<link rel="canonical" href="https://apresentacoes-doutorado.pages.dev/inicio">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Luiz Araujo · Apresentações de Doutorado">
-<meta property="og:title" content="Apresentações de Doutorado · Luiz Araujo · IME">
-<meta property="og:description" content="Apresentações de Engenharia de Transportes organizadas por disciplina. Luiz Araujo de Souza Junior · Instituto Militar de Engenharia.">
-<meta property="og:url" content="https://apresentacoes-doutorado.pages.dev/inicio">
-<meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/ime.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="526">
-<meta property="og:image:height" content="632">
-<meta property="og:image:alt" content="Brasão do Instituto Militar de Engenharia (IME).">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Apresentações de Doutorado · Luiz Araujo · IME">
-<meta name="twitter:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/ime.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap">
-<style>
-/* ===========================================================================
-   PÁGINA INICIAL (HUB) — lista as apresentações por matéria.
-   Cada matéria fica numa subpasta com seu próprio index.html + assets/.
-   COMO ADICIONAR/EDITAR: duplique um <a class="subject-card"> abaixo e ajuste
-   o href (pasta), o título, o status e a cor (--c).
-   =========================================================================== */
-:root{
-    --bg:#040a16; --bg2:#071426; --cyan:#2fe4d8; --blue:#3b82f6; --green:#36e07a; --amber:#ffa630;
-    --white:#eef4ff; --soft:#aebfda; --dim:#6f83a6;
-    --font:'Manrope',system-ui,sans-serif; --mono:'Space Mono',monospace;
-}
-*{ margin:0; padding:0; box-sizing:border-box; }
-body{ min-height:100vh; font-family:var(--font); color:var(--white);
-    background:
-        radial-gradient(1100px 720px at 12% 4%, rgba(47,228,216,.12) 0%, transparent 58%),
-        radial-gradient(1200px 800px at 92% 100%, rgba(59,130,246,.14) 0%, transparent 60%),
-        linear-gradient(155deg,#061226 0%, var(--bg) 55%, #03060f 100%);
-    background-attachment:fixed;
-    display:flex; flex-direction:column; align-items:center; padding:72px 24px 56px; }
-/* grade de rede sutil no fundo */
-body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-    background-image:linear-gradient(rgba(59,130,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.06) 1px,transparent 1px);
-    background-size:64px 64px; mask-image:radial-gradient(120% 100% at 50% 30%,#000 30%,transparent 85%); }
-
-.hub-head{ width:100%; max-width:1080px; }
-.eyebrow{ font-family:var(--mono); font-size:15px; letter-spacing:.28em; text-transform:uppercase; color:var(--cyan);
-    display:inline-flex; align-items:center; gap:14px; }
-.eyebrow::before{ content:""; width:38px; height:2px; background:linear-gradient(90deg,var(--cyan),transparent); box-shadow:0 0 12px var(--cyan); }
-.hub-title{ font-weight:800; font-size:52px; line-height:1.05; letter-spacing:-.02em; margin-top:18px; }
-.hub-title .grad{ background:linear-gradient(100deg,var(--cyan),var(--blue)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-.hub-sub{ font-size:21px; color:var(--soft); margin-top:14px; max-width:760px; }
-
-/* cards das matérias */
-.subjects{ width:100%; max-width:1080px; margin-top:46px; display:flex; flex-direction:column; gap:20px; }
-.subject-card{ --c:var(--cyan); position:relative; display:flex; align-items:center; gap:26px; padding:28px 32px; border-radius:20px; text-decoration:none; color:inherit;
-    background:linear-gradient(155deg, rgba(13,28,52,.66), rgba(6,14,28,.46)); border:1px solid color-mix(in srgb,var(--c) 38%,transparent);
-    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-    box-shadow:0 22px 50px rgba(0,0,0,.45), 0 0 50px -20px color-mix(in srgb,var(--c) 55%,transparent);
-    transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease; }
-.subject-card::before{ content:""; position:absolute; left:0; top:24px; bottom:24px; width:4px; border-radius:4px; background:var(--c); box-shadow:0 0 16px var(--c); }
-.subject-card.ready:hover{ transform:translateY(-6px); border-color:color-mix(in srgb,var(--c) 70%,transparent);
-    box-shadow:0 30px 64px rgba(0,0,0,.5), 0 0 70px -10px color-mix(in srgb,var(--c) 75%,transparent); }
-.subject-card.soon{ opacity:.62; cursor:default; }
-.subject-card .num{ font-family:var(--font); font-weight:800; font-size:46px; color:var(--c); line-height:1; min-width:64px; text-align:center;
-    text-shadow:0 0 26px color-mix(in srgb,var(--c) 55%,transparent); }
-.subject-card .info{ flex:1; }
-.subject-card .info h2{ font-weight:700; font-size:25px; line-height:1.18; }
-.subject-card .info p{ font-size:16px; color:var(--soft); margin-top:6px; }
-.subject-card .status{ flex:0 0 auto; font-family:var(--mono); font-size:13px; letter-spacing:.1em; text-transform:uppercase; padding:8px 16px; border-radius:999px;
-    border:1px solid color-mix(in srgb,var(--c) 45%,transparent); color:var(--c); background:color-mix(in srgb,var(--c) 12%,transparent); white-space:nowrap; }
-.subject-card .arrow{ flex:0 0 auto; color:var(--c); display:flex; opacity:.8; transition:transform .3s ease; }
-.subject-card.ready:hover .arrow{ transform:translateX(5px); }
-.subject-card.soon .arrow{ display:none; }
-
-/* títulos de seção (em andamento / concluídas) */
-.group-label{ font-family:var(--mono); font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim);
-    display:flex; align-items:center; gap:14px; margin-top:14px; }
-.group-label::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,rgba(111,131,166,.4),transparent); }
-.group-label:first-child{ margin-top:0; }
-
-/* matéria EM ANDAMENTO — ainda sem apresentação, sem link */
-.subject-card.doing{ cursor:default; }
-.subject-card.doing.ready{ cursor:pointer; }
-.subject-card.doing .status{ display:inline-flex; align-items:center; gap:9px; }
-.subject-card.doing .status::before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--c); box-shadow:0 0 10px var(--c);
-    animation:pulse 1.6s ease-in-out infinite; }
-@keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.35; transform:scale(.7); } }
-
-/* matéria CONCLUÍDA — riscada e apagada, mas continua clicável */
-/* barra de progresso (matérias em andamento) — ajuste o --p (0% a 100%) no style do .progress */
-.progress{ --p:0%; display:flex; align-items:center; gap:12px; margin-top:12px; max-width:520px; }
-.progress .bar{ flex:1; height:8px; border-radius:999px; background:rgba(174,191,218,.12); overflow:hidden; }
-.progress .bar i{ display:block; height:100%; width:var(--p); border-radius:inherit;
-    background:linear-gradient(90deg,color-mix(in srgb,var(--c) 55%,transparent),var(--c)); box-shadow:0 0 12px var(--c); }
-.progress .pct{ font-family:var(--mono); font-size:13px; color:var(--c); white-space:nowrap; }
-.steps{ list-style:none; margin-top:10px; display:flex; flex-direction:column; gap:5px; font-size:15px; color:var(--soft); }
-.steps li{ display:flex; gap:10px; align-items:baseline; }
-.steps li b{ font-family:var(--mono); font-size:12px; font-weight:700; color:var(--c); letter-spacing:.06em; white-space:nowrap; }
-.steps li.now{ color:var(--white); }
-.steps li .due{ font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:2px 8px; border-radius:999px;
-    color:var(--c); border:1px solid color-mix(in srgb,var(--c) 45%,transparent); white-space:nowrap; }
-
-.subject-card.done{ opacity:.55; filter:saturate(.55); box-shadow:0 14px 34px rgba(0,0,0,.35); }
-.subject-card.done:hover{ opacity:.9; filter:none; }
-.subject-card.done .info h2{ text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:color-mix(in srgb,var(--c) 70%,transparent); }
-.subject-card.done .num{ text-shadow:none; }
-.subject-card.done .status{ display:inline-flex; align-items:center; gap:7px; }
-
-.hub-foot{ width:100%; max-width:1080px; margin-top:40px; font-family:var(--mono); font-size:13px; color:var(--dim); letter-spacing:.06em; }
-
-@media (max-width:720px){
-    .hub-title{ font-size:34px; } .subject-card{ flex-wrap:wrap; gap:14px; padding:22px 24px; }
-    .subject-card .num{ font-size:34px; min-width:48px; } .subject-card .status{ order:3; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#062039">
+  <title>Portfólio acadêmico · Luiz Araujo · IME</title>
+  <meta name="description" content="Portfólio acadêmico de Luiz Araujo de Souza Junior, doutorando em Engenharia de Transportes no IME. Apresentações e estudos, com destaque para BrIM, risco hidrológico e drenagem de OAEs.">
+  <link rel="canonical" href="https://apresentacoes-doutorado.pages.dev/inicio">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Luiz Araujo · Portfólio acadêmico">
+  <meta property="og:title" content="Portfólio acadêmico · Luiz Araujo · IME">
+  <meta property="og:description" content="Doutorado em Engenharia de Transportes. Explore as apresentações e disciplinas. Em destaque: BrIM e risco hidrológico aplicados à manutenção preditiva da drenagem de OAEs.">
+  <meta property="og:url" content="https://apresentacoes-doutorado.pages.dev/inicio">
+  <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/cartao-compartilhamento-drenagem-v1.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="628">
+  <meta property="og:image:alt" content="Brasão do IME e ilustração de uma ponte com drenagem. BrIM e risco hidrológico — Luiz Araujo de Souza Junior.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Portfólio acadêmico · Luiz Araujo · IME">
+  <meta name="twitter:description" content="Apresentações do doutorado em Engenharia de Transportes no IME. Em destaque: BrIM, risco hidrológico e drenagem de OAEs.">
+  <meta name="twitter:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/cartao-compartilhamento-drenagem-v1.jpg">
+  <meta name="twitter:image:alt" content="BrIM e risco hidrológico: drenagem de pontes e viadutos, com o brasão do IME.">
+  <link rel="icon" href="drenagem-infraestrutura-transportes/assets/ime.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/home/home.css">
 </head>
 <body>
-    <div class="hub-head">
-        <p class="eyebrow">Apresentações · Pós-graduação em Transportes</p>
-        <h1 class="hub-title">Apresentações por <span class="grad">matéria</span></h1>
-        <p class="hub-sub">Cada matéria tem sua própria pasta, com o <code>index.html</code> e os <code>assets/</code> isolados. As concluídas continuam abertas: é só clicar.</p>
-    </div>
-
-    <div class="subjects">
-
-        <p class="group-label">Em andamento</p>
-
-        <!-- MATÉRIA 4 — em andamento (ainda sem apresentação; quando tiver, troque <div> por <a href="pasta/index.html"> e a classe "doing" por "ready") -->
-        <div class="subject-card doing" style="--c:var(--green)">
-            <span class="num">04</span>
-            <span class="info">
-                <h2>Estruturas para Transporte</h2>
-                <p>Apresentação em preparação</p>
-                <span class="progress" style="--p:15%"><span class="bar"><i></i></span><span class="pct">15% concluído</span></span>
-            </span>
-            <span class="status">Em andamento</span>
+  <a class="skip-link" href="#acervo">Ir para as disciplinas</a>
+  <main>
+    <section class="hero" aria-labelledby="portfolio-title">
+      <img class="hero-image" src="drenagem-infraestrutura-transportes/assets/ponte-drenagem-conceitual.png" alt="" width="1672" height="941" fetchpriority="high">
+      <div class="container hero-content">
+        <header class="identity">
+          <img class="crest" src="drenagem-infraestrutura-transportes/assets/ime.png" alt="Brasão do Instituto Militar de Engenharia" width="526" height="632">
+          <div><p class="author">Luiz Araujo de Souza Junior</p><p class="identity-caption">Portfólio pessoal</p></div>
+        </header>
+        <h1 id="portfolio-title">Portfólio<br><span>acadêmico.</span></h1>
+        <p class="institution">Doutorado em Engenharia de Transportes<br>Instituto Militar de Engenharia</p>
+        <p class="intro">Pesquisa, apresentações e estudos em infraestrutura de transportes.</p>
+        <div class="featured">
+          <p class="eyebrow">Em destaque · Drenagem</p>
+          <h2>BrIM e risco hidrológico</h2>
+          <p>Manutenção preditiva da drenagem de OAEs</p>
+          <nav class="hero-actions" aria-label="Navegação principal">
+            <a class="primary-link" href="drenagem-infraestrutura-transportes/index.html"><span class="icon display" aria-hidden="true"></span><span>Abrir apresentação de drenagem</span><span class="icon arrow" aria-hidden="true"></span></a>
+            <a class="explore-link" href="#acervo">Explorar disciplinas <span class="icon arrow" aria-hidden="true"></span></a>
+          </nav>
         </div>
-
-        <!-- MATÉRIA 5 — em andamento -->
-        <div class="subject-card doing" style="--c:var(--blue)">
-            <span class="num">05</span>
-            <span class="info">
-                <h2>Sistema de Transporte Rodoviário</h2>
-                <p>Apresentação em preparação</p>
-                <span class="progress" style="--p:15%"><span class="bar"><i></i></span><span class="pct">15% concluído</span></span>
-            </span>
-            <span class="status">Em andamento</span>
-        </div>
-
-        <!-- MATÉRIA 6 — em andamento -->
-        <a class="subject-card doing ready" style="--c:#a78bfa" href="drenagem-infraestrutura-transportes/index.html">
-            <span class="num">06</span>
-            <span class="info">
-                <h2>Drenagem Aplicada à Infraestrutura de Transportes</h2>
-                <ul class="steps">
-                    <li class="now"><b>ETAPA 1</b><span>Revisão sistemática do tema no EndNote e definição dos objetivos</span><span class="due">Entrega 08/10</span></li>
-                    <li><b>ETAPA 2</b><span>Apresentação final</span></li>
-                </ul>
-                <span class="progress" style="--p:50%"><span class="bar"><i></i></span><span class="pct">50% concluído</span></span>
-            </span>
-            <span class="status">Etapa 1 de 2</span>
-            <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-
-        <p class="group-label">Concluídas</p>
-
-        <!-- MATÉRIA 1 — concluída (apresentação OAE-SIM) -->
-        <a class="subject-card ready done" style="--c:var(--cyan)" href="problemas-especiais-ciencia-dados-deep-learning/index.html">
-            <span class="num">01</span>
-            <span class="info">
-                <h2>Problemas Especiais: Ciência de Dados e Aprendizado Profundo aplicados aos Transportes</h2>
-                <p>Resiliência da Rede Viária diante da Interdição de OAEs Críticas · OAE-SIM (8 slides)</p>
-            </span>
-            <span class="status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>Concluída</span>
-            <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-
-        <!-- MATÉRIA 2 — concluída (apresentação Simulador Analítico PMAV) -->
-        <a class="subject-card ready done" style="--c:var(--amber)" href="metodos-estatisticos-modelos-transporte/index.html">
-            <span class="num">02</span>
-            <span class="info">
-                <h2>Métodos Estatísticos para Modelos de Transporte</h2>
-                <p>Simulador Analítico PMAV · previsão de custos e apoio à decisão (8 slides)</p>
-            </span>
-            <span class="status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>Concluída</span>
-            <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-
-        <!-- MATÉRIA 3 — concluída (apresentação ALIME · Matias Barbosa/MG) · dourado p/ casar com o deck -->
-        <a class="subject-card ready done" style="--c:#f3b13c" href="planejamento-transportes/index.html">
-            <span class="num">03</span>
-            <span class="info">
-                <h2>Planejamento de Transportes</h2>
-                <p>ALIME · mobilidade urbana em municípios de pequeno porte · caso Matias Barbosa/MG (10 slides)</p>
-            </span>
-            <span class="status"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg>Concluída</span>
-            <span class="arrow"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
-
-    </div>
-
-    <p class="hub-foot">slides/ · uma subpasta por matéria · OAE-SIM • Resiliência da Rede Viária</p>
+      </div>
+    </section>
+    <section class="archive container" id="acervo" aria-labelledby="archive-title" tabindex="-1">
+      <header class="archive-heading"><h2 id="archive-title">Acervo acadêmico</h2><p>9 disciplinas · 6 concluídas · 3 em andamento</p></header>
+      <!-- A numeração é cronológica. Somente apresentações publicadas recebem links. -->
+      <ol class="subjects">
+        <li class="subject" value="1">
+          <span class="number" aria-hidden="true">01</span>
+          <h3>Inteligência Artificial Aplicada aos Transportes</h3>
+          <div class="subject-details">
+            <p class="status complete"><span class="icon check" aria-hidden="true"></span>Concluída</p>
+            <p class="availability">PowerPoint · Arquivo não disponível online</p>
+          </div>
+        </li>
+        <li class="subject" value="2">
+          <span class="number" aria-hidden="true">02</span>
+          <h3>Avaliação e Decisão de Projetos em Transportes</h3>
+          <div class="subject-details">
+            <p class="status complete"><span class="icon check" aria-hidden="true"></span>Concluída</p>
+            <p class="availability">PowerPoint · Arquivo não disponível online</p>
+          </div>
+        </li>
+        <li class="subject" value="3">
+          <span class="number" aria-hidden="true">03</span>
+          <h3>Logística</h3>
+          <div class="subject-details">
+            <p class="status complete"><span class="icon check" aria-hidden="true"></span>Concluída</p>
+            <p class="availability">PowerPoint · Arquivo não disponível online</p>
+          </div>
+        </li>
+        <li class="subject linked" value="4">
+          <span class="number" aria-hidden="true">04</span>
+          <h3><a href="problemas-especiais-ciencia-dados-deep-learning/index.html">Problemas Especiais: Ciência de Dados e Aprendizado Profundo aplicados aos Transportes</a></h3>
+          <div class="subject-details">
+            <p class="status complete"><span class="icon check" aria-hidden="true"></span>Concluída</p>
+            <p class="availability">Apresentação web <span class="icon arrow" aria-hidden="true"></span></p>
+          </div>
+        </li>
+        <li class="subject linked" value="5">
+          <span class="number" aria-hidden="true">05</span>
+          <h3><a href="metodos-estatisticos-modelos-transporte/index.html">Métodos Estatísticos para Modelos de Transporte</a></h3>
+          <div class="subject-details">
+            <p class="status complete"><span class="icon check" aria-hidden="true"></span>Concluída</p>
+            <p class="availability">Apresentação web <span class="icon arrow" aria-hidden="true"></span></p>
+          </div>
+        </li>
+        <li class="subject linked" value="6">
+          <span class="number" aria-hidden="true">06</span>
+          <h3><a href="planejamento-transportes/index.html">Planejamento de Transportes</a></h3>
+          <div class="subject-details">
+            <p class="status complete"><span class="icon check" aria-hidden="true"></span>Concluída</p>
+            <p class="availability">Apresentação web <span class="icon arrow" aria-hidden="true"></span></p>
+          </div>
+        </li>
+        <li class="subject" value="7">
+          <span class="number" aria-hidden="true">07</span>
+          <h3>Estruturas para Transporte</h3>
+          <div class="subject-details">
+            <p class="status ongoing"><span class="icon clock" aria-hidden="true"></span>Em andamento</p>
+            <p class="availability">Apresentação em preparação</p>
+          </div>
+        </li>
+        <li class="subject" value="8">
+          <span class="number" aria-hidden="true">08</span>
+          <h3>Sistema de Transporte Rodoviário</h3>
+          <div class="subject-details">
+            <p class="status ongoing"><span class="icon clock" aria-hidden="true"></span>Em andamento</p>
+            <p class="availability">Apresentação em preparação</p>
+          </div>
+        </li>
+        <li class="subject linked featured-subject" value="9">
+          <span class="number" aria-hidden="true">09</span>
+          <h3><a href="drenagem-infraestrutura-transportes/index.html">Drenagem Aplicada à Infraestrutura de Transportes</a></h3>
+          <div class="subject-details">
+            <p class="status ongoing"><span class="icon clock" aria-hidden="true"></span>Em andamento</p>
+            <p class="availability">Etapa 1 de 2 · Revisão e objetivos <span class="icon arrow" aria-hidden="true"></span></p>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </main>
+  <footer class="footer container"><p>Luiz Araujo de Souza Junior · Portfólio acadêmico</p><p>Doutorado · IME</p></footer>
 </body>
 </html>
