@@ -1,0 +1,5 @@
+.portfolio-thesis{max-width:640px;margin-top:22px;padding-left:16px;border-left:2px solid var(--cyan)}
+.portfolio-thesis h2{font-family:var(--font);font-size:11px;font-weight:700;line-height:1.5;letter-spacing:.13em;text-transform:uppercase;color:var(--cyan);margin:0 0 7px}
+.portfolio-thesis p{font-size:17px;font-weight:500;line-height:1.55;color:#e2edf5;margin:0;overflow-wrap:break-word}
+@media(max-width:800px){.portfolio-thesis{max-width:540px}.portfolio-thesis p{font-size:16px}}
+@media(max-width:600px){.portfolio-thesis{max-width:100%;margin-top:20px;padding-left:12px}.portfolio-thesis h2{font-size:10px}.portfolio-thesis p{font-size:14px;line-height:1.6}}
