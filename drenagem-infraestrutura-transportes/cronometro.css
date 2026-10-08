@@ -1,7 +1,8 @@
-.presentation-timer{position:fixed;top:16px;left:16px;z-index:25;display:flex;align-items:center;gap:5px;padding:5px 7px;border:1px solid #8abcc64d;border-radius:9px;background:#07131de8;box-shadow:0 5px 22px #0005;color:#eaf5f7;backdrop-filter:blur(9px)}
-.presentation-timer time{min-width:53px;font:600 14px/1.2 Consolas,monospace;font-variant-numeric:tabular-nums;letter-spacing:.02em;text-align:center}
-.presentation-timer button{display:grid;place-items:center;width:25px;height:25px;padding:0;border:0;border-radius:5px;background:transparent;color:#a9d6d6;font:600 14px/1 sans-serif}
+.presentation-timer{position:fixed;top:15px;left:16px;z-index:25;display:flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid #8abcc680;border-radius:9px;background:#07131df5;box-shadow:0 5px 22px #0008;color:#eaf5f7;backdrop-filter:blur(9px)}
+.timer-caption{margin-right:4px;color:#73ddd3;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.presentation-timer time{min-width:67px;font:600 18px/1.2 Consolas,monospace;font-variant-numeric:tabular-nums;letter-spacing:.02em;text-align:center}
+.presentation-timer button{display:grid;place-items:center;width:29px;height:29px;padding:0;border:0;border-radius:5px;background:transparent;color:#b9e7e5;font:600 16px/1 sans-serif}
 .presentation-timer button:hover,.presentation-timer button:focus-visible{background:#2e5965;color:#fff}
 .presentation-timer button:disabled{opacity:.4;cursor:default}
 .presentation-timer[data-running="true"] time{color:#73ddd3}
-@media(max-width:700px){.presentation-timer{top:7px;left:7px;padding:3px 4px}.presentation-timer time{font-size:12px;min-width:47px}.presentation-timer button{width:23px;height:23px}}
+@media(max-width:700px){.presentation-timer{top:7px;left:7px;padding:3px 5px}.timer-caption{font-size:9px}.presentation-timer time{font-size:14px;min-width:52px}.presentation-timer button{width:25px;height:25px}}
