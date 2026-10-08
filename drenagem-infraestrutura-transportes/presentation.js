@@ -1,6 +1,10 @@
 (() => {
   'use strict';
   const slides = [...document.querySelectorAll('.slide')];
+  const closingDot = document.createElement('button');
+  closingDot.dataset.slide = '4';
+  closingDot.setAttribute('aria-label', 'Slide 5: Visão do artigo');
+  document.querySelector('.dots').append(closingDot);
   const dots = [...document.querySelectorAll('[data-slide]')];
   const previous = document.getElementById('previous');
   const next = document.getElementById('next');
@@ -16,13 +20,15 @@
     document.documentElement.style.setProperty('--scale', String(scale));
   }
   function showSlide(nextIndex, updateHash = true) {
+    const enteringClosing = nextIndex === slides.length - 1 && index !== nextIndex;
     index = Math.max(0, Math.min(slides.length - 1, nextIndex));
     slides.forEach((slide, i) => { slide.hidden = i !== index; slide.classList.toggle('is-active', i === index); });
     dots.forEach((dot, i) => { if (i === index) dot.setAttribute('aria-current', 'step'); else dot.removeAttribute('aria-current'); });
     previous.disabled = index === 0;
-    next.disabled = index === slides.length - 1;
-    counter.textContent = `${String(index + 1).padStart(2, '0')} / 04`;
-    progress.style.width = `${(index + 1) * 25}%`;
+    if (enteringClosing) window.DECK_CLOSING?.reset();
+    next.disabled = index === slides.length - 1 && window.DECK_CLOSING?.step === 5;
+    counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    progress.style.width = `${(index + 1) / slides.length * 100}%`;
     document.title = `${slides[index].dataset.name} · BrIM e risco hidrológico · IME`;
     if (updateHash) history.replaceState(null, '', `#${index + 1}`);
     if (window.innerWidth <= 700) window.scrollTo({ top: 0, behavior: 'instant' });
@@ -47,8 +53,13 @@
     } catch { toast('Use F11 no navegador para abrir a apresentação em tela cheia.'); }
   }
 
-  previous.addEventListener('click', () => showSlide(index - 1));
-  next.addEventListener('click', () => showSlide(index + 1));
+  function navigate(delta) {
+    if (index === slides.length - 1 && window.DECK_CLOSING?.move(delta)) return;
+    showSlide(index + delta);
+  }
+  document.addEventListener('closing-step', () => { next.disabled = index === slides.length - 1 && window.DECK_CLOSING.step === 5; });
+  previous.addEventListener('click', () => navigate(-1));
+  next.addEventListener('click', () => navigate(1));
   dots.forEach(dot => dot.addEventListener('click', () => showSlide(Number(dot.dataset.slide))));
   document.getElementById('fullscreen').addEventListener('click', fullscreen);
   document.querySelectorAll('[data-dialog]').forEach(button => button.addEventListener('click', () => openDialog(button.dataset.dialog)));
@@ -60,14 +71,14 @@
   });
   document.addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName) || document.querySelector('dialog[open]')) return;
-    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); showSlide(index + 1); }
-    if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); showSlide(index - 1); }
+    if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); navigate(1); }
+    if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); navigate(-1); }
     if (event.key === 'Home') { event.preventDefault(); showSlide(0); }
-    if (event.key === 'End') { event.preventDefault(); showSlide(3); }
+    if (event.key === 'End') { event.preventDefault(); showSlide(slides.length - 1); }
     if (event.key.toLowerCase() === 'f') { event.preventDefault(); fullscreen(); }
   });
   window.addEventListener('resize', resize);
-  window.addEventListener('hashchange', () => { const n = Number(location.hash.slice(1)); if (Number.isInteger(n) && n >= 1 && n <= 4) showSlide(n - 1, false); });
+  window.addEventListener('hashchange', () => { const n = Number(location.hash.slice(1)); if (Number.isInteger(n) && n >= 1 && n <= slides.length) showSlide(n - 1, false); });
 
   const queries = document.getElementById('query-list');
   (data.queries || []).forEach(query => {
@@ -111,5 +122,5 @@
 
   resize();
   const initialHash = Number(location.hash.slice(1));
-  showSlide(Number.isInteger(initialHash) && initialHash >= 1 && initialHash <= 4 ? initialHash - 1 : 0, false);
+  showSlide(Number.isInteger(initialHash) && initialHash >= 1 && initialHash <= slides.length ? initialHash - 1 : 0, false);
 })();
