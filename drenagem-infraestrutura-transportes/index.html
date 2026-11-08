@@ -10,7 +10,10 @@
   <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets-final/ponte-drenagem-conceitual.png">
   <title>Manutenção preventiva da drenagem de OAEs | IME</title>
   <link rel="stylesheet" href="final.css">
+  <link rel="stylesheet" href="rede-bibliometrica.css">
   <script defer src="final.js"></script>
+  <script defer src="rede-bibliometrica-dados.js"></script>
+  <script defer src="rede-bibliometrica.js"></script>
   <script defer src="final-cronometro.js"></script>
 </head>
 <body>
@@ -38,8 +41,28 @@
       <small class="caption cover-caption">Representação conceitual</small>
     </section>
 
+    <section class="slide" id="revisao" aria-labelledby="titulo-revisao" hidden>
+      <header class="slide-head"><p class="eyebrow">01 / Revisão bibliográfica</p><h2 id="titulo-revisao">O que a literatura estuda?</h2></header>
+      <div class="literature-layout">
+        <div class="literature-topics" role="group" aria-label="Destaques para a apresentação">
+          <button class="literature-topic" type="button" data-theme="water" aria-pressed="false"><b>01</b><span><strong>Água e drenagem</strong><small>Captação, escoamento e retenção.</small></span></button>
+          <button class="literature-topic" type="button" data-theme="maintenance" aria-pressed="false"><b>02</b><span><strong>Deterioração e manutenção</strong><small>Exposição de elementos e acompanhamento de defeitos.</small></span></button>
+          <button class="literature-topic" type="button" data-theme="digital" aria-pressed="false"><b>03</b><span><strong>BIM e BrIM</strong><small>Identificação de componentes, registros e integração de dados.</small></span></button>
+        </div>
+        <figure class="literature-figure">
+          <div class="graph-panel">
+            <div class="graph-toolbar"><strong class="graph-heading">Rede de coocorrência</strong><button type="button" data-theme="all" aria-pressed="true">Rede completa</button></div>
+            <svg viewBox="0 0 780 332" role="group" aria-label="Rede interativa de palavras-chave do artigo"></svg>
+            <div class="graph-status" aria-live="polite">40 termos · 76 ligações</div>
+          </div>
+          <figcaption>Tamanho dos nós indica frequência documental. As cores indicam os dois grupos da análise. Os botões realçam termos por tema da fala.</figcaption>
+        </figure>
+      </div>
+      <p class="caption">1.762 registros no corpus bibliométrico · 22 estudos na síntese focal dirigida</p>
+    </section>
+
     <section class="slide" id="problema" aria-labelledby="titulo-problema" hidden>
-      <header class="slide-head"><p class="eyebrow">01 / Problema de pesquisa</p><h2 id="titulo-problema">O que acontece entre a chuva e a perda de função?</h2></header>
+      <header class="slide-head"><p class="eyebrow">02 / Problema de pesquisa</p><h2 id="titulo-problema">O que acontece entre a chuva e a perda de função?</h2></header>
       <div class="steps">
         <div><b>E</b><h3>Exposição</h3><p>A precipitação caracteriza a exposição atribuída à obra.</p></div>
         <div><b>C</b><h3>Condição</h3><p>A inspeção registra como cada dispositivo funciona.</p></div>
@@ -47,17 +70,6 @@
       </div>
       <p class="focus">Como vincular essas evidências em uma estrutura BrIM para apoiar a manutenção preventiva?</p>
       <small class="caption">Artigo entregue · Seção 1</small>
-    </section>
-
-    <section class="slide" id="revisao" aria-labelledby="titulo-revisao" hidden>
-      <header class="slide-head"><p class="eyebrow">02 / Revisão bibliográfica</p><h2 id="titulo-revisao">O que a literatura trouxe ao protótipo</h2></header>
-      <div class="split">
-        <div>
-          <dl class="counts"><div><dt>3.709</dt><dd>ocorrências nas buscas</dd></div><div><dt>2.226</dt><dd>registros únicos para triagem</dd></div><div><dt>1.762</dt><dd>no corpus bibliométrico</dd></div><div><dt>22</dt><dd>estudos na síntese focal</dd></div></dl>
-          <p class="note">A síntese focal orientou os registros de condição, geometria, caminho da água e histórico. A seleção dos estudos foi dirigida.</p>
-        </div>
-        <figure class="figure"><a href="assets-final/rede.webp" target="_blank" rel="noopener"><img src="assets-final/rede.webp" alt="Subrede de coocorrência das palavras-chave do corpus bibliométrico"></a><figcaption>Figura 2 do artigo · Subrede de visualização. A rede de análise tem 40 termos e 76 arestas.</figcaption></figure>
-      </div>
     </section>
 
     <section class="slide" id="base-real" aria-labelledby="titulo-base" hidden>
