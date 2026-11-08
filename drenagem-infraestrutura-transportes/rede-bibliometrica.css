@@ -40,10 +40,10 @@
 .graph-edge { stroke: #86b4d2; opacity: .23; transition: opacity .55s, stroke .55s; }
 .graph-edge.is-dim { opacity: .075; }
 .graph-edge.is-lit { stroke: #b8ddeb; opacity: .62; }
-.graph-edge.is-entering { opacity: 0; }
+.graph-play { background: #7ce2d9; color: #07252d; font-weight: 750; }
 .graph-node { cursor: pointer; transition: opacity .4s; transform-box: fill-box; transform-origin: center; }
 .graph-node.is-dim { opacity: .23; }
-.graph-node.is-entering { opacity: 0; }
+.graph-node.is-topic .halo { stroke: #fff2cb; stroke-width: 1.5px; opacity: .48; }
 .graph-node .halo { opacity: .18; }
 .graph-node:hover .halo, .graph-node:focus-visible .halo, .graph-node[aria-pressed="true"] .halo { opacity: .66; }
 .graph-labels text {

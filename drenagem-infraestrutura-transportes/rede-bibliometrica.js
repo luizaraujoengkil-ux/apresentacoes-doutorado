@@ -7,6 +7,7 @@
   const svg = panel.querySelector('svg');
   const status = panel.querySelector('.graph-status');
   const buttons = Array.from(document.querySelectorAll('[data-theme]'));
+  const play = panel.querySelector('.graph-play');
   const ns = 'http://www.w3.org/2000/svg';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const groups = [
@@ -15,13 +16,13 @@
   ];
   const themes = {
     water: { label: 'Água e drenagem', ids: [1, 4, 7, 12, 13, 24, 29, 37, 40] },
-    maintenance: { label: 'Deterioração e manutenção', ids: [5, 9, 10, 14, 25, 27, 28, 30, 39] },
+    maintenance: { label: 'Deterioração e manutenção', ids: [9, 10, 39, 28, 5, 14, 25, 27, 30] },
     digital: { label: 'BIM e BrIM', ids: [3, 6, 8, 11, 19, 20] },
   };
   const aliases = { 1:'Erosão localizada', 2:'Pilar de ponte', 3:'Gêmeo digital', 4:'Inundação', 5:'Monitoramento estrutural', 6:'BIM', 8:'Aprendizado de máquina', 9:'Manutenção', 10:'Inspeção', 11:'Inteligência artificial', 19:'BrIM', 25:'Gestão de pontes', 28:'Dano', 37:'Hidráulica', 39:'Detecção de danos' };
   const anchors = new Map();
   const rendered = new Map();
-  let timer;
+  let playback;
   let activeTheme = 'all';
   let activeNode = null;
 
@@ -57,12 +58,11 @@
     element('circle',{cx:x,cy:y,r:radius,fill:color,stroke:'#f1f8ff','stroke-width':.75},group);
     element('title',{},group).textContent = node.label;
     const select = () => {
+      stopPlayback();
       activeNode = activeNode === node.id ? null : node.id;
       draw(false);
     };
     group.addEventListener('click',select);
-    group.addEventListener('pointerenter', () => { status.textContent = (aliases[node.id] || node.label) + ' · ' + node.frequency + ' documentos'; });
-    group.addEventListener('pointerleave', () => draw(false));
     group.addEventListener('keydown',event => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -75,7 +75,7 @@
   const labels = element('g', {class:'graph-labels','aria-hidden':'true'});
 
   function draw(animate) {
-    clearTimeout(timer);
+    svg.getAnimations({subtree:true}).forEach(animation => animation.cancel());
     const theme = themes[activeTheme];
     const ids = theme ? new Set(theme.ids) : null;
     const neighbors = activeNode === null ? null : new Set(edges.flatMap(edge =>
@@ -84,9 +84,10 @@
     buttons.forEach(button => button.setAttribute('aria-pressed',String(button.dataset.theme === activeTheme)));
     for (const [id, group] of rendered) {
       group.classList.toggle('is-dim', !!primary && !primary.has(id));
+      group.classList.toggle('is-topic', !!ids && ids.has(id));
       if (animate && !reduce.matches && (!primary || primary.has(id))) {
         group.animate([{opacity:0,scale:.55},{opacity:1,scale:1}], {
-          duration:350, delay:(id % 7)*26, easing:'ease-out',
+          duration:580, delay:(id % 7)*55, easing:'ease-out', fill:'backwards',
         });
       }
       group.setAttribute('aria-pressed',String(id === activeNode));
@@ -95,7 +96,13 @@
       const lit = activeNode !== null ? source === activeNode || target === activeNode : !!ids && (ids.has(source) || ids.has(target));
       line.classList.toggle('is-lit', lit);
       line.classList.toggle('is-dim', !!primary && !lit);
-      line.classList.toggle('is-entering', animate && !reduce.matches && (!primary || lit));
+      if (animate && !reduce.matches && (!primary || lit)) {
+        const length = Math.hypot(line.x2.baseVal.value - line.x1.baseVal.value, line.y2.baseVal.value - line.y1.baseVal.value);
+        line.animate([
+          {opacity:0, strokeDasharray:length, strokeDashoffset:length},
+          {opacity:lit ? .78 : .23, strokeDasharray:length, strokeDashoffset:0},
+        ], {duration:850, delay:850, easing:'ease-out', fill:'backwards'});
+      }
     }
     labels.replaceChildren();
     const featured = activeNode !== null ? [activeNode] : theme ? theme.ids.slice(0, 3) : [1, 3, 6, 9];
@@ -105,18 +112,41 @@
       const label = element('text', {x, y:y + 20 + Math.sqrt(node.frequency)*.6, 'text-anchor':'middle'}, labels);
       label.textContent = aliases[id] || node.label;
     }
+    if (animate && !reduce.matches) labels.animate([{opacity:0},{opacity:1}], {duration:350,delay:550,fill:'backwards'});
     const selected = nodes.find(node => node.id === activeNode);
     status.textContent = selected
       ? (aliases[selected.id] || selected.label) + ' · ' + selected.frequency + ' documentos · ' + neighbors.size + ' conexões na rede.'
       : theme ? theme.label + ' · ' + theme.ids.slice(0,4).map(id => aliases[id] || nodes.find(node => node.id === id).label).join(' · ')
       : '40 termos · 76 ligações · Selecione um tema ou toque em um termo.';
-    if (animate && !reduce.matches) {
-      timer = setTimeout(() => edges.forEach(({line}) => line.classList.remove('is-entering')),450);
-    }
   }
+
+  function stopPlayback() {
+    clearTimeout(playback);
+    playback = undefined;
+    play.textContent = '▶ Reproduzir animação';
+  }
+
+  play.addEventListener('click', () => {
+    if (playback !== undefined) {
+      stopPlayback();
+      return;
+    }
+    const sequence = Object.keys(themes);
+    play.textContent = '■ Parar sequência';
+    let index = 0;
+    function advance() {
+      activeTheme = sequence[index++];
+      activeNode = null;
+      draw(true);
+      if (index < sequence.length) playback = setTimeout(advance, 3600);
+      else playback = setTimeout(stopPlayback, 3600);
+    }
+    advance();
+  });
 
   for (const button of buttons) {
     button.addEventListener('click', () => {
+      stopPlayback();
       activeTheme = button.dataset.theme;
       activeNode = null;
       draw(true);
