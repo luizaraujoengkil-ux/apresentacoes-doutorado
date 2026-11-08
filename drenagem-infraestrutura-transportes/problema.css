@@ -1,4 +1,5 @@
-#problema.problema-slide {
+.ponte-definicoes { position: absolute; width: 0; height: 0; overflow: hidden; }
+.problema-slide {
   gap: clamp(12px, 2.4vh, 23px);
   padding-block: clamp(23px, 4.1vh, 49px);
 }
@@ -27,9 +28,23 @@
 [data-problema-playing="true"] .problema-fluxo { animation: problema-fluxo 1.2s linear infinite; }
 @keyframes problema-chuva { from { transform: translateY(-7px); } to { transform: translateY(9px); } }
 @keyframes problema-fluxo { to { stroke-dashoffset: -32; } }
+.metodos-painel { min-width: 0; }
+.metodos-controles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.metodos-controles .problema-passo { grid-template-columns: 1fr; gap: 2px; padding: 7px 8px; }
+.metodos-controles .problema-passo strong { font-size: clamp(.72rem, 1.05vw, .95rem); }
+.metodos-controles .problema-passo span { font-size: .7rem; }
+.metodos-resposta { padding: 15px 0 4px; min-height: 13rem; }
+.metodos-resposta h3 { font-size: clamp(1.13rem, 1.75vw, 1.7rem); }
+.metodos-resposta p { margin-top: 8px; color: var(--muted); font-size: clamp(.91rem, 1.18vw, 1.12rem); }
+.metodos-resposta .metodos-tecnica { color: var(--accent); font-weight: 700; }
+.metodos-camada { opacity: 0; transition: opacity 450ms ease; }
+[data-problema-etapa="1"] .metodos-exposicao,
+[data-problema-etapa="2"] .metodos-priorizacao,
+[data-problema-etapa="3"] .metodos-prognostico { opacity: 1; }
 @media (max-width: 760px) {
   .problema-layout { grid-template-columns: 1fr; }
   .problema-svg { max-height: none; }
+  .metodos-resposta { min-height: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .problema-slide * { animation: none !important; transition: none !important; }

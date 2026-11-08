@@ -1,58 +1,58 @@
 (() => {
-  const slide = document.querySelector('.problema-slide');
-  if (!slide) return;
-
-  const steps = [...slide.querySelectorAll('.problema-passo')];
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const durations = [4000, 5000, 6000];
-  let current = 0;
-  let pending;
 
-  function show(index) {
-    current = index;
-    slide.dataset.problemaEtapa = String(index + 1);
-    steps.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
-  }
+  function bindSequence(slide) {
+    const steps = [...slide.querySelectorAll('.problema-passo')];
+    const panels = [...slide.querySelectorAll('[data-metodos-conteudo]')];
+    const durations = slide.dataset.etapasAutomaticas.split(' ').map(Number);
+    let current = 0;
+    let pending;
 
-  function stop() {
-    window.clearTimeout(pending);
-    slide.dataset.problemaPlaying = 'false';
-  }
+    function show(index) {
+      current = index;
+      slide.dataset.problemaEtapa = String(index + 1);
+      steps.forEach((button, i) => button.setAttribute('aria-pressed', String(i === current)));
+      panels.forEach((panel, i) => { panel.hidden = i !== current; });
+    }
 
-  function schedule() {
-    pending = window.setTimeout(() => {
-      if (current === steps.length - 1) {
-        stop();
-        return;
-      }
-      show(current + 1);
+    function stop() {
+      window.clearTimeout(pending);
+      slide.dataset.problemaPlaying = 'false';
+    }
+
+    function schedule() {
+      pending = window.setTimeout(() => {
+        if (current === steps.length - 1) {
+          stop();
+          return;
+        }
+        show(current + 1);
+        schedule();
+      }, durations[current]);
+    }
+
+    function onSlideVisibility() {
+      stop();
+      if (slide.hidden) return;
+      show(0);
+      if (reducedMotion.matches) return;
+      slide.dataset.problemaPlaying = 'true';
       schedule();
-    }, durations[current]);
+    }
+
+    steps.forEach((button, index) => button.addEventListener('click', () => {
+      show(index);
+      stop();
+    }));
+    new MutationObserver(onSlideVisibility).observe(slide, {attributes: true, attributeFilter: ['hidden']});
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) stop();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+    });
+    onSlideVisibility();
   }
 
-  function start() {
-    if (current === steps.length - 1) show(0);
-    slide.dataset.problemaPlaying = 'true';
-    schedule();
-  }
-
-  function onSlideVisibility() {
-    stop();
-    if (slide.hidden) return;
-    show(0);
-    if (!reducedMotion.matches) start();
-  }
-
-  steps.forEach((button, index) => button.addEventListener('click', () => {
-    show(index);
-    stop();
-  }));
-  new MutationObserver(onSlideVisibility).observe(slide, {attributes: true, attributeFilter: ['hidden']});
-  reducedMotion.addEventListener('change', () => {
-    if (reducedMotion.matches) stop();
-  });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stop();
-  });
-  onSlideVisibility();
+  document.querySelectorAll('[data-etapas-automaticas]').forEach(bindSequence);
 })();

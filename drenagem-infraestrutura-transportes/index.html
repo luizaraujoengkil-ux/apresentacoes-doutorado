@@ -31,6 +31,90 @@
     <a class="button pdf" href="artigo-entregue.pdf" target="_blank" rel="noopener">Abrir artigo (PDF) ↗</a>
   </header>
 
+  <svg class="ponte-definicoes" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+          <linearGradient id="problema-fundo" x2="0" y2="1"><stop stop-color="#233d4c"/><stop offset=".62" stop-color="#112732"/><stop offset="1" stop-color="#0a1822"/></linearGradient>
+          <linearGradient id="problema-pista" x2="0" y2="1"><stop stop-color="#50585e"/><stop offset="1" stop-color="#2d3439"/></linearGradient>
+          <linearGradient id="problema-faixa" x2="0" y2="1"><stop stop-color="#777c77"/><stop offset="1" stop-color="#565c57"/></linearGradient>
+          <linearGradient id="problema-concreto-face" x2="0" y2="1"><stop stop-color="#859090"/><stop offset=".19" stop-color="#707b7c"/><stop offset="1" stop-color="#354550"/></linearGradient>
+          <linearGradient id="problema-pilar" x2="1" y2="0"><stop stop-color="#626d70"/><stop offset=".6" stop-color="#8b9190"/><stop offset="1" stop-color="#677378"/></linearGradient>
+          <linearGradient id="problema-tubo" x2="1" y2="0"><stop stop-color="#243843"/><stop offset=".5" stop-color="#a3abad"/><stop offset="1" stop-color="#44545a"/></linearGradient>
+          <linearGradient id="problema-agua" x2="1" y2="0"><stop stop-color="#3996c7" stop-opacity=".22"/><stop offset=".54" stop-color="#39b8e7" stop-opacity=".65"/><stop offset="1" stop-color="#a0e9ff" stop-opacity=".32"/></linearGradient>
+          <pattern id="problema-asfalto" width="21" height="18" patternUnits="userSpaceOnUse">
+            <path d="M2 3h2m7 0h1m5 4h2M3 13h1m8-4h2m1 7h3M7 16h2" stroke="#bac6c9" stroke-opacity=".23" stroke-width=".8"/>
+            <path d="M3 6h1m14 6h3M7 11h2m4 5h1" stroke="#000" stroke-opacity=".32" stroke-width=".8"/>
+          </pattern>
+          <pattern id="problema-concreto" width="35" height="27" patternUnits="userSpaceOnUse">
+            <path d="m2 7 4-2 4 2 1 2-5 2-3-1zM22 18l3-3 5 2-1 4-5 1z" fill="#ced2c8" fill-opacity=".12"/>
+            <path d="M12 25h11M6 18h2m20-11h2m-14 5h2" stroke="#0b1b21" stroke-opacity=".3"/>
+          </pattern>
+          <marker id="problema-seta" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0l7 3.5-7 3.5z" fill="#a1ebff"/></marker>
+          <filter id="problema-brilho" x="-.2" y="-.2" width="1.4" height="1.4"><feGaussianBlur stdDeviation="4"/></filter>
+          <filter id="problema-sombra" x="-.15" y="-.4" width="1.3" height="1.8"><feGaussianBlur stdDeviation="5"/></filter>
+        <g id="problema-ponte-base">
+          <rect width="790" height="366" rx="12" fill="url(#problema-fundo)"/>
+          <path d="M0 103 75 80 127 95l75-48 54 31 71-43 104 62 109-34 101 37 99-42 50 15v110H0z" fill="#48626a" opacity=".31"/>
+          <path d="M0 144 93 103l121 32 103-28 87 26 122-36 99 26 121-35 44 16v87H0z" fill="#1a343c" opacity=".83"/>
+          <path d="M29 273q144 27 296 6l355-41q-13 40-84 55-279 55-556 21z" fill="#070f16" opacity=".56" filter="url(#problema-sombra)"/>
+
+          <!-- Travessa, pilar e aparelho de apoio sob a junta. -->
+          <path d="m449 294 36-20h102l-34 20z" fill="#8d9693" stroke="#546267"/>
+          <path d="M449 294h104v72H449z" fill="url(#problema-pilar)"/>
+          <path d="m553 294 34-20v92h-34z" fill="#485760"/>
+          <path d="M449 294h104v72H449z" fill="url(#problema-concreto)"/>
+          <path d="M475 296v70m55-69v69" stroke="#263840" stroke-opacity=".33"/>
+          <path d="m417 278 53-31h128l-49 31z" fill="#9ca19c" stroke="#67777b"/>
+          <path d="M417 278h132v22H417z" fill="url(#problema-concreto-face)" stroke="#718083"/>
+          <path d="m549 278 49-31v23l-49 30z" fill="#53646a"/>
+          <path d="M417 279h132v20H417z" fill="url(#problema-concreto)"/>
+          <path d="m473 257 27-13h60l-27 13z" fill="#6f7c7c" stroke="#293942"/>
+          <path d="M473 257h60v15h-60z" fill="#18262c" stroke="#4c5d62"/>
+          <path d="m533 257 27-13v14l-27 14z" fill="#223239"/>
+          <path d="M479 260h48m-48 4h48m-48 4h48" stroke="#56666b" stroke-width="1.15"/>
+
+          <!-- Tubo vertical visível abaixo do bordo drenante. -->
+          <path d="M364 216h18v58q-9 8-18 0z" fill="url(#problema-tubo)" stroke="#18272e" stroke-width="1.4"/>
+          <path d="M364 254q9 3 18 0m-18 6q9 3 18 0" fill="none" stroke="#232d30" stroke-width="1.3"/>
+          <ellipse cx="373" cy="274" rx="9" ry="4" fill="#111e24" stroke="#a7adac" stroke-width="1.35"/>
+
+          <!-- Mesa do tabuleiro, longarinas e pista. -->
+          <path d="m74 216 588-1v29H74z" fill="url(#problema-concreto-face)" stroke="#74858a"/>
+          <path d="M74 216h588v29H74z" fill="url(#problema-concreto)"/>
+          <path d="M99 245h539l-17 17H116z" fill="#34444a" stroke="#667476"/>
+          <path d="M116 252h505" stroke="#a9b0ac" stroke-opacity=".47" stroke-width="1.3"/>
+          <path d="m662 215 87-96v29l-87 96z" fill="#46575e" stroke="#74858a"/>
+          <path d="m74 215 119-96h556l-87 96z" fill="url(#problema-pista)" stroke="#8a9594" stroke-width="1.6"/>
+          <path d="m74 215 119-96h556l-87 96z" fill="url(#problema-asfalto)"/>
+          <path d="m150 154 43-35h556l-31 35z" fill="url(#problema-faixa)"/>
+          <path d="m150 154 43-35h556l-31 35z" fill="url(#problema-concreto)"/>
+          <path d="m147 157 569 1" stroke="#c1c8bf" stroke-width="2.35"/>
+          <path d="m102 194 577 1" stroke="#deded3" stroke-width="2.5" stroke-dasharray="44 33" stroke-opacity=".76"/>
+          <path d="m78 211 587 1" stroke="#aab5b1" stroke-width="1.5" stroke-opacity=".72"/>
+
+          <!-- Junta transversal e o detalhe do guarda-corpo metálico. -->
+          <path d="m586 119-94 96v32" fill="none" stroke="#161e23" stroke-width="8"/>
+          <path d="m584 119-94 96v31m99-127-94 96v31" fill="none" stroke="#8c9899" stroke-width="1"/>
+          <path d="m187 123 6-8h556l-8 8z" fill="#92968d"/>
+          <path d="m187 123 554 0v10H187z" fill="#626b68" stroke="#9ba19b" stroke-width="1"/>
+          <path d="M207 87v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33" stroke="#192a31" stroke-width="8"/>
+          <path d="M207 87v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33" stroke="#9aa6a8" stroke-width="3"/>
+          <path d="M195 83h546m-544 18h542" stroke="#1f3036" stroke-width="7" stroke-linecap="round"/>
+          <path d="M195 81h546m-544 18h542" stroke="#bac6c6" stroke-width="3.1" stroke-linecap="round"/>
+          <path d="M208 79h509" stroke="#e0e5df" stroke-opacity=".6" stroke-linecap="round"/>
+
+          <!-- Captação ao pé do meio-fio, junto à faixa de serviço. -->
+          <g id="problema-boca-barbaca">
+            <ellipse cx="374" cy="143" rx="17" ry="7" fill="#8e9692" stroke="#c2c7be" stroke-width="1.25" transform="rotate(-5 374 143)"/>
+            <ellipse cx="374" cy="143" rx="12" ry="4.6" fill="#17282d" transform="rotate(-5 374 143)"/>
+          </g>
+        </g>
+        <g id="problema-chuva-base" class="problema-chuva" fill="none" stroke="#a3d7ec" stroke-width="1.45" stroke-linecap="round" opacity=".56">
+          <path d="m137 43-11 20m51-36-12 22m56-17-12 22m54-33-12 22m56-10-11 21m53-34-11 21m54-14-10 19m52-25-11 20m55-14-12 21m57-33-11 22m56-15-11 20m56-24-12 21m51-18-12 22m55-27-11 21"/>
+          <path d="m177 61-11 17m70-17-10 17m66-18-8 16m61-10-10 19m78-21-9 17m57-14-10 17m67-27-10 20m70-13-10 17m67-20-9 18m59-19-10 19m61-16-8 16" opacity=".65"/>
+        </g>
+    </defs>
+  </svg>
+
   <main id="stage" tabindex="-1" aria-label="Apresentação final de drenagem">
     <section class="slide cover" id="capa" aria-labelledby="titulo-capa">
       <div class="institution"><img src="assets-final/ime.png" alt="Brasão do IME"><div><strong>Instituto Militar de Engenharia</strong><span>Drenagem Aplicada à Infraestrutura de Transportes</span></div></div>
@@ -63,7 +147,7 @@
       <p class="caption">1.762 registros no corpus bibliométrico · 22 estudos na síntese focal dirigida</p>
     </section>
 
-    <section class="slide problema-slide" id="problema" data-problema-etapa="1" aria-labelledby="titulo-problema" hidden>
+    <section class="slide problema-slide" id="problema" data-problema-etapa="1" data-etapas-automaticas="4000 5000 6000" aria-labelledby="titulo-problema" hidden>
   <header class="slide-head">
     <p class="eyebrow">02 / Problema de pesquisa</p>
     <h2 id="titulo-problema">Quando a água deixa de seguir o caminho previsto</h2>
@@ -73,84 +157,8 @@
       <svg class="problema-svg" viewBox="0 0 790 366" role="img" aria-labelledby="problema-svg-titulo problema-svg-desc">
         <title id="problema-svg-titulo">Percurso potencial da água na drenagem de uma ponte</title>
         <desc id="problema-svg-desc">Perspectiva técnica do tabuleiro com guarda-corpo, pista, faixa de serviço e barbacã. Folhas obstruem a boca do tubo. A água se acumula na borda da pista e pode alcançar a junta e o apoio.</desc>
-        <defs>
-          <linearGradient id="problema-fundo" x2="0" y2="1"><stop stop-color="#233d4c"/><stop offset=".62" stop-color="#112732"/><stop offset="1" stop-color="#0a1822"/></linearGradient>
-          <linearGradient id="problema-pista" x2="0" y2="1"><stop stop-color="#50585e"/><stop offset="1" stop-color="#2d3439"/></linearGradient>
-          <linearGradient id="problema-faixa" x2="0" y2="1"><stop stop-color="#777c77"/><stop offset="1" stop-color="#565c57"/></linearGradient>
-          <linearGradient id="problema-concreto-face" x2="0" y2="1"><stop stop-color="#859090"/><stop offset=".19" stop-color="#707b7c"/><stop offset="1" stop-color="#354550"/></linearGradient>
-          <linearGradient id="problema-pilar" x2="1" y2="0"><stop stop-color="#626d70"/><stop offset=".6" stop-color="#8b9190"/><stop offset="1" stop-color="#677378"/></linearGradient>
-          <linearGradient id="problema-tubo" x2="1" y2="0"><stop stop-color="#243843"/><stop offset=".5" stop-color="#a3abad"/><stop offset="1" stop-color="#44545a"/></linearGradient>
-          <linearGradient id="problema-agua" x2="1" y2="0"><stop stop-color="#3996c7" stop-opacity=".22"/><stop offset=".54" stop-color="#39b8e7" stop-opacity=".65"/><stop offset="1" stop-color="#a0e9ff" stop-opacity=".32"/></linearGradient>
-          <pattern id="problema-asfalto" width="21" height="18" patternUnits="userSpaceOnUse">
-            <path d="M2 3h2m7 0h1m5 4h2M3 13h1m8-4h2m1 7h3M7 16h2" stroke="#bac6c9" stroke-opacity=".23" stroke-width=".8"/>
-            <path d="M3 6h1m14 6h3M7 11h2m4 5h1" stroke="#000" stroke-opacity=".32" stroke-width=".8"/>
-          </pattern>
-          <pattern id="problema-concreto" width="35" height="27" patternUnits="userSpaceOnUse">
-            <path d="m2 7 4-2 4 2 1 2-5 2-3-1zM22 18l3-3 5 2-1 4-5 1z" fill="#ced2c8" fill-opacity=".12"/>
-            <path d="M12 25h11M6 18h2m20-11h2m-14 5h2" stroke="#0b1b21" stroke-opacity=".3"/>
-          </pattern>
-          <marker id="problema-seta" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0l7 3.5-7 3.5z" fill="#a1ebff"/></marker>
-          <filter id="problema-brilho" x="-.2" y="-.2" width="1.4" height="1.4"><feGaussianBlur stdDeviation="4"/></filter>
-          <filter id="problema-sombra" x="-.15" y="-.4" width="1.3" height="1.8"><feGaussianBlur stdDeviation="5"/></filter>
-        </defs>
-        <rect width="790" height="366" rx="12" fill="url(#problema-fundo)"/>
-        <path d="M0 103 75 80 127 95l75-48 54 31 71-43 104 62 109-34 101 37 99-42 50 15v110H0z" fill="#48626a" opacity=".31"/>
-        <path d="M0 144 93 103l121 32 103-28 87 26 122-36 99 26 121-35 44 16v87H0z" fill="#1a343c" opacity=".83"/>
-        <path d="M29 273q144 27 296 6l355-41q-13 40-84 55-279 55-556 21z" fill="#070f16" opacity=".56" filter="url(#problema-sombra)"/>
-
-        <!-- Travessa, pilar e aparelho de apoio sob a junta. -->
-        <path d="m449 294 36-20h102l-34 20z" fill="#8d9693" stroke="#546267"/>
-        <path d="M449 294h104v72H449z" fill="url(#problema-pilar)"/>
-        <path d="m553 294 34-20v92h-34z" fill="#485760"/>
-        <path d="M449 294h104v72H449z" fill="url(#problema-concreto)"/>
-        <path d="M475 296v70m55-69v69" stroke="#263840" stroke-opacity=".33"/>
-        <path d="m417 278 53-31h128l-49 31z" fill="#9ca19c" stroke="#67777b"/>
-        <path d="M417 278h132v22H417z" fill="url(#problema-concreto-face)" stroke="#718083"/>
-        <path d="m549 278 49-31v23l-49 30z" fill="#53646a"/>
-        <path d="M417 279h132v20H417z" fill="url(#problema-concreto)"/>
-        <path d="m473 257 27-13h60l-27 13z" fill="#6f7c7c" stroke="#293942"/>
-        <path d="M473 257h60v15h-60z" fill="#18262c" stroke="#4c5d62"/>
-        <path d="m533 257 27-13v14l-27 14z" fill="#223239"/>
-        <path d="M479 260h48m-48 4h48m-48 4h48" stroke="#56666b" stroke-width="1.15"/>
-
-        <!-- Tubo vertical visível abaixo do bordo drenante. -->
-        <path d="M364 216h18v58q-9 8-18 0z" fill="url(#problema-tubo)" stroke="#18272e" stroke-width="1.4"/>
-        <path d="M364 254q9 3 18 0m-18 6q9 3 18 0" fill="none" stroke="#232d30" stroke-width="1.3"/>
-        <ellipse cx="373" cy="274" rx="9" ry="4" fill="#111e24" stroke="#a7adac" stroke-width="1.35"/>
-
-        <!-- Mesa do tabuleiro, longarinas e pista. -->
-        <path d="m74 216 588-1v29H74z" fill="url(#problema-concreto-face)" stroke="#74858a"/>
-        <path d="M74 216h588v29H74z" fill="url(#problema-concreto)"/>
-        <path d="M99 245h539l-17 17H116z" fill="#34444a" stroke="#667476"/>
-        <path d="M116 252h505" stroke="#a9b0ac" stroke-opacity=".47" stroke-width="1.3"/>
-        <path d="m662 215 87-96v29l-87 96z" fill="#46575e" stroke="#74858a"/>
-        <path d="m74 215 119-96h556l-87 96z" fill="url(#problema-pista)" stroke="#8a9594" stroke-width="1.6"/>
-        <path d="m74 215 119-96h556l-87 96z" fill="url(#problema-asfalto)"/>
-        <path d="m150 154 43-35h556l-31 35z" fill="url(#problema-faixa)"/>
-        <path d="m150 154 43-35h556l-31 35z" fill="url(#problema-concreto)"/>
-        <path d="m147 157 569 1" stroke="#c1c8bf" stroke-width="2.35"/>
-        <path d="m102 194 577 1" stroke="#deded3" stroke-width="2.5" stroke-dasharray="44 33" stroke-opacity=".76"/>
-        <path d="m78 211 587 1" stroke="#aab5b1" stroke-width="1.5" stroke-opacity=".72"/>
-
-        <!-- Junta transversal e o detalhe do guarda-corpo metálico. -->
-        <path d="m586 119-94 96v32" fill="none" stroke="#161e23" stroke-width="8"/>
-        <path d="m584 119-94 96v31m99-127-94 96v31" fill="none" stroke="#8c9899" stroke-width="1"/>
-        <path d="m187 123 6-8h556l-8 8z" fill="#92968d"/>
-        <path d="m187 123 554 0v10H187z" fill="#626b68" stroke="#9ba19b" stroke-width="1"/>
-        <path d="M207 87v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33" stroke="#192a31" stroke-width="8"/>
-        <path d="M207 87v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33m74-33v33m73-33v33" stroke="#9aa6a8" stroke-width="3"/>
-        <path d="M195 83h546m-544 18h542" stroke="#1f3036" stroke-width="7" stroke-linecap="round"/>
-        <path d="M195 81h546m-544 18h542" stroke="#bac6c6" stroke-width="3.1" stroke-linecap="round"/>
-        <path d="M208 79h509" stroke="#e0e5df" stroke-opacity=".6" stroke-linecap="round"/>
-
-        <g class="problema-chuva" fill="none" stroke="#a3d7ec" stroke-width="1.45" stroke-linecap="round" opacity=".56">
-          <path d="m137 43-11 20m51-36-12 22m56-17-12 22m54-33-12 22m56-10-11 21m53-34-11 21m54-14-10 19m52-25-11 20m55-14-12 21m57-33-11 22m56-15-11 20m56-24-12 21m51-18-12 22m55-27-11 21"/>
-          <path d="m177 61-11 17m70-17-10 17m66-18-8 16m61-10-10 19m78-21-9 17m57-14-10 17m67-27-10 20m70-13-10 17m67-20-9 18m59-19-10 19m61-16-8 16" opacity=".65"/>
-        </g>
-
-        <!-- Captação ao pé do meio-fio, com oclusão visível. -->
-        <ellipse cx="374" cy="143" rx="17" ry="7" fill="#8e9692" stroke="#c2c7be" stroke-width="1.25" transform="rotate(-5 374 143)"/>
-        <ellipse cx="374" cy="143" rx="12" ry="4.6" fill="#17282d" transform="rotate(-5 374 143)"/>
+        <use href="#problema-ponte-base"/>
+        <use class="problema-chuva" href="#problema-chuva-base"/>
         <g class="problema-folhas">
           <path d="M362 141q-6-5-2-11 9 0 10 8l4 4m-1-3q1-8 10-10 4 7-3 13l-4 3m3-3q6-7 13-2-3 7-10 7l-4 1m-7-3q-8 1-9 7 7 3 13-4" fill="#ba873e" stroke="#f6c470" stroke-width="1.1" stroke-linecap="round"/>
           <path d="m362 143 15-6m0 10 11-5m-23 6 7-4" stroke="#61412b" stroke-width="1.15" stroke-linecap="round"/>
@@ -193,8 +201,78 @@
   <p class="problema-pergunta">Como reunir evidências de chuva, condição e consequência para agir preventivamente?</p>
 </section>
 
+
+    <section class="slide problema-slide metodos-slide" id="metodos" data-problema-etapa="1" data-etapas-automaticas="6500 6500 6500" aria-labelledby="titulo-metodos" hidden>
+      <header class="slide-head">
+        <p class="eyebrow">03 / Desenho do estudo</p>
+        <h2 id="titulo-metodos">Como investigar?</h2>
+      </header>
+      <div class="problema-layout">
+        <figure class="problema-figura">
+          <svg class="problema-svg" viewBox="0 0 790 366" role="img" aria-labelledby="metodos-svg-titulo metodos-svg-desc">
+            <title id="metodos-svg-titulo">Três perguntas de análise sobre o mesmo tabuleiro</title>
+            <desc id="metodos-svg-desc">A primeira etapa destaca a chuva e sua chegada à faixa de serviço. A segunda compara dois drenos de borda. A terceira mostra uma curva conceitual em degraus do funcionamento ao longo do tempo.</desc>
+            <use href="#problema-ponte-base"/>
+            <g class="metodos-camada metodos-exposicao">
+              <use class="problema-chuva" href="#problema-chuva-base"/>
+              <path d="m219 158 49-27m54 63 64-56m48 60 50-56m95 46 53-46" class="problema-fluxo" fill="none" stroke="#8ee6fc" stroke-width="2.8" stroke-dasharray="8 6" stroke-linecap="round" marker-end="url(#problema-seta)"/>
+              <path d="M240 136q130 4 265 1t183-1" fill="none" stroke="#72cde9" stroke-width="3" opacity=".85"/>
+              <rect x="22" y="19" width="142" height="31" rx="5" fill="#142f3d" stroke="#478da3"/>
+              <text x="37" y="39" fill="#c9f4ff" font-size="15" font-weight="700">Chuva sobre a OAE</text>
+            </g>
+            <g class="metodos-camada metodos-priorizacao">
+              <use href="#problema-boca-barbaca" transform="translate(132 0)"/>
+              <circle cx="374" cy="143" r="21" fill="none" stroke="#7ce2d9" stroke-width="2.2"/>
+              <circle cx="506" cy="143" r="21" fill="none" stroke="#f0c57c" stroke-width="2.2"/>
+              <path d="m365 165-35 36h-86m273-36 40 36h37" fill="none" stroke-width="1.6" stroke="#c2dce1"/>
+              <rect x="164" y="189" width="96" height="25" rx="5" fill="#142d37" stroke="#7ce2d9"/>
+              <rect x="594" y="189" width="96" height="25" rx="5" fill="#302c22" stroke="#f0c57c"/>
+              <text x="212" y="206" fill="#c2f7ed" text-anchor="middle" font-size="13" font-weight="700">Dreno A</text>
+              <text x="642" y="206" fill="#ffe0a7" text-anchor="middle" font-size="13" font-weight="700">Dreno B</text>
+            </g>
+            <g class="metodos-camada metodos-prognostico">
+              <circle cx="374" cy="143" r="21" fill="none" stroke="#7ce2d9" stroke-width="2"/>
+              <path d="M383 160l19 47h50" fill="none" stroke="#9fe8ee" stroke-width="1.5"/>
+              <rect x="450" y="174" width="312" height="169" rx="9" fill="#102836" stroke="#80c6d2"/>
+              <text x="469" y="197" fill="#d6eef0" font-size="14" font-weight="700">Probabilidade de continuar funcional</text>
+              <path d="M478 213v94h255" stroke="#84a8b5" stroke-width="1.25" fill="none"/>
+              <path d="M478 244h255m-255 30h255" stroke="#8fb7be" stroke-opacity=".26"/>
+              <path d="M483 224h49v14h34v18h46v18h38v9h36v9h40" fill="none" stroke="#7ce2d9" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M551 232v12m77 24v12m75 6v12" stroke="#f0c57c" stroke-width="1.55"/>
+              <text x="732" y="328" fill="#c9dce3" font-size="12" text-anchor="end">Tempo de acompanhamento</text>
+              <text x="469" y="328" fill="#9cb8c2" font-size="11">Curva conceitual</text>
+            </g>
+          </svg>
+          <figcaption>O mesmo tabuleiro ilustrativo ajuda a distinguir o que cada método responde.</figcaption>
+        </figure>
+
+        <div class="metodos-painel">
+          <div class="metodos-controles" role="group" aria-label="Perguntas de análise">
+            <button type="button" class="problema-passo" data-problema-passo="1" aria-pressed="true" aria-controls="metodos-exposicao"><span>01</span><strong>Exposição</strong></button>
+            <button type="button" class="problema-passo" data-problema-passo="2" aria-pressed="false" aria-controls="metodos-priorizacao"><span>02</span><strong>Prioridade</strong></button>
+            <button type="button" class="problema-passo" data-problema-passo="3" aria-pressed="false" aria-controls="metodos-prognostico"><span>03</span><strong>Prognóstico</strong></button>
+          </div>
+          <div class="metodos-resposta" id="metodos-exposicao" data-metodos-conteudo="1">
+            <h3>Como medir a exposição à chuva?</h3>
+            <p class="metodos-tecnica">Pesos iguais · entropia de Shannon · PCA</p>
+            <p>Os três escores comparam estações a partir de indicadores pluviométricos e compõem o índice relativo de exposição.</p>
+          </div>
+          <div class="metodos-resposta" id="metodos-priorizacao" data-metodos-conteudo="2" hidden>
+            <h3>Qual dreno merece atenção primeiro?</h3>
+            <p class="metodos-tecnica">Não dominância de Pareto</p>
+            <p>A comparação usa exposição (E), deficiência funcional (C) e consequência potencial (K) para formar frentes de prioridade.</p>
+          </div>
+          <div class="metodos-resposta" id="metodos-prognostico" data-metodos-conteudo="3" hidden>
+            <h3>Qual é a probabilidade de perder função com o tempo?</h3>
+            <p class="metodos-tecnica">Estimador de Kaplan–Meier</p>
+            <p>A curva combina tempos até a perda de função e acompanhamentos que terminam com o dreno ainda funcional.</p>
+          </div>
+        </div>
+      </div>
+      <p class="caption">Artigo entregue · Seções 3 e 4</p>
+    </section>
     <section class="slide" id="base-real" aria-labelledby="titulo-base" hidden>
-      <header class="slide-head"><p class="eyebrow">03 / Aplicação brasileira</p><h2 id="titulo-base">Exposição à chuva no Espírito Santo</h2></header>
+      <header class="slide-head"><p class="eyebrow">04 / Aplicação brasileira</p><h2 id="titulo-base">Exposição à chuva no Espírito Santo</h2></header>
       <div class="metrics">
         <div><strong>145</strong><span>OAEs no cadastro DNIT/GEOBASES</span></div>
         <div><strong>33</strong><span>estações com séries diárias de 2014 a 2025</span></div>
@@ -205,7 +283,7 @@
     </section>
 
     <section class="slide" id="brim" aria-labelledby="titulo-brim" hidden>
-      <header class="slide-head"><p class="eyebrow">04 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
+      <header class="slide-head"><p class="eyebrow">05 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
       <div class="split figure-wide">
         <div class="logic">
           <p><b>E</b> Exposição relativa à chuva</p><p><b>C</b> Deficiência funcional observada</p><p><b>K</b> Consequência potencial</p><p><b>U</b> Qualidade e incerteza da evidência</p>
@@ -216,7 +294,7 @@
     </section>
 
     <section class="slide" id="priorizacao" aria-labelledby="titulo-pareto" hidden>
-      <header class="slide-head"><p class="eyebrow">05 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
+      <header class="slide-head"><p class="eyebrow">06 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
       <div class="split figure-wide">
         <div>
           <table><caption>Frentes de Pareto · mesma exposição E = 70</caption><thead><tr><th>Dispositivo</th><th>C</th><th>K</th><th>Frente</th></tr></thead><tbody><tr><th scope="row">D02</th><td>2</td><td>3</td><td class="accent">F1</td></tr><tr><th scope="row">D03</th><td>1</td><td>2</td><td>F2</td></tr><tr><th scope="row">D01</th><td>0</td><td>1</td><td>F3</td></tr></tbody></table>
@@ -228,7 +306,7 @@
     </section>
 
     <section class="slide" id="prognostico" aria-labelledby="titulo-prognostico" hidden>
-      <header class="slide-head"><p class="eyebrow">06 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
+      <header class="slide-head"><p class="eyebrow">07 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
       <div class="split figure-wide">
         <div>
           <p class="big-number">27,2%</p><p class="lead">Probabilidade estimada de perda de função nos 90 dias seguintes, dado que o D02 estava funcional no dia 60.</p>
@@ -240,7 +318,7 @@
     </section>
 
     <section class="slide close" id="contribuicao" aria-labelledby="titulo-final" hidden>
-      <header class="slide-head"><p class="eyebrow">07 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
+      <header class="slide-head"><p class="eyebrow">08 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
       <div class="steps">
         <div><b>01</b><h3>Registrar</h3><p>Vincular inspeções, evidências e intervenções ao dispositivo.</p></div>
         <div><b>02</b><h3>Priorizar</h3><p>Documentar as frentes de manutenção e a origem de cada evidência.</p></div>
@@ -255,7 +333,7 @@
     <button type="button" id="previous" aria-label="Slide anterior">←</button>
     <div class="markers" id="markers" role="group" aria-label="Escolher slide"></div>
     <button type="button" id="next" aria-label="Próximo slide">→</button>
-    <span id="counter" aria-live="polite">01 / 08</span>
+    <span id="counter" aria-live="polite">01 / 09</span>
     <button type="button" id="fullscreen" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
 </body>
