@@ -3,139 +3,127 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07131d">
-  <title>BrIM e risco hidrológico · Luiz Araujo · IME</title>
-  <meta name="description" content="BrIM e risco hidrológico aplicados à manutenção preditiva da drenagem de OAEs. Revisão sistemática e objetivos da pesquisa de Luiz Araujo de Souza Junior, doutorando no IME.">
-  <link rel="canonical" href="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/">
+  <meta name="description" content="Apresentação final do artigo sobre manutenção preventiva da drenagem de OAEs e o protótipo orientado a BrIM.">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:site_name" content="Luiz Araujo · Apresentações de Doutorado">
-  <meta property="og:title" content="BrIM e risco hidrológico | Drenagem de OAEs · IME">
-  <meta property="og:description" content="BrIM e risco hidrológico aplicados à manutenção preditiva da drenagem de OAEs. Revisão sistemática e objetivos da pesquisa de Luiz Araujo de Souza Junior, doutorando no IME.">
-  <meta property="og:url" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/">
-  <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/cartao-compartilhamento-drenagem-v1.jpg">
-  <meta property="og:image:secure_url" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/cartao-compartilhamento-drenagem-v1.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="628">
-  <meta property="og:image:alt" content="Brasão do IME, ponte com drenagem e título BrIM e risco hidrológico.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BrIM e risco hidrológico | Drenagem de OAEs · IME">
-  <meta name="twitter:description" content="BrIM e risco hidrológico aplicados à manutenção preditiva da drenagem de OAEs. Revisão sistemática e objetivos da pesquisa de Luiz Araujo de Souza Junior, doutorando no IME.">
-  <meta name="twitter:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets/cartao-compartilhamento-drenagem-v1.jpg">
-  <link rel="icon" href="assets/ime.png" type="image/png">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="capa-tese.css?v=20261008">
-  <link rel="stylesheet" href="encerramento.css?v=20261008">
-  <link rel="stylesheet" href="cronometro.css?v=20261008c">
-  <script src="content.js" defer></script>
-  <script src="encerramento.js?v=20261008" defer></script>
-  <script src="presentation.js?v=20261008" defer></script>
-  <script src="cronometro.js?v=20261008b" defer></script>
+  <meta property="og:title" content="Manutenção preventiva da drenagem de OAEs | IME">
+  <meta property="og:description" content="Apresentação final e acesso ao artigo entregue.">
+  <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets-final/ponte-drenagem-conceitual.png">
+  <title>Manutenção preventiva da drenagem de OAEs | IME</title>
+  <link rel="stylesheet" href="final.css">
+  <script defer src="final.js"></script>
+  <script defer src="final-cronometro.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#stage">Ir para a apresentação</a>
-  <div class="presentation-timer" id="presentation-timer" role="group" aria-label="Cronômetro da apresentação">
-    <span class="timer-caption">Tempo</span>
-    <time id="timer-display" aria-label="Tempo decorrido">00:00</time>
-    <button type="button" id="timer-play" aria-label="Iniciar ou retomar cronômetro" title="Iniciar ou retomar">▶</button>
-    <button type="button" id="timer-pause" aria-label="Pausar cronômetro" title="Pausar">Ⅱ</button>
-    <button type="button" id="timer-stop" aria-label="Parar e zerar cronômetro" title="Parar e zerar">■</button>
-  </div>
-  <main id="viewport" aria-label="Apresentação da revisão sistemática">
-    <div class="stage" id="stage">
-      <section class="slide cover is-active" id="slide-1" data-name="Capa" aria-labelledby="cover-title">
-        <div class="cover-art" aria-hidden="true"></div>
-        <div class="cover-shade" aria-hidden="true"></div>
-        <header class="institution">
-          <img src="assets/ime.png" width="65" height="78" alt="Brasão do Instituto Militar de Engenharia">
-          <div><span class="institution-name">Instituto Militar de Engenharia</span><span class="course">PG · Drenagem Aplicada à Infra-Estrutura de Transportes</span></div>
-        </header>
-        <div class="thesis-context" aria-label="Tema da tese de doutorado">
-          <p class="thesis-label">Tema da tese de doutorado</p>
-          <p class="thesis-title">Manutenção Proativa Sistêmica de Obras de Arte Especiais: <span>Modelo Integrado com BIM, Inteligência Artificial, AHP-Gaussiano e Custo Baseado no Risco</span></p>
-        </div>
-        <div class="cover-copy">
-          <p class="eyebrow">Revisão sistemática e definição dos objetivos</p>
-          <h1 id="cover-title"><span class="title-lead">BrIM e risco<br><em>hidrológico</em></span><span class="title-tail">aplicados à manutenção preditiva<br>da drenagem de OAEs</span></h1>
-        </div>
-        <div class="cover-bottom">
-          <div class="author"><strong>Luiz Araujo de Souza Junior</strong><span>Doutorado em Engenharia de Transportes</span></div>
-          <div class="cover-meta"><span>Prof. Marcelo de Miranda Reis</span><span>Prof. Francisco José D'Almeida Diogo</span><span>8 de outubro de 2026</span></div>
-        </div>
-        <p class="image-credit">Representação conceitual de ponte e drenagem</p>
-      </section>
-
-      <section class="slide methods" id="slide-2" data-name="Método" aria-labelledby="method-title" hidden>
-        <header class="slide-heading"><p class="eyebrow">01 <span></span> Método da revisão</p><h2 id="method-title">Três buscas complementares.<br><em>Uma base rastreável.</em></h2><p class="subtitle">Scopus e Web of Science · buscas em 2 de outubro de 2026 · orientação PRISMA 2020</p></header>
-        <div class="method-columns">
-          <div class="searches">
-            <div class="search-row"><span class="search-code">EB1</span><div><h3>Digitalização e manutenção</h3><p>Pontes + BrIM/BIM/gêmeos digitais + manutenção</p></div></div>
-            <div class="search-row"><span class="search-code">EB2</span><div><h3>Água, drenagem e desempenho</h3><p>Pontes + hidrologia/drenagem + condição e risco</p></div></div>
-            <div class="search-row"><span class="search-code">EB3</span><div><h3>Integração digital e hidrológica</h3><p>Pontes + BrIM/BIM/gêmeos digitais + hidrologia</p></div></div>
-            <p class="scope"><strong>2021–2026</strong> · inglês, português e espanhol<br>Artigos, revisões e trabalhos completos de congresso</p>
-          </div>
-          <div class="search-results">
-            <p class="small-label">Ocorrências recuperadas, antes da deduplicação</p>
-            <table class="search-table"><thead><tr><th scope="col">Estratégia de busca</th><th scope="col">Scopus</th><th scope="col">Web of Science</th></tr></thead><tbody><tr><th scope="row">EB1</th><td>455</td><td>270</td></tr><tr><th scope="row">EB2</th><td>1.664</td><td>1.312</td></tr><tr><th scope="row">EB3</th><td>5</td><td>3</td></tr></tbody><tfoot><tr><th scope="row">Total</th><td>2.124</td><td>1.585</td></tr></tfoot></table>
-          </div>
-        </div>
-        <div class="corpus-flow" aria-label="3.709 ocorrências, menos 1.477 duplicatas, 2.232 publicações únicas, menos 6 fora do período, 2.226 registros para triagem">
-          <div class="flow-count"><strong>3.709</strong><span>ocorrências recuperadas</span></div><div class="flow-connector"><span>− 1.477 duplicatas</span><i aria-hidden="true"></i></div><div class="flow-count"><strong>2.232</strong><span>publicações únicas</span></div><div class="flow-connector"><span>− 6 fora do período</span><i aria-hidden="true"></i></div><div class="flow-count final-count"><strong>2.226</strong><span>registros para triagem</span></div>
-        </div>
-        <footer class="slide-footer"><p>Base exportada em RIS compatível com EndNote. 2026 é um ano incompleto.</p><button class="text-button" data-dialog="method-dialog">Critérios e buscas completas <span aria-hidden="true">↗</span></button></footer>
-      </section>
-
-      <section class="slide mapping" id="slide-3" data-name="Mapeamento" aria-labelledby="mapping-title" hidden>
-        <header class="slide-heading"><p class="eyebrow">02 <span></span> Mapeamento bibliográfico</p><h2 id="mapping-title">Informação, <em>água e manutenção</em></h2><p class="subtitle">Coocorrência de termos · levantamento exploratório no OpenAlex · 131 documentos</p></header>
-        <div class="mapping-columns">
-          <figure class="network-figure"><div id="network-container" aria-label="Rede de coocorrência de termos extraídos de 131 documentos"></div><figcaption><span><b id="node-count">25</b> termos</span><span><b id="edge-count">156</b> ligações</span><span>Nó = frequência documental</span><span>Cor = comunidade calculada</span><span>Ligação = coocorrência</span></figcaption></figure>
-        </div>
-        <footer class="slide-footer"><p>Levantamento distinto da base Scopus/WoS de 2.226 registros. Termos extraídos de títulos, resumos e palavras-chave.</p><button class="text-button" data-dialog="network-dialog">Ler a rede <span aria-hidden="true">↗</span></button></footer>
-      </section>
-
-      <section class="slide objectives" id="slide-4" data-name="Objetivos" aria-labelledby="objectives-title" hidden>
-        <header class="slide-heading"><p class="eyebrow">03 <span></span> Direção da pesquisa</p><h2 id="objectives-title">Da exposição hídrica<br><em>à decisão de manutenção</em></h2></header>
-        <div class="objectives-columns">
-          <div class="general-objective"><p class="small-label">Objetivo geral</p><p>Desenvolver uma estrutura <strong>BrIM orientada ao risco hidrológico</strong> para apoiar a priorização da manutenção preditiva dos sistemas de drenagem de pontes e viadutos.</p><div class="research-question"><span class="small-label">Recorte</span><p>Água, umidade e deficiências de drenagem relacionadas à deterioração das OAEs.</p></div></div>
-          <ol class="specific-objectives"><li><span>01</span><div><h3>Mapear</h3><p>Métodos, variáveis e tecnologias relacionados ao tema na literatura.</p></div></li><li><span>02</span><div><h3>Relacionar</h3><p>Exposição hidrológica, condição da drenagem e consequências estruturais.</p></div></li><li><span>03</span><div><h3>Estruturar</h3><p>Indicadores e atributos necessários em ambiente BrIM.</p></div></li><li><span>04</span><div><h3>Priorizar</h3><p>Propor um procedimento de priorização das intervenções de manutenção.</p></div></li></ol>
-        </div>
-        <div class="concept-chain" aria-label="Conexão conceitual entre exposição, condição e manutenção"><span>Exposição hídrica</span><i aria-hidden="true">→</i><span>Condição da drenagem</span><i aria-hidden="true">→</i><span>Consequências estruturais</span><i aria-hidden="true">→</i><strong>Prioridade de manutenção</strong></div>
-        <footer class="slide-footer"><p>Contribuição pretendida: integrar informações físicas e digitais para fundamentar a decisão.</p><button class="text-button" data-dialog="evidence-dialog">Estudos de apoio <span aria-hidden="true">↗</span></button></footer>
-      </section>
-      <section class="slide closing" id="slide-5" data-name="Visão do artigo" data-step="1" aria-labelledby="closing-title" hidden>
-        <img class="closing-bridge" src="assets/ponte-brim-wireframe.png" alt="" width="1672" height="941">
-        <div class="closing-beam" aria-hidden="true"></div>
-        <header class="slide-heading"><p class="eyebrow">04 <span></span> Visão do artigo completo</p><h2 id="closing-title">Uma proposta metodológica<br><em>para a drenagem de OAEs</em></h2><p class="subtitle">BrIM, risco hidrológico e apoio à manutenção de pontes e viadutos</p></header>
-        <div class="closing-body">
-          <div class="closing-blocks">
-            <section class="closing-block is-revealed is-current"><span class="closing-signal" aria-hidden="true"></span><span class="closing-number">01</span><h3>Problema investigado</h3><p>Relação entre exposição à água, deficiências de drenagem e deterioração de pontes e viadutos.</p></section>
-            <section class="closing-block"><span class="closing-signal" aria-hidden="true"></span><span class="closing-number">02</span><h3>Proposta metodológica</h3><p aria-hidden="true">Integrar informações hidrológicas, desempenho hidráulico, condição da drenagem e consequências estruturais em BrIM.</p></section>
-            <section class="closing-block"><span class="closing-signal" aria-hidden="true"></span><span class="closing-number">03</span><h3>Aplicação exploratória</h3><p aria-hidden="true">Demonstrar o procedimento com dados disponíveis de OAEs brasileiras, para apoiar a identificação de situações críticas.</p></section>
-            <section class="closing-block"><span class="closing-signal" aria-hidden="true"></span><span class="closing-number">04</span><h3>Contribuição esperada</h3><p aria-hidden="true">Apoiar a priorização de inspeções e intervenções, criando uma base informacional para a manutenção preditiva.</p></section>
-          </div>
-          <div class="closing-message" aria-hidden="true"><p class="small-label">Contribuição esperada</p><p class="closing-phrase">Da integração das informações à <strong>priorização da manutenção.</strong></p><span class="closing-rule" aria-hidden="true"></span></div>
-        </div>
-        <footer class="slide-footer"><p>Luiz Araujo de Souza Junior · IME</p><button class="text-button" id="closing-advance">Próxima etapa <span aria-hidden="true">→</span></button></footer>
-        <span class="closing-live" role="status" aria-live="polite"></span>
-      </section>
+  <a class="skip" href="#stage">Ir para a apresentação</a>
+  <header class="bar">
+    <a class="back" href="../inicio.html">← <span>Portfólio</span></a>
+    <div class="timer" id="presentation-timer" role="group" aria-label="Cronômetro da apresentação">
+      <span>Tempo</span><time id="timer-display">00:00</time>
+      <button id="timer-play" type="button" aria-label="Iniciar ou retomar cronômetro">▶</button>
+      <button id="timer-pause" type="button" aria-label="Pausar cronômetro">Ⅱ</button>
+      <button id="timer-stop" type="button" aria-label="Parar e zerar cronômetro">■</button>
     </div>
+    <a class="button pdf" href="artigo-entregue.pdf" target="_blank" rel="noopener">Abrir artigo (PDF) ↗</a>
+  </header>
+
+  <main id="stage" tabindex="-1" aria-label="Apresentação final de drenagem">
+    <section class="slide cover" id="capa" aria-labelledby="titulo-capa">
+      <div class="institution"><img src="assets-final/ime.png" alt="Brasão do IME"><div><strong>Instituto Militar de Engenharia</strong><span>Drenagem Aplicada à Infraestrutura de Transportes</span></div></div>
+      <div class="cover-copy">
+        <p class="eyebrow">Apresentação final · 2026</p>
+        <h1 id="titulo-capa">Manutenção preventiva da <em>drenagem de OAEs</em></h1>
+        <p class="subtitle">Protótipo orientado a BrIM para priorização e prognóstico</p>
+      </div>
+      <div class="byline"><strong>Luiz Araujo de Souza Junior</strong><span>Marcelo de Miranda Reis · Francisco José d’Almeida Diogo</span></div>
+      <small class="caption cover-caption">Representação conceitual</small>
+    </section>
+
+    <section class="slide" id="problema" aria-labelledby="titulo-problema" hidden>
+      <header class="slide-head"><p class="eyebrow">01 / Problema de pesquisa</p><h2 id="titulo-problema">O que acontece entre a chuva e a perda de função?</h2></header>
+      <div class="steps">
+        <div><b>E</b><h3>Exposição</h3><p>A precipitação caracteriza a exposição atribuída à obra.</p></div>
+        <div><b>C</b><h3>Condição</h3><p>A inspeção registra como cada dispositivo funciona.</p></div>
+        <div><b>K</b><h3>Consequência</h3><p>O caminho da água ajuda a identificar elementos expostos.</p></div>
+      </div>
+      <p class="focus">Como vincular essas evidências em uma estrutura BrIM para apoiar a manutenção preventiva?</p>
+      <small class="caption">Artigo entregue · Seção 1</small>
+    </section>
+
+    <section class="slide" id="revisao" aria-labelledby="titulo-revisao" hidden>
+      <header class="slide-head"><p class="eyebrow">02 / Revisão bibliográfica</p><h2 id="titulo-revisao">O que a literatura trouxe ao protótipo</h2></header>
+      <div class="split">
+        <div>
+          <dl class="counts"><div><dt>3.709</dt><dd>ocorrências nas buscas</dd></div><div><dt>2.226</dt><dd>registros únicos para triagem</dd></div><div><dt>1.762</dt><dd>no corpus bibliométrico</dd></div><div><dt>22</dt><dd>estudos na síntese focal</dd></div></dl>
+          <p class="note">A síntese focal orientou os registros de condição, geometria, caminho da água e histórico. A seleção dos estudos foi dirigida.</p>
+        </div>
+        <figure class="figure"><a href="assets-final/rede.webp" target="_blank" rel="noopener"><img src="assets-final/rede.webp" alt="Subrede de coocorrência das palavras-chave do corpus bibliométrico"></a><figcaption>Figura 2 do artigo · Subrede de visualização. A rede de análise tem 40 termos e 76 arestas.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="slide" id="base-real" aria-labelledby="titulo-base" hidden>
+      <header class="slide-head"><p class="eyebrow">03 / Aplicação brasileira</p><h2 id="titulo-base">Exposição à chuva no Espírito Santo</h2></header>
+      <div class="metrics">
+        <div><strong>145</strong><span>OAEs no cadastro DNIT/GEOBASES</span></div>
+        <div><strong>33</strong><span>estações com séries diárias de 2014 a 2025</span></div>
+        <div><strong>5</strong><span>obras na consulta documental do piloto</span></div>
+      </div>
+      <div class="focus"><strong>O cadastro sustenta o índice relativo de exposição.</strong><br>Nas cinco obras do piloto, a documentação consultada forneceu históricos insuficientes por dispositivo para avaliar o prognóstico em campo.</div>
+      <small class="caption">Artigo entregue · Seções 4 e 5 · Séries do acervo HidroWeb/ANA</small>
+    </section>
+
+    <section class="slide" id="brim" aria-labelledby="titulo-brim" hidden>
+      <header class="slide-head"><p class="eyebrow">04 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
+      <div class="split figure-wide">
+        <div class="logic">
+          <p><b>E</b> Exposição relativa à chuva</p><p><b>C</b> Deficiência funcional observada</p><p><b>K</b> Consequência potencial</p><p><b>U</b> Qualidade e incerteza da evidência</p>
+          <p class="note">E combina três escores obtidos com pesos iguais, entropia de Shannon e análise de componentes principais.</p>
+        </div>
+        <figure class="figure"><a href="assets-final/modelo.webp" target="_blank" rel="noopener"><img src="assets-final/modelo.webp" alt="Estrutura BrIM que relaciona exposição, condição e consequência a cada dispositivo e ao seu histórico"></a><figcaption>Figura 1 do artigo · Estrutura informacional e encaminhamentos.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="slide" id="priorizacao" aria-labelledby="titulo-pareto" hidden>
+      <header class="slide-head"><p class="eyebrow">05 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
+      <div class="split figure-wide">
+        <div>
+          <table><caption>Frentes de Pareto · mesma exposição E = 70</caption><thead><tr><th>Dispositivo</th><th>C</th><th>K</th><th>Frente</th></tr></thead><tbody><tr><th scope="row">D02</th><td>2</td><td>3</td><td class="accent">F1</td></tr><tr><th scope="row">D03</th><td>1</td><td>2</td><td>F2</td></tr><tr><th scope="row">D01</th><td>0</td><td>1</td><td>F3</td></tr></tbody></table>
+          <p class="note">O D02 ocupa a primeira frente por reunir maior deficiência e maior consequência neste cenário.</p>
+          <a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/#risk" target="_blank" rel="noopener">Abrir priorização no protótipo ↗</a>
+        </div>
+        <figure class="figure"><a href="assets-final/planta.webp" target="_blank" rel="noopener"><img src="assets-final/planta.webp" alt="Planta da ponte de demonstração com posição dos drenos, caimento e pontos de retenção"></a><figcaption>Quadro 2 e Figura B4 do artigo · Exercício demonstrativo.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="slide" id="prognostico" aria-labelledby="titulo-prognostico" hidden>
+      <header class="slide-head"><p class="eyebrow">06 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
+      <div class="split figure-wide">
+        <div>
+          <p class="big-number">27,2%</p><p class="lead">Probabilidade estimada de perda de função nos 90 dias seguintes, dado que o D02 estava funcional no dia 60.</p>
+          <p class="note">Kaplan–Meier · 24 acompanhamentos simulados, com 11 perdas e 13 censuras à direita. O limiar ilustrativo de 25% foi cruzado após 84 dias da referência.</p>
+          <a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/#survival" target="_blank" rel="noopener">Abrir prognóstico no protótipo ↗</a>
+        </div>
+        <figure class="figure"><a href="assets-final/prognostico.webp" target="_blank" rel="noopener"><img src="assets-final/prognostico.webp" alt="Curva de probabilidade de perda de função de D02 com o marco e a faixa de alerta"></a><figcaption>Figura B6 do artigo · Curva e faixa de alerta no exercício simulado.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="slide close" id="contribuicao" aria-labelledby="titulo-final" hidden>
+      <header class="slide-head"><p class="eyebrow">07 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
+      <div class="steps">
+        <div><b>01</b><h3>Registrar</h3><p>Vincular inspeções, evidências e intervenções ao dispositivo.</p></div>
+        <div><b>02</b><h3>Priorizar</h3><p>Documentar as frentes de manutenção e a origem de cada evidência.</p></div>
+        <div><b>03</b><h3>Acompanhar</h3><p>Atualizar estimativas e compará-las com novos registros de campo.</p></div>
+      </div>
+      <p class="note">A exportação JSON preserva os vínculos e prepara a integração com sistemas de gestão, BrIM e gêmeos digitais.</p>
+      <div class="actions"><a class="button pdf" href="artigo-entregue.pdf" target="_blank" rel="noopener">Ler artigo entregue (PDF) ↗</a><a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Abrir protótipo ↗</a></div>
+    </section>
   </main>
 
-  <nav class="deck-controls" aria-label="Controles da apresentação">
-    <div class="control-left"><a class="deck-signature hub-return" href="../inicio.html" aria-label="Voltar à página de apresentações">← IME <i></i> DRENAGEM</a><button class="utility-button" data-dialog="support-dialog">Material de apoio</button></div>
-    <div class="slide-navigation"><button id="previous" class="arrow-button" aria-label="Slide anterior">←</button><div class="dots" aria-label="Escolher slide"><button aria-label="Slide 1: Capa" data-slide="0" aria-current="step"></button><button aria-label="Slide 2: Método" data-slide="1"></button><button aria-label="Slide 3: Mapeamento" data-slide="2"></button><button aria-label="Slide 4: Objetivos" data-slide="3"></button></div><button id="next" class="arrow-button" aria-label="Próximo slide">→</button></div>
-    <div class="control-right"><span id="slide-counter" aria-live="polite">01 / 04</span><button class="utility-button" id="fullscreen">Tela cheia <kbd>F</kbd></button></div>
+  <nav class="controls" aria-label="Controles da apresentação">
+    <button type="button" id="previous" aria-label="Slide anterior">←</button>
+    <div class="markers" id="markers" role="group" aria-label="Escolher slide"></div>
+    <button type="button" id="next" aria-label="Próximo slide">→</button>
+    <span id="counter" aria-live="polite">01 / 08</span>
+    <button type="button" id="fullscreen" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
-  <div class="deck-progress" aria-hidden="true"><span id="progress-fill"></span></div>
-
-  <dialog id="method-dialog" aria-labelledby="method-dialog-title"><div class="dialog-head"><div><p class="eyebrow">Método e rastreabilidade</p><h2 id="method-dialog-title">Protocolo da revisão</h2></div><button class="close-button" data-close aria-label="Fechar">×</button></div><div class="dialog-body"><div class="support-grid"><section><h3>Elegibilidade</h3><p>Publicações de 2021–2026, em inglês, português ou espanhol: artigos, revisões e trabalhos completos de congresso.</p><p>Relação explícita com pontes, viadutos ou seus componentes e contribuição em digitalização, exposição hídrica, condição, risco ou manutenção. A presença simultânea de todos os eixos não é obrigatória.</p></section><section><h3>Exclusão</h3><p>Estudos sem aplicação a OAEs; usos metafóricos de “bridge”; drenagem de outros ativos sem conexão com pontes; modelagem restrita a projeto/construção sem contribuição ao recorte; tipos, idiomas e anos incompatíveis.</p></section><section><h3>Deduplicação</h3><p>DOI normalizado, título normalizado e conferência individual de equivalências. Total: 1.421 por DOI, 46 por título e 10 equivalências verificadas.</p></section><section><h3>Gestão bibliográfica</h3><p>Exportações completas de Scopus e Web of Science. A base de 2.226 registros foi exportada em RIS compatível com EndNote. A exportação RIS não comprova importação em uma biblioteca EndNote.</p></section></div><h3>Expressões de busca registradas</h3><p>Versão congelada em 30/09/2026. Busca definitiva em 02/10/2026. Os resumos EB1, EB2 e EB3 dos slides representam a lógica das expressões abaixo.</p><div id="query-list"></div><p class="source-note">Fontes locais: estratégias definitivas v1; critérios operacionais v1; relatórios de busca e deduplicação de 02/10/2026. A emenda de 01/10/2026 detalha o recorte água, umidade e vida útil remanescente sem alterar as buscas.</p></div></dialog>
-
-  <dialog id="network-dialog" aria-labelledby="network-dialog-title"><div class="dialog-head"><div><p class="eyebrow">Leitura da figura</p><h2 id="network-dialog-title">O que a rede representa</h2></div><button class="close-button" data-close aria-label="Fechar">×</button></div><div class="dialog-body"><div class="support-grid"><section><h3>Universo</h3><p>131 documentos do levantamento exploratório OpenAlex. Essa figura não representa os 2.226 registros deduplicados de Scopus e Web of Science.</p></section><section><h3>Extração e pesos</h3><p>Termos identificados por dicionário em títulos, resumos e palavras-chave. O tamanho dos nós representa a frequência documental e as ligações representam coocorrências.</p></section><section><h3>Agrupamento</h3><p id="community-method">Comunidades calculadas por modularidade ponderada. A posição espacial serve à visualização e não representa causalidade ou distância semântica medida.</p></section><section><h3>Interpretação</h3><p>O agrupamento “BIM / BrIM” reúne os termos conforme o dicionário original. “Bridge drainage” permanece como termo sentinela, mesmo abaixo do limiar geral de frequência.</p></section></div><p class="source-note">Os eixos informação digital, processos hídricos e manutenção orientam a discussão do artigo; não equivalem automaticamente às comunidades calculadas do grafo.</p><div class="network-detail" id="network-detail"></div></div></dialog>
-
-  <dialog id="evidence-dialog" class="wide-dialog" aria-labelledby="evidence-title"><div class="dialog-head"><div><p class="eyebrow">Literatura de apoio</p><h2 id="evidence-title">Síntese dos estudos consultados</h2></div><button class="close-button" data-close aria-label="Fechar">×</button></div><div class="dialog-body"><p>Seleção de estudos com fichamentos locais. Esta tabela reúne apoio à formulação da pesquisa e não equivale à lista final de inclusões da revisão.</p><div id="evidence-table"></div><p class="source-note">Consulte os artigos originais pelos links de DOI. As sínteses indicam o alcance de cada evidência e sua aplicação ao tema.</p></div></dialog>
-
-  <dialog id="support-dialog" aria-labelledby="support-title"><div class="dialog-head"><div><p class="eyebrow">Material complementar</p><h2 id="support-title">Pesquisa e apresentação</h2></div><button class="close-button" data-close aria-label="Fechar">×</button></div><div class="dialog-body"><div class="support-actions"><button data-switch-dialog="method-dialog">Protocolo, elegibilidade e expressões de busca <span>↗</span></button><button data-switch-dialog="evidence-dialog">Tabela-síntese dos estudos de apoio <span>↗</span></button><button data-switch-dialog="network-dialog">Dados e critérios da rede de termos <span>↗</span></button><a href="material-de-apoio.html" target="_blank">Abrir síntese para leitura e impressão <span>↗</span></a></div><div class="glossary"><h3>Siglas e conceitos</h3><dl><dt>OAE</dt><dd>Obra de Arte Especial, como ponte ou viaduto.</dd><dt>BIM</dt><dd>Building Information Modeling: modelagem da informação da construção.</dd><dt>BrIM</dt><dd>Bridge Information Modeling: aplicação da modelagem da informação a pontes.</dd><dt>SHM</dt><dd>Structural Health Monitoring: monitoramento da saúde estrutural.</dd><dt>Digital twin</dt><dd>Gêmeo digital: representação do ativo atualizada por dados do sistema físico, conforme o nível de integração adotado.</dd></dl></div><p class="source-note">Navegação: setas do teclado ou botões. F: tela cheia. Esc: fechar painel ou sair da tela cheia. Imagem da capa: representação conceitual, sem identificação de uma OAE real.</p></div></dialog>
-  <div class="toast" id="toast" role="status" hidden></div>
 </body>
 </html>

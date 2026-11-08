@@ -1,0 +1,139 @@
+:root {
+  color-scheme: dark;
+  --body: #06111b;
+  --stage: #0b1a25;
+  --ink: #f0f8fc;
+  --muted: #adbfcd;
+  --accent: #7ce2d9;
+  --gold: #e8c47a;
+  --edge: #2c4354;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0 auto; padding: 0 24px;
+  display: flex; flex-direction: column; min-height: 100svh; max-width: 1740px;
+  background: var(--body); color: var(--ink);
+}
+button, a { touch-action: manipulation; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.skip { position: absolute; left: 12px; top: 12px; z-index: 5; transform: translateY(-180%); }
+.skip:focus { transform: none; padding: 8px; background: var(--body); }
+.bar, .controls { display: flex; align-items: center; gap: 10px; min-height: 60px; }
+.bar { justify-content: flex-end; }
+.back { margin-right: auto; text-decoration: none; color: var(--muted); font-weight: 600; }
+.timer { display: flex; align-items: center; gap: 5px; font-size: .8rem; color: var(--muted); }
+.timer time, #counter { font-variant-numeric: tabular-nums; }
+.timer time { color: var(--ink); min-width: 2.8rem; text-align: center; }
+button, .button {
+  border: 1px solid var(--edge); border-radius: 8px; cursor: pointer;
+  background: #132734; color: var(--ink);
+}
+button:hover, .button:hover { border-color: var(--accent); }
+button:disabled { opacity: .42; cursor: default; }
+.timer button { min-width: 30px; min-height: 30px; }
+.button { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 12px; text-decoration: none; font-size: .88rem; font-weight: 650; }
+.pdf { background: var(--accent); color: #06212b; border-color: var(--accent); }
+.pdf:hover { background: #a3f0e8; }
+#stage { display: flex; flex: 1; align-items: stretch; }
+.slide {
+  width: 100%; display: flex; flex-direction: column; justify-content: center; gap: clamp(12px, 2.1vh, 26px);
+  border: 1px solid var(--edge); border-radius: 18px;
+  padding: clamp(22px, 4vw, 64px); overflow: hidden;
+  background: radial-gradient(ellipse at top right, #112c3a, var(--stage) 62%);
+}
+.slide h1, .slide h2, .slide h3, .slide p, .figure, .counts, .counts dd { margin: 0; }
+.slide h1, .slide h2 { letter-spacing: -.04em; line-height: 1.05; text-wrap: balance; }
+.slide h1 { font-size: clamp(2.55rem, 6vw, 6.25rem); max-width: 12ch; }
+.slide h2 { font-size: clamp(1.95rem, 4vw, 4.1rem); }
+.slide h3 { font-size: clamp(1.18rem, 2.05vw, 2rem); }
+.slide em { color: var(--accent); font-style: normal; }
+.slide p { line-height: 1.45; }
+.slide .eyebrow { color: var(--gold); font-weight: 750; font-size: clamp(.72rem, 1.1vw, .98rem); letter-spacing: .13em; text-transform: uppercase; margin-bottom: 9px; }
+.cover {
+  min-height: 610px; position: relative; justify-content: space-between;
+  background-image: linear-gradient(90deg, #071722 0%, #071722e8 34%, #07172270 67%, #07172219), url("assets-final/ponte-drenagem-conceitual.png");
+  background-position: center, center right; background-size: cover;
+}
+.institution { display: flex; gap: 14px; align-items: center; }
+.institution img { width: 46px; height: 59px; object-fit: contain; }
+.institution span, .byline span { display: block; margin-top: 5px; color: var(--muted); }
+.cover .subtitle { margin-top: 14px; font-size: clamp(1.28rem, 2.6vw, 2.55rem); max-width: 29ch; line-height: 1.16; }
+.cover-caption { align-self: flex-end; position: absolute; right: 2%; bottom: 2%; }
+.byline { font-size: clamp(.9rem, 1.5vw, 1.15rem); }
+.steps, .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 3vw, 45px); }
+.steps > div, .metrics > div { border-top: 1px solid var(--edge); padding-top: 16px; }
+.steps b, .metrics strong { color: var(--accent); font-size: clamp(2.25rem, 4.8vw, 5rem); line-height: 1.05; }
+.steps h3 { margin: 8px 0; }
+.steps p, .metrics span { color: var(--muted); font-size: clamp(.97rem, 1.7vw, 1.55rem); }
+.metrics span { display: block; margin-top: 8px; max-width: 25ch; }
+.focus { padding: 12px 0 12px clamp(14px, 2vw, 25px); border-left: 3px solid var(--accent); font-size: clamp(1.04rem, 2.05vw, 2rem); line-height: 1.42; }
+.focus strong { color: var(--accent); }
+.caption, figcaption, .note { color: var(--muted); }
+.caption, figcaption { font-size: .82rem; }
+.split { display: grid; align-items: center; gap: clamp(20px, 4vw, 60px); grid-template-columns: 1fr 1fr; }
+.figure-wide { grid-template-columns: .82fr 1.18fr; }
+.figure a { display: grid; justify-items: center; background: #f7f8fa; overflow: hidden; border-radius: 8px; }
+.figure img { display: block; max-width: 100%; height: clamp(220px, 42vh, 510px); object-fit: contain; }
+.figure figcaption { margin-top: 8px; }
+.counts > div { display: grid; grid-template-columns: minmax(4ch, 26%) 1fr; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--edge); }
+.counts dt { color: var(--accent); font-size: clamp(1.35rem, 2.8vw, 2.7rem); font-weight: 750; }
+.counts dd { font-size: clamp(.95rem, 1.6vw, 1.35rem); }
+.slide .note { margin-top: 14px; font-size: clamp(.86rem, 1.35vw, 1.22rem); }
+.logic p + p { margin-top: 8px; }
+.logic p { font-size: clamp(.95rem, 1.55vw, 1.5rem); }
+.logic b { display: inline-block; min-width: 2.1em; color: var(--accent); }
+table { border-collapse: collapse; width: 100%; text-align: left; }
+table caption { color: var(--muted); text-align: left; margin-bottom: 8px; }
+th, td { padding: 9px 7px; border-bottom: 1px solid var(--edge); }
+.accent, .slide .big-number { color: var(--accent); font-weight: 750; }
+.slide .big-number { font-size: clamp(3.25rem, 6.7vw, 7rem); line-height: 1; margin-bottom: 10px; }
+.slide .lead { font-size: clamp(1.02rem, 1.85vw, 1.8rem); }
+.split .button { margin-top: 14px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.controls { justify-content: center; }
+.controls button { min-width: 38px; min-height: 34px; }
+.markers { display: flex; align-items: center; }
+.markers button { min-width: 0; width: 22px; min-height: 28px; border: 0; background: none; display: grid; place-items: center; }
+.markers button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #708595; }
+.markers button[aria-current="step"]::before { background: var(--accent); width: 11px; height: 11px; }
+#counter { color: var(--muted); white-space: nowrap; font-size: .85rem; }
+@media (min-width: 761px) {
+  .slide:not(.cover) { min-height: min(670px, calc(100svh - 120px)); }
+  .cover { min-height: min(650px, calc(100svh - 120px)); }
+}
+@media (max-width: 760px) {
+  body { padding: 0 10px; }
+  .bar { position: sticky; top: 0; z-index: 2; background: var(--body); min-height: 54px; }
+  .slide { min-height: calc(100svh - 109px); border-radius: 12px; }
+  .split { grid-template-columns: 1fr; }
+  .figure img { width: 100%; height: auto; max-height: 310px; }
+  .controls { position: sticky; bottom: 0; background: var(--body); min-height: 55px; }
+  .cover { background-position: center, 60% center; }
+  .cover-caption { position: static; }
+}
+@media (max-width: 440px) {
+  .timer > span, .back span { display: none; }
+  .bar { gap: 6px; }
+  .steps { grid-template-columns: 1fr; gap: 8px; }
+  .steps > div { padding-top: 8px; }
+  .steps b { float: left; margin-right: 12px; font-size: 1.35rem; min-width: 1.35em; }
+  .steps h3 { margin: 0 0 5px; }
+  .metrics { gap: 8px; }
+  .metrics span { font-size: .82rem; }
+  .metrics strong { font-size: 2.1rem; }
+  .controls { gap: 4px; }
+  .controls button { min-width: 31px; }
+  .markers button { min-width: 0; width: 18px; }
+}
+@media print {
+  @page { size: landscape; margin: 0; }
+  body { padding: 0; color: black; background: white; display: block; }
+  .bar, .controls, .skip { display: none; }
+  #stage { display: block; }
+  .slide, .slide[hidden] { display: flex !important; min-height: 190mm !important; break-after: page; border: 0; border-radius: 0; color: var(--ink); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .slide:last-child { break-after: auto; }
+}
