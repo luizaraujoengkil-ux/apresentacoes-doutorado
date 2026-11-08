@@ -10,10 +10,12 @@
   <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets-final/ponte-drenagem-conceitual.png">
   <title>Manutenção preventiva da drenagem de OAEs | IME</title>
   <link rel="stylesheet" href="final.css">
-  <link rel="stylesheet" href="rede-bibliometrica.css?v=2">
+  <link rel="stylesheet" href="rede-bibliometrica.css?v=3">
+  <link rel="stylesheet" href="problema.css">
   <script defer src="final.js"></script>
+  <script defer src="problema.js"></script>
   <script defer src="rede-bibliometrica-dados.js"></script>
-  <script defer src="rede-bibliometrica.js?v=3"></script>
+  <script defer src="rede-bibliometrica.js?v=4"></script>
   <script defer src="final-cronometro.js"></script>
 </head>
 <body>
@@ -51,7 +53,7 @@
         </div>
         <figure class="literature-figure">
           <div class="graph-panel">
-            <div class="graph-toolbar"><strong class="graph-heading">Rede de coocorrência</strong><button class="graph-play" type="button">▶ Reproduzir animação</button><button type="button" data-theme="all" aria-pressed="true">Rede completa</button></div>
+            <div class="graph-toolbar"><strong class="graph-heading">Rede de coocorrência</strong></div>
             <svg viewBox="0 0 780 332" role="group" aria-label="Rede interativa de palavras-chave do artigo"></svg>
             <div class="graph-status" aria-live="polite">40 termos · 76 ligações</div>
           </div>
@@ -61,16 +63,83 @@
       <p class="caption">1.762 registros no corpus bibliométrico · 22 estudos na síntese focal dirigida</p>
     </section>
 
-    <section class="slide" id="problema" aria-labelledby="titulo-problema" hidden>
-      <header class="slide-head"><p class="eyebrow">02 / Problema de pesquisa</p><h2 id="titulo-problema">O que acontece entre a chuva e a perda de função?</h2></header>
-      <div class="steps">
-        <div><b>E</b><h3>Exposição</h3><p>A precipitação caracteriza a exposição atribuída à obra.</p></div>
-        <div><b>C</b><h3>Condição</h3><p>A inspeção registra como cada dispositivo funciona.</p></div>
-        <div><b>K</b><h3>Consequência</h3><p>O caminho da água ajuda a identificar elementos expostos.</p></div>
-      </div>
-      <p class="focus">Como vincular essas evidências em uma estrutura BrIM para apoiar a manutenção preventiva?</p>
-      <small class="caption">Artigo entregue · Seção 1</small>
-    </section>
+    <section class="slide problema-slide" id="problema" data-problema-etapa="1" aria-labelledby="titulo-problema" hidden>
+  <header class="slide-head">
+    <p class="eyebrow">02 / Problema de pesquisa</p>
+    <h2 id="titulo-problema">Quando a água deixa de seguir o caminho previsto</h2>
+  </header>
+  <div class="problema-layout">
+    <figure class="problema-figura">
+      <svg class="problema-svg" viewBox="0 0 790 334" role="img" aria-labelledby="problema-svg-titulo problema-svg-desc">
+        <title id="problema-svg-titulo">Percurso potencial da água na drenagem de uma ponte</title>
+        <desc id="problema-svg-desc">Corte ilustrativo de um tabuleiro. Folhas obstruem uma grelha, a água se acumula e pode alcançar a junta. A exposição repetida mantém úmidos o concreto e a região do apoio.</desc>
+        <defs>
+          <linearGradient id="problema-fundo" x2="0" y2="1"><stop stop-color="#183341"/><stop offset="1" stop-color="#091824"/></linearGradient>
+          <linearGradient id="problema-tabuleiro" x2="0" y2="1"><stop stop-color="#8796a0"/><stop offset="1" stop-color="#4b606f"/></linearGradient>
+          <linearGradient id="problema-frente" x2="0" y2="1"><stop stop-color="#667b89"/><stop offset="1" stop-color="#293e4e"/></linearGradient>
+          <linearGradient id="problema-agua" x2="1" y2="0"><stop stop-color="#55b6f7" stop-opacity=".18"/><stop offset=".62" stop-color="#53c5ff" stop-opacity=".78"/><stop offset="1" stop-color="#8ce8ff" stop-opacity=".4"/></linearGradient>
+          <pattern id="problema-grade" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="#78bacd" stroke-opacity=".11"/></pattern>
+          <pattern id="problema-concreto" width="28" height="22" patternUnits="userSpaceOnUse"><path d="m3 5 3-3 5 2 1 3-4 3-4-1zM19 15l3-3 4 2-1 4-5 1z" fill="#b6c1bf" fill-opacity=".22"/><circle cx="13" cy="18" r="1.3" fill="#d6dad5" fill-opacity=".25"/></pattern>
+          <marker id="problema-seta" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#8ce8ff"/></marker>
+          <filter id="problema-brilho"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <rect width="790" height="334" rx="12" fill="url(#problema-fundo)"/>
+        <rect width="790" height="334" rx="12" fill="url(#problema-grade)"/>
+        <g class="problema-chuva" fill="none" stroke="#77caff" stroke-width="2" stroke-linecap="round" opacity=".68">
+          <path d="m119 34-10 19m50-33-12 23m54-10-11 22m51-31-11 24m54-14-12 22m48-35-11 22m49-3-12 23m55-34-11 24m54-18-12 22m57-29-12 23m55-15-12 24m56-27-12 23m56-17-11 22m55-28-12 23"/>
+          <path d="m150 67-9 18m61-21-9 18m67-19-10 20m61-14-11 22m62-29-10 20m66-20-10 19m66-17-11 21m66-18-10 18m68-28-10 20m69-15-10 20m65-15-10 20" opacity=".56"/>
+        </g>
+        <path d="M517 240h101l18 18H499z" fill="#718391"/>
+        <path d="M499 258h137v76H499z" fill="url(#problema-frente)"/>
+        <path d="M499 258h137v76H499z" fill="url(#problema-concreto)"/>
+        <path d="M541 224h66v20h-66z" fill="#152734" stroke="#788d9b" stroke-width="2"/>
+        <path d="M548 229h52m-52 7h52" stroke="#678797" stroke-width="2"/>
+        <path d="m44 152 109-66h555l-72 66z" fill="url(#problema-tabuleiro)" stroke="#8fa2ad" stroke-width="2"/>
+        <path d="M44 152h592v65H44z" fill="url(#problema-frente)" stroke="#7d929f" stroke-width="2"/>
+        <path d="M44 152h592v65H44z" fill="url(#problema-concreto)"/>
+        <path d="m636 152 72-66v65l-72 66z" fill="#405866" stroke="#7d929f" stroke-width="2"/>
+        <path d="m76 132 34-19h555l-22 19z" fill="#314d60" opacity=".9"/>
+        <path d="m89 145 40-24h522" fill="none" stroke="#c4d6df" stroke-opacity=".7" stroke-width="1.5"/>
+        <path d="m162 101 28-15m64 15 28-15m67 15 28-15m63 15 28-15m66 15 28-15" fill="none" stroke="#dbdfd5" stroke-width="2" opacity=".5"/>
+        <path d="m617 85-81 67v65" fill="none" stroke="#162a36" stroke-width="10"/>
+        <path d="m617 85-81 67v65" fill="none" stroke="#8da3af" stroke-width="1.4" stroke-dasharray="4 5"/>
+        <path d="m414 116 72 0-21 25h-72z" fill="#172d3a" stroke="#b8c5c9" stroke-width="1.8"/>
+        <path d="m405 138 17-20m-7 20 17-20m-7 20 17-20m-7 20 17-20m-7 20 17-20m-7 20 17-20m-7 20 17-20" fill="none" stroke="#99a9ad" stroke-width="2.2"/>
+        <path d="M426 152v45q0 12 12 12h22" fill="none" stroke="#253744" stroke-width="14" opacity=".66"/>
+        <path d="M426 152v45q0 12 12 12h22" fill="none" stroke="#8ea0a8" stroke-width="1.4" opacity=".7"/>
+        <g class="problema-folhas">
+          <path d="M412 119q1-9 14-9 1 12-11 14l-4 4m37-10q-10-9 3-16 11 4 6 14l4 3m-22 12q-8-6-13 2 3 8 13 3l5 1m19-12q10-6 17 0-4 11-15 6l-4 1" fill="#cc9c55" stroke="#f4c579" stroke-width="1.15" stroke-linecap="round"/>
+          <path d="m420 126 10-4m30 10 10 1m-26-4 3-8" stroke="#b47e4d" stroke-width="3" stroke-linecap="round"/>
+          <path d="M400 116q-20-11-40-14" fill="none" stroke="#f2cc84" stroke-width="1.5"/>
+          <text x="353" y="99" fill="#ffdb98" text-anchor="end" font-size="13" font-weight="700">Folhas e detritos</text>
+        </g>
+        <g class="problema-acumulo">
+          <path d="M220 130q42-12 95-10 56 2 92-4 40-6 79 0t68 5l-21 23q-42 3-100 2t-105-1q-78-1-108-15z" fill="url(#problema-agua)" stroke="#6dd9ff" stroke-width="1.4"/>
+          <path d="M451 133q-34 11-103 2m131-7q31 1 64 7m-6 15v33" class="problema-fluxo" fill="none" stroke="#8ce8ff" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="10 6" marker-end="url(#problema-seta)"/>
+          <path d="M315 143v30H215" fill="none" stroke="#8ce8ff" stroke-width="1.4"/>
+          <text x="208" y="177" fill="#bcf3ff" text-anchor="end" font-size="13" font-weight="700">Água no tabuleiro</text>
+          <path d="M580 111l25 17h58" fill="none" stroke="#8ce8ff" stroke-width="1.4"/>
+          <text x="668" y="132" fill="#bcf3ff" font-size="13" font-weight="700">Junta</text>
+        </g>
+        <g class="problema-umidade">
+          <path d="M536 178q-14 33-1 62 7 13-4 52h93q-23-23-17-45 6-16-5-32-7-17 4-25z" fill="#5dbbfa" opacity=".2" filter="url(#problema-brilho)"/>
+          <path d="M537 183q-8 22 8 45m-8-45q12 23 38 37m4 24q-7 21 5 43m17-55q13 17 4 37" fill="none" stroke="#66c7fd" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="5 4" class="problema-fluxo"/>
+          <path d="M548 246l10 6-4 9-12 1-4-8zm39 9 12 2 2 7-11 7-7-4zm-29 20 9 3 2 6-6 5-10-4zm42 8 12 3 2 7-6 5-10-4z" fill="#aabdbf" opacity=".72"/>
+          <path d="M602 250h42l22 22h74" fill="none" stroke="#8ce8ff" stroke-width="1.4"/>
+          <text x="664" y="289" fill="#bcf3ff" font-size="13" font-weight="700">Umidade no apoio</text>
+          <text x="664" y="306" fill="#a8bfce" font-size="11">Concreto em detalhe</text>
+        </g>
+      </svg>
+      <figcaption>Esquema conceitual do percurso da água. A deterioração depende das condições de exposição e do elemento.</figcaption>
+    </figure>
+    <div class="problema-painel" aria-label="Etapas do fenômeno">
+      <button type="button" class="problema-passo" data-problema-passo="1" aria-pressed="true"><span>01</span><strong>Dreno obstruído</strong><small>Folhas e detritos reduzem a captação.</small></button>
+      <button type="button" class="problema-passo" data-problema-passo="2" aria-pressed="false"><span>02</span><strong>Água no tabuleiro</strong><small>O acúmulo pode mudar o escoamento e alcançar a junta.</small></button>
+      <button type="button" class="problema-passo" data-problema-passo="3" aria-pressed="false"><span>03</span><strong>Exposição repetida</strong><small>A umidade pode alcançar o concreto e a região do apoio.</small></button>
+    </div>
+  </div>
+  <p class="problema-pergunta">Como reunir evidências de chuva, condição e consequência para agir preventivamente?</p>
+</section>
 
     <section class="slide" id="base-real" aria-labelledby="titulo-base" hidden>
       <header class="slide-head"><p class="eyebrow">03 / Aplicação brasileira</p><h2 id="titulo-base">Exposição à chuva no Espírito Santo</h2></header>

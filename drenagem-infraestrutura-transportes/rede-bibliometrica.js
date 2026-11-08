@@ -7,7 +7,6 @@
   const svg = panel.querySelector('svg');
   const status = panel.querySelector('.graph-status');
   const buttons = Array.from(document.querySelectorAll('[data-theme]'));
-  const play = panel.querySelector('.graph-play');
   const ns = 'http://www.w3.org/2000/svg';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const groups = [
@@ -22,6 +21,9 @@
   const aliases = { 1:'Erosão localizada', 2:'Pilar de ponte', 3:'Gêmeo digital', 4:'Inundação', 5:'Monitoramento estrutural', 6:'BIM', 8:'Aprendizado de máquina', 9:'Manutenção', 10:'Inspeção', 11:'Inteligência artificial', 19:'BrIM', 25:'Gestão de pontes', 28:'Dano', 37:'Hidráulica', 39:'Detecção de danos' };
   const anchors = new Map();
   const rendered = new Map();
+  const edgeDelay = 850;
+  const edgeDuration = 850;
+  const overviewDelay = 3000;
   let playback;
   let autoStart;
   let activeTheme = 'all';
@@ -102,7 +104,7 @@
         line.animate([
           {opacity:0, strokeDasharray:length, strokeDashoffset:length},
           {opacity:lit ? .78 : .23, strokeDasharray:length, strokeDashoffset:0},
-        ], {duration:850, delay:850, easing:'ease-out', fill:'backwards'});
+        ], {duration:edgeDuration, delay:edgeDelay, easing:'ease-out', fill:'backwards'});
       }
     }
     labels.replaceChildren();
@@ -124,29 +126,24 @@
   function stopPlayback() {
     clearTimeout(autoStart);
     clearTimeout(playback);
-    playback = undefined;
-    play.textContent = '▶ Reproduzir animação';
   }
 
   function startPlayback() {
     stopPlayback();
     const sequence = Object.keys(themes);
-    play.textContent = '■ Parar sequência';
     let index = 0;
     function advance() {
       activeTheme = sequence[index++];
       activeNode = null;
       draw(true);
       if (index < sequence.length) playback = setTimeout(advance, 3600);
-      else playback = setTimeout(stopPlayback, 3600);
+      else playback = setTimeout(() => {
+        activeTheme = 'all';
+        draw(false);
+      }, edgeDelay + edgeDuration + overviewDelay);
     }
     advance();
   }
-
-  play.addEventListener('click', () => {
-    if (playback === undefined) startPlayback();
-    else stopPlayback();
-  });
 
   for (const button of buttons) {
     button.addEventListener('click', () => {
@@ -166,8 +163,9 @@
       activeTheme = 'all';
       activeNode = null;
       draw(false);
-      autoStart = setTimeout(startPlayback, 3000);
+      autoStart = setTimeout(startPlayback, overviewDelay);
     }
   }).observe(slide, {attributes:true, attributeFilter:['hidden']});
   draw(false);
+  if (!slide.hidden && !reduce.matches) autoStart = setTimeout(startPlayback, overviewDelay);
 })();
