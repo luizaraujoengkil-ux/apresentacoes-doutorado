@@ -23,6 +23,7 @@
   const anchors = new Map();
   const rendered = new Map();
   let playback;
+  let autoStart;
   let activeTheme = 'all';
   let activeNode = null;
 
@@ -121,16 +122,14 @@
   }
 
   function stopPlayback() {
+    clearTimeout(autoStart);
     clearTimeout(playback);
     playback = undefined;
     play.textContent = '▶ Reproduzir animação';
   }
 
-  play.addEventListener('click', () => {
-    if (playback !== undefined) {
-      stopPlayback();
-      return;
-    }
+  function startPlayback() {
+    stopPlayback();
     const sequence = Object.keys(themes);
     play.textContent = '■ Parar sequência';
     let index = 0;
@@ -142,6 +141,11 @@
       else playback = setTimeout(stopPlayback, 3600);
     }
     advance();
+  }
+
+  play.addEventListener('click', () => {
+    if (playback === undefined) startPlayback();
+    else stopPlayback();
   });
 
   for (const button of buttons) {
@@ -152,5 +156,18 @@
       draw(true);
     });
   }
+  const slide = panel.closest('.slide');
+  let wasHidden = slide.hidden;
+  new MutationObserver(() => {
+    if (slide.hidden === wasHidden) return;
+    wasHidden = slide.hidden;
+    stopPlayback();
+    if (!slide.hidden && !reduce.matches) {
+      activeTheme = 'all';
+      activeNode = null;
+      draw(false);
+      autoStart = setTimeout(startPlayback, 3000);
+    }
+  }).observe(slide, {attributes:true, attributeFilter:['hidden']});
   draw(false);
 })();
