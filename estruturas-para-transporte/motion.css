@@ -138,6 +138,19 @@
   letter-spacing: -.018em;
 }
 
+.cover h1 {
+  max-width: 67%;
+  font-size: clamp(2.1rem, 4.7vw, 5.2rem);
+}
+
+.cover-visual {
+  left: 28%;
+}
+
+.cover-shade {
+  background: linear-gradient(90deg, #05131c 18%, rgba(5, 19, 28, .92) 40%, rgba(5, 19, 28, .35) 64%, transparent 91%);
+}
+
 /* The deck and controls fit inside the available projection viewport. */
 @media (min-width: 901px) {
   .slide {
@@ -239,6 +252,7 @@
 
   .cover h1 {
     font-size: clamp(2rem, 8.4vw, 3.8rem);
+    max-width: none;
   }
 
   .controls {
@@ -285,6 +299,57 @@
     display: inline-flex;
     margin-top: 12px;
   }
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
+  .topbar { height: 54px; }
+  .pdf-top { display: inline-flex; }
+  .stage { width: calc(100% - 32px); }
+  .slide { height: calc(100dvh - 118px); min-height: 0; }
+  .slide-inner { padding: 27px 30px; }
+  .slide h2 { font-size: clamp(1.85rem, 4.4vw, 2.6rem); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 22px; }
+  .cover.active, .conclusion.active { display: block; }
+  .cover-visual, .conclusion-art { position: absolute; inset: 0; width: auto; max-height: none; aspect-ratio: auto; border: 0; }
+  .cover-visual { left: 27%; }
+  .cover-shade, .conclusion-shade { display: block; }
+  .cover-content, .conclusion-content { height: 100%; padding: 30px 34px; }
+  .cover h1 { max-width: 66%; font-size: clamp(2.1rem, 5.2vw, 3rem); }
+  .cover .cover-tag, .conclusion .cover-tag { position: absolute; margin-top: 0; }
+  .institution-row { margin-bottom: auto; }
+  .institution-row img { width: 43px; }
+  .deckline { max-width: 61%; }
+  .question-layout .system-triad { min-height: 0; height: 90%; }
+  .evidence-grid { display: grid; gap: 10px; margin-top: 18px; grid-template-columns: 1.15fr .9fr 1.15fr; }
+  .metric-panel { min-height: 0; padding: 16px; }
+  .period-panel, .dimension-list, .scope-note { padding: 12px; }
+  .dimension-list li { padding: 4px; }
+  .maturity-layout { display: grid; gap: 13px; grid-template-columns: 1.55fr .85fr; margin-top: 16px; }
+  .maturity-row { grid-template-columns: minmax(0, 1.5fr) minmax(35px, .7fr) 59px; padding: 9px 8px; }
+  .maturity-row .band { grid-row: 1; grid-column: 2; }
+  .maturity-row b { grid-column: 3; font-size: .83rem; }
+  .maturity-row small { grid-row: 2; }
+  .decision-card { padding: 16px; }
+  .decision-card p { font-size: .87rem; }
+  .rheology-panel { height: 90%; padding: 14px; }
+  .state-cards article { padding: 12px; }
+  .architecture { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 24px 0 18px; }
+  .arch-node { min-height: 165px; padding: 10px; }
+  .arch-node svg { width: 68px; height: 60px; }
+  .gate { min-width: 0; width: 63px; }
+  .gate b { width: 42px; height: 42px; }
+  .gate-line > i { min-width: 0; margin-top: 21px; }
+  .gate span { font-size: .63rem; }
+  .acceptance-cards { grid-template-columns: 1fr auto 1fr; gap: 12px; }
+  .acceptance-cards article { padding: 14px; }
+  .conclusion-content { width: 64%; }
+  .controls { height: 64px; }
+}
+
+@media (max-width: 700px) {
+  .cover-visual { max-height: 245px; }
+  .conclusion-art { max-height: 320px; }
+  .cover-visual, .conclusion-art { left: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
