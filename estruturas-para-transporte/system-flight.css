@@ -1,0 +1,182 @@
+.question-layout .system-triad--delivery {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.system-triad--delivery svg {
+  display: block;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.system-triad--delivery .decision-note {
+  flex: none;
+  padding-top: 8px;
+}
+
+.system-triad--delivery .node text {
+  font-size: 19px;
+}
+
+.system-triad--delivery .node text.small {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.system-triad--delivery .node > .triad-disc {
+  fill: #112b37;
+  stroke: #507984;
+}
+
+.system-triad--delivery .center-label,
+.system-triad--delivery .center-small {
+  text-anchor: middle;
+  font-size: 17px;
+  font-weight: 850;
+  letter-spacing: .055em;
+}
+
+.triad-cycle path,
+.triad-wing-trace {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.triad-cycle {
+  transform-origin: 0 0;
+}
+
+.triad-wing-trace {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.triad-sling {
+  fill: none;
+  stroke: #a1bac5;
+  stroke-width: 1.5;
+}
+
+.triad-courier,
+.triad-final-arrival,
+.triad-wing-trace {
+  opacity: 0;
+}
+
+.triad-pass-mortar {
+  --approach-x: -230px;
+  --approach-y: 12px;
+  --arrival: .18s;
+  --departure: 1.65s;
+}
+
+.triad-pass-substrate {
+  --approach-x: -390px;
+  --approach-y: -35px;
+  --arrival: 2.45s;
+  --departure: 3.9s;
+}
+
+#pergunta.active:not(.motion-paused) .triad-delivery {
+  animation: triad-deliver 1.23s ease-out var(--arrival) both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-courier {
+  animation: triad-depart .8s ease-in var(--departure) both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-sling {
+  animation: triad-release .18s ease-out var(--departure) both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-final-arrival {
+  animation: triad-final-approach 1.15s ease-out 4.76s both,
+    triad-release .28s ease-out 6.56s forwards;
+}
+
+#pergunta.active:not(.motion-paused) .triad-turn {
+  animation: triad-bank .84s ease-in-out 5.9s both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-drone-node {
+  animation: triad-show .32s ease-out 6.55s both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-wing-trace {
+  animation: triad-wing .92s ease-out 6.72s both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-system {
+  animation: triad-show .5s ease-out 7.02s both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-links {
+  animation: triad-show .7s ease-out 7.36s both;
+}
+
+#pergunta.active:not(.motion-paused) .triad-cycle {
+  animation: triad-rotate 1.8s linear 7.42s 2;
+}
+
+@keyframes triad-deliver {
+  from { opacity: 0; transform: translate(var(--approach-x), var(--approach-y)); }
+  22% { opacity: 1; }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes triad-depart {
+  from { opacity: 1; transform: translate(0, 0); }
+  62% { opacity: 1; }
+  to { opacity: 0; transform: translate(430px, -105px); }
+}
+
+@keyframes triad-final-approach {
+  from { opacity: 0; transform: translate(235px, -65px); }
+  20% { opacity: 1; }
+  to { opacity: 1; transform: translate(0, 0); }
+}
+
+@keyframes triad-bank {
+  from { transform: scale(1); }
+  48% { transform: rotate(-9deg) scale(.1, .88); }
+  52% { transform: rotate(-9deg) scale(-.1, .88); }
+  to { transform: scale(-.6, .6); }
+}
+
+@keyframes triad-release {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes triad-show {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes triad-wing {
+  from { opacity: 1; stroke-dashoffset: 1; }
+  55% { opacity: 1; stroke-dashoffset: 0; }
+  to { opacity: 0; stroke-dashoffset: 0; }
+}
+
+@keyframes triad-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 700px) {
+  .question-layout .system-triad--delivery {
+    height: auto;
+    min-height: 0;
+  }
+
+  .system-triad--delivery svg {
+    height: auto;
+    flex: none;
+  }
+}

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="motion.css?v=4" />
   <link rel="stylesheet" href="cover-repair.css?v=4" />
+  <link rel="stylesheet" href="system-flight.css?v=1" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -76,7 +77,6 @@
         <div class="repair-stages">
           <span class="repair-stage-water"><b>01</b> Hidrojateamento</span>
           <span class="repair-stage-mortar"><b>02</b> Projeção de argamassa</span>
-          <span class="source-tag">Animação conceitual</span>
         </div>
       </div>
     </section>
@@ -88,21 +88,70 @@
           <h2 id="title-question">O que a argamassa precisa fazer <em>durante e após a aplicação?</em></h2>
           <p class="lead">O material precisa atravessar o sistema, aderir ao concreto e permanecer estável depois da deposição.</p>
           <blockquote>Quais propriedades permitem projetar uma argamassa especial por drone em pontes, viadutos e túneis?</blockquote>
-          <span class="source-tag">Pergunta do artigo aprovado</span>
         </div>
-        <div class="system-triad" aria-label="Três dimensões acopladas: material, sistema aéreo e substrato">
-          <svg viewBox="0 0 620 520" role="img" aria-label="Esquema do acoplamento entre material, drone e substrato">
-            <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#65ddd5"/></marker></defs>
-            <path class="orbit" d="M155 155 C310 30 470 120 485 260 C500 408 315 490 160 380 C40 295 55 215 155 155Z"/>
-            <g class="node focus-first" transform="translate(130 120)"><circle r="78"/><text y="-8">ARGAMASSA</text><text class="small" y="20">reologia · coesão</text><text class="small" y="42">aderência</text></g>
-            <g class="node" transform="translate(480 230)"><circle r="78"/><text y="-8">DRONE</text><text class="small" y="20">carga · energia</text><text class="small" y="42">controle</text></g>
-            <g class="node" transform="translate(260 420)"><circle r="78"/><text y="-8">SUBSTRATO</text><text class="small" y="20">preparo · umidade</text><text class="small" y="42">rugosidade</text></g>
-            <path class="connector" d="M205 132 C300 92 385 125 430 180" marker-end="url(#arrow)"/>
-            <path class="connector" d="M445 300 C410 355 352 395 335 404" marker-end="url(#arrow)"/>
-            <path class="connector" d="M190 382 C120 335 105 245 115 200" marker-end="url(#arrow)"/>
-            <text x="310" y="264" text-anchor="middle" class="center-label">SISTEMA</text><text x="310" y="290" text-anchor="middle" class="center-small">acoplado</text>
+        <div class="system-triad system-triad--delivery">
+          <svg viewBox="0 -44 560 464" role="img" aria-labelledby="flight-title flight-description">
+            <title id="flight-title">Sistema acoplado</title>
+            <desc id="flight-description">O drone traz a argamassa, com reologia, coesão e aderência, e volta com o substrato, com preparo, umidade e rugosidade. Por fim, o drone assume a terceira posição, com carga, energia e controle. As setas ligam os três elementos.</desc>
+            <defs>
+              <marker id="coupling-arrow" markerWidth="7" markerHeight="7" refX="5.6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6Z" fill="#65ddd5"/></marker>
+              <image id="courier-art" href="drone-reparo-v3.png" x="-95" y="-42" width="190" height="84"/>
+              <radialGradient id="mortar-grain" cx=".33" cy=".25" r=".82"><stop stop-color="#ddd4bd"/><stop offset="1" stop-color="#7e7161"/></radialGradient>
+            </defs>
+            <g class="triad-links">
+              <path class="connector" d="M192 112 Q280 63 365 112" marker-end="url(#coupling-arrow)"/>
+              <path class="connector" d="M474 190 Q459 285 368 324" marker-end="url(#coupling-arrow)"/>
+              <path class="connector" d="M193 324 Q111 298 100 190" marker-end="url(#coupling-arrow)"/>
+            </g>
+            <g class="triad-pass triad-pass-mortar" transform="translate(107 111)">
+              <g class="triad-delivery">
+                <g class="node">
+                  <circle class="triad-disc" r="82"/>
+                  <path d="M-23 -38 Q-22 -59 -4 -58 Q13 -62 22 -47 Q31 -33 14 -19 Q1 -9 -17 -22 Q-28 -26 -23 -38Z" fill="url(#mortar-grain)"/>
+                  <path d="M-17 -39l5 4m11-13 5 5m7 10 3 3m-18 4 4-4" fill="none" stroke="#e2dac7" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+                  <text y="12">ARGAMASSA</text><text class="small" y="37">reologia · coesão</text><text class="small" y="58">aderência</text>
+                </g>
+                <g class="triad-courier">
+                  <path class="triad-sling" d="M0 -88 L-13 -76 M0 -88 L13 -76"/>
+                  <use href="#courier-art" y="-110"/>
+                </g>
+              </g>
+            </g>
+            <g class="triad-pass triad-pass-substrate" transform="translate(280 331)">
+              <g class="triad-delivery">
+                <g class="node">
+                  <circle class="triad-disc" r="82"/>
+                  <path d="M-31 -41 L8 -58 L33 -46 L-6 -28Z" fill="#a4b2b4"/><path d="M-31 -41 L-6 -28 L-6 -14 L-31 -26Z" fill="#566b72"/><path d="M-6 -28 L33 -46 L33 -32 L-6 -14Z" fill="#748890"/>
+                  <path d="M-18 -39l9 3m10-12 8 4m-3 7 8-4" stroke="#d0d9d9" stroke-width="2" fill="none"/>
+                  <text y="12">SUBSTRATO</text><text class="small" y="37">preparo · umidade</text><text class="small" y="58">rugosidade</text>
+                </g>
+                <g class="triad-courier">
+                  <path class="triad-sling" d="M0 -88 L-13 -76 M0 -88 L13 -76"/>
+                  <use href="#courier-art" y="-110"/>
+                </g>
+              </g>
+            </g>
+            <g class="triad-pass-drone" transform="translate(453 111)">
+              <g class="node triad-drone-node">
+                <circle class="triad-disc" r="82"/>
+                <use href="#courier-art" transform="translate(0 -34) scale(-.6 .6)"/>
+                <text y="12">DRONE</text><text class="small" y="37">carga · energia</text><text class="small" y="58">controle</text>
+              </g>
+              <g class="triad-final-arrival">
+                <g transform="translate(0 -34)"><g class="triad-turn"><use href="#courier-art"/></g></g>
+              </g>
+            </g>
+            <path class="triad-wing-trace" d="M410 68 Q379 70 350 111 L323 150" pathLength="1"/>
+            <g class="triad-system" transform="translate(280 193)">
+              <g class="triad-cycle">
+                <path d="M-51 -29 A59 59 0 0 1 39 -44" marker-end="url(#coupling-arrow)"/>
+                <path d="M51 -29 A59 59 0 0 1 19 56" marker-end="url(#coupling-arrow)"/>
+                <path d="M0 59 A59 59 0 0 1 -58 -12" marker-end="url(#coupling-arrow)"/>
+              </g>
+              <text y="-3" class="center-label">SISTEMA</text><text y="20" class="center-small">ACOPLADO</text>
+            </g>
           </svg>
-          <div class="decision-note"><b>Decisão:</b> qualificar o conjunto, não componentes isolados.</div>
+          <div class="decision-note"><b>Qualificar o conjunto</b> de material, drone e substrato.</div>
         </div>
       </div>
     </section>
