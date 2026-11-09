@@ -191,6 +191,25 @@
   to { opacity: 1; scale: 1 1; }
 }
 
+@media (min-width: 701px) and (max-height: 800px) {
+  #material .material-explainer {
+    padding-block: clamp(13px, 2.45dvh, 20px);
+  }
+
+  .rheology-step {
+    padding-block: clamp(10px, 1.8dvh, 14px);
+  }
+
+  .rheology-figure svg {
+    max-height: clamp(112px, 19dvh, 152px);
+  }
+
+  .rheology-references {
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+}
+
 @media (max-width: 700px) {
   #material .material-explainer {
     padding-block: 25px;
