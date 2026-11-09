@@ -1,5 +1,4 @@
 #conclusao.closing-scene {
-  --closing-time: 7.6s;
   isolation: isolate;
   overflow-x: hidden;
   overflow-y: auto;
@@ -136,73 +135,8 @@
   font-weight: 740;
 }
 
-.closing-aircraft {
-  opacity: 0;
-}
-
 .closing-drone-body {
   filter: brightness(1.14) drop-shadow(0 7px 8px #030b11);
-}
-
-.closing-jet {
-  opacity: 0;
-}
-
-.closing-deposit-window {
-  transform-box: fill-box;
-  transform-origin: left center;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  #conclusao.active:not(.motion-paused) .closing-aircraft {
-    animation: closing-pass var(--closing-time) linear both;
-  }
-
-  #conclusao.active:not(.motion-paused) .closing-jet {
-    animation: closing-emission var(--closing-time) linear both;
-  }
-
-  #conclusao.active:not(.motion-paused) .closing-particles {
-    animation: closing-particles .26s linear 1.45s 16 alternate;
-  }
-
-  #conclusao.active:not(.motion-paused) .closing-deposit-window {
-    animation: closing-coat var(--closing-time) linear both;
-  }
-
-  #conclusao.active:not(.motion-paused) .closing-inspection {
-    animation: closing-note .62s ease-out 6s both;
-  }
-}
-
-@keyframes closing-pass {
-  0% { opacity: 0; transform: translate(-230px, 42px); animation-timing-function: ease-out; }
-  7% { opacity: 1; }
-  19% { opacity: 1; transform: translate(0, 0); }
-  66%, 70% { opacity: 1; transform: translate(224px, -21px); }
-  91% { opacity: .9; }
-  100% { opacity: 0; transform: translate(660px, 73px); }
-}
-
-@keyframes closing-emission {
-  0%, 18.8%, 70%, 100% { opacity: 0; }
-  21%, 65.5% { opacity: 1; }
-}
-
-@keyframes closing-particles {
-  from { opacity: .42; transform: translate(-2px, 4px); }
-  to { opacity: .94; transform: translate(2px, -4px); }
-}
-
-@keyframes closing-coat {
-  0%, 19% { transform: scaleX(0); }
-  22% { transform: scaleX(.15); }
-  66%, 100% { transform: scaleX(1); }
-}
-
-@keyframes closing-note {
-  from { opacity: 0; translate: 0 10px; }
-  to { opacity: 1; translate: 0 0; }
 }
 
 @media (min-width: 701px) and (max-height: 680px) {
@@ -232,8 +166,7 @@
     inset: auto;
     flex: 0 0 auto;
     width: 100%;
-    aspect-ratio: 1.53;
-    max-height: 300px;
+    aspect-ratio: 860 / 610;
     border-bottom: 1px solid #274752;
     mask-image: none;
   }
