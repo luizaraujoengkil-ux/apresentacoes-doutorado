@@ -39,6 +39,7 @@
     next.disabled = current === slides.length - 1;
     counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
     if (updateHash) history.replaceState(null, '', `#${slides[current].id}`);
+    document.dispatchEvent(new CustomEvent('deck:slide', { detail: slides[current].id }));
     if (previous !== current) {
       slides[current].focus({preventScroll: true});
       window.scrollTo(0, 0);
@@ -56,6 +57,7 @@
     slide.classList.add('motion-paused');
     void slide.offsetWidth;
     slide.classList.remove('motion-paused');
+    document.dispatchEvent(new CustomEvent('deck:replay', { detail: slide.id }));
   }
 
   function layoutEvidenceFlight() {
