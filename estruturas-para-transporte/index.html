@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="evidence-flow.css?v=2" />
   <link rel="stylesheet" href="evidence-couriers.css?v=2" />
   <link rel="stylesheet" href="maturity-flight.css?v=1" />
+  <link rel="stylesheet" href="rheology-example.css?v=1" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -255,27 +256,80 @@
     </section>
 
     <section class="slide" id="material" data-title="A janela do material" aria-labelledby="title-material">
-      <div class="slide-inner split material-layout">
-        <div class="copy-block">
-          <p class="eyebrow">04 / MATERIAL</p>
-          <h2 id="title-material">Escoar no bico. <em>Parar na estrutura.</em></h2>
-          <div class="state-cards">
-            <article class="focus-first"><span>Durante a condução</span><b>Pseudoplástico</b><p>Menor viscosidade aparente sob cisalhamento.</p></article>
-            <article><span>Após a deposição</span><b>Recuperação rápida</b><p>Tensão de escoamento e tixotropia limitam escorrimento.</p></article>
-          </div>
-          <p class="caution">Não existe um limite reológico universal independente do equipamento.</p>
+      <div class="slide-inner material-explainer">
+        <p class="eyebrow">04 / MATERIAL</p>
+        <h2 id="title-material">Escoar no bico. <em>Manter a camada na ponte.</em></h2>
+        <p class="rheology-lead">Um exemplo de aplicação na face inferior do tabuleiro.</p>
+
+        <div class="rheology-steps">
+          <article class="rheology-step">
+            <header class="rheology-step-heading">
+              <span class="rheology-stage">01</span>
+              <h3>No tubo e no bico</h3>
+            </header>
+            <p class="rheology-step-copy">Quando as camadas da mistura deslizam mais depressa umas sobre as outras, a viscosidade aparente cai. É o comportamento <strong>pseudoplástico</strong>.</p>
+            <figure class="rheology-figure">
+              <svg viewBox="0 0 500 210" role="img" aria-label="Curva ilustrativa. A viscosidade aparente diminui à medida que aumenta a taxa de cisalhamento.">
+                <path d="M68 19V165H466" class="axis"/>
+                <path d="M68 45H466M68 85H466M68 125H466" fill="none" stroke="#24414b" stroke-width="1" stroke-dasharray="4 5"/>
+                <path d="M86 34 C135 41 166 78 215 104 S361 141 441 147" class="curve" pathLength="1"/>
+                <text x="268" y="193" text-anchor="middle" class="axis-label">Taxa de cisalhamento</text>
+                <text x="24" y="94" transform="rotate(-90 24 94)" text-anchor="middle" class="axis-label">Viscosidade aparente</text>
+                <text x="455" y="114" text-anchor="end" class="plot-label">Escoa com mais facilidade</text>
+              </svg>
+              <figcaption class="rheology-caption">Tendência durante o bombeamento</figcaption>
+            </figure>
+          </article>
+
+          <article class="rheology-step">
+            <header class="rheology-step-heading">
+              <span class="rheology-stage">02</span>
+              <h3>Na face inferior da ponte</h3>
+            </header>
+            <p class="rheology-step-copy">Depois da deposição, o cisalhamento cai. A argamassa recupera consistência e resiste ao escorrimento. É a <strong>recuperação tixotrópica</strong>.</p>
+            <figure class="rheology-figure">
+              <svg viewBox="0 0 500 210" role="img" aria-label="Corte esquemático de uma ponte. O bico aplica argamassa para cima e a camada permanece na face inferior do tabuleiro.">
+                <defs>
+                  <pattern id="bridge-aggregate" width="34" height="25" patternUnits="userSpaceOnUse">
+                    <path d="m5 5 3-1 2 2-2 3-3-1zm14 8 4-2 3 2-2 3-4-1zm10-9 2 1-1 3-2-1z" fill="#a2adb0" opacity=".38"/>
+                    <circle cx="10" cy="19" r="1.3" fill="#354c55"/><circle cx="32" cy="20" r="1.8" fill="#354c55"/>
+                  </pattern>
+                  <linearGradient id="bridge-jet" x1="0" y1="1" x2="1" y2="0">
+                    <stop stop-color="#e8c289" stop-opacity=".35"/><stop offset="1" stop-color="#f2ca8d" stop-opacity=".76"/>
+                  </linearGradient>
+                </defs>
+                <path d="M46 32H454V88H46Z" fill="#65777e" stroke="#a9b5b8" stroke-width="1.5"/>
+                <path d="M46 32H454V88H46Z" fill="url(#bridge-aggregate)"/>
+                <path d="M46 88H454" stroke="#bed0d3" stroke-width="2"/>
+                <text x="250" y="64" text-anchor="middle" fill="#fff" font-weight="750" font-size="17">Tabuleiro da ponte</text>
+
+                <g class="bridge-spray">
+                  <path d="M167 157 Q204 122 238 95 L319 95 Q251 112 167 157Z" fill="url(#bridge-jet)"/>
+                  <path d="M167 157 264 94M169 156 282 95M171 155 248 96" fill="none" stroke="#e9c58f" stroke-width="1.5" stroke-linecap="round"/>
+                  <g fill="#f1d3a6"><circle cx="234" cy="105" r="2"/><circle cx="253" cy="102" r="2.4"/><circle cx="289" cy="101" r="1.8"/><circle cx="300" cy="108" r="1.5"/></g>
+                </g>
+                <path class="bridge-coat" d="M237 93H352" pathLength="1" fill="none" stroke="#e7b671" stroke-width="9" stroke-linecap="round"/>
+                <path d="M71 193 124 164 151 169 104 195Z" fill="#4f646d" stroke="#78919b" stroke-width="1.5"/>
+                <path d="m121 165 27-15 22 6-19 14z" fill="#c2d2d6" stroke="#75909a" stroke-width="1.5"/>
+                <text x="83" y="154" text-anchor="middle" fill="#b4cbd2" font-size="16">Bico</text>
+                <path d="M342 101v31h18" fill="none" stroke="#e7b671" stroke-width="1.5"/>
+                <text x="365" y="136" fill="#f0cd99" font-size="16" font-weight="700">Camada</text>
+              </svg>
+              <figcaption class="rheology-caption">Camada delgada na face inferior do tabuleiro</figcaption>
+            </figure>
+          </article>
         </div>
-        <div class="rheology-panel">
-          <svg viewBox="0 0 650 330" role="img" aria-label="Curva ilustrativa da redução da viscosidade aparente com o aumento da taxa de cisalhamento">
-            <path d="M75 35 V265 H610" class="axis"/><text x="340" y="307" class="axis-label">taxa de cisalhamento</text><text x="20" y="150" transform="rotate(-90 20 150)" class="axis-label">viscosidade aparente</text>
-            <path d="M100 65 C210 78 250 140 330 190 S500 232 585 240" class="curve" pathLength="1"/>
-            <circle cx="145" cy="78" r="9" class="point"/><circle cx="505" cy="230" r="9" class="point"/>
-            <text x="125" y="52" class="plot-label">baixo cisalhamento</text><text x="475" y="205" class="plot-label">bombeamento</text>
-          </svg>
-          <div class="numbers" aria-label="Valores encontrados em estudos específicos">
-            <div><b>0,33–0,47</b><span>água/aglomerante · Dams et al. (2023)</span></div><div><b>≈ 1.700 kg/m³</b><span>massa específica · Dams et al. (2024)</span></div><div><b>≈ 1,1 kPa</b><span>tensão de escoamento · Dams et al. (2024)</span></div>
+
+        <div class="rheology-references">
+          <div class="rheology-reference-heading">
+            <b>Referências de ensaio</b>
+            <span>O desempenho depende da argamassa, da bomba, do tubo e do bico.</span>
           </div>
-          <span class="source-tag evidence">Curva ilustrativa · valores de ensaios publicados</span>
+          <div class="rheology-values">
+            <div><b>0,33–0,47</b><span>água/aglomerante · Dams et al. (2023)</span></div>
+            <div><b>≈ 1.700 kg/m³</b><span>massa específica · Dams et al. (2024)</span></div>
+            <div><b>≈ 1,1 kPa</b><span>tensão de escoamento · Dams et al. (2024)</span></div>
+          </div>
         </div>
       </div>
     </section>
