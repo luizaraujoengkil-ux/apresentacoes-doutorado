@@ -151,6 +151,24 @@
   background: linear-gradient(90deg, #05131c 18%, rgba(5, 19, 28, .92) 40%, rgba(5, 19, 28, .35) 64%, transparent 91%);
 }
 
+/* Fill the stage even when slide height is set by the viewport. */
+.slide {
+  width: 100%;
+  aspect-ratio: auto;
+}
+
+@media (min-width: 901px) {
+  .stage,
+  .topbar {
+    width: calc(100% - 2 * clamp(20px, 2.6vw, 52px));
+    max-width: none;
+  }
+
+  .topbar {
+    padding-inline: 0;
+  }
+}
+
 /* The deck and controls fit inside the available projection viewport. */
 @media (min-width: 901px) {
   .slide {
@@ -184,6 +202,26 @@
     display: flex;
     justify-content: space-between;
   }
+}
+
+/* Let the cover retain its intrinsic content height at high zoom. */
+#capa.repair-cover {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#capa.repair-cover .cover-content {
+  height: auto;
+  min-height: 100%;
+  padding-block: clamp(16px, 3.2dvh, 34px);
+}
+
+#capa.repair-cover .authors {
+  margin-top: 0;
+}
+
+#capa.repair-cover .repair-stages {
+  margin-bottom: 0;
 }
 
 @media (min-width: 901px) and (max-height: 680px) {

@@ -1,5 +1,5 @@
 .repair-cover {
-  --repair-duration: 6.75s;
+  --repair-duration: 10.8s;
   --drone-width: clamp(166px, 31vw, 402px);
   --spray-width: clamp(52px, 11vw, 156px);
   --spray-height: clamp(75px, 12vw, 167px);
@@ -64,8 +64,7 @@
   font-style: normal;
 }
 
-.repair-cover .repair-clean,
-.repair-cover .repair-finish {
+.repair-cover :is(.repair-clean, .repair-finish, .repair-rebar) {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -84,6 +83,44 @@
     url('concreto-texturas-v3.jpg');
   background-position: center, right center;
   -webkit-text-stroke-color: rgba(240, 247, 239, .78);
+}
+
+.repair-cover .repair-rebar {
+  background: none;
+  -webkit-text-stroke: 0;
+}
+
+.repair-rebar .repair-bar-slot {
+  position: relative;
+}
+
+.repair-rebar .bar-a { --bar-angle: -12deg; }
+.repair-rebar .bar-b { --bar-angle: 10deg; }
+.repair-rebar .bar-c { --bar-angle: -6deg; }
+
+.repair-rebar .repair-bar-slot::before,
+.repair-rebar .repair-bar-slot::after {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  content: '';
+  transform: translate(-50%, -50%) rotate(var(--bar-angle));
+}
+
+.repair-rebar .repair-bar-slot::before {
+  width: .96em;
+  height: .36em;
+  background: linear-gradient(165deg, #989080 0%, #382820 25%, #16171a 60%, #6f5749 93%);
+  clip-path: polygon(0 40%, 13% 17%, 28% 22%, 38% 2%, 65% 13%, 87% 8%, 100% 35%, 95% 77%, 72% 96%, 59% 78%, 35% 100%, 16% 84%, 2% 65%);
+}
+
+.repair-rebar .repair-bar-slot::after {
+  width: .73em;
+  height: .07em;
+  margin-top: -.059em;
+  border-radius: .025em;
+  background: repeating-linear-gradient(110deg, #a76036 0 .034em, #e2a56a .036em .053em, #673621 .058em .085em);
+  box-shadow: 0 .12em 0 #986043, 0 .026em .024em #100d0a, 0 .149em .029em #100d0a;
 }
 
 .repair-flight {
@@ -184,6 +221,10 @@
   animation: repair-finish-sweep var(--repair-duration) linear both;
 }
 
+.repair-cover.active:not(.motion-paused) .repair-rebar {
+  animation: repair-rebar-cover var(--repair-duration) linear both;
+}
+
 .repair-cover.active:not(.motion-paused) .repair-stages .repair-stage-water {
   animation: repair-water-stage var(--repair-duration) linear both;
 }
@@ -193,7 +234,7 @@
 }
 
 .repair-cover.active:not(.motion-paused) .repair-mist {
-  animation: repair-dispersal .23s ease-out 28 alternate both;
+  animation: repair-dispersal .23s ease-out 46 alternate both;
   transform-origin: 55% 84%;
 }
 
@@ -203,44 +244,48 @@
 }
 
 @keyframes repair-double-pass {
-  0% { left: 23%; transform: translate(-100%, -7px); opacity: 1; }
-  8% { left: 0%; transform: translate(-100%, 0); }
-  42% { left: 101%; transform: translate(-100%, -3px); opacity: 1; }
-  48% { left: 108%; transform: translate(-100%, -25px); opacity: 0; }
-  51% { left: -3%; transform: translate(-100%, -25px); opacity: 0; }
-  56% { left: 0%; transform: translate(-100%, 0); opacity: 1; }
-  93% { left: 100%; transform: translate(-100%, -1px); }
+  0%, 9% { left: 0%; transform: translate(-100%, 0); opacity: 1; }
+  36% { left: 100%; transform: translate(-100%, -3px); opacity: 1; }
+  40% { left: 108%; transform: translate(-100%, -25px); opacity: 0; }
+  48% { left: -3%; transform: translate(-100%, -25px); opacity: 0; }
+  51% { left: 0%; transform: translate(-100%, 0); opacity: 1; }
+  96% { left: 100%; transform: translate(-100%, -1px); }
   100% { left: 100%; transform: translate(-100%, 0); opacity: 1; }
 }
 
 @keyframes repair-water-active {
-  0%, 7%, 44%, 100% { opacity: 0; transform: scale(.7); }
-  10%, 41% { opacity: 1; transform: scale(1); }
+  0%, 8%, 38%, 100% { opacity: 0; transform: scale(.7); }
+  11%, 35% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes repair-mortar-active {
-  0%, 55%, 96%, 100% { opacity: 0; transform: scale(.7); }
-  58%, 93% { opacity: 1; transform: scale(1); }
+  0%, 50%, 98%, 100% { opacity: 0; transform: scale(.7); }
+  53%, 95% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes repair-clean-sweep {
-  0%, 8% { clip-path: inset(0 100% 0 0); }
-  42%, 100% { clip-path: inset(0); }
+  0%, 9% { clip-path: inset(0 100% 0 0); }
+  36%, 100% { clip-path: inset(0); }
 }
 
 @keyframes repair-finish-sweep {
-  0%, 56% { clip-path: inset(0 100% 0 0); }
-  93%, 100% { clip-path: inset(0); }
+  0%, 51% { clip-path: inset(0 100% 0 0); }
+  96%, 100% { clip-path: inset(0); }
+}
+
+@keyframes repair-rebar-cover {
+  0%, 51% { clip-path: inset(0); }
+  96%, 100% { clip-path: inset(0 0 0 100%); }
 }
 
 @keyframes repair-water-stage {
-  0%, 7%, 47%, 100% { opacity: .65; box-shadow: none; }
-  12%, 41% { opacity: 1; box-shadow: 0 0 11px rgba(118, 219, 249, .38); }
+  0%, 8%, 41%, 100% { opacity: .65; box-shadow: none; }
+  12%, 35% { opacity: 1; box-shadow: 0 0 11px rgba(118, 219, 249, .38); }
 }
 
 @keyframes repair-mortar-stage {
-  0%, 54% { opacity: .65; box-shadow: none; }
-  60%, 94% { opacity: 1; box-shadow: 0 0 11px rgba(234, 191, 126, .38); }
+  0%, 50% { opacity: .65; box-shadow: none; }
+  54%, 96% { opacity: 1; box-shadow: 0 0 11px rgba(234, 191, 126, .38); }
   100% { opacity: 1; box-shadow: none; }
 }
 
@@ -274,8 +319,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .repair-cover .repair-clean,
-  .repair-cover .repair-spray {
+  .repair-cover :is(.repair-clean, .repair-spray, .repair-rebar) {
     display: none;
   }
 
@@ -291,8 +335,7 @@
     -webkit-text-stroke: 0;
   }
 
-  .repair-cover .repair-clean,
-  .repair-cover .repair-finish {
+  .repair-cover :is(.repair-clean, .repair-finish, .repair-rebar) {
     display: none;
   }
 }
