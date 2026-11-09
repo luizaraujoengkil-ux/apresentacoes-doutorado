@@ -1,0 +1,296 @@
+/* Motion follows the slide lifecycle, including revisits and manual replay. */
+.slide.motion-paused * {
+  animation: none !important;
+}
+
+.slide.active:not(.motion-paused) .drone-flight {
+  animation: drone-approach 2.65s cubic-bezier(.23, .75, .29, 1) both;
+}
+
+.slide.active:not(.motion-paused) .rotor-spin {
+  animation: rotor-pulse .23s ease-in-out 10 alternate both;
+}
+
+.slide.active:not(.motion-paused) .spray-particles > * {
+  animation: spray-pass .38s ease-out 1.05s 4 backwards;
+}
+
+.slide.active:not(.motion-paused) .spray-particles > :nth-child(3n + 2) {
+  animation-delay: 1.13s;
+}
+
+.slide.active:not(.motion-paused) .spray-particles > :nth-child(3n) {
+  animation-delay: 1.2s;
+}
+
+.slide.active:not(.motion-paused) .applied-patch {
+  animation: patch-form 1.3s ease-out 1.23s both;
+}
+
+.slide.active:not(.motion-paused) .system-triad .focus-first circle {
+  animation: node-emphasis 1s ease-out .15s both;
+}
+
+.slide.active:not(.motion-paused) .stacked-bar span {
+  animation: evidence-reveal .72s cubic-bezier(.23, .75, .29, 1) .12s both;
+}
+
+.slide.active:not(.motion-paused) .stacked-bar span + span {
+  animation-delay: .55s;
+}
+
+.slide.active:not(.motion-paused) .maturity-row {
+  animation: none;
+}
+
+.slide.active:not(.motion-paused) .maturity-row.recommended {
+  animation: focusPulse .95s ease both;
+}
+
+.slide.active:not(.motion-paused) .maturity-row .band i {
+  transform-origin: left center;
+  animation: maturity-reveal .64s cubic-bezier(.23, .75, .29, 1) .42s both;
+}
+
+.slide.active:not(.motion-paused) .maturity-row.recommended .band i {
+  animation-delay: .05s;
+}
+
+.slide.active:not(.motion-paused) .maturity-row.warning .band i,
+.slide.active:not(.motion-paused) .maturity-row.danger .band i {
+  animation-delay: .62s;
+}
+
+.slide.active:not(.motion-paused) path.curve[pathLength='1'] {
+  stroke-dasharray: 1;
+  animation: rheology-trace 1.15s ease-out .12s both;
+}
+
+.slide.active:not(.motion-paused) .rheology-panel .point,
+.slide.active:not(.motion-paused) .rheology-panel .plot-label {
+  animation: graph-label .3s ease-out .8s both;
+}
+
+@keyframes drone-approach {
+  0% { transform: translate(var(--flight-x, -88px), var(--flight-y, 35px)); }
+  43% { transform: translate(0, 3px); }
+  66% { transform: translate(3px, -4px); }
+  85% { transform: translate(-2px, 3px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes rotor-pulse {
+  from { opacity: .54; }
+  to { opacity: 1; }
+}
+
+@keyframes spray-pass {
+  0% { opacity: 0; transform: translateY(5px); }
+  32% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(var(--spray-travel, -10px)); }
+}
+
+@keyframes patch-form {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes node-emphasis {
+  0%, 100% { stroke: #3a6975; }
+  38% { stroke: var(--teal); stroke-width: 4px; }
+}
+
+@keyframes evidence-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0); }
+}
+
+@keyframes maturity-reveal {
+  from { opacity: .4; scale: 0 1; }
+  to { opacity: 1; scale: 1 1; }
+}
+
+@keyframes rheology-trace {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes graph-label {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.maturity-row .band {
+  background: repeating-linear-gradient(90deg, #193744 0, #193744 calc(25% - 1px), #36515c 25%);
+}
+
+.maturity-row .band i.point-level {
+  width: 12px;
+  translate: -50% 0;
+}
+
+.cover-title-end {
+  display: block;
+  margin-top: .55em;
+  font-size: clamp(1.15rem, 2.1vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.13;
+  letter-spacing: -.018em;
+}
+
+/* The deck and controls fit inside the available projection viewport. */
+@media (min-width: 901px) {
+  .slide {
+    height: min(850px, calc(100dvh - 132px));
+    min-height: 0;
+  }
+
+  .slide-inner,
+  .conclusion-content {
+    padding-block: clamp(24px, 5vh, 68px);
+  }
+
+  .maturity-layout {
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, .75fr);
+    gap: clamp(14px, 2vw, 28px);
+  }
+
+  .maturity-row {
+    grid-template-columns: minmax(125px, 1.32fr) minmax(65px, 1fr) 62px minmax(77px, .63fr);
+    gap: 10px;
+  }
+
+  .scale-labels {
+    grid-template-columns: minmax(125px, 1.32fr) minmax(65px, 1fr) 62px minmax(77px, .63fr);
+    gap: 10px;
+    padding-inline: 12px;
+  }
+
+  .scale-labels > .ticks {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 680px) {
+  .slide {
+    overflow-y: auto;
+  }
+
+  .cover h1,
+  .conclusion h2 {
+    font-size: clamp(2rem, 4.4vw, 3.9rem);
+  }
+
+  .architecture {
+    margin-block: 22px 18px;
+  }
+
+  .arch-node {
+    min-height: 156px;
+  }
+
+  .acceptance-layout {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cover.active,
+  .conclusion.active {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cover-shade,
+  .conclusion-shade {
+    display: none;
+  }
+
+  .cover-visual,
+  .conclusion-art {
+    position: relative;
+    inset: auto;
+    order: 1;
+    flex: none;
+    width: 100%;
+    aspect-ratio: 1.55;
+    max-height: 500px;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+  }
+
+  .cover-visual {
+    order: -1;
+    border-top: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cover-content,
+  .conclusion-content {
+    height: auto;
+    padding: clamp(22px, 4.5vw, 40px);
+  }
+
+  .institution-row {
+    margin-bottom: clamp(22px, 5vw, 42px);
+  }
+
+  .cover h1 {
+    font-size: clamp(2rem, 8.4vw, 3.8rem);
+  }
+
+  .controls {
+    gap: clamp(5px, 1.5vw, 12px);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .controls .nav-button {
+    width: clamp(34px, 9.5vw, 44px);
+    height: 42px;
+    flex: 0 0 auto;
+  }
+
+  .markers {
+    gap: clamp(4px, 1.2vw, 9px);
+  }
+
+  .maturity-row {
+    grid-template-columns: minmax(0, 1fr) 68px;
+    gap: 8px 12px;
+  }
+
+  .maturity-row .band {
+    display: block;
+    grid-row: 2;
+    grid-column: 1;
+    height: 9px;
+  }
+
+  .maturity-row b {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .maturity-row small {
+    display: block;
+    grid-row: 3;
+    grid-column: 1 / -1;
+  }
+
+  .cover .cover-tag,
+  .conclusion .cover-tag {
+    position: static;
+    display: inline-flex;
+    margin-top: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide.active:not(.motion-paused) *,
+  .slide.active:not(.motion-paused) *::before,
+  .slide.active:not(.motion-paused) *::after {
+    animation: none !important;
+  }
+}

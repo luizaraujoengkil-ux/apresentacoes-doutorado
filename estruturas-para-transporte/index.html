@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#06131d" />
+  <meta name="description" content="Apresentação final da disciplina Estruturas para Transporte sobre argamassas cimentícias projetadas por drones." />
+  <title>Argamassas projetadas por drones | IME</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="motion.css" />
+</head>
+<body>
+  <a class="skip-link" href="#stage">Ir para a apresentação</a>
+
+  <header class="topbar" aria-label="Barra da apresentação">
+    <a class="portfolio-link" href="https://apresentacoes-doutorado.pages.dev/inicio" aria-label="Voltar ao portfólio">← Portfólio</a>
+    <div class="topbar-actions">
+      <div class="timer" aria-label="Cronômetro da apresentação">
+        <span>Tempo</span>
+        <strong id="timerValue">00:00</strong>
+        <button id="timerPlay" class="icon-button" aria-label="Iniciar ou retomar cronômetro">▶</button>
+        <button id="timerPause" class="icon-button" aria-label="Pausar cronômetro" disabled>Ⅱ</button>
+        <button id="timerStop" class="icon-button" aria-label="Parar e zerar cronômetro" disabled>■</button>
+      </div>
+      <a class="primary-button pdf-top" href="artigo-aprovado.pdf" target="_blank" rel="noopener">Abrir artigo (PDF) ↗</a>
+    </div>
+  </header>
+
+  <main id="stage" class="stage" aria-label="Apresentação final de Estruturas para Transporte">
+    <section class="slide cover active" id="capa" data-title="Argamassas projetadas por drones" aria-labelledby="title-cover">
+      <div class="cover-visual" aria-hidden="true">
+        <svg viewBox="0 0 900 620" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Ilustração conceitual de um drone aplicando argamassa no intradorso de uma ponte">
+          <defs>
+            <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#25485d"/><stop offset="1" stop-color="#0a1d29"/></linearGradient>
+            <linearGradient id="deck" x1="0" x2="1"><stop stop-color="#62737a"/><stop offset="1" stop-color="#2e424c"/></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
+          </defs>
+          <rect width="900" height="620" fill="url(#sky)"/>
+          <path d="M0 210 L900 80 L900 280 L0 380 Z" fill="url(#deck)"/>
+          <path d="M0 352 L900 252 L900 312 L0 420 Z" fill="#172b35"/>
+          <path d="M85 385 L210 368 L210 620 L65 620 Z M690 300 L800 288 L830 620 L705 620 Z" fill="#273b45"/>
+          <path d="M90 390 L205 375 L190 620 L78 620 Z M700 306 L792 296 L817 620 L716 620 Z" fill="#40515a" opacity=".65"/>
+          <g class="applied-patch">
+            <path d="M596 346 L754 326 L755 338 L597 358 Z" fill="#d28a3c"/>
+            <path d="M597 357 L755 337" stroke="#f0bb61" stroke-width="4" fill="none"/>
+          </g>
+          <g class="drone-flight"><g transform="translate(660 467)">
+            <ellipse cx="0" cy="0" rx="120" ry="18" fill="#6fe6da" opacity=".12" filter="url(#glow)"/>
+            <g stroke="#c9e5ec" stroke-width="9" stroke-linecap="round"><path d="M-20 0 L-105 -48"/><path d="M20 0 L105 -48"/><path d="M-20 0 L-105 48"/><path d="M20 0 L105 48"/></g>
+            <g class="rotor-spin" fill="none" stroke="#79e2db" stroke-width="6"><ellipse cx="-112" cy="-52" rx="48" ry="12"/><ellipse cx="112" cy="-52" rx="48" ry="12"/><ellipse cx="-112" cy="52" rx="48" ry="12"/><ellipse cx="112" cy="52" rx="48" ry="12"/></g>
+            <rect x="-42" y="-26" width="84" height="52" rx="16" fill="#d9edf1"/>
+            <rect x="-24" y="26" width="48" height="52" rx="10" fill="#d28a3c"/>
+            <path d="M18 55 H47 V-74 L35 -82" fill="none" stroke="#e6f1f2" stroke-width="8" stroke-linejoin="round"/>
+            <g class="spray-particles" fill="#f0bb61"><circle cx="36" cy="-91" r="4"/><circle cx="30" cy="-100" r="5"/><circle cx="42" cy="-104" r="4"/><circle cx="33" cy="-113" r="4"/></g>
+          </g></g>
+          <g fill="none" stroke="#65ddd5" opacity=".18"><path d="M30 510 C220 435 335 490 465 430 S720 360 890 410"/><path d="M20 550 C230 470 355 525 490 455 S735 400 895 445"/></g>
+        </svg>
+      </div>
+      <div class="cover-shade"></div>
+      <div class="cover-content">
+        <div class="institution-row">
+          <img src="ime.png" alt="Brasão do Instituto Militar de Engenharia" />
+          <div><strong>Instituto Militar de Engenharia</strong><span>Estruturas para Transporte</span></div>
+        </div>
+        <p class="eyebrow">APRESENTAÇÃO FINAL · 2026</p>
+        <h1 id="title-cover">Argamassas cimentícias especiais <em>projetadas por drones</em> <span class="cover-title-end">na recuperação de estruturas de transporte</span></h1>
+        <p class="deckline">Requisitos reológicos, aderência e viabilidade tecnológica</p>
+        <div class="authors"><strong>Luiz Araujo de Souza Junior</strong><span>Robson Luiz Gaiofatto</span></div>
+        <span class="source-tag cover-tag">Ilustração conceitual</span>
+      </div>
+    </section>
+
+    <section class="slide" id="pergunta" data-title="A pergunta de engenharia" aria-labelledby="title-question">
+      <div class="slide-inner split question-layout">
+        <div class="copy-block">
+          <p class="eyebrow">01 / PERGUNTA</p>
+          <h2 id="title-question">O que a argamassa precisa fazer <em>durante e após a aplicação?</em></h2>
+          <p class="lead">O material precisa atravessar o sistema, aderir ao concreto e permanecer estável depois da deposição.</p>
+          <blockquote>Quais propriedades permitem projetar uma argamassa especial por drone em pontes, viadutos e túneis?</blockquote>
+          <span class="source-tag">Pergunta do artigo aprovado</span>
+        </div>
+        <div class="system-triad" aria-label="Três dimensões acopladas: material, sistema aéreo e substrato">
+          <svg viewBox="0 0 620 520" role="img" aria-label="Esquema do acoplamento entre material, drone e substrato">
+            <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#65ddd5"/></marker></defs>
+            <path class="orbit" d="M155 155 C310 30 470 120 485 260 C500 408 315 490 160 380 C40 295 55 215 155 155Z"/>
+            <g class="node focus-first" transform="translate(130 120)"><circle r="78"/><text y="-8">ARGAMASSA</text><text class="small" y="20">reologia · coesão</text><text class="small" y="42">aderência</text></g>
+            <g class="node" transform="translate(480 230)"><circle r="78"/><text y="-8">DRONE</text><text class="small" y="20">carga · energia</text><text class="small" y="42">controle</text></g>
+            <g class="node" transform="translate(260 420)"><circle r="78"/><text y="-8">SUBSTRATO</text><text class="small" y="20">preparo · umidade</text><text class="small" y="42">rugosidade</text></g>
+            <path class="connector" d="M205 132 C300 92 385 125 430 180" marker-end="url(#arrow)"/>
+            <path class="connector" d="M445 300 C410 355 352 395 335 404" marker-end="url(#arrow)"/>
+            <path class="connector" d="M190 382 C120 335 105 245 115 200" marker-end="url(#arrow)"/>
+            <text x="310" y="264" text-anchor="middle" class="center-label">SISTEMA</text><text x="310" y="290" text-anchor="middle" class="center-small">acoplado</text>
+          </svg>
+          <div class="decision-note"><b>Decisão:</b> qualificar o conjunto, não componentes isolados.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="evidencias" data-title="As evidências usadas" aria-labelledby="title-evidence">
+      <div class="slide-inner">
+        <p class="eyebrow">02 / EVIDÊNCIAS</p>
+        <h2 id="title-evidence">O que sustenta a resposta?</h2>
+        <div class="evidence-grid">
+          <div class="metric-panel focus-first">
+            <div class="big-number">25</div><div class="metric-label">estudos únicos</div>
+            <div class="stacked-bar" aria-label="18 estudos EB1 e 7 estudos EB2"><span style="--w:72%">18 EB1</span><span style="--w:28%">7 EB2</span></div>
+            <p>EB1: texto completo ou conteúdo suficiente para extração detalhada.</p>
+          </div>
+          <div class="period-panel"><span>2015</span><div class="period-line"><i></i></div><span>2026</span><small>recorte prioritário</small></div>
+          <ol class="dimension-list" aria-label="Cinco dimensões da síntese">
+            <li><b>01</b><span>Estado fresco</span></li><li><b>02</b><span>Desempenho endurecido</span></li><li><b>03</b><span>Interface e substrato</span></li><li><b>04</b><span>Plataforma e controle</span></li><li><b>05</b><span>Segurança e aceitação</span></li>
+          </ol>
+          <div class="scope-note"><strong>Revisão crítica estruturada</strong><span>Não é metanálise nem revisão sistemática exaustiva.</span></div>
+        </div>
+        <div class="slide-foot"><span class="source-tag real">Dados reais da revisão do artigo</span><span>18 estudos EB1 · 7 EB2</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="maturidade" data-title="Onde a tecnologia já faz sentido" aria-labelledby="title-maturity">
+      <div class="slide-inner">
+        <p class="eyebrow">03 / RESULTADO PRINCIPAL</p>
+        <h2 id="title-maturity">A viabilidade depende da <em>função do reparo</em></h2>
+        <div class="maturity-layout">
+          <div class="maturity-scale" aria-label="Maturidade estimada por aplicação">
+            <div class="maturity-row mature"><span>Proteção superficial</span><div class="band"><i style="--start:75%;--end:100%"></i></div><b>M3–M4</b><small>alto potencial</small></div>
+            <div class="maturity-row"><span>Selagem localizada</span><div class="band"><i class="point-level" style="--start:50%;--end:50%"></i></div><b>M2</b><small>moderado a alto</small></div>
+            <div class="maturity-row focus-first recommended"><span>Revestimento cimentício delgado</span><div class="band"><i class="point-level" style="--start:50%;--end:50%"></i></div><b>M2</b><small>demonstrador recomendado</small></div>
+            <div class="maturity-row warning"><span>Recomposição de cobrimento</span><div class="band"><i style="--start:25%;--end:50%"></i></div><b>M1–M2</b><small>viabilidade condicionada</small></div>
+            <div class="maturity-row danger"><span>Reparo com função estrutural</span><div class="band"><i style="--start:0%;--end:25%"></i></div><b>M0–M1</b><small>exige validação</small></div>
+            <div class="scale-labels" aria-hidden="true"><div class="ticks"><span>M0</span><span>M1</span><span>M2</span><span>M3</span><span>M4</span></div></div>
+          </div>
+          <div class="decision-card">
+            <span class="mini-label">DECISÃO DE ENGENHARIA</span>
+            <h3>Começar por camadas delgadas</h3>
+            <p>Elas testam reologia, deposição, espessura e aderência sem atribuir função estrutural antes da validação.</p>
+            <div class="not-found"><span>A revisão não encontrou caso em OAE em serviço com interface qualificada e desempenho de longo prazo documentado.</span></div>
+          </div>
+        </div>
+        <div class="slide-foot"><span class="source-tag real">Síntese do artigo · M0 a M4</span><span>Maturidade estimada, não TRL formal</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="material" data-title="A janela do material" aria-labelledby="title-material">
+      <div class="slide-inner split material-layout">
+        <div class="copy-block">
+          <p class="eyebrow">04 / MATERIAL</p>
+          <h2 id="title-material">Escoar no bico. <em>Parar na estrutura.</em></h2>
+          <div class="state-cards">
+            <article class="focus-first"><span>Durante a condução</span><b>Pseudoplástico</b><p>Menor viscosidade aparente sob cisalhamento.</p></article>
+            <article><span>Após a deposição</span><b>Recuperação rápida</b><p>Tensão de escoamento e tixotropia limitam escorrimento.</p></article>
+          </div>
+          <p class="caution">Não existe um limite reológico universal independente do equipamento.</p>
+        </div>
+        <div class="rheology-panel">
+          <svg viewBox="0 0 650 330" role="img" aria-label="Curva ilustrativa da redução da viscosidade aparente com o aumento da taxa de cisalhamento">
+            <path d="M75 35 V265 H610" class="axis"/><text x="340" y="307" class="axis-label">taxa de cisalhamento</text><text x="20" y="150" transform="rotate(-90 20 150)" class="axis-label">viscosidade aparente</text>
+            <path d="M100 65 C210 78 250 140 330 190 S500 232 585 240" class="curve" pathLength="1"/>
+            <circle cx="145" cy="78" r="9" class="point"/><circle cx="505" cy="230" r="9" class="point"/>
+            <text x="125" y="52" class="plot-label">baixo cisalhamento</text><text x="475" y="205" class="plot-label">bombeamento</text>
+          </svg>
+          <div class="numbers" aria-label="Valores encontrados em estudos específicos">
+            <div><b>0,33–0,47</b><span>água/aglomerante · Dams et al. (2023)</span></div><div><b>≈ 1.700 kg/m³</b><span>massa específica · Dams et al. (2024)</span></div><div><b>≈ 1,1 kPa</b><span>tensão de escoamento · Dams et al. (2024)</span></div>
+          </div>
+          <span class="source-tag evidence">Curva ilustrativa · valores de ensaios publicados</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="sistema" data-title="Como seria o sistema" aria-labelledby="title-system">
+      <div class="slide-inner">
+        <p class="eyebrow">05 / ARQUITETURA PROPOSTA</p>
+        <h2 id="title-system">O reparo é uma <em>cadeia controlada</em></h2>
+        <div class="architecture" aria-label="Arquitetura de referência proposta no artigo">
+          <div class="arch-node focus-first"><span>01</span><svg viewBox="0 0 100 70"><path d="M20 35h60M32 35 15 18m53 17 17-17M32 35 15 52m53-17 17 17"/><ellipse cx="14" cy="17" rx="13" ry="4"/><ellipse cx="86" cy="17" rx="13" ry="4"/><ellipse cx="14" cy="53" rx="13" ry="4"/><ellipse cx="86" cy="53" rx="13" ry="4"/><rect x="38" y="24" width="24" height="22" rx="5"/></svg><b>Multirrotor</b><small>VLOS · operador no circuito</small></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node"><span>02</span><svg viewBox="0 0 100 70"><rect x="24" y="12" width="52" height="46" rx="9"/><path d="M35 26h30M35 36h30M35 46h18"/></svg><b>Cartucho selado</b><small>pequeno volume embarcado</small></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node"><span>03</span><svg viewBox="0 0 100 70"><path d="M15 50 65 18M55 18h24v24M65 42l18 10"/><circle cx="84" cy="53" r="5"/></svg><b>Extrusão</b><small>bomba de deslocamento positivo</small></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-node"><span>04</span><svg viewBox="0 0 100 70"><path d="M18 55h64M30 55V18h40v37M42 55V30h16v25"/><path d="M10 24h18m44 0h18"/></svg><b>Sensor + controle</b><small>distância e orientação</small></div>
+        </div>
+        <div class="process-window">
+          <span>distância</span><span>ângulo</span><span>velocidade</span><span>vazão/pressão</span><span>vento</span><span>downwash</span>
+        </div>
+        <div class="system-bottom">
+          <div class="disturbance"><b>Interromper automaticamente</b><span>perda de posição · obstrução · queda de pressão · aproximação indevida</span></div>
+          <span class="source-tag proposed">Arquitetura de referência proposta pelo artigo</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="aceitacao" data-title="Voo autorizado não é reparo aceito" aria-labelledby="title-acceptance">
+      <div class="slide-inner">
+        <p class="eyebrow">06 / ACEITAÇÃO</p>
+        <h2 id="title-acceptance">Voo autorizado <em>≠</em> reparo aceito</h2>
+        <div class="acceptance-layout">
+          <div class="gate-line" aria-label="Protocolo de aceitação H0 a H8">
+            <div class="gate focus-first"><b>H0</b><span>Diagnóstico</span></div><i></i>
+            <div class="gate"><b>H1</b><span>Material</span></div><i></i>
+            <div class="gate"><b>H2</b><span>Substrato</span></div><i></i>
+            <div class="gate"><b>H3</b><span>Sistema aéreo</span></div><i></i>
+            <div class="gate"><b>H4</b><span>Painel</span></div><i></i>
+            <div class="gate flight"><b>H5</b><span>Autorizações</span></div><i></i>
+            <div class="gate"><b>H6</b><span>Execução</span></div><i></i>
+            <div class="gate product"><b>H7</b><span>Produto</span></div><i></i>
+            <div class="gate"><b>H8</b><span>Encerramento</span></div>
+          </div>
+          <div class="acceptance-cards">
+            <article class="flight-card"><span>H5 · AERONÁUTICA</span><b>Pode voar?</b><p>Espaço aéreo, área, equipe e análise de risco liberados.</p></article>
+            <div class="not-equal">≠</div>
+            <article class="engineering-card"><span>H7 · ENGENHARIA</span><b>O reparo funciona?</b><p>Continuidade, espessura, cura, aderência e acabamento aceitos.</p></article>
+          </div>
+        </div>
+        <div class="norms">DNIT 087/2006-ES · DNIT 010/2024-PRO · ABNT NBR 6118:2026 · ISO 16311:2024 · RBAC 100/2026 · ICA 100-40:2026</div>
+        <div class="slide-foot"><span class="source-tag proposed">Protocolo H0–H8 proposto pelo artigo</span><span>Lacuna principal: integração procedimental</span></div>
+      </div>
+    </section>
+
+    <section class="slide conclusion" id="conclusao" data-title="Síntese para decisão" aria-labelledby="title-end">
+      <div class="conclusion-art" aria-hidden="true">
+        <svg viewBox="0 0 860 620" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Corte ilustrativo de um painel com uma camada delgada aplicada e pontos de verificação">
+          <defs><linearGradient id="endbg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#163847"/><stop offset="1" stop-color="#071923"/></linearGradient></defs>
+          <rect width="860" height="620" fill="url(#endbg)"/>
+          <path d="M410 170 705 113 824 193 525 257Z" fill="#81939a"/>
+          <path d="M410 170 525 257 525 430 410 340Z" fill="#3a535e"/>
+          <path d="M525 257 824 193 824 358 525 430Z" fill="#586b75"/>
+          <g class="applied-patch">
+            <path d="M557 278 794 225 794 337 557 393Z" fill="#be813b"/>
+            <path d="M557 278 794 225 794 337 557 393Z" fill="none" stroke="#f2bd73" stroke-width="5"/>
+            <g fill="#a4eee7" stroke="#123643" stroke-width="5"><circle cx="600" cy="323" r="13"/><circle cx="676" cy="306" r="13"/><circle cx="752" cy="289" r="13"/></g>
+          </g>
+          <path d="M676 321v140h121" fill="none" stroke="#7cded7" stroke-width="3" stroke-dasharray="8 7"/>
+          <text x="796" y="485" fill="#b8d9df" font-family="system-ui" font-size="18" text-anchor="end">Verificar aderência e espessura</text>
+        </svg>
+      </div>
+      <div class="conclusion-shade"></div>
+      <div class="conclusion-content">
+        <p class="eyebrow">07 / SÍNTESE</p>
+        <h2 id="title-end">O primeiro ensaio é com <em>revestimento delgado</em></h2>
+        <ul class="takeaways">
+          <li><b>Começar</b><span>por revestimentos cimentícios delgados em painéis verticais e intradorsos.</span></li>
+          <li><b>Qualificar</b><span>material, equipamento, substrato e processo como um único sistema.</span></li>
+          <li><b>Avançar</b><span>somente com aderência, estabilidade, durabilidade, repetibilidade e segurança comprovadas.</span></li>
+        </ul>
+        <p class="closing-line">O acesso aéreo pode reduzir a exposição humana. Os ensaios do produto aplicado orientam a aceitação.</p>
+        <a class="primary-button" href="artigo-aprovado.pdf" target="_blank" rel="noopener">Ler artigo aprovado (PDF) ↗</a>
+        <span class="source-tag cover-tag">Ilustração conceitual · conclusão do artigo</span>
+      </div>
+    </section>
+  </main>
+
+  <nav class="controls" aria-label="Controles da apresentação">
+    <button id="previous" class="nav-button" aria-label="Slide anterior">←</button>
+    <div id="markers" class="markers" aria-label="Escolher slide"></div>
+    <button id="next" class="nav-button" aria-label="Próximo slide">→</button>
+    <span id="counter" class="counter" aria-live="polite">01 / 08</span>
+    <button id="replay" class="nav-button" aria-label="Repetir animações" title="Repetir animações (R)">↻</button>
+    <button id="fullscreen" class="nav-button" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
