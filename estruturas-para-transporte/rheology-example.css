@@ -15,7 +15,7 @@
 
 .material-explainer h2 {
   max-width: none;
-  font-size: clamp(2rem, 3.55vw, 3.65rem);
+  font-size: clamp(2rem, 3.9vw, 4.2rem);
   text-wrap: balance;
 }
 
@@ -50,11 +50,19 @@
 }
 
 .rheology-step-heading {
-  display: grid;
-  gap: 3px;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
 }
 
 .rheology-stage {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 2.1em;
+  height: 2.1em;
+  border: 1px solid color-mix(in srgb, var(--stage-accent) 50%, #0c2532);
+  border-radius: 50%;
   color: var(--stage-accent);
   font-size: clamp(.69rem, .94vw, .82rem);
   font-weight: 850;
@@ -69,7 +77,7 @@
 }
 
 .rheology-step-copy {
-  margin: .45em 0 .7em;
+  margin: .52em 0 .75em;
   color: #c4d8dd;
   font-size: clamp(.86rem, 1.23vw, 1.1rem);
   line-height: 1.36;
@@ -92,11 +100,11 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 500 / 210;
-  max-height: clamp(135px, 25dvh, 245px);
-  border: 1px solid #254652;
-  border-radius: 8px;
-  background: #081b26;
+  aspect-ratio: 520 / 210;
+  max-height: clamp(160px, 33dvh, 325px);
+  border: 1px solid #2b4b58;
+  border-radius: 10px;
+  background: radial-gradient(ellipse at 48% 36%, #102e3a 0%, #081b26 80%);
 }
 
 .rheology-caption {
@@ -109,15 +117,42 @@
   stroke-width: 5.5;
 }
 
-.rheology-figure .axis-label,
-.rheology-figure .plot-label,
-.rheology-figure .bridge-label {
-  fill: #d5e8eb;
+.rheology-chart .rheology-grid {
+  fill: none;
+  stroke: #345461;
+  stroke-dasharray: 2.5 5;
+  stroke-width: 1;
 }
 
-.rheology-figure .bridge-label {
-  font-size: 15px;
-  font-weight: 720;
+.rheology-chart .axis {
+  stroke: #6b8f9c;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rheology-chart .axis-label {
+  fill: #c7dce1;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.rheology-chart .plot-label {
+  fill: #a0f4eb;
+  font-size: 17px;
+}
+
+#material.active:not(.motion-paused) .rheology-area {
+  animation: rheology-reveal .5s ease-out .68s both;
+}
+
+#material.active:not(.motion-paused) .rheology-chart-focus {
+  animation: rheology-reveal .32s ease-out .96s both;
+}
+
+@keyframes rheology-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .rheology-references {
@@ -201,7 +236,7 @@
   }
 
   .rheology-figure svg {
-    max-height: clamp(112px, 19dvh, 152px);
+    max-height: clamp(140px, 29dvh, 232px);
   }
 
   .rheology-references {
@@ -219,10 +254,8 @@
     grid-template-columns: 1fr;
   }
 
-  .rheology-figure .axis-label,
-  .rheology-figure .plot-label,
-  .rheology-figure .bridge-label {
-    font-size: 17px;
+  .rheology-figure svg {
+    max-height: none;
   }
 
   .rheology-references {
@@ -238,6 +271,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #material.active .rheology-area,
+  #material.active .rheology-chart-focus,
   #material.active .bridge-spray,
   #material.active .bridge-coat {
     animation: none !important;

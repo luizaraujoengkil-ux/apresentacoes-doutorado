@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="evidence-flow.css?v=2" />
   <link rel="stylesheet" href="evidence-couriers.css?v=2" />
   <link rel="stylesheet" href="maturity-flight.css?v=1" />
-  <link rel="stylesheet" href="rheology-example.css?v=2" />
+  <link rel="stylesheet" href="rheology-example.css?v=3" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -255,11 +255,11 @@
       </div>
     </section>
 
-    <section class="slide" id="material" data-title="A janela do material" aria-labelledby="title-material">
+    <section class="slide" id="material" data-title="Como a argamassa fica sob a ponte?" aria-labelledby="title-material">
       <div class="slide-inner material-explainer">
         <p class="eyebrow">04 / MATERIAL</p>
-        <h2 id="title-material">Escoar no bico. <em>Manter a camada na ponte.</em></h2>
-        <p class="rheology-lead">Um exemplo de aplicação na face inferior do tabuleiro.</p>
+        <h2 id="title-material">Como a argamassa <em>fica sob a ponte?</em></h2>
+        <p class="rheology-lead">A mesma mistura precisa fluir pelo bico e recuperar consistência no tabuleiro.</p>
 
         <div class="rheology-steps">
           <article class="rheology-step">
@@ -267,17 +267,29 @@
               <span class="rheology-stage">01</span>
               <h3>No tubo e no bico</h3>
             </header>
-            <p class="rheology-step-copy">Quando as camadas da mistura deslizam mais depressa umas sobre as outras, a viscosidade aparente cai. É o comportamento <strong>pseudoplástico</strong>.</p>
+            <p class="rheology-step-copy">Com mais cisalhamento, a viscosidade aparente cai e a mistura flui mais facilmente. É o comportamento <strong>pseudoplástico</strong>.</p>
             <figure class="rheology-figure">
-              <svg viewBox="0 0 500 210" role="img" aria-label="Curva ilustrativa. A viscosidade aparente diminui à medida que aumenta a taxa de cisalhamento.">
-                <path d="M68 19V165H466" class="axis"/>
-                <path d="M68 45H466M68 85H466M68 125H466" fill="none" stroke="#24414b" stroke-width="1" stroke-dasharray="4 5"/>
-                <path d="M86 34 C135 41 166 78 215 104 S361 141 441 147" class="curve" pathLength="1"/>
-                <text x="268" y="193" text-anchor="middle" class="axis-label">Taxa de cisalhamento</text>
-                <text x="24" y="94" transform="rotate(-90 24 94)" text-anchor="middle" class="axis-label">Viscosidade aparente</text>
-                <text x="455" y="114" text-anchor="end" class="plot-label">Escoa com mais facilidade</text>
+              <svg class="rheology-chart" viewBox="0 0 520 210" role="img" aria-label="Curva ilustrativa. A viscosidade aparente diminui à medida que aumenta a taxa de cisalhamento.">
+                <defs>
+                  <linearGradient id="rheology-area" x2="0" y2="1">
+                    <stop stop-color="#65ddd5" stop-opacity=".25"/>
+                    <stop offset="1" stop-color="#65ddd5" stop-opacity=".04"/>
+                  </linearGradient>
+                </defs>
+                <path d="M38 54H488 M38 91H488 M38 129H488 M125 46V169 M213 46V169 M301 46V169 M389 46V169 M477 46V169" class="rheology-grid"/>
+                <path d="M38 42V169H495 M34 48l4-6 4 6 M489 165l6 4-6 4" class="axis"/>
+                <path class="rheology-area" d="M39 56 C108 65 120 104 195 126 S366 147 475 153 V168 H39Z" fill="url(#rheology-area)"/>
+                <path d="M39 56 C108 65 120 104 195 126 S366 147 475 153" class="curve" pathLength="1"/>
+                <text x="36" y="28" class="axis-label">Viscosidade aparente</text>
+                <text x="488" y="197" text-anchor="end" class="axis-label">Taxa de cisalhamento</text>
+                <g class="rheology-chart-focus">
+                  <path d="M475 113V144" fill="none" stroke="#65ddd5" stroke-width="1.5" stroke-dasharray="3 4"/>
+                  <circle cx="475" cy="153" r="6.5" fill="#65ddd5" stroke="#081b26" stroke-width="2.5"/>
+                  <rect x="292" y="75" width="196" height="37" rx="8" fill="#133943" stroke="#2b6168"/>
+                  <text x="390" y="99" text-anchor="middle" class="plot-label">Menor viscosidade</text>
+                </g>
               </svg>
-              <figcaption class="rheology-caption">Tendência durante o bombeamento</figcaption>
+              <figcaption class="rheology-caption">Curva ilustrativa do escoamento</figcaption>
             </figure>
           </article>
 
@@ -286,36 +298,88 @@
               <span class="rheology-stage">02</span>
               <h3>Na face inferior da ponte</h3>
             </header>
-            <p class="rheology-step-copy">Depois da deposição, o cisalhamento cai. A argamassa recupera consistência e resiste ao escorrimento. É a <strong>recuperação tixotrópica</strong>.</p>
+            <p class="rheology-step-copy">Após a projeção, a mistura volta a ganhar consistência e resiste ao escorrimento. É a <strong>recuperação tixotrópica</strong>.</p>
             <figure class="rheology-figure">
-              <svg viewBox="0 0 500 210" role="img" aria-label="Corte esquemático de uma ponte. O bico aplica argamassa para cima e a camada permanece na face inferior do tabuleiro.">
+              <svg class="rheology-scene" viewBox="0 0 520 210" role="img" aria-label="Esquema de um multirrotor com cartucho, mangueira e bico voltado para cima. O jato aplica argamassa na face inferior do tabuleiro.">
                 <defs>
-                  <pattern id="bridge-aggregate" width="34" height="25" patternUnits="userSpaceOnUse">
-                    <path d="m5 5 3-1 2 2-2 3-3-1zm14 8 4-2 3 2-2 3-4-1zm10-9 2 1-1 3-2-1z" fill="#a2adb0" opacity=".38"/>
-                    <circle cx="10" cy="19" r="1.3" fill="#354c55"/><circle cx="32" cy="20" r="1.8" fill="#354c55"/>
-                  </pattern>
-                  <linearGradient id="bridge-jet" x1="0" y1="1" x2="1" y2="0">
-                    <stop stop-color="#e8c289" stop-opacity=".35"/><stop offset="1" stop-color="#f2ca8d" stop-opacity=".76"/>
+                  <linearGradient id="rheo-slab" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                    <stop stop-color="#768991"/><stop offset="1" stop-color="#425963"/>
                   </linearGradient>
+                  <pattern id="rheo-stone" width="47" height="23" patternUnits="userSpaceOnUse">
+                    <path d="m4 6 5-3 5 4-4 3zm22 8 5-3 5 4-3 4zm14-11 3-2 3 2-3 3z" fill="#b6c6c9" opacity=".48"/>
+                    <path d="m15 18 3-3 6 4-4 2zm24-9 4-2 2 3-4 2z" fill="#263e49" opacity=".64"/>
+                    <circle cx="3" cy="17" r="1.7" fill="#324851"/><circle cx="24" cy="5" r="1.4" fill="#c0c9c8"/>
+                  </pattern>
+                  <linearGradient id="rheo-shell" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                    <stop stop-color="#a3b4ba"/><stop offset=".37" stop-color="#637c86"/><stop offset="1" stop-color="#243b47"/>
+                  </linearGradient>
+                  <linearGradient id="rheo-metal" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                    <stop stop-color="#e0ebec"/><stop offset=".43" stop-color="#92a7ae"/><stop offset="1" stop-color="#506673"/>
+                  </linearGradient>
+                  <linearGradient id="rheo-jet" x1="313" y1="109" x2="340" y2="63" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#f9cc83"/><stop offset="1" stop-color="#f9cc83" stop-opacity=".24"/>
+                  </linearGradient>
+                  <pattern id="rheo-repair" width="22" height="8" patternUnits="userSpaceOnUse">
+                    <rect width="22" height="8" fill="#e4ad65"/>
+                    <path d="M2 4l3-1m4 4 3-1m4-3 3-1" stroke="#a86a31" stroke-width="1.2" stroke-linecap="round"/>
+                  </pattern>
                 </defs>
-                <path d="M46 32H454V88H46Z" fill="#65777e" stroke="#a9b5b8" stroke-width="1.5"/>
-                <path d="M46 32H454V88H46Z" fill="url(#bridge-aggregate)"/>
-                <path d="M46 88H454" stroke="#bed0d3" stroke-width="2"/>
-                <text x="250" y="64" text-anchor="middle" fill="#fff" font-weight="750" font-size="17">Tabuleiro da ponte</text>
+                <path d="M23 20h474v42H23z" fill="url(#rheo-slab)" stroke="#9dafb2"/>
+                <path d="M23 20h474v42H23z" fill="url(#rheo-stone)"/>
+                <path d="M23 21h474M23 62h474" fill="none" stroke="#b5c5c7"/>
+                <rect x="41" y="30" width="102" height="23" rx="4" fill="#263e48"/>
+                <text x="52" y="47" fill="#f1f6f7" font-size="17" font-weight="760">Tabuleiro</text>
 
                 <g class="bridge-spray">
-                  <path d="M167 157 Q204 122 238 95 L319 95 Q251 112 167 157Z" fill="url(#bridge-jet)"/>
-                  <path d="M167 157 264 94M169 156 282 95M171 155 248 96" fill="none" stroke="#e9c58f" stroke-width="1.5" stroke-linecap="round"/>
-                  <g fill="#f1d3a6"><circle cx="234" cy="105" r="2"/><circle cx="253" cy="102" r="2.4"/><circle cx="289" cy="101" r="1.8"/><circle cx="300" cy="108" r="1.5"/></g>
+                  <path d="M313 109Q311 86 304 65L374 65Q344 79 313 109Z" fill="url(#rheo-jet)"/>
+                  <path d="M313 109 331 67M313 109 349 69M313 109 315 72" fill="none" stroke="#ffe0aa" stroke-width="1.2" opacity=".86"/>
+                  <g fill="#ffe0aa"><circle cx="320" cy="73" r="1.8"/><circle cx="337" cy="74" r="1.5"/><circle cx="351" cy="76" r="1.4"/><circle cx="312" cy="78" r="1.1"/><circle cx="330" cy="86" r="1.2"/><circle cx="306" cy="70" r="1.1"/></g>
                 </g>
-                <path class="bridge-coat" d="M237 93H352" pathLength="1" fill="none" stroke="#e7b671" stroke-width="9" stroke-linecap="round"/>
-                <path d="M71 193 124 164 151 169 104 195Z" fill="#4f646d" stroke="#78919b" stroke-width="1.5"/>
-                <path d="m121 165 27-15 22 6-19 14z" fill="#c2d2d6" stroke="#75909a" stroke-width="1.5"/>
-                <text x="83" y="154" text-anchor="middle" fill="#b4cbd2" font-size="16">Bico</text>
-                <path d="M342 101v31h18" fill="none" stroke="#e7b671" stroke-width="1.5"/>
-                <text x="365" y="136" fill="#f0cd99" font-size="16" font-weight="700">Camada</text>
+                <path class="bridge-coat" d="M293 61h93l-3 7-8 2h-74l-6-4z" fill="url(#rheo-repair)" stroke="#ffca82" stroke-width="1.1"/>
+                <path d="M387 68h17l11 10" fill="none" stroke="#e4ad65" stroke-width="1.3"/>
+                <text x="410" y="96" text-anchor="middle" fill="#f7d7a7" font-size="16" font-weight="720">Camada de</text>
+                <text x="410" y="114" text-anchor="middle" fill="#f7d7a7" font-size="16" font-weight="720">argamassa</text>
+
+                <g stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M142 142 99 120m136 17 27-20" fill="none" stroke="#45606d" stroke-width="7"/>
+                  <path d="M75 115h51m106-3h52" fill="none" stroke="#77909a" stroke-opacity=".8" stroke-width="2.8"/>
+                  <path d="M97 113v11m161-14v12" stroke="#9bafb6" stroke-width="5"/>
+                  <path d="m147 149-80-6m138 7 72-7" fill="none" stroke="#425c68" stroke-width="10"/>
+                  <path d="m147 147-80-6m138 7 72-7" fill="none" stroke="#81959e" stroke-width="2"/>
+                  <g fill="url(#rheo-metal)" stroke="#afc0c4" stroke-width=".8">
+                    <rect x="57" y="132" width="21" height="15" rx="3"/>
+                    <rect x="267" y="132" width="21" height="15" rx="3"/>
+                  </g>
+                  <path d="M26 131q18-5 38-2l40 3q-18 5-39 2zm209 0q18-5 38-2l40 3q-18 5-39 2z" fill="#92aab3" fill-opacity=".87"/>
+                  <path d="m128 157-11 36m106-36 15 36m-137 0h52m63 0h47" fill="none" stroke="#74909c" stroke-width="4"/>
+                  <path d="m117 145 29-16h52l27 12 7 13-14 11h-78l-23-12z" fill="url(#rheo-shell)" stroke="#aebec4" stroke-width="1.25"/>
+                  <path d="m137 143 13-8h47l19 7-11 7h-63z" fill="#b7c5c8"/>
+                  <path d="M155 151h48m-39 4h29" stroke="#203641" stroke-width="2"/>
+                  <path d="M220 153h5m-103-4h6" stroke="#72ded4" stroke-width="2.2"/>
+
+                  <path d="M226 174h32q18 0 27-14l8-11" fill="none" stroke="#101d25" stroke-width="9"/>
+                  <path d="M226 174h32q18 0 27-14l8-11" fill="none" stroke="#c3a476" stroke-width="4"/>
+                  <rect x="144" y="162" width="92" height="24" rx="10" fill="url(#rheo-metal)" stroke="#bccbd0"/>
+                  <rect x="162" y="165" width="55" height="18" rx="3" fill="#263e48"/>
+                  <path d="M168 175h43" stroke="#dcb17e" stroke-width="5"/>
+                  <path d="M153 162v24m73-24v24" stroke="#445c69" stroke-width="4"/>
+                  <path d="M229 161h40l19-16" fill="none" stroke="#90a6af" stroke-width="4"/>
+
+                  <g transform="translate(292 149) rotate(28)">
+                    <path d="M-9 3V-9l2-7h14l2 7V3z" fill="url(#rheo-shell)" stroke="#d5dee0"/>
+                    <path d="M-8-15v-8h16v8z" fill="url(#rheo-metal)" stroke="#d5dee0"/>
+                    <path d="M-6-23-3-41h6l3 18z" fill="url(#rheo-metal)" stroke="#d5dee0"/>
+                    <path d="M-3.8-41h7.6v-4h-7.6z" fill="#e1be88" stroke="#fae1b7"/>
+                    <path d="M-5-10H5m-3-14 1-14" stroke="#e7f0f1" stroke-width="1"/>
+                  </g>
+                </g>
+                <circle cx="303" cy="129" r="2.1" fill="#a9d3db"/>
+                <path d="M305 129h23l17 14h8" fill="none" stroke="#9ec5ce" stroke-width="1.2"/>
+                <text x="357" y="149" fill="#e2edf0" font-size="17" font-weight="740">Bico acoplado</text>
+                <path d="M219 180h100l22-11h12" fill="none" stroke="#819fa9" stroke-width="1.2"/>
+                <text x="357" y="175" fill="#c9dce0" font-size="16" font-weight="680">Cartucho</text>
               </svg>
-              <figcaption class="rheology-caption">Camada delgada na face inferior do tabuleiro</figcaption>
+              <figcaption class="rheology-caption">Projeção ascendente na face inferior do tabuleiro</figcaption>
             </figure>
           </article>
         </div>
