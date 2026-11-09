@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="rheology-example.css?v=4" />
   <link rel="stylesheet" href="projection-process.css?v=2" />
   <link rel="stylesheet" href="acceptance-scenes.css?v=1" />
+  <link rel="stylesheet" href="closing-scene.css?v=1" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -671,35 +672,234 @@
       </div>
     </section>
 
-    <section class="slide conclusion" id="conclusao" data-title="Síntese para decisão" aria-labelledby="title-end">
-      <div class="conclusion-art" aria-hidden="true">
-        <svg viewBox="0 0 860 620" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Corte ilustrativo de um painel com uma camada delgada aplicada e pontos de verificação">
-          <defs><linearGradient id="endbg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#163847"/><stop offset="1" stop-color="#071923"/></linearGradient></defs>
-          <rect width="860" height="620" fill="url(#endbg)"/>
-          <path d="M410 170 705 113 824 193 525 257Z" fill="#81939a"/>
-          <path d="M410 170 525 257 525 430 410 340Z" fill="#3a535e"/>
-          <path d="M525 257 824 193 824 358 525 430Z" fill="#586b75"/>
-          <g class="applied-patch">
-            <path d="M557 278 794 225 794 337 557 393Z" fill="#be813b"/>
-            <path d="M557 278 794 225 794 337 557 393Z" fill="none" stroke="#f2bd73" stroke-width="5"/>
-            <g fill="#a4eee7" stroke="#123643" stroke-width="5"><circle cx="600" cy="323" r="13"/><circle cx="676" cy="306" r="13"/><circle cx="752" cy="289" r="13"/></g>
+    <section class="slide closing-scene" id="conclusao" data-title="O próximo voo começa no painel" aria-labelledby="title-end">
+      <figure class="closing-visual" aria-label="Drone aplica uma camada delgada sob o tabuleiro. Depois do passe, o revestimento permanece em destaque.">
+        <svg class="closing-bridge-svg" viewBox="0 0 860 610" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="closing-sky" cx=".82" cy=".55" r=".8">
+              <stop stop-color="#315565"/>
+              <stop offset=".39" stop-color="#183541"/>
+              <stop offset=".77" stop-color="#0d202b"/>
+              <stop offset="1" stop-color="#081722"/>
+            </radialGradient>
+            <linearGradient id="closing-water" x2="0" y2="1">
+              <stop stop-color="#2e5260"/>
+              <stop offset=".22" stop-color="#203d4b"/>
+              <stop offset="1" stop-color="#091b27"/>
+            </linearGradient>
+            <linearGradient id="closing-deck-face" x1="190" y1="154" x2="811" y2="72" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#203847"/>
+              <stop offset=".54" stop-color="#506772"/>
+              <stop offset="1" stop-color="#8ea2a9"/>
+            </linearGradient>
+            <linearGradient id="closing-deck-bottom" x1="259" y1="303" x2="805" y2="133" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#142a36"/>
+              <stop offset=".38" stop-color="#334852"/>
+              <stop offset=".76" stop-color="#58656a"/>
+              <stop offset="1" stop-color="#788487"/>
+            </linearGradient>
+            <linearGradient id="closing-beam-web" x2="0" y2="1">
+              <stop stop-color="#253c46"/>
+              <stop offset=".55" stop-color="#4b626a"/>
+              <stop offset="1" stop-color="#324d57"/>
+            </linearGradient>
+            <linearGradient id="closing-beam-seat" x1="214" y1="320" x2="827" y2="258" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#243947"/>
+              <stop offset="1" stop-color="#71858a"/>
+            </linearGradient>
+            <linearGradient id="closing-column-front" x2="1" y2=".22">
+              <stop stop-color="#203944"/>
+              <stop offset=".7" stop-color="#516872"/>
+              <stop offset="1" stop-color="#74898d"/>
+            </linearGradient>
+            <linearGradient id="closing-column-side" x2="1" y2="0">
+              <stop stop-color="#182e3c"/>
+              <stop offset="1" stop-color="#395762"/>
+            </linearGradient>
+            <linearGradient id="closing-left-vignette" x2="1" y2="0">
+              <stop stop-color="#081722" stop-opacity=".86"/>
+              <stop offset=".34" stop-color="#081722" stop-opacity=".42"/>
+              <stop offset=".73" stop-color="#081722" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="closing-soffit-light" cx=".71" cy=".55" r=".37">
+              <stop stop-color="#eadfbe" stop-opacity=".26"/>
+              <stop offset=".54" stop-color="#d6c8a7" stop-opacity=".12"/>
+              <stop offset="1" stop-color="#e1d4ba" stop-opacity="0"/>
+            </radialGradient>
+            <clipPath id="closing-fascia-clip">
+              <path d="M126 188 860 32 860 144 155 228Z"/>
+            </clipPath>
+            <clipPath id="closing-soffit-clip">
+              <path d="M155 228 860 144 860 258 310 315Z"/>
+            </clipPath>
+            <clipPath id="closing-pier-clip">
+              <path d="M748 317 804 310 799 566 745 585Z M804 310 856 334 851 568 799 566Z"/>
+            </clipPath>
+            <clipPath id="closing-body-crop">
+              <path clip-rule="evenodd" d="M0 0H1881V836H0Z M1437 501 1463 517 1497 567 1530 654 1524 674 1497 673 1458 613 1410 583 1405 557 1410 538Z"/>
+            </clipPath>
+            <clipPath id="closing-tip-crop">
+              <path d="M1477 574 1493 591 1527 655 1524 670 1511 672 1485 635 1464 595Z"/>
+            </clipPath>
+            <clipPath id="closing-coat-reveal">
+              <rect class="closing-deposit-window" x="498" y="196" width="272" height="66"/>
+            </clipPath>
+            <linearGradient id="closing-mortar" x1="520" y1="233" x2="541" y2="270" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#e8c18c"/>
+              <stop offset=".62" stop-color="#c59a65"/>
+              <stop offset="1" stop-color="#815637"/>
+            </linearGradient>
+            <pattern id="closing-mortar-grain" width="24" height="13" patternUnits="userSpaceOnUse">
+              <path d="m3 8 3-1m4-4 5-1m2 7 4-1" fill="none" stroke="#76573d" stroke-width="1.1" stroke-linecap="round" opacity=".65"/>
+              <circle cx="9" cy="11" r="1" fill="#f5d5aa"/>
+            </pattern>
+            <linearGradient id="closing-jet-light" x1="494" y1="386" x2="523" y2="237" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffe5bd" stop-opacity=".91"/>
+              <stop offset=".43" stop-color="#f4cb94" stop-opacity=".65"/>
+              <stop offset="1" stop-color="#e8bf86" stop-opacity=".16"/>
+            </linearGradient>
+            <linearGradient id="closing-metal" x2="0" y2="1">
+              <stop stop-color="#d7e2e3"/>
+              <stop offset=".38" stop-color="#9aaeb6"/>
+              <stop offset="1" stop-color="#425762"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="860" height="610" fill="url(#closing-sky)"/>
+          <path d="M0 488 86 466 131 477 226 441 289 461 380 431 438 463 494 457 553 480 626 467 685 488 764 472 860 491V610H0Z" fill="#122a36"/>
+          <path d="M0 506 105 493 175 507 230 486 303 500 394 485 452 494 538 487 626 501 714 488 791 506 860 500V610H0Z" fill="url(#closing-water)"/>
+          <g fill="none" stroke="#9ac0c4" stroke-linecap="round">
+            <path d="M26 519h148m110-5h77m86 8h112m151-8h118m-267 40h77m91 18h95m-313 12h175" opacity=".17"/>
+            <path d="M372 535h18m76 17h39m101-16h88m-358 29h50m88 31h59m186 7h98" opacity=".1"/>
           </g>
-          <path d="M676 321v140h121" fill="none" stroke="#7cded7" stroke-width="3" stroke-dasharray="8 7"/>
-          <text x="796" y="485" fill="#b8d9df" font-family="system-ui" font-size="18" text-anchor="end">Verificar aderência e espessura</text>
+
+          <g opacity=".63">
+            <path d="M187 270 387 253 402 261 200 283Z" fill="#536a73"/>
+            <path d="M200 283 402 261V271L200 294Z" fill="#203946"/>
+            <path d="M298 282 318 279 317 464 299 471Z" fill="#33505c"/>
+            <path d="M318 279 330 285 329 464 317 464Z" fill="#1f3845"/>
+            <path d="M376 277 398 274 397 463 375 474Z" fill="#34515c"/>
+            <path d="M398 274 411 280 411 461 397 463Z" fill="#203946"/>
+          </g>
+
+          <path d="M511 304 545 300 542 511 510 523Z" fill="url(#closing-column-front)" opacity=".62"/>
+          <path d="M545 300 568 311 566 512 542 511Z" fill="url(#closing-column-side)" opacity=".76"/>
+          <path d="M496 298 540 287 576 300 572 323 530 332 495 321Z" fill="#3d5661"/>
+          <path d="M510 307 537 312 571 306" fill="none" stroke="#819399" stroke-opacity=".48"/>
+
+          <path d="M748 317 804 310 799 566 745 585Z" fill="url(#closing-column-front)"/>
+          <path d="M804 310 856 334 851 568 799 566Z" fill="url(#closing-column-side)"/>
+          <g clip-path="url(#closing-pier-clip)" opacity=".15">
+            <svg x="730" y="294" width="136" height="296" viewBox="900 30 840 790" preserveAspectRatio="none">
+              <image href="concreto-texturas-v3.jpg" width="1774" height="887"/>
+            </svg>
+          </g>
+          <path d="M747 383 802 375 854 394M746 468 800 455 853 465M746 544 799 527 852 532" fill="none" stroke="#a2b1b2" stroke-opacity=".22"/>
+          <path d="M804 335 800 563" stroke="#9aacaf" stroke-opacity=".56"/>
+          <path d="M705 280 790 265 860 280 860 324 801 348 715 319Z" fill="url(#closing-beam-web)"/>
+          <path d="M715 304 801 326 860 307V324L801 348 715 319Z" fill="#263e49"/>
+          <path d="M715 303 801 326 860 307" fill="none" stroke="#86999f" stroke-opacity=".5"/>
+          <path d="M728 280 760 276 765 290 734 294Z M791 268 820 271 825 287 793 283Z" fill="#152b37"/>
+
+          <path d="M155 228 860 144 860 258 310 315Z" fill="url(#closing-deck-bottom)"/>
+          <g clip-path="url(#closing-soffit-clip)">
+            <svg x="138" y="132" width="731" height="203" viewBox="35 26 820 840" preserveAspectRatio="none" opacity=".23">
+              <image href="concreto-texturas-v3.jpg" width="1774" height="887"/>
+            </svg>
+            <rect x="150" y="140" width="720" height="180" fill="url(#closing-soffit-light)"/>
+            <g fill="none" stroke="#243840" stroke-opacity=".35">
+              <path d="M229 219 376 308M375 201 521 293M530 182 671 279M690 163 828 262" stroke-width="2"/>
+              <path d="M202 249 860 169M244 272 860 198M285 297 860 229"/>
+            </g>
+          </g>
+          <path d="M155 228 860 144 860 167 186 246Z" fill="url(#closing-beam-web)"/>
+          <path d="M186 246 860 167V181L204 255Z" fill="url(#closing-beam-seat)"/>
+          <path d="M186 246 860 167" stroke="#b3c3bf" stroke-opacity=".35"/>
+          <path d="M293 306 860 244 860 262 311 326Z" fill="url(#closing-beam-web)"/>
+          <path d="M311 326 860 262 860 275 330 337Z" fill="url(#closing-beam-seat)"/>
+          <path d="M311 326 860 262" stroke="#a1afad" stroke-opacity=".38"/>
+          <path d="M330 337 860 275" stroke="#152d38" stroke-width="4" opacity=".8"/>
+
+          <path d="M126 188 860 32 860 144 155 228Z" fill="url(#closing-deck-face)"/>
+          <g clip-path="url(#closing-fascia-clip)">
+            <svg x="121" y="31" width="740" height="202" viewBox="894 13 851 850" preserveAspectRatio="none" opacity=".18">
+              <image href="concreto-texturas-v3.jpg" width="1774" height="887"/>
+            </svg>
+            <path d="M125 199 860 52M146 218 860 128" fill="none" stroke="#354b54" stroke-opacity=".53"/>
+            <path d="M289 154v58M416 128v71M554 96v87M697 69v96M822 40v111" fill="none" stroke="#263f4a" stroke-opacity=".36"/>
+            <path d="M290 156v54M417 130v66M555 97v84M698 69v94M823 42v107" fill="none" stroke="#c2cdcd" stroke-opacity=".2"/>
+            <path d="M216 203 860 99" fill="none" stroke="#c9d7d7" stroke-opacity=".19"/>
+          </g>
+          <path d="M125 187 860 31 860 42 129 192Z" fill="#8eaaa9" opacity=".72"/>
+          <path d="M155 228 860 144" fill="none" stroke="#c2d3d0" stroke-opacity=".42"/>
+          <g fill="none" stroke="#a7bdbd" opacity=".62" stroke-linecap="round">
+            <path d="M216 159 860 15M216 168 860 25" stroke-width="1.4"/>
+            <path d="M254 149v11m64-25v11m67-26v12m72-28v12m77-29v13m83-32v14m89-34v14m94-36v16" stroke-width="1.3"/>
+          </g>
+
+          <rect width="860" height="610" fill="url(#closing-left-vignette)"/>
+          <g class="closing-repair" clip-path="url(#closing-coat-reveal)">
+            <path d="M502 237Q510 233 524 233L736 211Q749 210 758 215L761 220 752 225 523 247Q508 249 502 244Z" fill="url(#closing-mortar)" stroke="#f5c98d" stroke-width="1.35"/>
+            <path d="M502 237Q510 233 524 233L736 211Q749 210 758 215L761 220 752 225 523 247Q508 249 502 244Z" fill="url(#closing-mortar-grain)"/>
+            <path d="M517 240 555 235m12-2 31-3m15-1 45-5m12-1 26-3m12-1 33-3" fill="none" stroke="#f4d3a5" stroke-opacity=".65" stroke-width="1.4" stroke-linecap="round"/>
+          </g>
+
+          <g class="closing-aircraft">
+            <g class="closing-jet">
+              <path d="M492 386Q503 309 509 237L539 234Q519 309 496 386Z" fill="url(#closing-jet-light)"/>
+              <path d="M494 386Q507 309 523 237m-28 149q18-76 33-130m-34 128q11-77 20-131" fill="none" stroke="#ffe5bd" stroke-width="1.45" stroke-opacity=".86" stroke-linecap="round"/>
+              <g class="closing-particles" fill="#ffebce">
+                <circle cx="501" cy="354" r="1.8"/><circle cx="505" cy="332" r="1.4"/><circle cx="514" cy="308" r="1.8"/>
+                <circle cx="512" cy="294" r="2"/><circle cx="523" cy="275" r="1.5"/><circle cx="510" cy="268" r="1.5"/>
+                <circle cx="524" cy="251" r="2.2"/><circle cx="530" cy="243" r="1.6"/><circle cx="515" cy="242" r="2"/>
+              </g>
+            </g>
+            <g transform="translate(104.82 186.31) scale(1.08)">
+              <g class="closing-drone-body" transform="translate(26 181) scale(.164)">
+                <image href="drone-reparo-v3.png" width="1881" height="836" clip-path="url(#closing-body-crop)"/>
+              </g>
+              <g stroke-linecap="round" stroke-linejoin="round">
+                <path d="M248 253 314 247 345 232 350 239 317 254 248 260Z" fill="#3b4e58" stroke="#8799a2" stroke-width="1.3"/>
+                <path d="M258 267C286 272 310 272 327 258Q339 248 349 235" fill="none" stroke="#17252c" stroke-width="9"/>
+                <path d="M258 267C286 272 310 272 327 258Q339 248 349 235" fill="none" stroke="#bd9a6c" stroke-width="4"/>
+                <path d="M258 266l-8-4" fill="none" stroke="#9eaeb5" stroke-width="5.6"/>
+                <circle cx="344" cy="237" r="5.4" fill="#4c616b" stroke="#aabcc2" stroke-width="1"/>
+              </g>
+              <g transform="translate(351 233) rotate(11)" stroke-linejoin="round">
+                <path d="M-8 3v-12l2-5h12l2 5V3Z" fill="#435763" stroke="#a6b9c2"/>
+                <path d="M-5-13v-11l1.5-7h7l1.5 7v11Z" fill="url(#closing-metal)" stroke="#c1cdd2"/>
+                <path d="M-5-18h10M-4-23h8" fill="none" stroke="#dbe5e7" stroke-opacity=".7"/>
+              </g>
+              <g transform="translate(360.35 184.9) rotate(-140.1) scale(.24) translate(-1515 -659)">
+                <image href="drone-reparo-v3.png" width="1881" height="836" clip-path="url(#closing-tip-crop)"/>
+              </g>
+            </g>
+          </g>
+
+          <g class="closing-inspection" font-family="system-ui, sans-serif">
+            <path d="M696 223v56l-34 36h-34v21" fill="none" stroke="#9df2e6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="696" cy="223" r="8.6" fill="#132f3a" stroke="#a6f0e8" stroke-width="1.6"/>
+            <circle cx="696" cy="223" r="3.7" fill="#a6f0e8"/>
+            <rect x="497" y="336" width="263" height="68" rx="11" fill="#0b2330" fill-opacity=".94" stroke="#538b8f" stroke-width="1.4"/>
+            <path d="M511 350v41" stroke="#7be6d9" stroke-width="3" stroke-linecap="round"/>
+            <text x="523" y="359" fill="#9bd5d1" font-size="13" font-weight="800" letter-spacing="2.3">PRIMEIRO ENSAIO</text>
+            <text x="523" y="386" fill="#f1f9f9" font-size="21" font-weight="740">Revestimento delgado</text>
+          </g>
         </svg>
-      </div>
-      <div class="conclusion-shade"></div>
-      <div class="conclusion-content">
-        <p class="eyebrow">07 / SÍNTESE</p>
-        <h2 id="title-end">O primeiro ensaio é com <em>revestimento delgado</em></h2>
-        <ul class="takeaways">
-          <li><b>Começar</b><span>por revestimentos cimentícios delgados em painéis verticais e intradorsos.</span></li>
-          <li><b>Qualificar</b><span>material, equipamento, substrato e processo como um único sistema.</span></li>
-          <li><b>Avançar</b><span>somente com aderência, estabilidade, durabilidade, repetibilidade e segurança comprovadas.</span></li>
+      </figure>
+      <div class="closing-content">
+        <p class="eyebrow">07 / PERSPECTIVAS</p>
+        <h2 id="title-end">O próximo voo<br/><em>começa no painel.</em></h2>
+        <p class="closing-lead">Ensaiar um revestimento delgado em painéis verticais e de intradorso.</p>
+        <ul class="closing-tests" aria-label="O que validar">
+          <li>Aderência</li><li>Estabilidade</li><li>Durabilidade</li>
         </ul>
-        <p class="closing-line">O acesso aéreo pode reduzir a exposição humana. Os ensaios do produto aplicado orientam a aceitação.</p>
-        <a class="primary-button" href="artigo-aprovado.pdf" target="_blank" rel="noopener">Ler artigo aprovado (PDF) ↗</a>
-        <span class="source-tag cover-tag">Ilustração conceitual · conclusão do artigo</span>
+        <p class="closing-next">Com o desempenho validado, demonstrar em um elemento representativo.</p>
+        <p class="closing-outlook">A recomposição do cobrimento e o reparo estrutural ainda exigem novas evidências.</p>
+        <div class="closing-actions">
+          <a class="primary-button" href="artigo-aprovado.pdf" target="_blank" rel="noopener">Ler o artigo (PDF) ↗</a>
+          <span>Obrigado.</span>
+        </div>
       </div>
     </section>
   </main>
