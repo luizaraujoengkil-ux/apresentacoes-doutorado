@@ -7,6 +7,11 @@
   const fullscreen = document.getElementById('fullscreen');
   const replay = document.getElementById('replay');
   const evidenceAirspace = document.querySelector('.evidence-airspace');
+  const maturityAirspace = document.querySelector('.maturity-airspace');
+  const flightLayouts = {
+    evidencias: layoutEvidenceFlight,
+    maturidade: layoutMaturityFlight,
+  };
   let current = Math.max(0, slides.findIndex(s => `#${s.id}` === location.hash));
 
   slides.forEach((slide, index) => {
@@ -25,7 +30,7 @@
       slide.classList.toggle('active', i === current);
       slide.setAttribute('aria-hidden', i === current ? 'false' : 'true');
     });
-    if (slides[current].id === 'evidencias') layoutEvidenceFlight();
+    flightLayouts[slides[current].id]?.();
     [...markers.children].forEach((button, i) => {
       button.classList.toggle('active', i === current);
       button.setAttribute('aria-current', i === current ? 'step' : 'false');
@@ -47,7 +52,7 @@
 
   function replayMotion() {
     const slide = slides[current];
-    if (slide.id === 'evidencias') layoutEvidenceFlight();
+    flightLayouts[slide.id]?.();
     slide.classList.add('motion-paused');
     void slide.offsetWidth;
     slide.classList.remove('motion-paused');
@@ -77,6 +82,30 @@
         area.top + area.height / 2 - sprite.height * .29 - jet.height * .88);
     });
     evidenceAirspace.classList.add('flight-ready');
+  }
+
+  function layoutMaturityFlight() {
+    const bounds = maturityAirspace.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    const aircraft = maturityAirspace.querySelector('.maturity-aircraft');
+    const sprite = aircraft.getBoundingClientRect();
+    const jet = aircraft.querySelector('.maturity-jet').getBoundingClientRect();
+    const scale = maturityAirspace.parentElement;
+
+    scale.querySelectorAll('.band').forEach((band, index) => {
+      const area = band.getBoundingClientRect();
+      const mark = band.firstElementChild;
+      const nozzleOffsetX = sprite.width * .303 + jet.width * .85;
+      const nozzleOffsetY = sprite.height * .293 + jet.height * .9;
+      for (const edge of ['start', 'end']) {
+        const fraction = parseFloat(mark.style.getPropertyValue(`--${edge}`)) / 100;
+        const x = area.left - bounds.left + area.width * fraction - nozzleOffsetX;
+        maturityAirspace.style.setProperty(`--draw-${index + 1}-${edge}`, `${x}px`);
+      }
+      const y = area.top - bounds.top + area.height / 2 - nozzleOffsetY;
+      maturityAirspace.style.setProperty(`--draw-${index + 1}-y`, `${y}px`);
+    });
+    scale.classList.add('chart-flight-ready');
   }
 
   async function toggleFullscreen() {
@@ -138,7 +167,9 @@
     const found = slides.findIndex(s => `#${s.id}` === location.hash);
     if (found >= 0) show(found, false);
   });
-  new ResizeObserver(layoutEvidenceFlight).observe(evidenceAirspace.parentElement);
+  const flightResize = new ResizeObserver(() => flightLayouts[slides[current].id]?.());
+  flightResize.observe(evidenceAirspace.parentElement);
+  flightResize.observe(maturityAirspace.parentElement);
   show(current, !location.hash);
 
   const repairCover = document.querySelector('.repair-cover');
