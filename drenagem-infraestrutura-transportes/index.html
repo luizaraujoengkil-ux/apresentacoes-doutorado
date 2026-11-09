@@ -9,7 +9,7 @@
   <meta property="og:description" content="Apresentação final e acesso ao artigo entregue.">
   <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets-final/ponte-drenagem-conceitual.png">
   <title>Manutenção preventiva da drenagem de OAEs | IME</title>
-  <link rel="stylesheet" href="final.css?v=2">
+  <link rel="stylesheet" href="final.css?v=3">
   <link rel="stylesheet" href="rede-bibliometrica.css?v=3">
   <link rel="stylesheet" href="problema.css?v=5">
   <link rel="stylesheet" href="exposicao-es.css">
@@ -396,13 +396,12 @@
       <div class="demo-copy">
         <header class="slide-head">
           <p class="eyebrow">06 / Demonstração ao vivo</p>
-          <h2 id="titulo-demo">Da planta à <em>primeira inspeção</em></h2>
+          <h2 id="titulo-demo">Do histórico <em>à decisão</em></h2>
         </header>
-        <p class="demo-intro">Vamos cadastrar uma ponte fictícia e registrar sua primeira inspeção de drenagem.</p>
+        <p class="demo-intro">Cadastre uma ponte fictícia, registre a obstrução de um dreno e confira a inspeção no Histórico.</p>
         <ol class="demo-steps">
-          <li><span>Cadastrar a OAE em <strong>Minhas OAEs</strong></span></li>
-          <li>Localizar dois drenos na planta</li>
-          <li>Registrar uma obstrução observada</li>
+          <li>Qual dreno deve receber atenção primeiro?</li>
+          <li>Quando a curva cruza o limiar de alerta?</li>
         </ol>
         <a class="button demo-open" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/minhas-oaes" target="_blank" rel="noopener" aria-describedby="demo-link-note">Abrir aplicativo <span aria-hidden="true">↗</span></a>
         <p class="demo-link-note" id="demo-link-note">Abre o cadastro em uma nova aba.</p>
@@ -412,54 +411,30 @@
           <div class="demo-frame-bar"><span>Drenagem OAE</span><span>Visão geral</span></div>
           <img src="assets-final/demo-app-planta.webp" width="1105" height="673" alt="Planta da ponte fictícia no aplicativo, com os drenos D01, D02 e D03 marcados no tabuleiro">
         </div>
-        <figcaption>Planta da ponte de demonstração que já vem cadastrada no protótipo.</figcaption>
+        <figcaption>A ponte de demonstração já tem dados fictícios para priorização e prognóstico. <a href="assets-final/modelo.webp" target="_blank" rel="noopener">Modelo BrIM do artigo (Fig. 1) ↗</a></figcaption>
       </figure>
     </section>
 
-    <section class="slide" id="brim" aria-labelledby="titulo-brim" hidden>
-      <header class="slide-head"><p class="eyebrow">07 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
-      <div class="split figure-wide">
-        <div class="logic">
-          <p><b>E</b> Exposição relativa à chuva</p><p><b>C</b> Deficiência funcional observada</p><p><b>K</b> Consequência potencial</p><p><b>U</b> Qualidade e incerteza da evidência</p>
-          <p class="note">E combina três escores obtidos com pesos iguais, entropia de Shannon e análise de componentes principais.</p>
-        </div>
-        <figure class="figure"><a href="assets-final/modelo.webp" target="_blank" rel="noopener"><img src="assets-final/modelo.webp" alt="Estrutura BrIM que relaciona exposição, condição e consequência a cada dispositivo e ao seu histórico"></a><figcaption>Figura 1 do artigo · Estrutura informacional e encaminhamentos.</figcaption></figure>
-      </div>
-    </section>
-
-    <section class="slide" id="priorizacao" aria-labelledby="titulo-pareto" hidden>
-      <header class="slide-head"><p class="eyebrow">08 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
-      <div class="split figure-wide">
-        <div>
-          <table><caption>Frentes de Pareto · mesma exposição E = 70</caption><thead><tr><th>Dispositivo</th><th>C</th><th>K</th><th>Frente</th></tr></thead><tbody><tr><th scope="row">D02</th><td>2</td><td>3</td><td class="accent">F1</td></tr><tr><th scope="row">D03</th><td>1</td><td>2</td><td>F2</td></tr><tr><th scope="row">D01</th><td>0</td><td>1</td><td>F3</td></tr></tbody></table>
-          <p class="note">O D02 ocupa a primeira frente por reunir maior deficiência e maior consequência neste cenário.</p>
-          <a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/#risk" target="_blank" rel="noopener">Abrir priorização no protótipo ↗</a>
-        </div>
-        <figure class="figure"><a href="assets-final/planta.webp" target="_blank" rel="noopener"><img src="assets-final/planta.webp" alt="Planta da ponte de demonstração com posição dos drenos, caimento e pontos de retenção"></a><figcaption>Quadro 2 e Figura B4 do artigo · Exercício demonstrativo.</figcaption></figure>
-      </div>
-    </section>
-
-    <section class="slide" id="prognostico" aria-labelledby="titulo-prognostico" hidden>
-      <header class="slide-head"><p class="eyebrow">09 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
-      <div class="split figure-wide">
-        <div>
-          <p class="big-number">27,2%</p><p class="lead">Probabilidade estimada de perda de função nos 90 dias seguintes, dado que o D02 estava funcional no dia 60.</p>
-          <p class="note">Kaplan–Meier · 24 acompanhamentos simulados, com 11 perdas e 13 censuras à direita. O limiar ilustrativo de 25% foi cruzado após 84 dias da referência.</p>
-          <a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/#survival" target="_blank" rel="noopener">Abrir prognóstico no protótipo ↗</a>
-        </div>
-        <figure class="figure"><a href="assets-final/prognostico.webp" target="_blank" rel="noopener"><img src="assets-final/prognostico.webp" alt="Curva de probabilidade de perda de função de D02 com o marco e a faixa de alerta"></a><figcaption>Figura B6 do artigo · Curva e faixa de alerta no exercício simulado.</figcaption></figure>
-      </div>
-    </section>
-
     <section class="slide close" id="contribuicao" aria-labelledby="titulo-final" hidden>
-      <header class="slide-head"><p class="eyebrow">10 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
-      <div class="steps">
-        <div><b>01</b><h3>Registrar</h3><p>Vincular inspeções, evidências e intervenções ao dispositivo.</p></div>
-        <div><b>02</b><h3>Priorizar</h3><p>Documentar as frentes de manutenção e a origem de cada evidência.</p></div>
-        <div><b>03</b><h3>Acompanhar</h3><p>Atualizar estimativas e compará-las com novos registros de campo.</p></div>
+      <div class="split closing-layout">
+        <div class="closing-copy">
+          <header class="slide-head">
+            <p class="eyebrow">07 / Encerramento</p>
+            <h2 id="titulo-final">Um histórico rastreável para a <em>manutenção preventiva</em></h2>
+          </header>
+          <ul class="closing-points">
+            <li><strong>Registrar</strong> inspeções e intervenções por dreno.</li>
+            <li><strong>Priorizar</strong> com base em exposição, deficiência e consequência.</li>
+            <li><strong>Acompanhar</strong> a chance de perda de função ao longo do tempo.</li>
+          </ul>
+          <p class="closing-note">Registros de campo são o próximo passo para testar as prioridades e avaliar as estimativas.</p>
+          <div class="actions"><a class="button pdf" href="artigo-entregue.pdf" target="_blank" rel="noopener">Ler artigo entregue (PDF) ↗</a><a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Abrir protótipo ↗</a></div>
+        </div>
+        <figure class="closing-figure">
+          <img src="assets-final/durabilidade-armadura.webp" width="1448" height="1086" alt="Corte de um tabuleiro com água acumulada junto ao dreno, umidade na fissura e barras de aço corroídas expostas pelo destacamento do concreto.">
+          <figcaption>Corte ilustrativo do tabuleiro com empoçamento junto ao dreno, fissura e corrosão da armadura.</figcaption>
+        </figure>
       </div>
-      <p class="note">A exportação JSON preserva os vínculos e prepara a integração com sistemas de gestão, BrIM e gêmeos digitais.</p>
-      <div class="actions"><a class="button pdf" href="artigo-entregue.pdf" target="_blank" rel="noopener">Ler artigo entregue (PDF) ↗</a><a class="button" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Abrir protótipo ↗</a></div>
     </section>
   </main>
 
@@ -467,7 +442,7 @@
     <button type="button" id="previous" aria-label="Slide anterior">←</button>
     <div class="markers" id="markers" role="group" aria-label="Escolher slide"></div>
     <button type="button" id="next" aria-label="Próximo slide">→</button>
-    <span id="counter" aria-live="polite">01 / 11</span>
+    <span id="counter" aria-live="polite">01 / 08</span>
     <button type="button" id="fullscreen" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
 </body>

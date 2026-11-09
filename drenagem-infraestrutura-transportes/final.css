@@ -165,6 +165,17 @@ th, td { padding: 9px 7px; border-bottom: 1px solid var(--edge); }
 .demo-frame-bar span:first-child { color: var(--ink); font-weight: 700; }
 .demo-frame img { display: block; width: 100%; height: auto; border-radius: 10px; }
 .demo-preview figcaption { margin-top: 12px; line-height: 1.4; }
+.closing-layout { gap: clamp(18px, 3vw, 45px); }
+.closing-copy { display: grid; gap: clamp(12px, 2vh, 22px); }
+.closing-copy h2 { font-size: clamp(2rem, 3.65vw, 3.85rem); text-wrap: initial; }
+.closing-points { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.closing-points li { padding-top: 8px; border-top: 1px solid var(--edge); font-size: clamp(.96rem, 1.35vw, 1.28rem); line-height: 1.35; }
+.closing-points strong { color: var(--accent); }
+.closing-note { color: var(--muted); font-size: clamp(.87rem, 1.15vw, 1.04rem); }
+.closing-copy .button { margin-top: 0; }
+.closing-figure { margin: 0; min-width: 0; }
+.closing-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--edge); border-radius: 12px; }
+.closing-figure figcaption { margin-top: 8px; line-height: 1.4; }
 @media screen and (prefers-reduced-motion: no-preference) {
   .demo-slide:not([hidden]) .demo-preview { animation: demo-appear .65s ease-out both; }
   @keyframes demo-appear {
@@ -187,6 +198,7 @@ th, td { padding: 9px 7px; border-bottom: 1px solid var(--edge); }
   body { padding: 0 10px; }
   .bar { position: sticky; top: 0; z-index: 2; background: var(--body); min-height: 54px; }
   .slide { min-height: calc(100svh - 109px); border-radius: 12px; }
+  .slide.close { scroll-margin-top: 54px; }
   .split { grid-template-columns: 1fr; }
   .slide.demo-slide { grid-template-columns: 1fr; align-content: center; }
   .figure img { width: 100%; height: auto; max-height: 310px; }
