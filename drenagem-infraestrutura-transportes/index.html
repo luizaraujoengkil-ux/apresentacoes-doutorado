@@ -9,7 +9,7 @@
   <meta property="og:description" content="Apresentação final e acesso ao artigo entregue.">
   <meta property="og:image" content="https://apresentacoes-doutorado.pages.dev/drenagem-infraestrutura-transportes/assets-final/ponte-drenagem-conceitual.png">
   <title>Manutenção preventiva da drenagem de OAEs | IME</title>
-  <link rel="stylesheet" href="final.css">
+  <link rel="stylesheet" href="final.css?v=2">
   <link rel="stylesheet" href="rede-bibliometrica.css?v=3">
   <link rel="stylesheet" href="problema.css?v=5">
   <link rel="stylesheet" href="exposicao-es.css">
@@ -392,8 +392,32 @@
 <div class="panel" data-metodos-conteudo="5" hidden><p class="number">5</p><h2>Obras no piloto documental</h2><p>Os círculos destacam as obras consultadas. Os registros disponíveis por dreno foram insuficientes para avaliar o prognóstico em campo.</p></div>
 </div></div><p class="caption">Fontes do estudo · DNIT/GEOBASES · HidroWeb/ANA · Malha do IBGE</p></section>
 
+    <section class="slide demo-slide" id="demonstracao" aria-labelledby="titulo-demo" hidden>
+      <div class="demo-copy">
+        <header class="slide-head">
+          <p class="eyebrow">06 / Demonstração ao vivo</p>
+          <h2 id="titulo-demo">Da planta à <em>primeira inspeção</em></h2>
+        </header>
+        <p class="demo-intro">Vamos cadastrar uma ponte fictícia e registrar sua primeira inspeção de drenagem.</p>
+        <ol class="demo-steps">
+          <li><span>Cadastrar a OAE em <strong>Minhas OAEs</strong></span></li>
+          <li>Localizar dois drenos na planta</li>
+          <li>Registrar uma obstrução observada</li>
+        </ol>
+        <a class="button demo-open" href="https://drenagem-oae.luizaraujoengkil.chatgpt.site/minhas-oaes" target="_blank" rel="noopener" aria-describedby="demo-link-note">Abrir aplicativo <span aria-hidden="true">↗</span></a>
+        <p class="demo-link-note" id="demo-link-note">Abre o cadastro em uma nova aba.</p>
+      </div>
+      <figure class="demo-preview">
+        <div class="demo-frame">
+          <div class="demo-frame-bar"><span>Drenagem OAE</span><span>Visão geral</span></div>
+          <img src="assets-final/demo-app-planta.webp" width="1105" height="673" alt="Planta da ponte fictícia no aplicativo, com os drenos D01, D02 e D03 marcados no tabuleiro">
+        </div>
+        <figcaption>Planta da ponte de demonstração que já vem cadastrada no protótipo.</figcaption>
+      </figure>
+    </section>
+
     <section class="slide" id="brim" aria-labelledby="titulo-brim" hidden>
-      <header class="slide-head"><p class="eyebrow">06 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
+      <header class="slide-head"><p class="eyebrow">07 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
       <div class="split figure-wide">
         <div class="logic">
           <p><b>E</b> Exposição relativa à chuva</p><p><b>C</b> Deficiência funcional observada</p><p><b>K</b> Consequência potencial</p><p><b>U</b> Qualidade e incerteza da evidência</p>
@@ -404,7 +428,7 @@
     </section>
 
     <section class="slide" id="priorizacao" aria-labelledby="titulo-pareto" hidden>
-      <header class="slide-head"><p class="eyebrow">07 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
+      <header class="slide-head"><p class="eyebrow">08 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
       <div class="split figure-wide">
         <div>
           <table><caption>Frentes de Pareto · mesma exposição E = 70</caption><thead><tr><th>Dispositivo</th><th>C</th><th>K</th><th>Frente</th></tr></thead><tbody><tr><th scope="row">D02</th><td>2</td><td>3</td><td class="accent">F1</td></tr><tr><th scope="row">D03</th><td>1</td><td>2</td><td>F2</td></tr><tr><th scope="row">D01</th><td>0</td><td>1</td><td>F3</td></tr></tbody></table>
@@ -416,7 +440,7 @@
     </section>
 
     <section class="slide" id="prognostico" aria-labelledby="titulo-prognostico" hidden>
-      <header class="slide-head"><p class="eyebrow">08 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
+      <header class="slide-head"><p class="eyebrow">09 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
       <div class="split figure-wide">
         <div>
           <p class="big-number">27,2%</p><p class="lead">Probabilidade estimada de perda de função nos 90 dias seguintes, dado que o D02 estava funcional no dia 60.</p>
@@ -428,7 +452,7 @@
     </section>
 
     <section class="slide close" id="contribuicao" aria-labelledby="titulo-final" hidden>
-      <header class="slide-head"><p class="eyebrow">09 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
+      <header class="slide-head"><p class="eyebrow">10 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
       <div class="steps">
         <div><b>01</b><h3>Registrar</h3><p>Vincular inspeções, evidências e intervenções ao dispositivo.</p></div>
         <div><b>02</b><h3>Priorizar</h3><p>Documentar as frentes de manutenção e a origem de cada evidência.</p></div>
@@ -443,7 +467,7 @@
     <button type="button" id="previous" aria-label="Slide anterior">←</button>
     <div class="markers" id="markers" role="group" aria-label="Escolher slide"></div>
     <button type="button" id="next" aria-label="Próximo slide">→</button>
-    <span id="counter" aria-live="polite">01 / 10</span>
+    <span id="counter" aria-live="polite">01 / 11</span>
     <button type="button" id="fullscreen" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
 </body>
