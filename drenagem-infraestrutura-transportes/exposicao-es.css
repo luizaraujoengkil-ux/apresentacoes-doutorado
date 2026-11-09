@@ -1,0 +1,45 @@
+#base-real .exposicao-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(14px, 3vw, 38px);
+  align-items: center;
+}
+#base-real figure { margin: 0; min-width: 0; }
+#base-real .map-frame {
+  display: none;
+  width: 100%;
+  height: min(50vh, 510px);
+  border: 1px solid #3a5766;
+  border-radius: 12px;
+  background: #0b202d;
+}
+#base-real[data-problema-etapa="1"] [data-map="world"],
+#base-real[data-problema-etapa="2"] [data-map="brazil"],
+#base-real:is([data-problema-etapa="3"], [data-problema-etapa="4"], [data-problema-etapa="5"]) [data-map="es"] { display: block; }
+#base-real figcaption { display: none; margin-top: 8px; }
+#base-real:is([data-problema-etapa="3"], [data-problema-etapa="4"], [data-problema-etapa="5"]) figcaption { display: block; }
+#base-real .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+#base-real .problema-passo { display: block; font-size: .86rem; padding: 8px; }
+#base-real .panel { min-height: 235px; padding-top: 14px; }
+#base-real .panel p { margin-top: 8px; color: var(--muted); }
+#base-real .panel .number { font-size: clamp(2.5rem, 5vw, 4.8rem); color: var(--accent); font-weight: 800; line-height: 1.1; }
+#base-real .methods { display: grid; gap: 7px; padding: 0; list-style: none; }
+#base-real .methods li { padding: 6px 9px; border-left: 2px solid var(--accent); background: #17323d; font-size: clamp(.81rem, 1.05vw, .98rem); }
+#base-real .methods strong { color: var(--accent); }
+#base-real :is(.stations, .association, .pilot) { opacity: 0; transition: opacity .55s; }
+#base-real[data-problema-etapa="4"] :is(.stations, .association),
+#base-real[data-problema-etapa="5"] .pilot { opacity: 1; }
+#base-real[data-problema-etapa="5"] .stations { opacity: .5; }
+#base-real .routes path { stroke-dasharray: 1; animation: exposicao-tracar 1.65s ease-out both; }
+#base-real .routes path:nth-child(2) { animation-delay: .26s; }
+#base-real .routes path:nth-child(3) { animation-delay: .52s; }
+@keyframes exposicao-tracar { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (max-width: 760px) {
+  #base-real .exposicao-layout { grid-template-columns: 1fr; }
+  #base-real .map-frame { height: auto; max-height: 48vh; }
+  #base-real .panel { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #base-real .routes path { animation: none; }
+  #base-real :is(.stations, .association, .pilot) { transition: none; }
+}
