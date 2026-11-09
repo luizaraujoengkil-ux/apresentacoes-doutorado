@@ -68,3 +68,15 @@
   0%, 60% { opacity: 0; }
   100% { opacity: 1; }
 }
+
+#criterios { justify-content:center; gap:15px; }
+#criterios .lead { color:var(--muted); font-size:clamp(1rem,1.45vw,1.25rem); }
+.criterios-controles { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.criterios-controles .problema-passo strong { font-size:clamp(.83rem,1.12vw,1.02rem); overflow-wrap:normal; }
+.criterio-camada { opacity:0; transition:opacity .45s ease; }
+[data-problema-etapa="1"] .criterio-e, [data-problema-etapa="2"] .criterio-c, [data-problema-etapa="3"] .criterio-k, [data-problema-etapa="4"] .criterio-c, [data-problema-etapa="4"] .criterio-k { opacity:1; }
+.criterios-tabela { width:100%; margin-top:8px; font-size:clamp(.76rem,1.12vw,1rem); }
+.criterios-tabela caption { text-align:left; font-size:.82rem; margin-bottom:4px; }
+.criterios-tabela td, .criterios-tabela td:last-child { text-align:center; }
+.criterios-u { border-left:3px solid var(--accent); padding:8px 13px; background:#102936; color:var(--muted); font-size:.91rem; }
+.criterios-u strong { color:var(--accent); margin-right:.45rem; }

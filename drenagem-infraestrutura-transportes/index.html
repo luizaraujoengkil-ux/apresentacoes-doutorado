@@ -11,7 +11,7 @@
   <title>Manutenção preventiva da drenagem de OAEs | IME</title>
   <link rel="stylesheet" href="final.css">
   <link rel="stylesheet" href="rede-bibliometrica.css?v=3">
-  <link rel="stylesheet" href="problema.css?v=4">
+  <link rel="stylesheet" href="problema.css?v=5">
   <script defer src="final.js"></script>
   <script defer src="problema.js"></script>
   <script defer src="rede-bibliometrica-dados.js"></script>
@@ -280,8 +280,77 @@
       </div>
       <p class="caption">Artigo entregue · Seções 3 e 4</p>
     </section>
+<section id="criterios" hidden class="slide problema-slide metodos-slide" data-problema-etapa="1" data-etapas-automaticas="5800 5800 5800 8500" aria-labelledby="titulo">
+  <header class="slide-head"><p class="eyebrow">04 / Critérios de priorização</p><h2 id="titulo">O que observar em cada dispositivo de drenagem?</h2></header>
+  <p class="lead">A chuva caracteriza a solicitação. A inspeção revela a resposta do dreno. O caminho da água indica o que pode ser atingido.</p>
+  <div class="problema-layout">
+    <figure class="problema-figura">
+      <svg class="problema-svg" viewBox="0 0 790 366" role="img" aria-label="Corte da ponte com os drenos A e B, chuva, obstrução e caminho da água até o apoio">
+        <use href="#problema-ponte-base"/>
+        <use href="#problema-boca-barbaca" transform="translate(132 0)"/>
+        <g class="criterio-camada criterio-e">
+          <use href="#problema-chuva-base"/>
+          <path d="M250 137Q466 131 690 135" fill="none" stroke="#8ee6fc" stroke-width="4" stroke-dasharray="9 6" class="problema-fluxo"/>
+          <rect x="24" y="21" width="226" height="31" rx="6" fill="#14333e" stroke="#7ce2d9"/>
+          <text x="38" y="41" fill="#e3fcff" font-size="15" font-weight="700">E · Estação de referência</text>
+          <path d="M248 48l62 43 25 36" fill="none" stroke="#8ee6fc" stroke-width="1.6" marker-end="url(#problema-seta)"/>
+        </g>
+        <g class="criterio-camada criterio-c">
+          <circle cx="374" cy="143" r="23" fill="none" stroke="#ffcd86" stroke-width="2.5"/>
+          <path d="M350 151l-52 62H147" fill="none" stroke="#ffcd86" stroke-width="1.7"/>
+          <rect x="28" y="198" width="224" height="32" rx="6" fill="#332b20" stroke="#ffcd86"/>
+          <text x="42" y="219" fill="#ffe6b9" font-size="15" font-weight="700">C · Obstrução parcial</text>
+          <path d="M363 142q8-11 16-3-2 8-14 8zm12 4q7-11 13-6-1 7-11 9z" fill="#ecad59"/>
+        </g>
+        <g class="criterio-camada criterio-k">
+          <path d="M378 148q79 14 163-2l-57 65v26l37 30" fill="none" stroke="#8ee6fc" stroke-width="3.6" stroke-dasharray="9 6" marker-end="url(#problema-seta)" class="problema-fluxo"/>
+          <circle cx="521" cy="269" r="23" fill="#56d7fd" fill-opacity=".2" stroke="#8ee6fc" stroke-width="2"/>
+          <rect x="552" y="255" width="212" height="31" rx="6" fill="#14333e" stroke="#8ee6fc"/>
+          <text x="563" y="276" fill="#e3fcff" font-size="14" font-weight="700">K · Junta e região do apoio</text>
+        </g>
+        <g font-size="13" font-weight="700" text-anchor="middle">
+          <rect x="332" y="103" width="84" height="22" rx="5" fill="#142d37" stroke="#7ce2d9"/>
+          <rect x="464" y="103" width="84" height="22" rx="5" fill="#302c22" stroke="#f0c57c"/>
+          <text x="374" y="118" fill="#c2f7ed">Dreno A</text>
+          <text x="506" y="118" fill="#ffe0a7">Dreno B</text>
+        </g>
+      </svg>
+      <figcaption>Corte ilustrativo · O mesmo tabuleiro nas quatro etapas</figcaption>
+    </figure>
+    <div class="metodos-painel">
+      <div class="metodos-controles criterios-controles" role="group" aria-label="Etapas da avaliação">
+        <button class="problema-passo" type="button" data-problema-passo="1" aria-pressed="true"><span>01</span><strong>Exposição à chuva</strong></button>
+        <button class="problema-passo" type="button" data-problema-passo="2" aria-pressed="false"><span>02</span><strong>Condição funcional</strong></button>
+        <button class="problema-passo" type="button" data-problema-passo="3" aria-pressed="false"><span>03</span><strong>Consequência potencial</strong></button>
+        <button class="problema-passo" type="button" data-problema-passo="4" aria-pressed="false"><span>04</span><strong>Priorização por Pareto</strong></button>
+      </div>
+      <div class="metodos-resposta" data-metodos-conteudo="1">
+        <h3>E · Exposição à chuva</h3><p class="metodos-tecnica">Qual é a solicitação externa?</p>
+        <p>O índice atribuído à obra caracteriza a exposição dos dois drenos. O registro identifica a estação e o período de referência.</p>
+      </div>
+      <div class="metodos-resposta" data-metodos-conteudo="2" hidden>
+        <h3>C · Condição funcional</h3><p class="metodos-tecnica">Como cada dreno responde?</p>
+        <p>A inspeção registra a deficiência do dispositivo. Neste exemplo, o dreno A apresenta obstrução parcial. O registro inclui a data e a evidência fotográfica, quando disponível.</p>
+      </div>
+      <div class="metodos-resposta" data-metodos-conteudo="3" hidden>
+        <h3>K · Consequência potencial</h3><p class="metodos-tecnica">O que a água pode atingir?</p>
+        <p>O trajeto desviado pode alcançar a junta e a região do apoio. O registro identifica os elementos expostos e a evidência que sustenta a avaliação.</p>
+      </div>
+      <div class="metodos-resposta" data-metodos-conteudo="4" hidden>
+        <h3>Por que A tem prioridade?</h3>
+        <table class="criterios-tabela">
+          <caption>Comparação ilustrativa por Pareto</caption>
+          <thead><tr><th scope="col">Critério</th><th scope="col">Dreno A</th><th scope="col">Dreno B</th></tr></thead>
+          <tbody><tr><th scope="row">E · Exposição</th><td colspan="2">Igual</td></tr><tr><th scope="row">C · Deficiência</th><td>Maior</td><td>Menor</td></tr><tr><th scope="row">K · Consequência</th><td colspan="2">Igual</td></tr></tbody>
+        </table>
+        <p class="metodos-tecnica">A tem maior deficiência, com E e K iguais.</p>
+      </div>
+    </div>
+  </div>
+  <p class="criterios-u"><strong>U · Qualidade e incerteza da evidência</strong> <span>Registre a fonte e distinga observações de campo de inferências pela geometria.</span></p>
+</section>
     <section class="slide" id="base-real" aria-labelledby="titulo-base" hidden>
-      <header class="slide-head"><p class="eyebrow">04 / Aplicação brasileira</p><h2 id="titulo-base">Exposição à chuva no Espírito Santo</h2></header>
+      <header class="slide-head"><p class="eyebrow">05 / Aplicação brasileira</p><h2 id="titulo-base">Exposição à chuva no Espírito Santo</h2></header>
       <div class="metrics">
         <div><strong>145</strong><span>OAEs no cadastro DNIT/GEOBASES</span></div>
         <div><strong>33</strong><span>estações com séries diárias de 2014 a 2025</span></div>
@@ -292,7 +361,7 @@
     </section>
 
     <section class="slide" id="brim" aria-labelledby="titulo-brim" hidden>
-      <header class="slide-head"><p class="eyebrow">05 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
+      <header class="slide-head"><p class="eyebrow">06 / Modelo informacional</p><h2 id="titulo-brim">O histórico acompanha cada dispositivo</h2></header>
       <div class="split figure-wide">
         <div class="logic">
           <p><b>E</b> Exposição relativa à chuva</p><p><b>C</b> Deficiência funcional observada</p><p><b>K</b> Consequência potencial</p><p><b>U</b> Qualidade e incerteza da evidência</p>
@@ -303,7 +372,7 @@
     </section>
 
     <section class="slide" id="priorizacao" aria-labelledby="titulo-pareto" hidden>
-      <header class="slide-head"><p class="eyebrow">06 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
+      <header class="slide-head"><p class="eyebrow">07 / Exercício na ponte de demonstração</p><h2 id="titulo-pareto">Da inspeção à prioridade de manutenção</h2></header>
       <div class="split figure-wide">
         <div>
           <table><caption>Frentes de Pareto · mesma exposição E = 70</caption><thead><tr><th>Dispositivo</th><th>C</th><th>K</th><th>Frente</th></tr></thead><tbody><tr><th scope="row">D02</th><td>2</td><td>3</td><td class="accent">F1</td></tr><tr><th scope="row">D03</th><td>1</td><td>2</td><td>F2</td></tr><tr><th scope="row">D01</th><td>0</td><td>1</td><td>F3</td></tr></tbody></table>
@@ -315,7 +384,7 @@
     </section>
 
     <section class="slide" id="prognostico" aria-labelledby="titulo-prognostico" hidden>
-      <header class="slide-head"><p class="eyebrow">07 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
+      <header class="slide-head"><p class="eyebrow">08 / Exercício de prognóstico</p><h2 id="titulo-prognostico">Quando a curva cruza o limiar de alerta?</h2></header>
       <div class="split figure-wide">
         <div>
           <p class="big-number">27,2%</p><p class="lead">Probabilidade estimada de perda de função nos 90 dias seguintes, dado que o D02 estava funcional no dia 60.</p>
@@ -327,7 +396,7 @@
     </section>
 
     <section class="slide close" id="contribuicao" aria-labelledby="titulo-final" hidden>
-      <header class="slide-head"><p class="eyebrow">08 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
+      <header class="slide-head"><p class="eyebrow">09 / Contribuição e próximos dados</p><h2 id="titulo-final">Um histórico rastreável para a manutenção preventiva</h2></header>
       <div class="steps">
         <div><b>01</b><h3>Registrar</h3><p>Vincular inspeções, evidências e intervenções ao dispositivo.</p></div>
         <div><b>02</b><h3>Priorizar</h3><p>Documentar as frentes de manutenção e a origem de cada evidência.</p></div>
@@ -342,7 +411,7 @@
     <button type="button" id="previous" aria-label="Slide anterior">←</button>
     <div class="markers" id="markers" role="group" aria-label="Escolher slide"></div>
     <button type="button" id="next" aria-label="Próximo slide">→</button>
-    <span id="counter" aria-live="polite">01 / 09</span>
+    <span id="counter" aria-live="polite">01 / 10</span>
     <button type="button" id="fullscreen" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
 </body>
