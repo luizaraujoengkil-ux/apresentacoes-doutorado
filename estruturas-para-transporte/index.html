@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="motion.css?v=4" />
   <link rel="stylesheet" href="cover-repair.css?v=4" />
   <link rel="stylesheet" href="system-flight.css?v=1" />
+  <link rel="stylesheet" href="evidence-flow.css?v=1" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -160,19 +161,44 @@
       <div class="slide-inner">
         <p class="eyebrow">02 / EVIDÊNCIAS</p>
         <h2 id="title-evidence">O que sustenta a resposta?</h2>
-        <div class="evidence-grid">
-          <div class="metric-panel focus-first">
-            <div class="big-number">25</div><div class="metric-label">estudos únicos</div>
-            <div class="stacked-bar" aria-label="18 estudos EB1 e 7 estudos EB2"><span style="--w:72%">18 EB1</span><span style="--w:28%">7 EB2</span></div>
-            <p>EB1: texto completo ou conteúdo suficiente para extração detalhada.</p>
-          </div>
-          <div class="period-panel"><span>2015</span><div class="period-line"><i></i></div><span>2026</span><small>recorte prioritário</small></div>
-          <ol class="dimension-list" aria-label="Cinco dimensões da síntese">
-            <li><b>01</b><span>Estado fresco</span></li><li><b>02</b><span>Desempenho endurecido</span></li><li><b>03</b><span>Interface e substrato</span></li><li><b>04</b><span>Plataforma e controle</span></li><li><b>05</b><span>Segurança e aceitação</span></li>
-          </ol>
-          <div class="scope-note"><strong>Revisão crítica estruturada</strong><span>Não é metanálise nem revisão sistemática exaustiva.</span></div>
+        <div class="evidence-flow">
+          <section class="evidence-corpus" aria-labelledby="corpus-heading">
+            <div class="corpus-header">
+              <h3 id="corpus-heading"><strong>25</strong> estudos únicos</h3>
+              <div class="evidence-period"><b>2015–2026</b><span>recorte prioritário</span></div>
+            </div>
+            <div class="evidence-groups">
+              <div class="evidence-class evidence-eb1">
+                <div class="evidence-docs" aria-hidden="true">
+                  <i style="--tile:0;--entry-x:31px;--entry-y:-26px;--entry-angle:-18deg"></i><i style="--tile:1;--entry-x:21px;--entry-y:-35px;--entry-angle:-9deg"></i><i style="--tile:2;--entry-x:11px;--entry-y:-44px;--entry-angle:0deg"></i><i style="--tile:3;--entry-x:-11px;--entry-y:-26px;--entry-angle:9deg"></i><i style="--tile:4;--entry-x:-21px;--entry-y:-35px;--entry-angle:18deg"></i><i style="--tile:5;--entry-x:-31px;--entry-y:-44px;--entry-angle:-18deg"></i>
+                  <i style="--tile:6;--entry-x:31px;--entry-y:-40px;--entry-angle:-9deg"></i><i style="--tile:7;--entry-x:21px;--entry-y:-49px;--entry-angle:0deg"></i><i style="--tile:8;--entry-x:11px;--entry-y:-58px;--entry-angle:9deg"></i><i style="--tile:9;--entry-x:-11px;--entry-y:-40px;--entry-angle:18deg"></i><i style="--tile:10;--entry-x:-21px;--entry-y:-49px;--entry-angle:-18deg"></i><i style="--tile:11;--entry-x:-31px;--entry-y:-58px;--entry-angle:-9deg"></i>
+                  <i style="--tile:12;--entry-x:31px;--entry-y:-54px;--entry-angle:0deg"></i><i style="--tile:13;--entry-x:21px;--entry-y:-63px;--entry-angle:9deg"></i><i style="--tile:14;--entry-x:11px;--entry-y:-72px;--entry-angle:18deg"></i><i style="--tile:15;--entry-x:-11px;--entry-y:-54px;--entry-angle:-18deg"></i><i style="--tile:16;--entry-x:-21px;--entry-y:-63px;--entry-angle:-9deg"></i><i style="--tile:17;--entry-x:-31px;--entry-y:-72px;--entry-angle:0deg"></i>
+                </div>
+                <div class="evidence-class-label"><strong>18</strong> EB1</div>
+                <p>Texto completo ou conteúdo suficiente para extração detalhada.</p>
+              </div>
+              <div class="evidence-class evidence-eb2">
+                <div class="evidence-docs" aria-hidden="true">
+                  <i style="--tile:18;--entry-x:17px;--entry-y:-26px;--entry-angle:-18deg"></i><i style="--tile:19;--entry-x:7px;--entry-y:-35px;--entry-angle:-9deg"></i><i style="--tile:20;--entry-x:-3px;--entry-y:-44px;--entry-angle:0deg"></i><i style="--tile:21;--entry-x:-25px;--entry-y:-26px;--entry-angle:9deg"></i>
+                  <i style="--tile:22;--entry-x:21px;--entry-y:-49px;--entry-angle:18deg"></i><i style="--tile:23;--entry-x:11px;--entry-y:-58px;--entry-angle:-18deg"></i><i style="--tile:24;--entry-x:-11px;--entry-y:-40px;--entry-angle:-9deg"></i>
+                </div>
+                <div class="evidence-class-label"><strong>7</strong> EB2</div>
+                <p>Metadados e resumo, usados como evidência complementar.</p>
+              </div>
+            </div>
+            <p class="evidence-method">Revisão crítica estruturada</p>
+          </section>
+          <section class="evidence-synthesis" aria-labelledby="synthesis-heading">
+            <h3 id="synthesis-heading">Cinco dimensões da síntese</h3>
+            <ol class="evidence-dimensions">
+              <li style="--step:0"><b>01</b><span>Estado fresco</span></li>
+              <li style="--step:1"><b>02</b><span>Estado endurecido e durabilidade</span></li>
+              <li style="--step:2"><b>03</b><span>Aderência e preparação do substrato</span></li>
+              <li style="--step:3"><b>04</b><span>Plataforma, alimentação e controle</span></li>
+              <li style="--step:4"><b>05</b><span>Segurança, inspeção e aceitação</span></li>
+            </ol>
+          </section>
         </div>
-        <div class="slide-foot"><span class="source-tag real">Dados reais da revisão do artigo</span><span>18 estudos EB1 · 7 EB2</span></div>
       </div>
     </section>
 
