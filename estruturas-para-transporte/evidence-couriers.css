@@ -1,0 +1,138 @@
+.evidence-flow {
+  position: relative;
+}
+
+.evidence-airspace {
+  --flight-duration: 8.6s;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.evidence-aircraft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(88px, 11vw, 155px);
+  aspect-ratio: 1881 / 836;
+  translate: -50% -50%;
+  opacity: 0;
+}
+
+.evidence-aircraft-eb1 { --cargo-ink: #65ddd5; }
+.evidence-aircraft-eb2 { --cargo-ink: #c1b3f4; }
+
+.evidence-aircraft img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 5px #020c12);
+}
+
+.evidence-payload {
+  position: absolute;
+  top: 76%;
+  left: 53%;
+  width: 27px;
+  height: 31px;
+  border-top: 1px solid #a3bac3;
+  translate: -50% 0;
+  opacity: 0;
+}
+
+.evidence-payload::before,
+.evidence-payload::after {
+  position: absolute;
+  top: 6px;
+  left: 4px;
+  width: 18px;
+  height: 22px;
+  content: '';
+  clip-path: polygon(0 0, 65% 0, 100% 25%, 100% 100%, 0 100%);
+  background: var(--cargo-ink);
+  transform: rotate(-19deg);
+}
+
+.evidence-payload::after {
+  transform: translateX(5px) rotate(12deg);
+  background:
+    linear-gradient(#274556 0 0) 3px 8px / 11px 1px no-repeat,
+    linear-gradient(#274556 0 0) 3px 12px / 9px 1px no-repeat,
+    linear-gradient(#274556 0 0) 3px 16px / 11px 1px no-repeat,
+    var(--cargo-ink);
+}
+
+.evidence-jet {
+  position: absolute;
+  top: 79%;
+  left: 20%;
+  overflow: visible;
+  translate: -100% 0;
+  filter: drop-shadow(0 0 4px #65ddd5);
+  opacity: 0;
+}
+
+#evidencias.active:not(.motion-paused) .flight-ready .evidence-aircraft-eb1 {
+  animation: eb1-flight var(--flight-duration) ease-in-out both;
+}
+
+#evidencias.active:not(.motion-paused) .flight-ready .evidence-aircraft-eb2 {
+  animation: eb2-flight var(--flight-duration) ease-in-out both;
+}
+
+#evidencias.active:not(.motion-paused) .flight-ready .evidence-aircraft-eb1 img {
+  animation: eb1-turn var(--flight-duration) ease-in-out both;
+}
+
+#evidencias.active:not(.motion-paused) .flight-ready .evidence-aircraft-eb1 .evidence-payload {
+  animation: evidence-drop .38s ease-in 1.27s backwards;
+}
+
+#evidencias.active:not(.motion-paused) .flight-ready .evidence-aircraft-eb2 .evidence-payload {
+  animation: evidence-drop .38s ease-in 2.97s backwards;
+}
+
+#evidencias.active:not(.motion-paused) .flight-ready .evidence-jet {
+  animation: evidence-project var(--flight-duration) linear both;
+}
+
+@keyframes eb1-flight {
+  0% { left: -8%; top: 8%; opacity: 0; }
+  4% { opacity: 1; }
+  17.44%, 21% { left: var(--drop-1-x); top: var(--drop-1-y); opacity: 1; }
+  29%, 39% { left: calc(var(--drop-1-x) - 30px); top: calc(var(--drop-1-y) - 25px); }
+  48.8%, 53.5% { left: var(--paint-1-x); top: var(--paint-1-y); }
+  58.7%, 63.4% { left: var(--paint-2-x); top: var(--paint-2-y); }
+  68.6%, 73.3% { left: var(--paint-3-x); top: var(--paint-3-y); }
+  78.5%, 83.2% { left: var(--paint-4-x); top: var(--paint-4-y); }
+  88.4%, 93.1% { left: var(--paint-5-x); top: var(--paint-5-y); opacity: 1; }
+  100% { left: 105%; top: calc(var(--paint-5-y) - 24px); opacity: 0; }
+}
+
+@keyframes eb2-flight {
+  0%, 21% { left: 105%; top: 8%; opacity: 0; }
+  26% { opacity: 1; }
+  37.21%, 40% { left: var(--drop-2-x); top: var(--drop-2-y); opacity: 1; }
+  49%, 100% { left: 105%; top: -12%; opacity: 0; }
+}
+
+@keyframes eb1-turn {
+  0%, 41% { transform: scaleX(1); }
+  46%, 100% { transform: scaleX(-1); }
+}
+
+@keyframes evidence-drop {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px) scale(.68); }
+}
+
+@keyframes evidence-project {
+  0%, 48.8%, 53.5%, 58.7%, 63.4%, 68.6%, 73.3%, 78.5%, 83.2%, 88.4%, 93.1%, 100% { opacity: 0; }
+  50.2%, 52.4%, 60.1%, 62.3%, 70%, 72.2%, 79.9%, 82.1%, 89.8%, 92% { opacity: 1; }
+}
+
+@media (max-width: 700px) {
+  .evidence-aircraft { width: 92px; }
+}

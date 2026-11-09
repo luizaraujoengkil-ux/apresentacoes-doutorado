@@ -6,6 +6,7 @@
   const next = document.getElementById('next');
   const fullscreen = document.getElementById('fullscreen');
   const replay = document.getElementById('replay');
+  const evidenceAirspace = document.querySelector('.evidence-airspace');
   let current = Math.max(0, slides.findIndex(s => `#${s.id}` === location.hash));
 
   slides.forEach((slide, index) => {
@@ -24,6 +25,7 @@
       slide.classList.toggle('active', i === current);
       slide.setAttribute('aria-hidden', i === current ? 'false' : 'true');
     });
+    if (slides[current].id === 'evidencias') layoutEvidenceFlight();
     [...markers.children].forEach((button, i) => {
       button.classList.toggle('active', i === current);
       button.setAttribute('aria-current', i === current ? 'step' : 'false');
@@ -45,9 +47,35 @@
 
   function replayMotion() {
     const slide = slides[current];
+    if (slide.id === 'evidencias') layoutEvidenceFlight();
     slide.classList.add('motion-paused');
     void slide.offsetWidth;
     slide.classList.remove('motion-paused');
+  }
+
+  function layoutEvidenceFlight() {
+    const bounds = evidenceAirspace.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+    const aircraft = evidenceAirspace.querySelector('.evidence-aircraft-eb1');
+    const sprite = aircraft.getBoundingClientRect();
+    const jet = aircraft.querySelector('.evidence-jet').getBoundingClientRect();
+    const flow = evidenceAirspace.parentElement;
+    const setTarget = (name, x, y) => {
+      evidenceAirspace.style.setProperty(`--${name}-x`, `${Math.round(x - bounds.left)}px`);
+      evidenceAirspace.style.setProperty(`--${name}-y`, `${Math.round(y - bounds.top)}px`);
+    };
+
+    flow.querySelectorAll('.evidence-docs').forEach((docs, index) => {
+      const area = docs.getBoundingClientRect();
+      setTarget(`drop-${index + 1}`, area.left + area.width / 2, area.top - sprite.height * .33);
+    });
+    flow.querySelectorAll('.evidence-dimensions b').forEach((badge, index) => {
+      const area = badge.getBoundingClientRect();
+      setTarget(`paint-${index + 1}`,
+        area.left + area.width / 2 + sprite.width * .30 + jet.width * .86,
+        area.top + area.height / 2 - sprite.height * .29 - jet.height * .88);
+    });
+    evidenceAirspace.classList.add('flight-ready');
   }
 
   async function toggleFullscreen() {
@@ -109,6 +137,7 @@
     const found = slides.findIndex(s => `#${s.id}` === location.hash);
     if (found >= 0) show(found, false);
   });
+  new ResizeObserver(layoutEvidenceFlight).observe(evidenceAirspace.parentElement);
   show(current, !location.hash);
 
   const repairCover = document.querySelector('.repair-cover');
