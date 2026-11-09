@@ -4,6 +4,7 @@
 
 .evidence-airspace {
   --flight-duration: 8.6s;
+  --paint-direction: 1;
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -67,9 +68,9 @@
 .evidence-jet {
   position: absolute;
   top: 79%;
-  left: 20%;
+  left: 80%;
   overflow: visible;
-  translate: -100% 0;
+  scale: -1 1;
   filter: drop-shadow(0 0 4px #65ddd5);
   opacity: 0;
 }
@@ -120,7 +121,7 @@
 
 @keyframes eb1-turn {
   0%, 41% { transform: scaleX(1); }
-  46%, 100% { transform: scaleX(-1); }
+  46%, 100% { transform: scaleX(var(--paint-direction)); }
 }
 
 @keyframes evidence-drop {
@@ -134,5 +135,11 @@
 }
 
 @media (max-width: 700px) {
-  .evidence-aircraft { width: 92px; }
+  .evidence-airspace { --paint-direction: -1; }
+  .evidence-aircraft { width: 78px; }
+  .evidence-jet {
+    left: 20%;
+    translate: -100% 0;
+    scale: 1 1;
+  }
 }

@@ -59,6 +59,7 @@
     const aircraft = evidenceAirspace.querySelector('.evidence-aircraft-eb1');
     const sprite = aircraft.getBoundingClientRect();
     const jet = aircraft.querySelector('.evidence-jet').getBoundingClientRect();
+    const paintDirection = Number(getComputedStyle(evidenceAirspace).getPropertyValue('--paint-direction'));
     const flow = evidenceAirspace.parentElement;
     const setTarget = (name, x, y) => {
       evidenceAirspace.style.setProperty(`--${name}-x`, `${Math.round(x - bounds.left)}px`);
@@ -72,7 +73,7 @@
     flow.querySelectorAll('.evidence-dimensions b').forEach((badge, index) => {
       const area = badge.getBoundingClientRect();
       setTarget(`paint-${index + 1}`,
-        area.left + area.width / 2 + sprite.width * .30 + jet.width * .86,
+        area.left + area.width / 2 - paintDirection * (sprite.width * .30 + jet.width * .86),
         area.top + area.height / 2 - sprite.height * .29 - jet.height * .88);
     });
     evidenceAirspace.classList.add('flight-ready');
