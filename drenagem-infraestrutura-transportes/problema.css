@@ -52,3 +52,19 @@
 @media print {
   .problema-acumulo, .problema-umidade { opacity: 1; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .metodos-ponteiro { transform-origin: 96px 265px; }
+  [data-problema-etapa="3"] .metodos-ponteiro { animation: metodos-relogio 4s linear both; }
+  [data-problema-etapa="3"] .metodos-curva { animation: metodos-tracar 4s linear both; }
+  [data-problema-etapa="3"] .metodos-evento { animation: metodos-ocorrencia 1.05s both; }
+}
+@keyframes metodos-relogio { to { transform: rotate(360deg); } }
+@keyframes metodos-tracar {
+  from { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  to { stroke-dasharray: 1; stroke-dashoffset: 0; }
+}
+@keyframes metodos-ocorrencia {
+  0%, 60% { opacity: 0; }
+  100% { opacity: 1; }
+}
