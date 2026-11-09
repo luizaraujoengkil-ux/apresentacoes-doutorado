@@ -1,0 +1,298 @@
+.repair-cover {
+  --repair-duration: 6.75s;
+  --drone-width: clamp(166px, 31vw, 402px);
+  --spray-width: clamp(52px, 11vw, 156px);
+  --spray-height: clamp(75px, 12vw, 167px);
+  background: radial-gradient(ellipse at 73% 37%, #254353 0%, #102733 45%, #071923 78%);
+}
+
+.repair-cover.repair-pending * {
+  animation: none !important;
+}
+
+.repair-cover.repair-pending :is(.repair-clean, .repair-finish) {
+  clip-path: inset(0 100% 0 0);
+}
+
+.repair-cover .cover-content {
+  padding: clamp(20px, 4vh, 45px) clamp(22px, 4.1vw, 66px);
+}
+
+.repair-cover .institution-row {
+  margin-bottom: clamp(9px, 1.8vh, 18px);
+}
+
+.repair-cover .institution-row img {
+  width: clamp(36px, 4.5vw, 54px);
+}
+
+.repair-cover .eyebrow {
+  margin-bottom: 0;
+}
+
+.cover-treatment {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin-top: clamp(69px, max(14vh, calc(var(--drone-width) * .405)), 165px);
+}
+
+.repair-cover .repair-title {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: #b4bfbd;
+  font-family: inherit;
+  font-size: clamp(2rem, 5.15vw, 5.25rem);
+  font-weight: 900;
+  line-height: 1.015;
+  letter-spacing: -.045em;
+  background-color: #aab0ae;
+  background-image:
+    linear-gradient(180deg, rgba(212, 209, 194, .45), rgba(151, 156, 154, .4)),
+    url('concreto-texturas-v3.jpg');
+  background-size: 100% 100%, 200% 100%;
+  background-position: center, left center;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .6px rgba(224, 229, 225, .38);
+}
+
+.repair-cover .repair-title em {
+  color: inherit;
+  font-style: normal;
+}
+
+.repair-cover .repair-clean,
+.repair-cover .repair-finish {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.repair-cover .repair-clean {
+  background-image:
+    linear-gradient(180deg, rgba(196, 220, 224, .82), rgba(132, 164, 179, .77)),
+    url('concreto-texturas-v3.jpg');
+  -webkit-text-stroke-color: rgba(193, 227, 231, .59);
+}
+
+.repair-cover .repair-finish {
+  background-image:
+    linear-gradient(180deg, rgba(248, 250, 242, .4), rgba(225, 233, 222, .37)),
+    url('concreto-texturas-v3.jpg');
+  background-position: center, right center;
+  -webkit-text-stroke-color: rgba(240, 247, 239, .78);
+}
+
+.repair-flight {
+  position: absolute;
+  z-index: 2;
+  bottom: calc(100% - 10px);
+  left: 100%;
+  width: var(--drone-width);
+  aspect-ratio: 1881 / 836;
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+
+.repair-flight > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, .65));
+}
+
+.repair-spray {
+  position: absolute;
+  top: 79.3%;
+  left: 80.3%;
+  width: var(--spray-width);
+  height: var(--spray-height);
+  opacity: 0;
+  overflow: visible;
+  transform-origin: top left;
+}
+
+.spray-water {
+  filter: drop-shadow(0 0 3px rgba(118, 219, 249, .62));
+}
+
+.spray-mortar {
+  filter: drop-shadow(0 2px 4px rgba(234, 191, 126, .48));
+}
+
+.repair-cover .cover-title-end {
+  display: block;
+  margin: clamp(8px, 1.8vh, 18px) 0 4px;
+  color: #e1efee;
+  font-size: clamp(1.15rem, 2.8vw, 2rem);
+  line-height: 1.13;
+}
+
+.repair-cover .deckline {
+  max-width: none;
+  margin-bottom: clamp(10px, 2vh, 23px);
+}
+
+.repair-cover .authors {
+  margin-top: auto;
+}
+
+.repair-stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 7px 0 10px;
+  font-size: clamp(.65rem, 1.3vw, .8rem);
+  font-weight: 800;
+}
+
+.repair-stages > span {
+  padding: 4px 9px;
+  border: 1px solid currentColor;
+  border-radius: 99px;
+  background: rgba(5, 20, 29, .75);
+}
+
+.repair-stage-water {
+  color: #9bd3ea;
+}
+
+.repair-stage-mortar {
+  color: #ebc58b;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-flight {
+  animation: repair-double-pass var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .spray-water {
+  animation: repair-water-active var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .spray-mortar {
+  animation: repair-mortar-active var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-clean {
+  animation: repair-clean-sweep var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-finish {
+  animation: repair-finish-sweep var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-stages .repair-stage-water {
+  animation: repair-water-stage var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-stages .repair-stage-mortar {
+  animation: repair-mortar-stage var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-mist {
+  animation: repair-dispersal .23s ease-out 28 alternate both;
+  transform-origin: 55% 84%;
+}
+
+@keyframes repair-dispersal {
+  from { opacity: .28; transform: scale(.8); }
+  to { opacity: 1; transform: scale(1.12); }
+}
+
+@keyframes repair-double-pass {
+  0% { left: 23%; transform: translate(-100%, -7px); opacity: 1; }
+  8% { left: 0%; transform: translate(-100%, 0); }
+  42% { left: 101%; transform: translate(-100%, -3px); opacity: 1; }
+  48% { left: 108%; transform: translate(-100%, -25px); opacity: 0; }
+  51% { left: -3%; transform: translate(-100%, -25px); opacity: 0; }
+  56% { left: 0%; transform: translate(-100%, 0); opacity: 1; }
+  93% { left: 100%; transform: translate(-100%, -1px); }
+  100% { left: 100%; transform: translate(-100%, 0); opacity: 1; }
+}
+
+@keyframes repair-water-active {
+  0%, 7%, 44%, 100% { opacity: 0; transform: scale(.7); }
+  10%, 41% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes repair-mortar-active {
+  0%, 55%, 96%, 100% { opacity: 0; transform: scale(.7); }
+  58%, 93% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes repair-clean-sweep {
+  0%, 8% { clip-path: inset(0 100% 0 0); }
+  42%, 100% { clip-path: inset(0); }
+}
+
+@keyframes repair-finish-sweep {
+  0%, 56% { clip-path: inset(0 100% 0 0); }
+  93%, 100% { clip-path: inset(0); }
+}
+
+@keyframes repair-water-stage {
+  0%, 7%, 47%, 100% { opacity: .65; box-shadow: none; }
+  12%, 41% { opacity: 1; box-shadow: 0 0 11px rgba(118, 219, 249, .38); }
+}
+
+@keyframes repair-mortar-stage {
+  0%, 54% { opacity: .65; box-shadow: none; }
+  60%, 94% { opacity: 1; box-shadow: 0 0 11px rgba(234, 191, 126, .38); }
+  100% { opacity: 1; box-shadow: none; }
+}
+
+@media (max-height: 720px) and (min-width: 701px) {
+  .repair-cover {
+    --drone-width: clamp(166px, 31vw, 330px);
+  }
+
+  .cover-treatment {
+    margin-top: clamp(62px, max(13vh, calc(var(--drone-width) * .39)), 122px);
+  }
+
+  .repair-cover .repair-title {
+    font-size: clamp(2rem, 5.05vw, 4.3rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .repair-cover {
+    min-height: calc(100dvh - 124px);
+    height: auto;
+  }
+
+  .repair-cover .repair-title {
+    font-size: clamp(2rem, 8.4vw, 3.5rem);
+  }
+
+  .repair-cover .deckline {
+    margin-bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .repair-cover .repair-clean,
+  .repair-cover .repair-spray {
+    display: none;
+  }
+
+  .repair-cover .repair-finish {
+    clip-path: inset(0);
+  }
+}
+
+@media (forced-colors: active) {
+  .repair-cover .repair-title {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+    -webkit-text-stroke: 0;
+  }
+
+  .repair-cover .repair-clean,
+  .repair-cover .repair-finish {
+    display: none;
+  }
+}

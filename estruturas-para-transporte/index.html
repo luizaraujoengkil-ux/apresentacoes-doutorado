@@ -8,6 +8,9 @@
   <title>Argamassas projetadas por drones | IME</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="motion.css?v=2" />
+  <link rel="stylesheet" href="cover-repair.css?v=3" />
+  <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
+  <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
 <body>
   <a class="skip-link" href="#stage">Ir para a apresentação</a>
@@ -27,46 +30,53 @@
   </header>
 
   <main id="stage" class="stage" aria-label="Apresentação final de Estruturas para Transporte">
-    <section class="slide cover active" id="capa" data-title="Argamassas projetadas por drones" aria-labelledby="title-cover">
-      <div class="cover-visual" aria-hidden="true">
-        <svg viewBox="0 0 900 620" preserveAspectRatio="xMaxYMid slice" role="img" aria-label="Ilustração conceitual de um drone aplicando argamassa no intradorso de uma ponte">
-          <defs>
-            <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#25485d"/><stop offset="1" stop-color="#0a1d29"/></linearGradient>
-            <linearGradient id="deck" x1="0" x2="1"><stop stop-color="#62737a"/><stop offset="1" stop-color="#2e424c"/></linearGradient>
-            <filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
-          </defs>
-          <rect width="900" height="620" fill="url(#sky)"/>
-          <path d="M0 210 L900 80 L900 280 L0 380 Z" fill="url(#deck)"/>
-          <path d="M0 352 L900 252 L900 312 L0 420 Z" fill="#172b35"/>
-          <path d="M85 385 L210 368 L210 620 L65 620 Z M690 300 L800 288 L830 620 L705 620 Z" fill="#273b45"/>
-          <path d="M90 390 L205 375 L190 620 L78 620 Z M700 306 L792 296 L817 620 L716 620 Z" fill="#40515a" opacity=".65"/>
-          <g class="applied-patch">
-            <path d="M596 346 L754 326 L755 338 L597 358 Z" fill="#d28a3c"/>
-            <path d="M597 357 L755 337" stroke="#f0bb61" stroke-width="4" fill="none"/>
-          </g>
-          <g class="drone-flight"><g transform="translate(660 467)">
-            <ellipse cx="0" cy="0" rx="120" ry="18" fill="#6fe6da" opacity=".12" filter="url(#glow)"/>
-            <g stroke="#c9e5ec" stroke-width="9" stroke-linecap="round"><path d="M-20 0 L-105 -48"/><path d="M20 0 L105 -48"/><path d="M-20 0 L-105 48"/><path d="M20 0 L105 48"/></g>
-            <g class="rotor-spin" fill="none" stroke="#79e2db" stroke-width="6"><ellipse cx="-112" cy="-52" rx="48" ry="12"/><ellipse cx="112" cy="-52" rx="48" ry="12"/><ellipse cx="-112" cy="52" rx="48" ry="12"/><ellipse cx="112" cy="52" rx="48" ry="12"/></g>
-            <rect x="-42" y="-26" width="84" height="52" rx="16" fill="#d9edf1"/>
-            <rect x="-24" y="26" width="48" height="52" rx="10" fill="#d28a3c"/>
-            <path d="M18 55 H47 V-74 L35 -82" fill="none" stroke="#e6f1f2" stroke-width="8" stroke-linejoin="round"/>
-            <g class="spray-particles" fill="#f0bb61"><circle cx="36" cy="-91" r="4"/><circle cx="30" cy="-100" r="5"/><circle cx="42" cy="-104" r="4"/><circle cx="33" cy="-113" r="4"/></g>
-          </g></g>
-          <g fill="none" stroke="#65ddd5" opacity=".18"><path d="M30 510 C220 435 335 490 465 430 S720 360 890 410"/><path d="M20 550 C230 470 355 525 490 455 S735 400 895 445"/></g>
-        </svg>
-      </div>
-      <div class="cover-shade"></div>
+    <section class="slide cover repair-cover repair-pending active" id="capa" data-title="Argamassas projetadas por drones" aria-labelledby="title-cover">
       <div class="cover-content">
         <div class="institution-row">
           <img src="ime.png" alt="Brasão do Instituto Militar de Engenharia" />
           <div><strong>Instituto Militar de Engenharia</strong><span>Estruturas para Transporte</span></div>
         </div>
         <p class="eyebrow">APRESENTAÇÃO FINAL · 2026</p>
-        <h1 id="title-cover">Argamassas cimentícias especiais <em>projetadas por drones</em> <span class="cover-title-end">na recuperação de estruturas de transporte</span></h1>
+        <div class="cover-treatment">
+          <h1 class="repair-title" id="title-cover" aria-label="Argamassas cimentícias especiais projetadas por drones na recuperação de estruturas de transporte">Argamassas cimentícias especiais <em>projetadas por drones</em></h1>
+          <div class="repair-title repair-clean" aria-hidden="true">Argamassas cimentícias especiais <em>projetadas por drones</em></div>
+          <div class="repair-title repair-finish" aria-hidden="true">Argamassas cimentícias especiais <em>projetadas por drones</em></div>
+          <div class="repair-flight" aria-hidden="true">
+            <img src="drone-reparo-v3.png" alt="" width="1881" height="836" />
+            <svg class="repair-spray spray-water" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+              <defs>
+                <linearGradient id="jet-water" x2="65%" y2="100%">
+                  <stop stop-color="#e7faff"/><stop offset=".65" stop-color="#71d9ff"/><stop offset="1" stop-color="#b1ecff" stop-opacity=".22"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 0 Q19 27 48 70 L81 94 Q62 87 39 96 Q17 42 0 0Z" fill="url(#jet-water)" opacity=".78"/>
+              <path d="M0 0 Q21 36 50 78 M2 4 Q20 33 40 72 M3 4 Q29 42 59 80" fill="none" stroke="#e7faff" stroke-width="1.5" stroke-linecap="round"/>
+              <g class="repair-mist" fill="#b1ecff">
+                <circle cx="43" cy="77" r="2"/><circle cx="55" cy="84" r="3"/><circle cx="67" cy="86" r="2"/><circle cx="79" cy="83" r="1.4"/><circle cx="33" cy="88" r="1.8"/><circle cx="58" cy="96" r="2.1"/>
+              </g>
+            </svg>
+            <svg class="repair-spray spray-mortar" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+              <defs>
+                <linearGradient id="jet-mortar" x2="65%" y2="100%">
+                  <stop stop-color="#c6b296"/><stop offset=".65" stop-color="#d8c6ab"/><stop offset="1" stop-color="#eee3d1" stop-opacity=".22"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 0 Q22 27 40 59 L77 99 Q57 91 37 98 Q24 53 0 0Z" fill="url(#jet-mortar)" opacity=".78"/>
+              <path d="M1 2 Q18 29 39 73 M4 3 Q30 45 52 77" fill="none" stroke="#c6b296" stroke-width="1.5" stroke-linecap="round"/>
+              <g class="repair-mist" fill="#eee3d1">
+                <circle cx="43" cy="77" r="3"/><circle cx="55" cy="84" r="4"/><circle cx="67" cy="86" r="2"/><circle cx="79" cy="83" r="1.4"/><circle cx="33" cy="88" r="1.8"/><circle cx="58" cy="96" r="2.1"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="cover-title-end">na recuperação de estruturas de transporte</p>
         <p class="deckline">Requisitos reológicos, aderência e viabilidade tecnológica</p>
         <div class="authors"><strong>Luiz Araujo de Souza Junior</strong><span>Robson Luiz Gaiofatto</span></div>
-        <span class="source-tag cover-tag">Ilustração conceitual</span>
+        <div class="repair-stages">
+          <span class="repair-stage-water"><b>01</b> Hidrojateamento</span>
+          <span class="repair-stage-mortar"><b>02</b> Projeção de argamassa</span>
+          <span class="source-tag">Animação conceitual</span>
+        </div>
       </div>
     </section>
 
@@ -258,6 +268,6 @@
     <button id="fullscreen" class="nav-button" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
