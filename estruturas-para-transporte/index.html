@@ -13,8 +13,9 @@
   <link rel="stylesheet" href="evidence-flow.css?v=2" />
   <link rel="stylesheet" href="evidence-couriers.css?v=2" />
   <link rel="stylesheet" href="maturity-flight.css?v=1" />
-  <link rel="stylesheet" href="rheology-example.css?v=3" />
+  <link rel="stylesheet" href="rheology-example.css?v=4" />
   <link rel="stylesheet" href="projection-process.css?v=2" />
+  <link rel="stylesheet" href="acceptance-scenes.css?v=1" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -301,30 +302,39 @@
             </header>
             <p class="rheology-step-copy">Após a projeção, a mistura volta a ganhar consistência e resiste ao escorrimento. É a <strong>recuperação tixotrópica</strong>.</p>
             <figure class="rheology-figure">
-              <svg class="rheology-scene" viewBox="0 0 520 210" role="img" aria-label="Esquema de um multirrotor com cartucho, mangueira e bico voltado para cima. O jato aplica argamassa na face inferior do tabuleiro.">
+              <svg class="rheology-scene" viewBox="0 0 520 210" role="img" aria-label="Drone com cartucho e bico voltado para cima, projetando argamassa na face inferior do tabuleiro.">
                 <defs>
-                  <linearGradient id="rheo-slab" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                    <stop stop-color="#768991"/><stop offset="1" stop-color="#425963"/>
+                  <linearGradient id="rheo-slab" x2="0" y2="1">
+                    <stop stop-color="#768991"/>
+                    <stop offset="1" stop-color="#425963"/>
                   </linearGradient>
                   <pattern id="rheo-stone" width="47" height="23" patternUnits="userSpaceOnUse">
                     <path d="m4 6 5-3 5 4-4 3zm22 8 5-3 5 4-3 4zm14-11 3-2 3 2-3 3z" fill="#b6c6c9" opacity=".48"/>
                     <path d="m15 18 3-3 6 4-4 2zm24-9 4-2 2 3-4 2z" fill="#263e49" opacity=".64"/>
-                    <circle cx="3" cy="17" r="1.7" fill="#324851"/><circle cx="24" cy="5" r="1.4" fill="#c0c9c8"/>
+                    <circle cx="3" cy="17" r="1.7" fill="#324851"/>
+                    <circle cx="24" cy="5" r="1.4" fill="#c0c9c8"/>
                   </pattern>
-                  <linearGradient id="rheo-shell" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                    <stop stop-color="#a3b4ba"/><stop offset=".37" stop-color="#637c86"/><stop offset="1" stop-color="#243b47"/>
+                  <linearGradient id="rheo-metal" x2="0" y2="1">
+                    <stop stop-color="#d7e2e3"/>
+                    <stop offset=".38" stop-color="#9aaeb6"/>
+                    <stop offset="1" stop-color="#425762"/>
                   </linearGradient>
-                  <linearGradient id="rheo-metal" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                    <stop stop-color="#e0ebec"/><stop offset=".43" stop-color="#92a7ae"/><stop offset="1" stop-color="#506673"/>
-                  </linearGradient>
-                  <linearGradient id="rheo-jet" x1="313" y1="109" x2="340" y2="63" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#f9cc83"/><stop offset="1" stop-color="#f9cc83" stop-opacity=".24"/>
+                  <clipPath id="rheo-drone-body-crop">
+                    <path clip-rule="evenodd" d="M0 0H1881V836H0Z M1437 501 1463 517 1497 567 1530 654 1524 674 1497 673 1458 613 1410 583 1405 557 1410 538Z"/>
+                  </clipPath>
+                  <clipPath id="rheo-drone-tip-crop">
+                    <path d="M1477 574 1493 591 1527 655 1524 670 1511 672 1485 635 1464 595Z"/>
+                  </clipPath>
+                  <linearGradient id="rheo-jet" x1="319" y1="99" x2="326" y2="64" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ffdb9d"/>
+                    <stop offset="1" stop-color="#f9cc83" stop-opacity=".24"/>
                   </linearGradient>
                   <pattern id="rheo-repair" width="22" height="8" patternUnits="userSpaceOnUse">
                     <rect width="22" height="8" fill="#e4ad65"/>
                     <path d="M2 4l3-1m4 4 3-1m4-3 3-1" stroke="#a86a31" stroke-width="1.2" stroke-linecap="round"/>
                   </pattern>
                 </defs>
+
                 <path d="M23 20h474v42H23z" fill="url(#rheo-slab)" stroke="#9dafb2"/>
                 <path d="M23 20h474v42H23z" fill="url(#rheo-stone)"/>
                 <path d="M23 21h474M23 62h474" fill="none" stroke="#b5c5c7"/>
@@ -332,53 +342,47 @@
                 <text x="52" y="47" fill="#f1f6f7" font-size="17" font-weight="760">Tabuleiro</text>
 
                 <g class="bridge-spray">
-                  <path d="M313 109Q311 86 304 65L374 65Q344 79 313 109Z" fill="url(#rheo-jet)"/>
-                  <path d="M313 109 331 67M313 109 349 69M313 109 315 72" fill="none" stroke="#ffe0aa" stroke-width="1.2" opacity=".86"/>
-                  <g fill="#ffe0aa"><circle cx="320" cy="73" r="1.8"/><circle cx="337" cy="74" r="1.5"/><circle cx="351" cy="76" r="1.4"/><circle cx="312" cy="78" r="1.1"/><circle cx="330" cy="86" r="1.2"/><circle cx="306" cy="70" r="1.1"/></g>
-                </g>
-                <path class="bridge-coat" d="M293 61h93l-3 7-8 2h-74l-6-4z" fill="url(#rheo-repair)" stroke="#ffca82" stroke-width="1.1"/>
-                <path d="M387 68h17l11 10" fill="none" stroke="#e4ad65" stroke-width="1.3"/>
-                <text x="410" y="96" text-anchor="middle" fill="#f7d7a7" font-size="16" font-weight="720">Camada de</text>
-                <text x="410" y="114" text-anchor="middle" fill="#f7d7a7" font-size="16" font-weight="720">argamassa</text>
-
-                <g stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M142 142 99 120m136 17 27-20" fill="none" stroke="#45606d" stroke-width="7"/>
-                  <path d="M75 115h51m106-3h52" fill="none" stroke="#77909a" stroke-opacity=".8" stroke-width="2.8"/>
-                  <path d="M97 113v11m161-14v12" stroke="#9bafb6" stroke-width="5"/>
-                  <path d="m147 149-80-6m138 7 72-7" fill="none" stroke="#425c68" stroke-width="10"/>
-                  <path d="m147 147-80-6m138 7 72-7" fill="none" stroke="#81959e" stroke-width="2"/>
-                  <g fill="url(#rheo-metal)" stroke="#afc0c4" stroke-width=".8">
-                    <rect x="57" y="132" width="21" height="15" rx="3"/>
-                    <rect x="267" y="132" width="21" height="15" rx="3"/>
-                  </g>
-                  <path d="M26 131q18-5 38-2l40 3q-18 5-39 2zm209 0q18-5 38-2l40 3q-18 5-39 2z" fill="#92aab3" fill-opacity=".87"/>
-                  <path d="m128 157-11 36m106-36 15 36m-137 0h52m63 0h47" fill="none" stroke="#74909c" stroke-width="4"/>
-                  <path d="m117 145 29-16h52l27 12 7 13-14 11h-78l-23-12z" fill="url(#rheo-shell)" stroke="#aebec4" stroke-width="1.25"/>
-                  <path d="m137 143 13-8h47l19 7-11 7h-63z" fill="#b7c5c8"/>
-                  <path d="M155 151h48m-39 4h29" stroke="#203641" stroke-width="2"/>
-                  <path d="M220 153h5m-103-4h6" stroke="#72ded4" stroke-width="2.2"/>
-
-                  <path d="M226 174h32q18 0 27-14l8-11" fill="none" stroke="#101d25" stroke-width="9"/>
-                  <path d="M226 174h32q18 0 27-14l8-11" fill="none" stroke="#c3a476" stroke-width="4"/>
-                  <rect x="144" y="162" width="92" height="24" rx="10" fill="url(#rheo-metal)" stroke="#bccbd0"/>
-                  <rect x="162" y="165" width="55" height="18" rx="3" fill="#263e48"/>
-                  <path d="M168 175h43" stroke="#dcb17e" stroke-width="5"/>
-                  <path d="M153 162v24m73-24v24" stroke="#445c69" stroke-width="4"/>
-                  <path d="M229 161h40l19-16" fill="none" stroke="#90a6af" stroke-width="4"/>
-
-                  <g transform="translate(292 149) rotate(28)">
-                    <path d="M-9 3V-9l2-7h14l2 7V3z" fill="url(#rheo-shell)" stroke="#d5dee0"/>
-                    <path d="M-8-15v-8h16v8z" fill="url(#rheo-metal)" stroke="#d5dee0"/>
-                    <path d="M-6-23-3-41h6l3 18z" fill="url(#rheo-metal)" stroke="#d5dee0"/>
-                    <path d="M-3.8-41h7.6v-4h-7.6z" fill="#e1be88" stroke="#fae1b7"/>
-                    <path d="M-5-10H5m-3-14 1-14" stroke="#e7f0f1" stroke-width="1"/>
+                  <path d="M319 99Q317 81 302 64H353Q335 78 319 99Z" fill="url(#rheo-jet)"/>
+                  <path d="M319 99 314 66M319 99 327 66M319 99 341 66" fill="none" stroke="#ffe0aa" stroke-width="1.2" opacity=".86"/>
+                  <g fill="#ffe0aa">
+                    <circle cx="313" cy="72" r="1.4"/>
+                    <circle cx="327" cy="76" r="1.7"/>
+                    <circle cx="337" cy="69" r="1.4"/>
+                    <circle cx="324" cy="85" r="1.2"/>
+                    <circle cx="319" cy="72" r="1.2"/>
                   </g>
                 </g>
-                <circle cx="303" cy="129" r="2.1" fill="#a9d3db"/>
-                <path d="M305 129h23l17 14h8" fill="none" stroke="#9ec5ce" stroke-width="1.2"/>
-                <text x="357" y="149" fill="#e2edf0" font-size="17" font-weight="740">Bico acoplado</text>
-                <path d="M219 180h100l22-11h12" fill="none" stroke="#819fa9" stroke-width="1.2"/>
-                <text x="357" y="175" fill="#c9dce0" font-size="16" font-weight="680">Cartucho</text>
+                <path class="bridge-coat" d="M290 61h83l-3 7-8 2h-65l-5-4z" fill="url(#rheo-repair)" stroke="#ffca82" stroke-width="1.1"/>
+                <path d="M373 67h20l9 9" fill="none" stroke="#e4ad65" stroke-width="1.3"/>
+                <text x="407" y="82" fill="#f7d7a7" font-size="16" font-weight="720">Camada</text>
+                <text x="407" y="101" fill="#f7d7a7" font-size="16" font-weight="720">aplicada</text>
+
+                <g transform="translate(2 -64) scale(.88)">
+                  <g class="rheology-airframe-photo" transform="translate(26 181) scale(.164)">
+                    <image href="drone-reparo-v3.png" width="1881" height="836" clip-path="url(#rheo-drone-body-crop)"/>
+                  </g>
+                  <g stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M248 253 314 247 345 232 350 239 317 254 248 260Z" fill="#3b4e58" stroke="#8799a2" stroke-width="1.3"/>
+                    <path d="M258 267C286 272 310 272 327 258Q339 248 349 235" fill="none" stroke="#17252c" stroke-width="9"/>
+                    <path d="M258 267C286 272 310 272 327 258Q339 248 349 235" fill="none" stroke="#bd9a6c" stroke-width="4"/>
+                    <path d="M258 266l-8-4" fill="none" stroke="#9eaeb5" stroke-width="5.6"/>
+                    <circle cx="344" cy="237" r="5.4" fill="#4c616b" stroke="#aabcc2" stroke-width="1"/>
+                  </g>
+                  <g transform="translate(351 233) rotate(11)" stroke-linejoin="round">
+                    <path d="M-8 3v-12l2-5h12l2 5V3Z" fill="#435763" stroke="#a6b9c2"/>
+                    <path d="M-5-13v-11l1.5-7h7l1.5 7v11Z" fill="url(#rheo-metal)" stroke="#c1cdd2"/>
+                    <path d="M-5-18h10M-4-23h8" fill="none" stroke="#dbe5e7" stroke-opacity=".7"/>
+                  </g>
+                  <g transform="translate(360.35 184.9) rotate(-140.1) scale(.24) translate(-1515 -659)">
+                    <image href="drone-reparo-v3.png" width="1881" height="836" clip-path="url(#rheo-drone-tip-crop)"/>
+                  </g>
+                </g>
+
+                <path d="M319 121h30l12 13h10" fill="none" stroke="#9ec5ce" stroke-width="1.2"/>
+                <text x="378" y="139" fill="#e2edf0" font-size="17" font-weight="740">Bico acoplado</text>
+                <path d="M111 183h17l13-10h27" fill="none" stroke="#819fa9" stroke-width="1.2"/>
+                <circle cx="168" cy="173" r="2" fill="#a9d3db"/>
+                <text x="29" y="188" fill="#c9dce0" font-size="16" font-weight="680">Cartucho</text>
               </svg>
               <figcaption class="rheology-caption">Projeção ascendente na face inferior do tabuleiro</figcaption>
             </figure>
@@ -533,29 +537,137 @@
     </section>
 
     <section class="slide" id="aceitacao" data-title="Voo autorizado não é reparo aceito" aria-labelledby="title-acceptance">
-      <div class="slide-inner">
+      <div class="slide-inner acceptance-show">
         <p class="eyebrow">06 / ACEITAÇÃO</p>
         <h2 id="title-acceptance">Voo autorizado <em>≠</em> reparo aceito</h2>
-        <div class="acceptance-layout">
-          <div class="gate-line" aria-label="Protocolo de aceitação H0 a H8">
-            <div class="gate focus-first"><b>H0</b><span>Diagnóstico</span></div><i></i>
-            <div class="gate"><b>H1</b><span>Material</span></div><i></i>
-            <div class="gate"><b>H2</b><span>Substrato</span></div><i></i>
-            <div class="gate"><b>H3</b><span>Sistema aéreo</span></div><i></i>
-            <div class="gate"><b>H4</b><span>Painel</span></div><i></i>
-            <div class="gate flight"><b>H5</b><span>Autorizações</span></div><i></i>
-            <div class="gate"><b>H6</b><span>Execução</span></div><i></i>
-            <div class="gate product"><b>H7</b><span>Produto</span></div><i></i>
-            <div class="gate"><b>H8</b><span>Encerramento</span></div>
-          </div>
-          <div class="acceptance-cards">
-            <article class="flight-card"><span>H5 · AERONÁUTICA</span><b>Pode voar?</b><p>Espaço aéreo, área, equipe e análise de risco liberados.</p></article>
-            <div class="not-equal">≠</div>
-            <article class="engineering-card"><span>H7 · ENGENHARIA</span><b>O reparo funciona?</b><p>Continuidade, espessura, cura, aderência e acabamento aceitos.</p></article>
-          </div>
+        <div class="accept-scenes">
+          <article class="accept-card accept-flight">
+            <header class="accept-card-top">
+              <span class="accept-code">H5</span>
+              <div><p>Autorização de voo</p><h3>O voo pode começar?</h3></div>
+            </header>
+            <figure class="accept-visual">
+              <svg viewBox="0 0 520 205" role="img" aria-label="Drone realista aproximando-se da área delimitada de operação sob o tabuleiro">
+                <defs>
+                  <pattern id="accept-flight-grid" width="26" height="26" patternUnits="userSpaceOnUse">
+                    <path d="M26 0H0V26" fill="none" stroke="#81bdcb" stroke-opacity=".13"/>
+                  </pattern>
+                  <pattern id="accept-flight-aggregate" width="46" height="19" patternUnits="userSpaceOnUse">
+                    <path d="m4 6 3-2 4 2-3 4zm22 4 5-2 3 3-4 3zm14-7 3-2 3 2-2 3z" fill="#aebfc5" opacity=".58"/>
+                    <circle cx="17" cy="16" r="1.5" fill="#283e47"/>
+                  </pattern>
+                  <linearGradient id="accept-flight-deck" x2="0" y2="1">
+                    <stop stop-color="#76919d"/><stop offset="1" stop-color="#3a5663"/>
+                  </linearGradient>
+                  <linearGradient id="accept-flight-zone" x2="0" y2="1">
+                    <stop stop-color="#64ddd2" stop-opacity=".08"/><stop offset="1" stop-color="#64ddd2" stop-opacity=".26"/>
+                  </linearGradient>
+                  <linearGradient id="accept-flight-trail">
+                    <stop stop-color="#7de8df" stop-opacity="0"/><stop offset="1" stop-color="#7de8df" stop-opacity=".65"/>
+                  </linearGradient>
+                </defs>
+                <rect x="13" y="51" width="494" height="140" rx="13" fill="url(#accept-flight-grid)"/>
+                <path d="M30 25 42 16H480l10 9Z" fill="#8099a1" stroke="#a6b9c1"/>
+                <path d="M30 25H490v22l-10 6H41l-11-6Z" fill="url(#accept-flight-deck)" stroke="#a1b6bf"/>
+                <path d="M31 25h458v23H31Z" fill="url(#accept-flight-aggregate)"/>
+                <path d="M42 52h438" stroke="#b7c8cb" stroke-opacity=".7"/>
+                <g class="accept-zone">
+                  <path d="M166 162H426l65 26H110Z" fill="url(#accept-flight-zone)" stroke="#72d6cc" stroke-width="1.5" stroke-dasharray="6 4"/>
+                  <path d="M166 162V132m260 30v-30m65 56v-33m-381 33v-33" fill="none" stroke="#7de2da" stroke-width="1.4"/>
+                  <path d="M166 132h260m65 23-65-23m-316 23 56-23" fill="none" stroke="#7de2da" stroke-opacity=".55" stroke-dasharray="3 5"/>
+                  <text x="303" y="181" fill="#b8f3ed" text-anchor="middle" font-size="17" font-weight="750">Área de operação</text>
+                </g>
+                <path class="accept-trail" d="M20 108H203m-159 10h133" fill="none" stroke="url(#accept-flight-trail)" stroke-width="2" stroke-linecap="round" stroke-dasharray="12 8"/>
+                <image class="accept-drone" href="drone-reparo-v3.png" x="145" y="61" width="262" height="116"/>
+              </svg>
+            </figure>
+            <p class="accept-card-copy">Espaço aéreo, área de operação, equipe e análise de risco.</p>
+          </article>
+          <article class="accept-card accept-repair">
+            <header class="accept-card-top">
+              <span class="accept-code">H7</span>
+              <div><p>Aceitação do reparo</p><h3>A camada atende ao projeto?</h3></div>
+            </header>
+            <figure class="accept-visual">
+              <svg class="accept-inspection" viewBox="0 0 520 205" role="img" aria-label="Corte esquemático do tabuleiro com medição da espessura da camada e ensaio de aderência por arrancamento">
+                <defs>
+                  <linearGradient id="h7-concrete" x2="0" y2="1">
+                    <stop stop-color="#698391"/>
+                    <stop offset="1" stop-color="#3b5665"/>
+                  </linearGradient>
+                  <linearGradient id="h7-mortar" x2="0" y2="1">
+                    <stop stop-color="#ffd38e"/>
+                    <stop offset="1" stop-color="#ab6b37"/>
+                  </linearGradient>
+                  <linearGradient id="h7-steel" x2="0" y2="1">
+                    <stop stop-color="#c3d9df"/>
+                    <stop offset=".52" stop-color="#76939f"/>
+                    <stop offset="1" stop-color="#3f5865"/>
+                  </linearGradient>
+                  <pattern id="h7-stones" width="51" height="28" patternUnits="userSpaceOnUse">
+                    <path d="m4 5 4-2 6 3-5 4zM25 18l5-4 5 2 1 4-6 2zM39 6l4-2 5 3-3 4z" fill="#b0c6cc" opacity=".47"/>
+                    <path d="m8 21 3-2 5 3-4 3zM18 8l3-2 4 2-2 3zM44 20l4-2 3 4-6 2z" fill="#254352" opacity=".7"/>
+                    <circle cx="31" cy="4" r="1.2" fill="#c2d1d6" opacity=".57"/>
+                  </pattern>
+                  <pattern id="h7-trowel" width="32" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M1 7l10-1m5-2h9m1 4h4" fill="none" stroke="#855728" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+                  </pattern>
+                </defs>
+
+                <path d="M25 185h470M25 152h470M25 119h470M59 105v87M103 105v87M147 105v87M191 105v87M235 105v87M279 105v87M323 105v87M367 105v87M411 105v87M455 105v87" fill="none" stroke="#85acbd" stroke-opacity=".095"/>
+                <path d="M27 37 40 24h438l15 13z" fill="#7793a0" stroke="#9fb5bc" stroke-width="1.2"/>
+                <path d="M27 37h466v47l-13 11H40L27 84z" fill="url(#h7-concrete)" stroke="#a6bbc1" stroke-width="1.25"/>
+                <path d="M28 38h464v46H28z" fill="url(#h7-stones)"/>
+                <path d="M27 84h466l-13 11H40z" fill="#2d4959" stroke="#809da9" stroke-width="1"/>
+                <text x="45" y="67" fill="#f2f8fa" font-size="18" font-weight="750">Tabuleiro</text>
+
+                <path d="M103 94h330v8l-9 4-20 2-19-1-16 2-18-1-19 1-22-1-19 2-16-1-23 1-15-2-25 1-20-2-26 1-13-1-23-1-16-2-8-4z" fill="url(#h7-mortar)" stroke="#edbd80" stroke-width="1.2"/>
+                <path d="M103 94h330v8l-9 4-20 2-19-1-16 2-18-1-19 1-22-1-19 2-16-1-23 1-15-2-25 1-20-2-26 1-13-1-23-1-16-2-8-4z" fill="url(#h7-trowel)"/>
+
+                <g class="accept-check-thickness">
+                  <path d="M105 94H65m64 14H65" fill="none" stroke="#96ebe4" stroke-width="1.3" stroke-dasharray="3 3" opacity=".78"/>
+                  <path d="M75 95v12m-4-8 4-4 4 4m-8 4 4 4 4-4" fill="none" stroke="#9df4e9" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M63 89h-6v25h13v4H52V88h11zm-6 26v14h4v-12" fill="url(#h7-steel)" stroke="#a9c2cc" stroke-width=".85" stroke-linejoin="round"/>
+                  <circle cx="104" cy="101" r="3.2" fill="#adf7ef" stroke="#314e57" stroke-width="1.1"/>
+                  <path d="M75 118v24h17" fill="none" stroke="#85ddd6" stroke-width="1.2"/>
+                  <rect x="92" y="129" width="124" height="27" rx="6" fill="#123e48" stroke="#488d90"/>
+                  <text x="154" y="148" text-anchor="middle" fill="#c9fff9" font-size="17" font-weight="750">Espessura</text>
+                </g>
+
+                <g class="accept-check-bond">
+                  <path d="M304 111v32h68v-32" fill="none" stroke="#193541" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M304 111v32h68v-32" fill="none" stroke="url(#h7-steel)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M296 111h16m52 0h16" fill="none" stroke="#a8bdc6" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M326 107h24v7h-24z" fill="url(#h7-steel)" stroke="#c2d4d9" stroke-width="1"/>
+                  <path d="M338 114v18" stroke="#c1d5dc" stroke-width="4" stroke-linecap="round"/>
+                  <rect x="327" y="130" width="22" height="21" rx="4" fill="url(#h7-steel)" stroke="#bed5dc" stroke-width="1.1"/>
+                  <path d="M331 134h14m-14 13h14" stroke="#344c5d" stroke-width="1.15"/>
+                  <circle cx="358" cy="142" r="7.5" fill="#122b38" stroke="#a9c2cc" stroke-width="1.35"/>
+                  <path d="m358 142 3-3" stroke="#ffe2ad" stroke-width="1.25" stroke-linecap="round"/>
+                  <path d="M338 154v17m-5-5 5 5 5-5" fill="none" stroke="#ffcd8e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M367 142h17l8 13" fill="none" stroke="#e1b77e" stroke-width="1.2"/>
+                  <rect x="384" y="155" width="112" height="27" rx="6" fill="#392d27" stroke="#a87f55"/>
+                  <text x="440" y="174" text-anchor="middle" fill="#ffe2b7" font-size="17" font-weight="750">Aderência</text>
+                </g>
+              </svg>
+            </figure>
+            <p class="accept-card-copy">Continuidade, espessura, cura, aderência e acabamento da camada.</p>
+          </article>
         </div>
-        <div class="norms">DNIT 087/2006-ES · DNIT 010/2024-PRO · ABNT NBR 6118:2026 · ISO 16311:2024 · RBAC 100/2026 · ICA 100-40:2026</div>
-        <div class="slide-foot"><span class="source-tag proposed">Protocolo H0–H8 proposto pelo artigo</span><span>Lacuna principal: integração procedimental</span></div>
+        <div class="accept-protocol">
+          <p>Protocolo de aceitação <strong>H0–H8</strong> proposto no artigo</p>
+          <ol class="accept-gates" aria-label="Marcos do protocolo proposto">
+            <li><b>H0</b><span>Diagnóstico</span></li>
+            <li><b>H1</b><span>Material</span></li>
+            <li><b>H2</b><span>Substrato</span></li>
+            <li><b>H3</b><span>Sistema aéreo</span></li>
+            <li><b>H4</b><span>Painel de teste</span></li>
+            <li class="accept-gate-flight"><b>H5</b><span>Autorizações</span></li>
+            <li><b>H6</b><span>Execução</span></li>
+            <li class="accept-gate-repair"><b>H7</b><span>Produto aplicado</span></li>
+            <li><b>H8</b><span>Encerramento</span></li>
+          </ol>
+        </div>
       </div>
     </section>
 

@@ -113,6 +113,10 @@
   line-height: 1.28;
 }
 
+.rheology-airframe-photo {
+  filter: drop-shadow(0 6px 6px #030e16b0) brightness(1.1);
+}
+
 .rheology-figure .curve {
   stroke-width: 5.5;
 }
