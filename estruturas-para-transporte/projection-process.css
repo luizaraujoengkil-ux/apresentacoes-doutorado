@@ -200,12 +200,13 @@
   color: #c2d9ef;
 }
 
-.process-distance,
-.process-angle,
+.process-airframe-photo {
+  filter: drop-shadow(0 6px 6px #030e16b0) brightness(1.1);
+}
+
 .process-velocity,
 .process-wind,
 .process-downwash,
-.process-spray,
 .process-deposit {
   visibility: hidden;
 }

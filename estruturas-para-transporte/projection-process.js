@@ -6,6 +6,7 @@
   const find = selector => slide.querySelector(selector);
   const aircraft = find('.process-aircraft');
   const nozzle = find('.process-nozzle');
+  const feedRoute = find('.process-feed-route');
   const speed = find('.process-velocity');
   const wind = find('.process-wind');
   const downwash = find('.process-downwash');
@@ -45,7 +46,6 @@
   const depositRect = shape('rect', { x: 360, y: 87, width: 0, height: 16 }, depositClip);
   deposit.setAttribute('clip-path', 'url(#process-layer-clip)');
   deposit.setAttribute('transform', 'translate(-18 0)');
-  nozzle.removeAttribute('style');
   label('Tabuleiro', 66, 67, { fill: '#f5fafb', 'font-size': 22 });
 
   const gradient = shape('linearGradient', { id: 'process-live-jet', x2: 0, y2: 1 }, defs);
@@ -63,7 +63,7 @@
   const guideMark = shape('path', {}, guidance);
   const guideLabel = label('', 0, 0, { stroke: 'none', fill: '#9cf1e9' }, guidance);
 
-  const feed = shape('path', { d: 'M290 278h19q17 0 23-13l17-29', fill: 'none', stroke: '#ffda9d', 'stroke-width': 3, 'stroke-dasharray': '5 6' }, aircraft);
+  const feed = shape('path', { d: feedRoute.getAttribute('d'), fill: 'none', stroke: '#ffda9d', 'stroke-width': 3, 'stroke-dasharray': '5 6' }, aircraft);
   const pumpReadout = shape('g', { class: 'process-pump-readout' });
   shape('rect', { x: 593, y: 137, width: 165, height: 69, rx: 10, fill: '#0b2532', stroke: '#795d43' }, pumpReadout);
   label('Vazão regulada', 606, 163, { fill: '#f8d5a3', 'font-size': 16 }, pumpReadout);
@@ -144,10 +144,10 @@
         break;
     }
 
-    aircraft.setAttribute('transform', `translate(${x} ${y}) rotate(${bank} 260 248)`);
+    aircraft.setAttribute('transform', `translate(${x} ${y}) rotate(${bank} 220 248)`);
     nozzle.setAttribute('transform', `rotate(${angle - 11} 351 233)`);
     const [tipLocalX, tipLocalY] = rotate(351, 184, 351, 233, angle);
-    const [tipX, tipY] = rotate(tipLocalX, tipLocalY, 260, 248, bank).map((n, i) => n + (i ? y : x));
+    const [tipX, tipY] = rotate(tipLocalX, tipLocalY, 220, 248, bank).map((n, i) => n + (i ? y : x));
     const targetX = tipX + (tipY - 92) * Math.tan(rad(angle + bank));
 
     visible(deposit, end > 342);

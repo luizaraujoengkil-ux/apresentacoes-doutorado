@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="evidence-couriers.css?v=2" />
   <link rel="stylesheet" href="maturity-flight.css?v=1" />
   <link rel="stylesheet" href="rheology-example.css?v=3" />
-  <link rel="stylesheet" href="projection-process.css?v=1" />
+  <link rel="stylesheet" href="projection-process.css?v=2" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
@@ -422,26 +422,17 @@
                   <circle cx="22" cy="5" r="1.2" fill="#a4bec5"/>
                   <circle cx="52" cy="15" r="1.4" fill="#172f3d"/>
                 </pattern>
-                <linearGradient id="process-drone-shell" x2="0" y2="1">
-                  <stop stop-color="#adc2cb"/>
-                  <stop offset=".34" stop-color="#7593a2"/>
-                  <stop offset="1" stop-color="#273e4e"/>
-                </linearGradient>
                 <linearGradient id="process-drone-metal" x2="0" y2="1">
-                  <stop stop-color="#f2f7f8"/>
-                  <stop offset=".41" stop-color="#a2b8c2"/>
-                  <stop offset="1" stop-color="#45616e"/>
+                  <stop stop-color="#d7e2e3"/>
+                  <stop offset=".38" stop-color="#9aaeb6"/>
+                  <stop offset="1" stop-color="#425762"/>
                 </linearGradient>
-                <linearGradient id="process-drone-arm" x2="0" y2="1">
-                  <stop stop-color="#7a97a5"/>
-                  <stop offset=".38" stop-color="#395968"/>
-                  <stop offset="1" stop-color="#263d49"/>
-                </linearGradient>
-                <linearGradient id="process-spray-fill" x1="360" y1="186" x2="378" y2="93" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#ffd799" stop-opacity=".95"/>
-                  <stop offset=".5" stop-color="#f8c47a" stop-opacity=".58"/>
-                  <stop offset="1" stop-color="#f8c47a" stop-opacity=".1"/>
-                </linearGradient>
+                <clipPath id="process-drone-body-crop">
+                  <path clip-rule="evenodd" d="M0 0H1881V836H0Z M1437 501 1463 517 1497 567 1530 654 1524 674 1497 673 1458 613 1410 583 1405 557 1410 538Z"/>
+                </clipPath>
+                <clipPath id="process-drone-tip-crop">
+                  <path d="M1477 574 1493 591 1527 655 1524 670 1511 672 1485 635 1464 595Z"/>
+                </clipPath>
                 <linearGradient id="process-deposit-fill" x2="0" y2="1">
                   <stop stop-color="#ffe2af"/>
                   <stop offset="1" stop-color="#a96b38"/>
@@ -479,79 +470,33 @@
                 <path d="M44 238h87c18 0 22 9 35 9h40m-8-6 8 6-8 6"/>
               </g>
 
-              <g class="process-distance" fill="none" stroke="#68ded4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M379 93H437M365 186H437" stroke-dasharray="4 5" opacity=".68"/>
-                <path d="M428 96V183m-5-78 5-9 5 9m-10 69 5 9 5-9"/>
-                <circle cx="378" cy="93" r="3.5" fill="#68ded4" stroke="#173443"/>
-                <circle cx="360" cy="186" r="3.5" fill="#68ded4" stroke="#173443"/>
-              </g>
-
               <g class="process-aircraft">
                 <g class="process-downwash" fill="none" stroke="#80bee7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M146 240q1 20-14 40m-1-7 1 7 7-2M165 243q4 17-2 31m-4-6 4 6 5-5"/>
-                  <path d="M330 239q8 18 7 36m-5-6 5 6 5-5M345 237q12 17 17 36m-6-5 6 5 3-7"/>
-                </g>
-                <g class="process-airframe" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m234 243-31-28m85 28 30-27" fill="none" stroke="#314b5a" stroke-width="9"/>
-                  <path d="m234 241-31-28m85 28 30-27" fill="none" stroke="#6c8896" stroke-width="2"/>
-                  <path d="M177 210h53m63 0h51" fill="none" stroke="#93adba" stroke-opacity=".57" stroke-width="2.3"/>
-                  <path d="M200 208v10m118-10v10" fill="none" stroke="#809aa5" stroke-width="5"/>
-
-                  <path d="M244 250l-82-16m113 16 53-15" fill="none" stroke="url(#process-drone-arm)" stroke-width="13"/>
-                  <path d="M244 247l-82-15m113 15 53-15" fill="none" stroke="#9eb5bf" stroke-opacity=".5" stroke-width="1.7"/>
-                  <path d="m227 254-14 44m80-44 18 44m-116 0h62m32 0h41" fill="none" stroke="#648594" stroke-width="5"/>
-                  <path d="M209 297h42m44 0h30" fill="none" stroke="#a5bbc4" stroke-opacity=".48" stroke-width="1.5"/>
-                  <g fill="url(#process-drone-metal)" stroke="#bdcbd0" stroke-width=".8">
-                    <rect x="152" y="222" width="23" height="15" rx="4"/>
-                    <rect x="316" y="222" width="23" height="15" rx="4"/>
-                  </g>
-                  <g class="process-rotors" fill="#aac0c9" fill-opacity=".85">
-                    <path d="M116 222q21-5 43-3l51 3q-25 6-49 3Z"/>
-                    <path d="M282 222q23-5 47-3l19 3q-16 6-38 3Z"/>
-                  </g>
-                  <path d="m202 245 28-15h64l21 13 7 9-13 13h-90l-20-13Z" fill="url(#process-drone-shell)" stroke="#adc0c8" stroke-width="1.45"/>
-                  <path d="m214 244 19-10h60l15 9-9 6h-72Z" fill="#c9d8de" opacity=".72"/>
-                  <path d="m218 253 15 7h55l16-7" fill="none" stroke="#263d49" stroke-width="2"/>
-                  <path d="M242 255h38m-31 4h24" stroke="#203440" stroke-width="1.5"/>
-                  <rect x="305" y="248" width="12" height="7" rx="2.2" fill="#173442"/>
-                  <circle cx="311" cy="251.5" r="2" fill="#81d7d1"/>
-                  <path d="M204 248h7" stroke="#68ded4" stroke-width="2.4"/>
-                  <circle cx="164" cy="232.5" r="1.7" fill="#f0b576"/>
-                  <circle cx="328" cy="232.5" r="1.7" fill="#f0b576"/>
-
-                  <path d="M286 278h23q17 0 23-13l17-29" fill="none" stroke="#152832" stroke-width="10"/>
-                  <path d="M286 278h23q17 0 23-13l17-29" fill="none" stroke="#c7a47a" stroke-width="4"/>
-                  <path d="M296 264h28l25-24" fill="none" stroke="#9bb5c1" stroke-width="3"/>
-                  <rect x="224" y="263" width="76" height="27" rx="10" fill="url(#process-drone-metal)" stroke="#b5c7d0"/>
-                  <rect x="236" y="268" width="50" height="17" rx="4" fill="#213b47"/>
-                  <path d="M242 277h38" stroke="#e3bd8b" stroke-width="4.5"/>
-                  <path d="M232 265v23m59-23v23" stroke="#54717f" stroke-width="3.2"/>
+                  <path d="M61 247q0 17-12 34m-1-7 1 7 7-2M79 248q2 19-2 38m-5-6 5 6 5-6"/>
+                  <path d="M282 239q1 19 0 39m-5-6 5 6 5-6M299 236q9 18 12 36m-6-5 6 5 3-7"/>
                 </g>
 
-                <g class="process-nozzle" style="transform-origin:351px 233px">
-                  <g class="process-spray">
-                    <path d="M360 186Q357 147 353 100L407 93Q381 137 360 186Z" fill="url(#process-spray-fill)"/>
-                    <path d="M360 186 368 104M360 186 381 99M360 186 395 99" fill="none" stroke="#ffe0aa" stroke-width="1.4" stroke-opacity=".81"/>
-                    <g class="process-spray-grain" fill="#ffe3b6">
-                      <circle cx="365" cy="151" r="1.8"/><circle cx="367" cy="133" r="1.4"/>
-                      <circle cx="373" cy="120" r="1.6"/><circle cx="384" cy="114" r="1.8"/>
-                      <circle cx="359" cy="116" r="1.3"/><circle cx="391" cy="104" r="1.5"/>
-                    </g>
-                  </g>
+                <g class="process-airframe-photo" transform="translate(26 181) scale(.164)">
+                  <image href="drone-reparo-v3.png" width="1881" height="836" clip-path="url(#process-drone-body-crop)"/>
+                </g>
+
+                <g stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M248 253 314 247 345 232 350 239 317 254 248 260Z" fill="#3b4e58" stroke="#8799a2" stroke-width="1.3"/>
+                  <path d="M258 267C286 272 310 272 327 258Q339 248 349 235" fill="none" stroke="#17252c" stroke-width="9"/>
+                  <path class="process-feed-route" d="M258 267C286 272 310 272 327 258Q339 248 349 235" fill="none" stroke="#bd9a6c" stroke-width="4"/>
+                  <path d="M258 266l-8-4" fill="none" stroke="#9eaeb5" stroke-width="5.6"/>
+                  <circle cx="344" cy="237" r="5.4" fill="#4c616b" stroke="#aabcc2" stroke-width="1"/>
+                </g>
+
+                <g class="process-nozzle">
                   <g transform="translate(351 233) rotate(11)" stroke-linejoin="round">
-                    <path d="M-10 4V-9l3-8H7l3 8V4Z" fill="url(#process-drone-shell)" stroke="#d5e1e6" stroke-width="1.1"/>
-                    <path d="M-8-16v-9H8v9Z" fill="url(#process-drone-metal)" stroke="#e1e9ec" stroke-width="1.1"/>
-                    <path d="M-6-25-3.4-45h6.8L6-25Z" fill="url(#process-drone-metal)" stroke="#d4e2e8" stroke-width="1.1"/>
-                    <path d="M-4-45h8v-4h-8Z" fill="#debc8c" stroke="#ffe5bd" stroke-width="1.2"/>
-                    <path d="M-5-10h10m-8-10h6m-4-9 1-13" fill="none" stroke="#eef4f5" stroke-opacity=".78"/>
+                    <path d="M-8 3v-12l2-5h12l2 5V3Z" fill="#435763" stroke="#a6b9c2"/>
+                    <path d="M-5-13v-11l1.5-7h7l1.5 7v11Z" fill="url(#process-drone-metal)" stroke="#c1cdd2"/>
+                    <path d="M-5-18h10M-4-23h8" fill="none" stroke="#dbe5e7" stroke-opacity=".7"/>
                   </g>
-                </g>
-
-                <g class="process-angle" fill="none" stroke="#68ded4" stroke-width="1.7" stroke-linecap="round">
-                  <path d="M351 227v-58" stroke-dasharray="4 5" opacity=".72"/>
-                  <path d="M351 227l14-63" stroke-dasharray="4 5" opacity=".72"/>
-                  <path d="M351 176q6 0 12 2"/>
-                  <path d="m355 172-4 4 4 4m3-8 5 6-6 1"/>
+                  <g transform="translate(360.35 184.9) rotate(-140.1) scale(.24) translate(-1515 -659)">
+                    <image href="drone-reparo-v3.png" width="1881" height="836" clip-path="url(#process-drone-tip-crop)"/>
+                  </g>
                 </g>
 
                 <g class="process-velocity" fill="none" stroke="#68ded4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -656,7 +601,7 @@
     <button id="fullscreen" class="nav-button" aria-label="Tela cheia" title="Tela cheia (F)">⛶</button>
   </nav>
 
-  <script src="projection-process.js?v=1"></script>
+  <script src="projection-process.js?v=2"></script>
   <script src="app.js?v=7"></script>
 </body>
 </html>
