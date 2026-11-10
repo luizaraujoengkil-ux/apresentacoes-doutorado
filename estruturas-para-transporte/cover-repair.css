@@ -1,5 +1,5 @@
 .repair-cover {
-  --repair-duration: 10.8s;
+  --repair-duration: 16.8s;
   --drone-width: clamp(166px, 31vw, 402px);
   --spray-width: clamp(52px, 11vw, 156px);
   --spray-height: clamp(75px, 12vw, 167px);
@@ -41,6 +41,7 @@
   width: 100%;
   max-width: none;
   margin: 0;
+  padding-bottom: .17em;
   color: #b4bfbd;
   font-family: inherit;
   font-size: clamp(2rem, 5.15vw, 5.25rem);
@@ -49,11 +50,11 @@
   letter-spacing: -.045em;
   background-color: #aab0ae;
   background-image:
-    linear-gradient(180deg, rgba(212, 209, 194, .45), rgba(151, 156, 154, .4)),
-    url('concreto-texturas-v3.jpg');
-  background-size: 100% 100%, 200% 100%;
-  background-position: center, left center;
-  background-repeat: no-repeat;
+    linear-gradient(180deg, #dbd4bc14, #8d897027),
+    url('capa-texturas-concreto.jpg');
+  background-size: 100% 100%, auto 330%;
+  background-position: center, left 2%;
+  background-repeat: no-repeat, repeat-x;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: .6px rgba(224, 229, 225, .38);
@@ -64,7 +65,7 @@
   font-style: normal;
 }
 
-.repair-cover :is(.repair-clean, .repair-finish, .repair-rebar) {
+.repair-cover :is(.repair-clean, .repair-finish, .repair-defects) {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -72,55 +73,38 @@
 
 .repair-cover .repair-clean {
   background-image:
-    linear-gradient(180deg, rgba(196, 220, 224, .82), rgba(132, 164, 179, .77)),
-    url('concreto-texturas-v3.jpg');
-  -webkit-text-stroke-color: rgba(193, 227, 231, .59);
+    linear-gradient(180deg, #d2e3e62f, #b9d9e13d),
+    url('capa-texturas-concreto.jpg');
+  background-position: center, left 50%;
+  -webkit-text-stroke-color: #c9e0e686;
 }
 
 .repair-cover .repair-finish {
   background-image:
-    linear-gradient(180deg, rgba(248, 250, 242, .4), rgba(225, 233, 222, .37)),
-    url('concreto-texturas-v3.jpg');
-  background-position: center, right center;
-  -webkit-text-stroke-color: rgba(240, 247, 239, .78);
+    linear-gradient(180deg, #f8faf02b, #dce5e51a),
+    url('capa-texturas-concreto.jpg');
+  background-position: center, left 98%;
+  -webkit-text-stroke-color: #eef4f0b8;
 }
 
-.repair-cover .repair-rebar {
-  background: none;
-  -webkit-text-stroke: 0;
-}
-
-.repair-rebar .repair-bar-slot {
-  position: relative;
-}
-
-.repair-rebar .bar-a { --bar-angle: -12deg; }
-.repair-rebar .bar-b { --bar-angle: 10deg; }
-.repair-rebar .bar-c { --bar-angle: -6deg; }
-
-.repair-rebar .repair-bar-slot::before,
-.repair-rebar .repair-bar-slot::after {
+.repair-definitions {
   position: absolute;
-  top: 58%;
-  left: 50%;
-  content: '';
-  transform: translate(-50%, -50%) rotate(var(--bar-angle));
+  pointer-events: none;
 }
 
-.repair-rebar .repair-bar-slot::before {
-  width: .96em;
-  height: .36em;
-  background: linear-gradient(165deg, #989080 0%, #382820 25%, #16171a 60%, #6f5749 93%);
-  clip-path: polygon(0 40%, 13% 17%, 28% 22%, 38% 2%, 65% 13%, 87% 8%, 100% 35%, 95% 77%, 72% 96%, 59% 78%, 35% 100%, 16% 84%, 2% 65%);
+.repair-defects {
+  z-index: 1;
 }
 
-.repair-rebar .repair-bar-slot::after {
-  width: .73em;
-  height: .07em;
-  margin-top: -.059em;
-  border-radius: .025em;
-  background: repeating-linear-gradient(110deg, #a76036 0 .034em, #e2a56a .036em .053em, #673621 .058em .085em);
-  box-shadow: 0 .12em 0 #986043, 0 .026em .024em #100d0a, 0 .149em .029em #100d0a;
+.repair-defects > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.repair-steel-layer {
+  clip-path: inset(0 100% 0 0);
 }
 
 .repair-flight {
@@ -221,8 +205,16 @@
   animation: repair-finish-sweep var(--repair-duration) linear both;
 }
 
-.repair-cover.active:not(.motion-paused) .repair-rebar {
-  animation: repair-rebar-cover var(--repair-duration) linear both;
+.repair-cover.active:not(.motion-paused) .repair-defects {
+  animation: repair-defects-cover var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-rust-layer {
+  animation: repair-rust-removal var(--repair-duration) linear both;
+}
+
+.repair-cover.active:not(.motion-paused) .repair-steel-layer {
+  animation: repair-clean-sweep var(--repair-duration) linear both;
 }
 
 .repair-cover.active:not(.motion-paused) .repair-stages .repair-stage-water {
@@ -273,7 +265,12 @@
   96%, 100% { clip-path: inset(0); }
 }
 
-@keyframes repair-rebar-cover {
+@keyframes repair-rust-removal {
+  0%, 9% { clip-path: inset(0); }
+  36%, 100% { clip-path: inset(0 0 0 100%); }
+}
+
+@keyframes repair-defects-cover {
   0%, 51% { clip-path: inset(0); }
   96%, 100% { clip-path: inset(0 0 0 100%); }
 }
@@ -289,7 +286,7 @@
   100% { opacity: 1; box-shadow: none; }
 }
 
-@media (max-height: 720px) and (min-width: 701px) {
+@media (max-height: 744px) and (min-width: 701px) {
   .repair-cover {
     --drone-width: clamp(166px, 31vw, 330px);
   }
@@ -319,7 +316,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .repair-cover :is(.repair-clean, .repair-spray, .repair-rebar) {
+  .repair-cover :is(.repair-clean, .repair-spray, .repair-defects) {
     display: none;
   }
 
@@ -335,7 +332,7 @@
     -webkit-text-stroke: 0;
   }
 
-  .repair-cover :is(.repair-clean, .repair-finish, .repair-rebar) {
+  .repair-cover :is(.repair-clean, .repair-finish, .repair-defects) {
     display: none;
   }
 }

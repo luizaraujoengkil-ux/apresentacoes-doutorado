@@ -177,7 +177,7 @@
   const repairCover = document.querySelector('.repair-cover');
   if (repairCover) {
     const texture = new Image();
-    texture.src = 'concreto-texturas-v3.jpg';
+    texture.src = 'capa-texturas-concreto.jpg';
     const drone = repairCover.querySelector('.repair-flight img');
     Promise.allSettled([texture.decode(), drone.decode()]).then(() => {
       repairCover.classList.remove('repair-pending');

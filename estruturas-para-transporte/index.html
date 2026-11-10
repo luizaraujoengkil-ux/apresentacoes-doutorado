@@ -8,7 +8,7 @@
   <title>Argamassas projetadas por drones | IME</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="motion.css?v=5" />
-  <link rel="stylesheet" href="cover-repair.css?v=4" />
+  <link rel="stylesheet" href="cover-repair.css?v=5" />
   <link rel="stylesheet" href="system-flight.css?v=1" />
   <link rel="stylesheet" href="evidence-flow.css?v=2" />
   <link rel="stylesheet" href="evidence-couriers.css?v=2" />
@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="acceptance-scenes.css?v=1" />
   <link rel="stylesheet" href="closing-scene.css?v=2" />
   <link rel="preload" as="image" href="concreto-texturas-v3.jpg" />
+  <link rel="preload" as="image" href="capa-texturas-concreto.jpg" />
   <link rel="preload" as="image" href="drone-reparo-v3.png" />
 </head>
 <body>
@@ -46,10 +47,110 @@
         </div>
         <p class="eyebrow">APRESENTAÇÃO FINAL · 2026</p>
         <div class="cover-treatment">
-          <h1 class="repair-title" id="title-cover" aria-label="Argamassas cimentícias especiais projetadas por drones na recuperação de estruturas de transporte">Argam<span class="repair-bar-slot bar-a">ass</span>as cimen<span class="repair-bar-slot bar-b">tíc</span>ias especiais <em>projetadas por d<span class="repair-bar-slot bar-c">ron</span>es</em></h1>
-          <div class="repair-title repair-clean" aria-hidden="true">Argam<span class="repair-bar-slot bar-a">ass</span>as cimen<span class="repair-bar-slot bar-b">tíc</span>ias especiais <em>projetadas por d<span class="repair-bar-slot bar-c">ron</span>es</em></div>
-          <div class="repair-title repair-finish" aria-hidden="true">Argam<span class="repair-bar-slot bar-a">ass</span>as cimen<span class="repair-bar-slot bar-b">tíc</span>ias especiais <em>projetadas por d<span class="repair-bar-slot bar-c">ron</span>es</em></div>
-          <div class="repair-title repair-rebar" aria-hidden="true">Argam<span class="repair-bar-slot bar-a">ass</span>as cimen<span class="repair-bar-slot bar-b">tíc</span>ias especiais <em>projetadas por d<span class="repair-bar-slot bar-c">ron</span>es</em></div>
+          <h1 class="repair-title" id="title-cover" aria-label="Argamassas cimentícias especiais projetadas por drones na recuperação de estruturas de transporte">Argamassas cimentícias especiais <em>projetadas por drones</em></h1>
+          <div class="repair-title repair-clean" aria-hidden="true">Argamassas cimentícias especiais <em>projetadas por drones</em></div>
+          <div class="repair-title repair-finish" aria-hidden="true">Argamassas cimentícias especiais <em>projetadas por drones</em></div>
+          <svg class="repair-definitions" width="0" height="0" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="cover-spall-concrete" x2=".18" y2="1" gradientUnits="objectBoundingBox">
+                <stop stop-color="#e3ded1"/>
+                <stop offset=".24" stop-color="#9c9283"/>
+                <stop offset=".56" stop-color="#625348"/>
+                <stop offset=".79" stop-color="#b4a999"/>
+                <stop offset="1" stop-color="#ded8c9"/>
+              </linearGradient>
+              <linearGradient id="cover-spall-wet-edge" x2=".22" y2="1" gradientUnits="objectBoundingBox">
+                <stop stop-color="#dae4e3"/>
+                <stop offset=".27" stop-color="#889695"/>
+                <stop offset=".61" stop-color="#455256"/>
+                <stop offset="1" stop-color="#c7d1d0"/>
+              </linearGradient>
+              <linearGradient id="cover-spall-rust-round" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop stop-color="#45271c"/>
+                <stop offset=".17" stop-color="#b86a38"/>
+                <stop offset=".34" stop-color="#dc9863"/>
+                <stop offset=".49" stop-color="#9d512d"/>
+                <stop offset=".74" stop-color="#6f3826"/>
+                <stop offset="1" stop-color="#261717"/>
+              </linearGradient>
+              <linearGradient id="cover-spall-steel-round" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop stop-color="#33464b"/>
+                <stop offset=".17" stop-color="#b0c5c9"/>
+                <stop offset=".34" stop-color="#fcffff"/>
+                <stop offset=".50" stop-color="#c4d6d9"/>
+                <stop offset=".78" stop-color="#6e878d"/>
+                <stop offset="1" stop-color="#223238"/>
+              </linearGradient>
+              <linearGradient id="cover-spall-drip-fade" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop stop-color="#814023" stop-opacity=".9"/>
+                <stop offset=".36" stop-color="#b26c40" stop-opacity=".75"/>
+                <stop offset="1" stop-color="#874b2d" stop-opacity="0"/>
+              </linearGradient>
+              <radialGradient id="cover-spall-rust-halo">
+                <stop offset=".36" stop-color="#93502a" stop-opacity=".44"/>
+                <stop offset=".66" stop-color="#a96239" stop-opacity=".28"/>
+                <stop offset="1" stop-color="#854627" stop-opacity="0"/>
+              </radialGradient>
+              <path id="cover-spall-rim" d="M3 25 8 21 12 22 17 17 22 18 29 15 34 17 41 13 46 16 53 15 57 13 62 17 68 16 74 19 79 17 83 21 89 21 92 24 97 25 92 30 86 31 82 35 74 33 69 37 63 35 57 38 53 34 46 36 41 33 34 36 30 33 24 35 20 31 15 32 12 29 6 29Z"/>
+              <path id="cover-spall-pocket" d="M7 25 13 23 18 20 24 22 30 19 38 20 43 17 50 19 55 18 59 17 64 21 72 20 77 22 83 23 89 25 92 25 87 28 83 29 79 32 73 30 68 34 62 32 57 35 52 31 45 33 40 30 35 33 29 30 25 32 20 29 15 29 11 27Z"/>
+              <path id="cover-spall-bar-profile" d="M9 26Q13 22 24 23L29 22.4 35 23 41 22.1 49 22.8 54 22.4 61 23 68 22.6 76 23.2 84 23.1 91 25 90 27.7 83 29.4 75 29.4 69 30 61 29.2 55 30 48 29.1 41 30 35 29.4 29 30 22 29 15 29.4Z"/>
+              <g id="cover-spall-cracks" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m4 24 5-2 4 .7 5-5.9 6 1.3 5-3.2 4 1.4 6-3.5 2-4.5 4-3.3 1-3m-3 7-5-.4-3-2m-16 11-3-4-3 .4-4-3m86 14-6-3-5 .2-4-4-5 .5-3-4.8-5-1.6-4-4.5m9 6.1 3-3.2 4-1.1m-71 15.8-7 1.6m14 2.2-5 3.5-3 4.1m18-5.4 4 5.2 1 4 5 4 .3 3m-5.3-7 4-.6 5 1.9m30-12 4 4-1 4.2 5 3.2 1 3m-5-10.4 4 .9 4 3.1m11-9.8 4 3 5-.2 4 3" stroke="#342b27" stroke-width="1.35" opacity=".88"/>
+                <path d="m13 22 5-4.4 6 1.1m18-6 1.5-4.4 3.5-2.6m29 13.1 5-.6 3 3.5m-59 12.8 5-1.6 4 4.8 1.2 3.2m32-4.8 3 3.3-1 4.3m14-13.1 4 2.2 4-.6" stroke="#e2d8c8" stroke-width=".6" opacity=".76"/>
+              </g>
+              <g id="cover-spall-chips">
+                <path d="m12 23 6-5 4 1-4 4-3-.3zm12-2 6-4 3 1-3 2zm13-.7 5-4.6 6 1.6-3 3-5-1zm13 .2 6-4.6 4 2.9-2 1.6zm15 .4 5-2.7 4 3.6-6-.6zm13 .9 4-1.1 6 4.2-4 .1zm-62 7 5 .7 5 3-2 1.7-4-2.6zm13 1 6 1.8 6-2.5-3 3.9-4 .4zm12 1 5 1.8 6-1.7 4 2.1-3 1.4-3-1-5 1.1zm15 2.4 5-2.3 4 1.5 4 .2-1 2.2-6-1.3-4 2zm15-1.7 4-2.7 6 1.9 4-2.5-3 4-3 .3z" fill="#d4c8b6" opacity=".78"/>
+                <path d="m18 20 5 1-5 1zm17-1.5 5 .8-3 1zm23-2 5 2.6-3 .1zm18 3.1 5-.6 2 2.6zm-55 10.2 4 1.2-.7 1.2zm15 2 4-1.5 4 1.2-3.4 1.1zm18 .2 4 1.3-1.7 1.3zm11-.8 5 .8-1.8 1.5zm10-1.5 3-1 4 1.9z" fill="#f0e9d9" opacity=".78"/>
+                <path d="m19 26 3-1 2 1-1 1zm12-4 3-1.8 3 1.5-4 1.2zm12-2 4-.7 1.8 1.4-4 .7zm19 .8 3-.5 2 1.4-2.8 .4zm13 1.4 3-1 2.2 1.2-2.1 1zM20 29l3-.2 1 2-2 .2zm22 1 3 1.2-1 1.2-3-1zm18 1 3-.4 1.2 .8-2.7 1.2zm13 0 3 .2-2 .8z" fill="#806e5e" opacity=".76"/>
+              </g>
+              <g id="cover-spall-ribs" fill="none" stroke-linecap="round">
+                <path d="M14 23.9q3 1 2.6 4.9m4-5.2q3 1 2.6 5.4m4-5.7q3 1.1 2.6 5.8m4-5.9q3 1.2 2.6 6m4-6.1q3 1.2 2.6 6.2m4-6.1q3 1.2 2.6 6m4-6.3q3 1.2 2.6 6.3m4-6.1q3 1.2 2.6 6m4-6.3q3 1.2 2.6 6.3m4-6.2q3 1.2 2.6 6.2m4-6q3 1.2 2.6 5.6m4-5.2q3 1.2 2.6 4.4"/>
+              </g>
+              <symbol id="cover-spall-runoff" viewBox="0 0 100 54">
+                <path d="M35 23c1.5 2.5 2 5 1.6 8.2l-.3 17.7-.8-2.7-.5-12-1.5-3-.7-6.2zm11.2 2.7 2.2-.6.8 4.9 1.8 3.3-1.2 17.7-.7 2.3-.6-18-2-3.6zm14.3-1.6 2.3 1.8.5 5.2 1.4 4.6-.7 9.3-1.1-7.5-1.5-3.9zm9.4 1.6 1.8 .8.7 4.5-.7 7.3-.7-5.1-1-2z" fill="url(#cover-spall-drip-fade)"/>
+                <path d="M39 27q-1 4 .5 6l1 11m12-17q2 4 1.2 7l.2 14m11-18 1.4 6-.5 10" fill="none" stroke="url(#cover-spall-drip-fade)" stroke-width="2.1" stroke-linecap="round" opacity=".66"/>
+              </symbol>
+              <symbol id="cover-spall-rust" viewBox="0 0 100 54">
+                <ellipse cx="50" cy="25" rx="49" ry="16" fill="url(#cover-spall-rust-halo)"/>
+                <use href="#cover-spall-cracks"/>
+                <use href="#cover-spall-rim" fill="#45382f" opacity=".66" transform="translate(0 1.25)"/>
+                <use href="#cover-spall-rim" fill="url(#cover-spall-concrete)"/>
+                <use href="#cover-spall-pocket" fill="#3d2a22"/>
+                <path d="M8 25 16 22 22 22 28 19.8 35 20.6 42 17.9 47 19.6 54 19.2 59 18.2 65 21.5 72 21 80 23 89 25" fill="none" stroke="#1d1a1a" stroke-width="1.6" opacity=".84"/>
+                <path d="m12 26 7-2 8 .2 9-.7 11 .3 10-.5 12 .9 11-.4 8 1.5v4.2l-13 .9-13 .4-10-.2-13 .4-11-.4-7 .6-9-1z" fill="#151518" opacity=".72"/>
+                <g transform="translate(0 -8.58) scale(1 1.33)">
+                <use href="#cover-spall-bar-profile" fill="url(#cover-spall-rust-round)" stroke="#342117" stroke-width=".55"/>
+                <use href="#cover-spall-ribs" stroke="#45291f" stroke-width="1.5" opacity=".92"/>
+                <use href="#cover-spall-ribs" stroke="#df9760" stroke-width=".75" opacity=".89" transform="translate(-.75 -.2)"/>
+                <path d="m17 24.9 3-.4 2 1-2 .6zm11 1.5 2.5-.7 1.8 1.2-1.8 .8zm8-1.6 2-.6 1.4 1.2-2 .4zm12 2.6 2.4-1.1 1.9 1.2-2 .6zm9-2.1 2.3-.5 1.5 1-2.3 .6zm9 1.3 1.7-1 2.1 .8-.9 .8zm9-1.2 2.5-.7 1.1 .9-1.7 .4zm9 1.7 2-1.2 1.8 1-1.3 .7z" fill="#552c1e" opacity=".86"/>
+                <path d="m18 24.9 6.5-.6m7.3 3.2 3.2-.5m5.4-2.5 5.1-.3m8.4 1.9 2.4-.6m6.9-.7 2.8-.4m7.3 2.8 2.8-.5m3.3-1.9 3-.3" fill="none" stroke="#edb17b" stroke-width=".65" stroke-linecap="round" opacity=".78"/>
+                </g>
+                <use href="#cover-spall-chips"/>
+                <path d="m25 33 4 1.1 2.7-.7 2.2 2.6m9-3.5 2.5 2.4 4-.7m7 1.1 3 2 4-1.6m8-3.5 4 1.8 5-1.4" fill="none" stroke="#a75c33" stroke-width="1.05" opacity=".85"/>
+              </symbol>
+              <symbol id="cover-spall-steel" viewBox="0 0 100 54">
+                <use href="#cover-spall-cracks" opacity=".73"/>
+                <use href="#cover-spall-rim" fill="#38494e" opacity=".61" transform="translate(0 1.25)"/>
+                <use href="#cover-spall-rim" fill="url(#cover-spall-wet-edge)"/>
+                <use href="#cover-spall-pocket" fill="#263438"/>
+                <path d="M8 25 16 22 22 22 28 19.8 35 20.6 42 17.9 47 19.6 54 19.2 59 18.2 65 21.5 72 21 80 23 89 25" fill="none" stroke="#132229" stroke-width="1.6" opacity=".87"/>
+                <path d="m12 26 7-2 8 .2 9-.7 11 .3 10-.5 12 .9 11-.4 8 1.5v4.2l-13 .9-13 .4-10-.2-13 .4-11-.4-7 .6-9-1z" fill="#0d181e" opacity=".78"/>
+                <g transform="translate(0 -12.48) scale(1 1.48)">
+                <use href="#cover-spall-bar-profile" fill="url(#cover-spall-steel-round)" stroke="#34454c" stroke-width=".55"/>
+                <use href="#cover-spall-ribs" stroke="#354d55" stroke-width="1.55" opacity=".91"/>
+                <use href="#cover-spall-ribs" stroke="#ddeef0" stroke-width=".74" opacity=".94" transform="translate(-.75 -.2)"/>
+                <path d="m16 24.8 9-.7m5.6 .4 7.4-.45m5.1 .2 8.1-.4m5.4 .4 7.4 .1m6.6 .25 7.1-.13m4 .2 3.2 .2" fill="none" stroke="#effcfc" stroke-width=".7" stroke-linecap="round" opacity=".87"/>
+                <path d="m22 27.3 1.2 .3m8.2 .5 1.4 .2m11.3-.5 1.2 .4m8.3-.2 1.2 .3m11.3-.6 1.2 .2m11.8-.4 1.4 .2" fill="none" stroke="#586b70" stroke-width=".65" stroke-linecap="round" opacity=".8"/>
+                </g>
+                <use href="#cover-spall-chips" opacity=".88"/>
+                <path d="m17 22.9 3.1 .1 2-1m14 10 4-1.6 3.3 1.7m16.3 2.4 4.1-1.7 3.7 1.2m9.3-3.4 4 .5 2.9-1.5" fill="none" stroke="#dcebe8" stroke-width=".65" stroke-linecap="round" opacity=".68"/>
+              </symbol>
+            </defs>
+          </svg>
+          <div class="repair-defects" aria-hidden="true">
+            <svg class="repair-rust-layer" focusable="false"></svg>
+            <svg class="repair-steel-layer" focusable="false"></svg>
+          </div>
           <div class="repair-flight" aria-hidden="true">
             <img src="drone-reparo-v3.png" alt="" width="1881" height="836" />
             <svg class="repair-spray spray-water" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
@@ -802,6 +903,7 @@
 
   <script src="projection-process.js?v=2"></script>
   <script src="closing-flight.js?v=1"></script>
-  <script src="app.js?v=7"></script>
+  <script src="cover-defects.js?v=1"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>
