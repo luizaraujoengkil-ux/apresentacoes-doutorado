@@ -7,7 +7,9 @@
   <meta name="robots" content="noindex">
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cover.css">
   <script defer src="presentation.js"></script>
+  <script defer src="cover.js"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -28,18 +30,48 @@
 
   <main id="stage" tabindex="-1" aria-label="Apresentação de Sistema de Transporte Rodoviário">
     <section class="slide cover" id="capa" data-title="ERI-OAE">
-      <img class="cover-photo" src="assets/ponte.webp" alt="">
-      <div class="cover-layer"></div>
       <div class="cover-content">
         <div class="institution"><img src="assets/ime.png" alt="Brasão do IME"><div><strong>Instituto Militar de Engenharia</strong><span>Sistema de Transporte Rodoviário</span></div></div>
         <div class="cover-title">
           <p class="eyebrow">Doutorado em Engenharia de Transportes</p>
-          <h1>ERI-OAE</h1>
+          <h1>ERI<span>-</span>OAE</h1>
           <p class="subtitle">Especificação de Requisitos de Informação para Obras de Arte Especiais</p>
         </div>
         <div class="authors"><strong>Luiz Araujo de Souza Junior</strong><span>Giuseppe Miceli Junior</span></div>
-        <p class="image-credit">Imagem ilustrativa do cenário fictício</p>
       </div>
+
+      <figure class="cover-model" aria-labelledby="cover-model-title">
+        <figcaption class="cover-model-header">
+          <strong id="cover-model-title">Modelo BIM da ponte</strong>
+          <span>ERI-DEMO-001 · Cenário fictício</span>
+        </figcaption>
+        <div class="projection" data-phase="0">
+          <img class="projection-fallback" src="assets/modelo.jpg" alt="Modelo da ponte fictícia com a viga V01 destacada">
+          <canvas id="cover-canvas" aria-hidden="true"></canvas>
+          <div class="projection-element" hidden>
+            <span>IfcBeam</span>
+            <strong>Viga V01</strong>
+          </div>
+          <div class="projection-data" hidden>
+            <div class="projection-files">
+              <span><b>IFC 4.3</b> <code>modelo.ifc</code></span>
+              <span><b>JSON</b> <code>dossie.json</code></span>
+            </div>
+            <div class="projection-readings">
+              <canvas id="cover-readings" aria-hidden="true"></canvas>
+              <span>24 leituras simuladas</span>
+            </div>
+          </div>
+        </div>
+        <div class="cover-controls" hidden>
+          <div class="cover-steps" role="group" aria-label="Etapas da projeção">
+            <button type="button" data-cover-step="0" aria-pressed="true">Modelo</button>
+            <button type="button" data-cover-step="1" aria-pressed="false">Viga V01</button>
+            <button type="button" data-cover-step="2" aria-pressed="false">Dados vinculados</button>
+          </div>
+          <button class="cover-play" type="button">Rever animação</button>
+        </div>
+      </figure>
     </section>
 
     <section class="slide" id="historico" data-title="O histórico de uma ponte existente" hidden>

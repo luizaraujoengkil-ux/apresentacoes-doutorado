@@ -20,7 +20,7 @@ button:disabled { opacity: .38; cursor: default; }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
 .skip { position: fixed; inset: 8px auto auto 8px; z-index: 5; transform: translateY(-150%); padding: .6rem; color: var(--bg); background: var(--cyan); }
 .skip:focus { transform: none; }
-.shell { display: grid; grid-template-rows: auto 1fr auto; gap: 12px; min-height: 100svh; max-width: 1720px; margin: auto; padding: 12px clamp(14px,2.5vw,42px); }
+.shell { display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); gap: 12px; min-height: 100svh; max-width: 1720px; margin: auto; padding: 12px clamp(14px,2.5vw,42px); }
 .bar, .bar-tools, .timer, .controls { display: flex; align-items: center; }
 .bar { justify-content: space-between; gap: 12px; min-height: 40px; font-size: .9rem; }
 .bar-tools, .timer { gap: 8px; }
@@ -57,21 +57,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .callout { padding: .68rem .9rem; border-left: 3px solid var(--cyan); color: var(--muted); background: #08192370; font-size: clamp(.93rem,1.45vw,1.24rem); line-height: 1.42; }
 .callout strong { color: var(--ink); }
 .split { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(20px,3.5vw,54px); align-items: center; }
-.cover { min-height: clamp(465px,73vh,820px); background: #102633; }
-.cover-photo, .cover-layer { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
-.cover-photo { object-fit: cover; object-position: 61% 52%; }
-.cover-layer { background: linear-gradient(90deg,#081823 0%,#0a1b27f5 29%,#0d2430a0 55%,#08182322 100%),linear-gradient(0deg,#081823e0,transparent 62%); }
-.cover-content { display: flex; flex: 1; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 26px; }
-.institution, .authors { display: flex; }
-.institution { align-items: center; gap: 12px; }
-.institution img { width: clamp(43px,4.4vw,62px); max-height: 72px; object-fit: contain; }
-.institution strong, .institution span, .authors span { display: block; }
-.institution strong { font-size: clamp(.87rem,1.5vw,1.14rem); }
-.institution span, .authors span { color: var(--muted); font-size: clamp(.82rem,1.22vw,1.02rem); margin-top: .2rem; }
-.cover h1 { font-size: clamp(4rem,10.3vw,10rem); line-height: .95; letter-spacing: -.075em; }
-.subtitle { max-width: 24ch; margin-top: .5rem; color: #d9eae9; font-size: clamp(1.27rem,3vw,3.2rem); line-height: 1.12; letter-spacing: -.026em; }
-.authors { flex-direction: column; font-size: clamp(.96rem,1.35vw,1.22rem); }
-.image-credit { position: absolute; bottom: 17px; right: 22px; color: #d2e1e1; font-size: .75rem; text-shadow: 0 1px 2px #000; }
 .timeline { display: grid; grid-template-columns: repeat(3,1fr); margin: clamp(26px,6vh,54px) 0 clamp(20px,5vh,46px); border-top: 1px solid var(--line); gap: 20px; }
 .timeline > div { position: relative; padding-top: 14px; }
 .timeline > div::before { position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); content: ""; }
@@ -157,16 +142,15 @@ tfoot { color: var(--cyan); font-weight: 760; }
 @media (max-width: 700px) {
   .shell { gap: 9px; }
   .bar { flex-wrap: wrap; }
-  .bar-tools { justify-content: flex-end; margin-left: auto; gap: 6px; }
-  .timer { margin-right: 0; }
+  .bar-tools { justify-content: flex-end; margin-left: auto; min-width: 0; flex-wrap: wrap; gap: 6px; }
+  .timer { margin-right: 0; gap: 4px; }
+  #clock { min-width: 2.7rem; }
+  .bar-link { padding-inline: 3px; }
   .timer-label { display: none; }
   .bar .button { padding: .52rem .58rem; font-size: .76rem; }
   .bar-link, .back { font-size: .82rem; }
   .timer button { width: 26px; height: 28px; }
   .slide { padding: 25px 19px; border-radius: 16px; }
-  .cover { min-height: 540px; }
-  .cover-layer { background: linear-gradient(90deg,#081823f0,#0b243198 72%,#0b243150),linear-gradient(0deg,#081823dd,transparent 75%); }
-  .image-credit { font-size: .64rem; bottom: 7px; right: 10px; }
   .split, .delivery { grid-template-columns: 1fr; gap: 15px; }
   .chain { grid-template-columns: 1fr; gap: .45rem; }
   .chain li { padding: .45rem 0 .3rem 2.1rem; }
@@ -199,6 +183,5 @@ tfoot { color: var(--cyan); font-weight: 760; }
   .bar, .controls, .skip, .text-button, .demo-copy .button, dialog { display: none !important; }
   .slide, .slide[hidden] { display: flex !important; min-height: 176mm; break-after: page; animation: none; }
   .slide:last-child { break-after: auto; }
-  .cover { color: white; }
   .callout, .example { background: #eef5f4; }
 }

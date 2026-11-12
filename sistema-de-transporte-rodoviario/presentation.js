@@ -1,7 +1,7 @@
 "use strict";
 
 const notes = [
-  ["0min25s", "Apresente o título e os autores. O artigo propõe uma especificação de requisitos de informação para pontes e viadutos e testa como aplicá-la em um demonstrador."],
+  ["0min25s", "Apresente o título e os autores. Na projeção, acompanhe a viga V01 da geometria BIM aos dados vinculados. O artigo especifica como preservar esse vínculo entre o modelo IFC e o dossiê de inspeções e intervenções."],
   ["0min55s", "Comece pela viga V01. A inspeção de 2008, o reforço de 2024 e a inspeção de 2026 se referem ao mesmo componente. O problema é reconhecer esse vínculo quando os documentos são produzidos em épocas e formatos diferentes. O cenário é inteiramente fictício."],
   ["0min50s", "Resuma a base em uma frase por bloco. A literatura ajudou a situar o problema de integrar registros e modelos. As fontes brasileiras orientaram quais informações registrar. As referências de gestão e troca ajudaram a definir como organizar a entrega."],
   ["1min20s", "Explique o percurso da fonte ao campo. A leitura registrou origem, escopo e aplicabilidade. Na periodicidade de inspeção, o artigo preservou os regimes associados à ABNT NBR 9452 e ao procedimento DNIT, com origem e justificativa. Mostre o resultado em campos de fonte, jurisdição, responsável e data-limite. Os 50 requisitos incluem 41 com suporte direto, 7 inferências e 2 proposições."],
