@@ -7,11 +7,11 @@
   <meta name="robots" content="noindex">
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="cover.css">
-  <link rel="stylesheet" href="history.css">
+  <link rel="stylesheet" href="cover.css?acessos=1">
+  <link rel="stylesheet" href="history.css?lupa=1">
   <script defer src="presentation.js"></script>
   <script defer src="cover.js"></script>
-  <script defer src="history.js"></script>
+  <script defer src="history.js?lupa=1"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -48,7 +48,7 @@
           <span>ERI-DEMO-001 · Cenário fictício</span>
         </figcaption>
         <div class="projection" data-phase="0">
-          <img class="projection-photo" src="assets/ponte-demonstrativa.webp" alt="Ilustração fotorrealista da ponte fictícia de três vãos, com dois pilares e dois encontros" fetchpriority="high">
+          <img class="projection-photo" src="assets/ponte-demonstrativa.webp?acessos=1" alt="Ilustração fotorrealista da ponte fictícia de três vãos, com dois pilares e dois encontros" fetchpriority="high">
           <canvas id="cover-canvas" aria-hidden="true"></canvas>
           <div class="projection-element" hidden>
             <span>IfcBeam</span>
@@ -83,16 +83,38 @@
       <div class="history-layout">
         <figure class="history-visual" aria-label="Evolução ilustrativa da ponte demonstrativa">
           <div class="history-scene" data-year="2008">
-            <img class="history-image is-current" data-history-image src="assets/ponte-demonstrativa.webp" alt="A ponte fictícia de três vãos na inspeção mais antiga do recorte">
-            <img class="history-image" data-history-image src="assets/historico-2012.webp" alt="Equipe realizando manutenção preventiva na mesma ponte" loading="lazy" decoding="async" aria-hidden="true">
-            <img class="history-image" data-history-image src="assets/historico-2021.webp" alt="Mesma ponte com manchas e sinais ilustrativos de desgaste no concreto da viga" loading="lazy" decoding="async" aria-hidden="true">
-            <img class="history-image" data-history-image src="assets/historico-2024.webp" alt="Mesma ponte com reforço ilustrativo no trecho central da viga V01" loading="lazy" decoding="async" aria-hidden="true">
-            <img class="history-image" data-history-image src="assets/historico-2026.webp" alt="Equipe em inspeção recente da região reforçada da viga V01" loading="lazy" decoding="async" aria-hidden="true">
-            <div class="history-pin" aria-hidden="true" hidden><span></span></div>
+            <img class="history-image is-current" data-history-image src="assets/ponte-demonstrativa.webp?acessos=1" alt="A ponte fictícia de três vãos na inspeção mais antiga do recorte">
+            <img class="history-image" data-history-image src="assets/historico-2012.webp?acessos=1" alt="Equipe realizando manutenção preventiva na mesma ponte" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="history-image" data-history-image src="assets/historico-2021.webp?acessos=1" alt="Concreto da viga V01 com deterioração localizada, fissuras e armadura exposta no cenário fictício" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="history-image" data-history-image src="assets/historico-2024.webp?acessos=1" alt="Mesma ponte com reforço ilustrativo de fibra de carbono na viga V01" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="history-image" data-history-image src="assets/historico-2026.webp?acessos=1" alt="Equipe em inspeção recente da região reforçada da viga V01" loading="lazy" decoding="async" aria-hidden="true">
+            <div class="history-lens" aria-hidden="true" hidden></div>
+            <div class="history-zoom" id="history-detail-view" hidden>
+              <img class="history-zoom-image" alt="">
+              <div class="history-tablet" hidden>
+                <img class="history-tablet-photo" src="assets/historico-tablet-2026.webp" alt="Mãos do inspetor segurando e tocando o tablet em campo" loading="lazy" decoding="async">
+                <div class="history-tablet-screen" role="group" aria-label="Representação do formulário do protótipo ERI-OAE preenchido com a observação da viga V01">
+                  <div class="history-tablet-bar"><strong>ERI-OAE</strong><span>Registros</span></div>
+                  <div class="history-tablet-form">
+                    <strong>Acrescentar evento ao histórico</strong>
+                    <dl>
+                      <div><dt>Tipo de evento</dt><dd>Observação</dd></div>
+                      <div><dt>Data do acontecimento</dt><dd>06/11/2026</dd></div>
+                      <div class="history-tablet-field"><dt>Componente</dt><dd>V01 · Viga longitudinal 01</dd></div>
+                      <div class="history-tablet-field"><dt>Título do registro</dt><dd>Observação sintética na viga 01</dd></div>
+                    </dl>
+                    <span class="history-tablet-submit">Registrar evento</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <figcaption>
-            <span>Evolução ilustrativa · cenário fictício</span>
-            <button class="history-play" type="button" hidden>Reproduzir evolução</button>
+            <span class="history-visual-caption">Evolução ilustrativa · cenário fictício</span>
+            <div class="history-actions">
+              <button class="history-play history-zoom-toggle" type="button" aria-controls="history-detail-view" aria-expanded="false" hidden>Ver detalhe</button>
+              <button class="history-play history-sequence" type="button" hidden>Reproduzir evolução</button>
+            </div>
           </figcaption>
         </figure>
         <div class="history-text">
@@ -109,10 +131,10 @@
       </div>
       <div class="history-track" role="group" aria-label="Marcos do histórico da viga V01" hidden>
         <button type="button" data-history-step aria-pressed="true" aria-label="2008 · Inspeção antiga"><time datetime="2008">2008</time><span>Inspeção antiga</span></button>
-        <button type="button" data-history-step aria-pressed="false" aria-label="2012 · Manutenção preventiva"><time datetime="2012">2012</time><span>Manutenção preventiva</span></button>
-        <button type="button" data-history-step aria-pressed="false" aria-label="2021 · Inspeção intermediária"><time datetime="2021">2021</time><span>Inspeção intermediária</span></button>
-        <button type="button" data-history-step aria-pressed="false" aria-label="2024 · Reforço"><time datetime="2024">2024</time><span>Reforço</span></button>
-        <button type="button" data-history-step aria-pressed="false" aria-label="2026 · Inspeção recente"><time datetime="2026">2026</time><span>Inspeção recente</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2012 · Prevenção funcional"><time datetime="2012">2012</time><span>Prevenção funcional</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2021 · Deterioração grave"><time datetime="2021">2021</time><span>Deterioração grave</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2024 · Reforço com CFRP"><time datetime="2024">2024</time><span>Reforço com CFRP</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2026 · Inspeção e cadastro"><time datetime="2026">2026</time><span>Inspeção e cadastro</span></button>
       </div>
     </section>
 

@@ -55,7 +55,7 @@
   border-radius: 16px;
   background:
     linear-gradient(145deg, #0a1d2cee 14%, #0c3440e8 52%, #071a27fa 98%),
-    url("assets/ponte-demonstrativa.webp") center / cover;
+    url("assets/ponte-demonstrativa.webp?acessos=1") center / cover;
 }
 .projection::before {
   content: "";
