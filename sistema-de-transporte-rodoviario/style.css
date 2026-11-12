@@ -57,12 +57,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .callout { padding: .68rem .9rem; border-left: 3px solid var(--cyan); color: var(--muted); background: #08192370; font-size: clamp(.93rem,1.45vw,1.24rem); line-height: 1.42; }
 .callout strong { color: var(--ink); }
 .split { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(20px,3.5vw,54px); align-items: center; }
-.timeline { display: grid; grid-template-columns: repeat(3,1fr); margin: clamp(26px,6vh,54px) 0 clamp(20px,5vh,46px); border-top: 1px solid var(--line); gap: 20px; }
-.timeline > div { position: relative; padding-top: 14px; }
-.timeline > div::before { position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); content: ""; }
-.timeline time { display: block; font-size: clamp(1.55rem,4vw,3.4rem); color: var(--cyan); font-weight: 740; letter-spacing: -.05em; }
-.timeline strong { display: block; margin: 3px 0; font-size: clamp(.95rem,1.85vw,1.5rem); }
-.timeline p { color: var(--muted); font-size: clamp(.82rem,1.2vw,1.06rem); }
 .research { grid-template-columns: .69fr 1.31fr; }
 .number { display: block; color: var(--cyan); font-size: clamp(5rem,12vw,10.5rem); font-weight: 790; letter-spacing: -.085em; line-height: .85; }
 .reading p { margin: .6rem 0 .35rem; font-size: clamp(1.1rem,2.3vw,1.85rem); font-weight: 680; }
@@ -157,7 +151,6 @@ tfoot { color: var(--cyan); font-weight: 760; }
   .chain li::before { position: absolute; top: .55rem; left: 0; }
   .chain span { margin-top: .2rem; }
   .research { align-content: start; }
-  .timeline { gap: 10px; }
   .screen img { max-height: 34vh; }
   .demo-screen img { height: 230px; }
   .demo-copy { padding-top: 0; }

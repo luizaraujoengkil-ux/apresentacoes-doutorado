@@ -8,8 +8,10 @@
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="cover.css">
+  <link rel="stylesheet" href="history.css">
   <script defer src="presentation.js"></script>
   <script defer src="cover.js"></script>
+  <script defer src="history.js"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -76,16 +78,42 @@
     </section>
 
     <section class="slide" id="historico" data-title="O histórico de uma ponte existente" hidden>
-      <p class="eyebrow">Problema de pesquisa</p>
+      <p class="eyebrow">Problema de pesquisa · ERI-DEMO-001</p>
       <h2>O histórico de uma ponte existente</h2>
-      <p class="lede">Como reconhecer a mesma viga em um laudo antigo, num registro de reforço e na inspeção mais recente?</p>
-      <div class="timeline" aria-label="Exemplos de registros fictícios da viga V01">
-        <div><time datetime="2008">2008</time><strong>Inspeção antiga</strong><p>Documento de origem</p></div>
-        <div><time datetime="2024">2024</time><strong>Reforço</strong><p>Registro da intervenção</p></div>
-        <div><time datetime="2026">2026</time><strong>Inspeção recente</strong><p>Observação na viga</p></div>
+      <div class="history-layout">
+        <figure class="history-visual" aria-label="Evolução ilustrativa da ponte demonstrativa">
+          <div class="history-scene" data-year="2008">
+            <img class="history-image is-current" data-history-image src="assets/ponte-demonstrativa.webp" alt="A ponte fictícia de três vãos na inspeção mais antiga do recorte">
+            <img class="history-image" data-history-image src="assets/historico-2012.webp" alt="Equipe realizando manutenção preventiva na mesma ponte" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="history-image" data-history-image src="assets/historico-2021.webp" alt="Mesma ponte com manchas e sinais ilustrativos de desgaste no concreto da viga" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="history-image" data-history-image src="assets/historico-2024.webp" alt="Mesma ponte com reforço ilustrativo no trecho central da viga V01" loading="lazy" decoding="async" aria-hidden="true">
+            <img class="history-image" data-history-image src="assets/historico-2026.webp" alt="Equipe em inspeção recente da região reforçada da viga V01" loading="lazy" decoding="async" aria-hidden="true">
+            <div class="history-pin" aria-hidden="true" hidden><span></span></div>
+          </div>
+          <figcaption>
+            <span>Evolução ilustrativa · cenário fictício</span>
+            <button class="history-play" type="button" hidden>Reproduzir evolução</button>
+          </figcaption>
+        </figure>
+        <div class="history-text">
+          <div class="history-record" aria-live="polite" aria-atomic="true">
+            <time class="history-date" datetime="2008-06-10">10 de junho de 2008</time>
+            <h3>Inspeção antiga</h3>
+            <p class="history-detail">O registro mais antigo do recorte documenta a viga V01 e serve de referência para as inspeções seguintes.</p>
+            <dl>
+              <div><dt>Documento associado</dt><dd>Histórico de inspeções</dd></div>
+            </dl>
+          </div>
+          <p class="history-question">Como recuperar, na próxima inspeção, o histórico de intervenções na mesma viga?</p>
+        </div>
       </div>
-      <p class="callout"><strong>Objeto do artigo</strong> · Especificar os dados e os vínculos que permitem recuperar o histórico por componente.</p>
-      <p class="footnote">ERI-DEMO-001 · Viga V01 · cenário inteiramente fictício</p>
+      <div class="history-track" role="group" aria-label="Marcos do histórico da viga V01" hidden>
+        <button type="button" data-history-step aria-pressed="true" aria-label="2008 · Inspeção antiga"><time datetime="2008">2008</time><span>Inspeção antiga</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2012 · Manutenção preventiva"><time datetime="2012">2012</time><span>Manutenção preventiva</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2021 · Inspeção intermediária"><time datetime="2021">2021</time><span>Inspeção intermediária</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2024 · Reforço"><time datetime="2024">2024</time><span>Reforço</span></button>
+        <button type="button" data-history-step aria-pressed="false" aria-label="2026 · Inspeção recente"><time datetime="2026">2026</time><span>Inspeção recente</span></button>
+      </div>
     </section>
 
     <section class="slide" id="base" data-title="Base científica e normativa" hidden>
