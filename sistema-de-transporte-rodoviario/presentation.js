@@ -52,9 +52,6 @@ window.addEventListener("hashchange", slideFromAddress);
 previous.addEventListener("click", () => showSlide(current - 1));
 next.addEventListener("click", () => showSlide(current + 1));
 
-const familiesDialog = document.querySelector("#families-dialog");
-
-document.querySelector("#show-families").addEventListener("click", () => familiesDialog.showModal());
 document.querySelectorAll("dialog").forEach((dialog) => {
   dialog.querySelector("[data-close]").addEventListener("click", () => dialog.close());
 });

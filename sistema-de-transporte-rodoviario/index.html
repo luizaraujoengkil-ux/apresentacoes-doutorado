@@ -11,12 +11,14 @@
   <link rel="stylesheet" href="history.css?lupa=2">
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="method.css?conferencia=2">
-  <script defer src="presentation.js?controles=2"></script>
+  <link rel="stylesheet" href="specification.css?v=1">
+  <script defer src="presentation.js?controles=3"></script>
   <script defer src="cover.js"></script>
   <script defer src="history.js?lupa=2"></script>
   <script defer src="assets/mapa-estudos-dados.js"></script>
   <script defer src="base.js"></script>
   <script defer src="method.js"></script>
+  <script defer src="specification.js?v=1"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -263,18 +265,47 @@
     </section>
 
     <section class="slide" id="especificacao" data-title="Famílias, requisitos e campos" hidden>
-      <p class="eyebrow">Resultado da especificação</p>
-      <h2>Famílias, requisitos e campos</h2>
-      <div class="stats" aria-label="Nove famílias, cinquenta requisitos e trezentos e um campos">
-        <div><strong>9</strong><span>famílias</span><small>Organizam a informação</small></div>
-        <div><strong>50</strong><span>requisitos</span><small>Definem o que registrar</small></div>
-        <div><strong>301</strong><span>campos</span><small>Estruturam o preenchimento</small></div>
+      <p class="eyebrow">Resultado central da pesquisa</p>
+      <h2>Como o registro de campo chega ao BIM</h2>
+      <p class="spec-intro">A ERI-OAE define o que registrar, como preencher e como preservar o vínculo com a fonte e com o elemento da obra.</p>
+      <nav class="spec-flow" aria-label="Da especificação ao intercâmbio">
+        <button type="button" data-spec-step="families" aria-pressed="true"><strong>9</strong><span>Famílias<small>Como organizar</small></span></button>
+        <button type="button" data-spec-step="requirements" aria-pressed="false"><strong>50</strong><span>Requisitos<small>O que registrar</small></span></button>
+        <button type="button" data-spec-step="fields" aria-pressed="false"><strong>301</strong><span>Campos<small>Como preencher</small></span></button>
+        <button type="button" data-spec-step="exchange" aria-pressed="false"><strong>IFC</strong><span>+ dossiê<small>Como vincular e entregar</small></span></button>
+      </nav>
+      <div class="spec-stage" aria-busy="true">
+        <section class="spec-panel" data-spec-panel="families" aria-label="As nove famílias">
+          <div class="spec-panel-head"><h3>Escolha uma família</h3><p>Abra os requisitos e os campos de cada grupo.</p></div>
+          <div id="spec-families" class="spec-families"></div>
+        </section>
+        <section class="spec-panel" data-spec-panel="requirements" aria-label="Os cinquenta requisitos" hidden>
+          <div class="spec-panel-head"><h3>O que precisa ser registrado</h3><p>Da fonte ao requisito da ERI-OAE</p></div>
+          <div class="spec-feature">
+            <p id="spec-requirement-kicker" class="spec-kicker"></p>
+            <p id="spec-requirement-title" class="spec-feature-title"></p>
+            <p id="spec-requirement-context"></p>
+          </div>
+          <p class="spec-note">Dos 50 requisitos, 41 têm apoio direto nas fontes verificadas, sete são inferências fundamentadas e dois são propostas do estudo.</p>
+          <div class="spec-actions"><button class="spec-action" type="button" data-open-catalog="requirements">Explorar os 50 requisitos ↗</button><button class="spec-action secondary" type="button" data-spec-go="fields">Ver os campos do exemplo →</button></div>
+        </section>
+        <section class="spec-panel" data-spec-panel="fields" aria-label="Os trezentos e um campos" hidden>
+          <div class="spec-panel-head"><h3>Como a observação vira um registro digital</h3><p>F04 · Exemplo ilustrativo de inspeção na viga V01</p></div>
+          <dl class="spec-examples" id="spec-examples"></dl>
+          <p class="spec-note">Cada campo tem tipo, regra de preenchimento e fonte rastreável. Os 301 campos compõem o catálogo; o preenchimento depende do caso.</p>
+          <div class="spec-actions"><button class="spec-action" type="button" data-open-catalog="fields">Explorar os 301 campos ↗</button><button class="spec-action secondary" type="button" data-spec-go="exchange">Ver o vínculo com o IFC →</button></div>
+        </section>
+        <section class="spec-panel" data-spec-panel="exchange" aria-label="Do campo ao IFC e ao dossiê" hidden>
+          <div class="spec-panel-head"><h3>O mesmo elemento no cadastro e no modelo</h3><p>Viga V01 · Exemplo do demonstrador</p></div>
+          <div class="spec-exchange">
+            <div><span>01 · Origem</span><strong>Registro de inspeção</strong><p>A observação mantém a referência à inspeção e à evidência de origem.</p></div>
+            <div><span>02 · Dados ERI</span><strong>Viga V01 + observação</strong><p>O registro e seus vínculos seguem no dossiê digital, com os dados estruturados em JSON e CSV conforme a entrega.</p></div>
+            <div><span>03 · Modelo BIM</span><strong>V01 no IFC 4.3</strong><p>O GlobalId é o identificador que liga a V01 do dossiê à mesma viga no modelo.</p></div>
+          </div>
+          <p class="spec-note">O IFC de referência contém propriedades do ativo, como o comprimento de 36 m. Na versão pública, editar o cadastro atualiza o dossiê; o IFC de referência segue inalterado.</p>
+        </section>
       </div>
-      <div class="example compact">
-        <h3>F04 · Observação na viga V01</h3>
-        <p>Inspeção de origem · componente · região observada · descrição · referência à evidência</p>
-      </div>
-      <button class="text-button" id="show-families" type="button">Ver a distribuição nas nove famílias ↗</button>
+      <p class="spec-error" role="status" hidden>O catálogo não carregou. Atualize a página para tentar novamente.</p>
     </section>
 
     <section class="slide" id="prototipo" data-title="Desenvolvimento do protótipo" hidden>
@@ -373,23 +404,18 @@
   </footer>
 </div>
 
-<dialog id="families-dialog" aria-labelledby="families-title">
-  <div class="dialog-header"><h2 id="families-title">As nove famílias da ERI-OAE</h2><button class="close" type="button" aria-label="Fechar famílias" data-close>×</button></div>
-  <table>
-    <thead><tr><th scope="col">Família</th><th scope="col">Requisitos</th><th scope="col">Campos</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">F01 · Governança, atores e finalidade</th><td>8</td><td>31</td></tr>
-      <tr><th scope="row">F02 · Identificação, cadastro e decomposição</th><td>7</td><td>53</td></tr>
-      <tr><th scope="row">F03 · Planejamento, inspeções e eventos</th><td>9</td><td>35</td></tr>
-      <tr><th scope="row">F04 · Observações, anomalias, ensaios e evidências</th><td>7</td><td>33</td></tr>
-      <tr><th scope="row">F05 · Avaliação, condição, risco e indicadores</th><td>5</td><td>31</td></tr>
-      <tr><th scope="row">F06 · Manutenção, intervenção e verificação</th><td>6</td><td>34</td></tr>
-      <tr><th scope="row">F07 · Histórico, configuração e versionamento</th><td>2</td><td>19</td></tr>
-      <tr><th scope="row">F08 · BIM, semântica e interoperabilidade</th><td>3</td><td>31</td></tr>
-      <tr><th scope="row">F09 · Entrega, validação e aceite</th><td>3</td><td>34</td></tr>
-    </tbody>
-    <tfoot><tr><th scope="row">Total</th><td>50</td><td>301</td></tr></tfoot>
-  </table>
+<dialog id="spec-catalog" aria-labelledby="spec-catalog-title">
+  <div class="dialog-header"><div><p class="spec-kicker">Catálogo da especificação</p><h2 id="spec-catalog-title">Explorar a ERI-OAE</h2></div><button class="close" type="button" aria-label="Fechar catálogo" data-close>×</button></div>
+  <div class="spec-catalog-tools">
+    <div class="spec-catalog-mode" role="group" aria-label="Tipo de registro">
+      <button class="spec-action secondary" type="button" data-catalog-mode="requirements" aria-pressed="true">Requisitos</button>
+      <button class="spec-action secondary" type="button" data-catalog-mode="fields" aria-pressed="false">Campos</button>
+    </div>
+    <label>Família<select id="spec-filter-family"></select></label>
+    <label>Busca<input id="spec-filter-query" type="search" placeholder="Código ou nome"></label>
+  </div>
+  <p id="spec-count" class="spec-note" role="status"></p>
+  <div id="spec-results" class="spec-results"></div>
 </dialog>
 <dialog id="basis-studies-dialog" aria-labelledby="basis-studies-title">
   <div class="dialog-header"><h2 id="basis-studies-title">Trabalhos de leitura integral</h2><button class="close" type="button" aria-label="Fechar lista dos estudos" data-close>×</button></div>
