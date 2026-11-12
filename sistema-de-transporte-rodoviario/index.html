@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#091720">
+  <meta name="robots" content="noindex">
+  <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="presentation.js"></script>
+</head>
+<body>
+<a class="skip" href="#stage">Ir para a apresentação</a>
+<div class="shell">
+  <header class="bar">
+    <a class="back" href="../inicio.html">← Portfólio</a>
+    <div class="bar-tools">
+      <div class="timer" role="group" aria-label="Cronômetro da apresentação">
+        <span class="timer-label">Tempo</span><output id="clock" aria-label="Tempo decorrido">00:00</output>
+        <button id="start" title="Iniciar ou retomar" aria-label="Iniciar ou retomar cronômetro">▶</button>
+        <button id="pause" title="Pausar" aria-label="Pausar cronômetro" disabled>Ⅱ</button>
+        <button id="reset" title="Zerar" aria-label="Zerar cronômetro" disabled>■</button>
+      </div>
+      <a class="bar-link" href="#historico">Sobre o artigo</a>
+      <a class="button primary" href="https://eri-oae-demonstrador.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Abrir protótipo ↗</a>
+    </div>
+  </header>
+
+  <main id="stage" tabindex="-1" aria-label="Apresentação de Sistema de Transporte Rodoviário">
+    <section class="slide cover" id="capa" data-title="ERI-OAE">
+      <img class="cover-photo" src="assets/ponte.webp" alt="">
+      <div class="cover-layer"></div>
+      <div class="cover-content">
+        <div class="institution"><img src="assets/ime.png" alt="Brasão do IME"><div><strong>Instituto Militar de Engenharia</strong><span>Sistema de Transporte Rodoviário</span></div></div>
+        <div class="cover-title">
+          <p class="eyebrow">Doutorado em Engenharia de Transportes</p>
+          <h1>ERI-OAE</h1>
+          <p class="subtitle">Especificação de Requisitos de Informação para Obras de Arte Especiais</p>
+        </div>
+        <div class="authors"><strong>Luiz Araujo de Souza Junior</strong><span>Giuseppe Miceli Junior</span></div>
+        <p class="image-credit">Imagem ilustrativa do cenário fictício</p>
+      </div>
+    </section>
+
+    <section class="slide" id="historico" data-title="O histórico de uma ponte existente" hidden>
+      <p class="eyebrow">Problema de pesquisa</p>
+      <h2>O histórico de uma ponte existente</h2>
+      <p class="lede">Como reconhecer a mesma viga em um laudo antigo, num registro de reforço e na inspeção mais recente?</p>
+      <div class="timeline" aria-label="Exemplos de registros fictícios da viga V01">
+        <div><time datetime="2008">2008</time><strong>Inspeção antiga</strong><p>Documento de origem</p></div>
+        <div><time datetime="2024">2024</time><strong>Reforço</strong><p>Registro da intervenção</p></div>
+        <div><time datetime="2026">2026</time><strong>Inspeção recente</strong><p>Observação na viga</p></div>
+      </div>
+      <p class="callout"><strong>Objeto do artigo</strong> · Especificar os dados e os vínculos que permitem recuperar o histórico por componente.</p>
+      <p class="footnote">ERI-DEMO-001 · Viga V01 · cenário inteiramente fictício</p>
+    </section>
+
+    <section class="slide" id="base" data-title="Base científica e normativa" hidden>
+      <p class="eyebrow">Fundamentação</p>
+      <h2>Base científica e normativa</h2>
+      <div class="split research">
+        <div class="reading"><span class="number">40</span><p>textos lidos na íntegra</p><small>32 estudos EB1 e 8 estudos EB2</small></div>
+        <dl class="lined">
+          <div><dt>Pesquisa científica</dt><dd>BIM para pontes existentes, informação de inspeção e integração com modelos.</dd></div>
+          <div><dt>Inspeção e gerenciamento</dt><dd>ABNT NBR 9452, DNIT 010/2024-PRO e documentos institucionais do DNIT.</dd></div>
+          <div><dt>Gestão e troca da informação</dt><dd>Série ABNT NBR ISO 19650 e especificações openBIM.</dd></div>
+        </dl>
+      </div>
+      <p class="footnote">Fonte · artigo ERI-OAE, fundamentação e método</p>
+    </section>
+
+    <section class="slide" id="metodo" data-title="Extração e compatibilização normativa" hidden>
+      <p class="eyebrow">Método</p>
+      <h2>Extração e compatibilização normativa</h2>
+      <ol class="chain">
+        <li><strong>Localizar</strong><span>Registrar fonte, edição e trecho aplicável.</span></li>
+        <li><strong>Compatibilizar</strong><span>Comparar escopo, incidência e força dos enunciados.</span></li>
+        <li><strong>Especificar</strong><span>Definir a informação, o responsável e a verificação.</span></li>
+      </ol>
+      <div class="example">
+        <h3>Exemplo · periodicidade de inspeção</h3>
+        <p>A ERI-OAE preserva a regra aplicável a cada contexto e registra <strong>fonte, jurisdição, justificativa, responsável e data-limite</strong>.</p>
+      </div>
+      <p class="footnote">Dos 50 requisitos, 41 têm suporte direto em fontes verificadas, 7 são inferências fundamentadas e 2 são proposições do estudo.</p>
+    </section>
+
+    <section class="slide" id="especificacao" data-title="Famílias, requisitos e campos" hidden>
+      <p class="eyebrow">Resultado da especificação</p>
+      <h2>Famílias, requisitos e campos</h2>
+      <div class="stats" aria-label="Nove famílias, cinquenta requisitos e trezentos e um campos">
+        <div><strong>9</strong><span>famílias</span><small>Organizam a informação</small></div>
+        <div><strong>50</strong><span>requisitos</span><small>Definem o que registrar</small></div>
+        <div><strong>301</strong><span>campos</span><small>Estruturam o preenchimento</small></div>
+      </div>
+      <div class="example compact">
+        <h3>F04 · Observação na viga V01</h3>
+        <p>Inspeção de origem · componente · região observada · descrição · referência à evidência</p>
+      </div>
+      <button class="text-button" id="show-families" type="button">Ver a distribuição nas nove famílias ↗</button>
+    </section>
+
+    <section class="slide" id="prototipo" data-title="Desenvolvimento do protótipo" hidden>
+      <p class="eyebrow">Implementação</p>
+      <h2>Desenvolvimento do protótipo</h2>
+      <div class="split app-slide">
+        <div>
+          <p class="lede">O cadastro da obra conecta documentos de origem, eventos, famílias ERI e componentes do modelo.</p>
+          <ol class="steps">
+            <li>Transcrever os dados do acervo e preservar o documento.</li>
+            <li>Vincular cada registro à ponte ou ao componente.</li>
+            <li>Conferir os dados e preparar a entrega.</li>
+          </ol>
+        </div>
+        <figure class="screen app-screen"><img src="assets/acervo.png" alt="Tela inicial do protótipo com o mapa e a Ponte Demonstrativa IME selecionada"><figcaption>Visão geral do acervo · demonstrador público</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="slide" id="demonstracao" data-title="Demonstração da viga V01" hidden>
+      <p class="eyebrow">ERI-DEMO-001 · dados fictícios</p>
+      <h2>Demonstração da viga V01</h2>
+      <div class="demo-nav" role="group" aria-label="Etapas da demonstração">
+        <button type="button" data-step="0" aria-pressed="true">1 · Acervo</button>
+        <button type="button" data-step="1" aria-pressed="false">2 · Registro</button>
+        <button type="button" data-step="2" aria-pressed="false">3 · Modelo</button>
+        <button type="button" data-step="3" aria-pressed="false">4 · Leituras</button>
+        <button type="button" data-step="4" aria-pressed="false">5 · Entrega</button>
+      </div>
+      <div class="split demo-layout" id="demo-content">
+        <div class="demo-copy" aria-live="polite">
+          <h3 id="demo-heading">Inspeção de 2008</h3>
+          <p id="demo-detail">Localize a ponte e consulte o documento fictício de origem em Documentos.</p>
+          <a class="button primary" href="https://eri-oae-demonstrador.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Testar no protótipo ↗</a>
+        </div>
+        <figure class="screen demo-screen">
+          <a id="demo-image-link" href="assets/acervo.png" target="_blank" rel="noopener" aria-label="Ampliar captura da demonstração"><img id="demo-image" data-view="acervo" src="assets/acervo.png" alt="Acervo georreferenciado com a ponte fictícia selecionada"></a>
+          <figcaption><span id="demo-caption">Captura do demonstrador público</span><a id="demo-zoom" href="assets/acervo.png" target="_blank" rel="noopener">Ampliar captura ↗</a></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide" id="entrega" data-title="O dossiê e seus destinos" hidden>
+      <p class="eyebrow">Intercâmbio de informação</p>
+      <h2>O dossiê e seus destinos</h2>
+      <div class="delivery">
+        <div class="files">
+          <div><strong>IFC 4.3</strong><span>Modelo e identificação dos componentes</span></div>
+          <div><strong>JSON · CSV</strong><span>Dados estruturados e séries temporais</span></div>
+          <div><strong>Documentos</strong><span>Fontes associadas aos registros</span></div>
+        </div>
+        <dl class="lined destinations">
+          <div><dt>Software BIM compatível com IFC 4.3</dt><dd>Abre o modelo e consulta suas propriedades.</dd></div>
+          <div><dt>Sistema de gestão de ativos ou manutenção</dt><dd>Recebe os dados após o mapeamento dos campos.</dd></div>
+          <div><dt>Plataforma de gêmeo digital</dt><dd>Relaciona modelo e séries por componente após integração.</dd></div>
+        </dl>
+      </div>
+      <p class="callout">Na versão pública, o <strong>dossiê acompanha as edições</strong> e o IFC permanece como modelo de referência.</p>
+      <a class="text-button" href="assets/ERI-DEMO-001-intercambio.zip" download>Baixar pacote fictício do ensaio local ↓</a>
+    </section>
+
+    <section class="slide" id="verificacao" data-title="O que foi demonstrado" hidden>
+      <p class="eyebrow">Verificação do intercâmbio</p>
+      <h2>O que foi demonstrado</h2>
+      <div class="split results">
+        <div>
+          <div class="result-number"><strong>56</strong><span>controles atendidos<br>no receptor público</span></div>
+          <p class="lede">Sete componentes e 24 leituras simuladas no pacote original.</p>
+          <p class="callout">O receptor detectou a alteração introduzida numa cópia do dossiê.</p>
+        </div>
+        <figure class="screen receiver-screen"><img id="receiver-image" src="assets/receptor.jpg" alt="Receptor local exibindo os identificadores preservados dos sete componentes"><figcaption id="receiver-caption">Captura de apoio · receptor do piloto local</figcaption></figure>
+      </div>
+      <button class="text-button" id="switch-receiver" type="button" aria-pressed="false">Ver captura do ensaio de alteração ↗</button>
+    </section>
+
+    <section class="slide" id="aplicacoes" data-title="Manutenção e gêmeos digitais" hidden>
+      <p class="eyebrow">Aplicações e continuidade da pesquisa</p>
+      <h2>Manutenção e gêmeos digitais</h2>
+      <div class="split closing">
+        <figure class="screen"><img src="assets/serie.jpg" alt="Série de deslocamento simulado da viga V01 no demonstrador"><figcaption>Leituras simuladas da viga V01 · protótipo ERI-OAE</figcaption></figure>
+        <dl class="lined">
+          <div><dt>Preventiva</dt><dd>Programar inspeções e serviços com base no histórico.</dd></div>
+          <div><dt>Proativa</dt><dd>Investigar causas recorrentes e orientar prioridades de intervenção.</dd></div>
+          <div><dt>Preditiva e gêmeos digitais</dt><dd>Associar medições ao modelo. A aplicação em campo requer instrumentação real e validação.</dd></div>
+        </dl>
+      </div>
+      <p class="closing-line">A mesma viga pode ser localizada no laudo, no cadastro e no modelo entregue.</p>
+    </section>
+  </main>
+
+  <footer class="controls" aria-label="Controles da apresentação">
+    <button type="button" id="previous" title="Slide anterior (←)" aria-label="Slide anterior">←</button>
+    <nav id="markers" aria-label="Escolher slide"></nav>
+    <button type="button" id="next" title="Próximo slide (→)" aria-label="Próximo slide">→</button>
+    <span id="counter" aria-live="polite">01 / 10</span>
+    <button type="button" id="notes" title="Roteiro de fala (N)" aria-label="Roteiro de fala">Roteiro</button>
+    <button type="button" id="fullscreen" title="Tela cheia (F)" aria-label="Tela cheia">⛶</button>
+  </footer>
+</div>
+
+<dialog id="notes-dialog" aria-labelledby="notes-title">
+  <div class="dialog-header"><h2 id="notes-title">Roteiro de fala</h2><button class="close" type="button" aria-label="Fechar roteiro" data-close>×</button></div>
+  <p class="eyebrow" id="notes-meta"></p>
+  <p class="speaker-note" id="notes-text"></p>
+</dialog>
+<dialog id="families-dialog" aria-labelledby="families-title">
+  <div class="dialog-header"><h2 id="families-title">As nove famílias da ERI-OAE</h2><button class="close" type="button" aria-label="Fechar famílias" data-close>×</button></div>
+  <table>
+    <thead><tr><th scope="col">Família</th><th scope="col">Requisitos</th><th scope="col">Campos</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">F01 · Governança, atores e finalidade</th><td>8</td><td>31</td></tr>
+      <tr><th scope="row">F02 · Identificação, cadastro e decomposição</th><td>7</td><td>53</td></tr>
+      <tr><th scope="row">F03 · Planejamento, inspeções e eventos</th><td>9</td><td>35</td></tr>
+      <tr><th scope="row">F04 · Observações, anomalias, ensaios e evidências</th><td>7</td><td>33</td></tr>
+      <tr><th scope="row">F05 · Avaliação, condição, risco e indicadores</th><td>5</td><td>31</td></tr>
+      <tr><th scope="row">F06 · Manutenção, intervenção e verificação</th><td>6</td><td>34</td></tr>
+      <tr><th scope="row">F07 · Histórico, configuração e versionamento</th><td>2</td><td>19</td></tr>
+      <tr><th scope="row">F08 · BIM, semântica e interoperabilidade</th><td>3</td><td>31</td></tr>
+      <tr><th scope="row">F09 · Entrega, validação e aceite</th><td>3</td><td>34</td></tr>
+    </tbody>
+    <tfoot><tr><th scope="row">Total</th><td>50</td><td>301</td></tr></tfoot>
+  </table>
+</dialog>
+</body>
+</html>
