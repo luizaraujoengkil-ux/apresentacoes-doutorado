@@ -27,6 +27,28 @@
     proposto_ERI_OAE: "Proposto pela ERI-OAE"
   };
   const feature = "ERI-IPR709-004";
+  const presentation = slide.querySelector(".spec-presentation");
+  const caption = presentation.querySelector(".spec-scene-caption");
+  const play = slide.querySelector(".spec-play");
+  const playIcon = play.querySelector(".spec-play-icon");
+  const playLabel = play.querySelector(".spec-play-label");
+  const stepText = slide.querySelector(".spec-journey-step");
+  const journeyNav = Array.from(slide.querySelectorAll("[data-spec-move]"));
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const stepDuration = 8000;
+  const narration = {
+    families: "A observação de campo entra na família F04, com vínculo à inspeção de origem.",
+    requirements: "A fonte orienta o requisito: caracterizar o dano e registrar sua condição.",
+    fields: "O requisito se desdobra em campos separados, com valores e regras de preenchimento.",
+    exchange: "O dossiê e o modelo identificam a mesma viga. A chave é o GlobalId:"
+  };
+  let currentStep = 0;
+  let elapsed = 0;
+  let previousTick;
+  let animationFrame;
+  let playing = false;
+  let tourStarted = false;
+  let completed = false;
 
   let mode = "requirements";
   let linkedRequirement = null;
@@ -42,21 +64,103 @@
     return el;
   }
 
-  function setStep(step, focus = false) {
-    const target = steps.find(button => button.dataset.specStep === step);
-    if (!target) return;
-    steps.forEach(button => button.setAttribute("aria-pressed", String(button === target)));
-    panels.forEach(panel => { panel.hidden = panel.dataset.specPanel !== step; });
-    if (focus) target.focus();
+  function progress() {
+    if (!reducedMotion.matches) {
+      steps[currentStep].style.setProperty("--spec-progress", Math.min(1, elapsed / stepDuration));
+    }
   }
 
-  steps.forEach(button => button.addEventListener("click", () => setStep(button.dataset.specStep)));
+  function updateGuide() {
+    playIcon.textContent = playing ? "Ⅱ" : completed ? "↻" : "▶";
+    playLabel.textContent = playing ? "Pausar percurso" : completed ? "Repetir percurso" : tourStarted ? "Retomar percurso" : "Acompanhar V01";
+    stepText.textContent = (currentStep + 1) + " de " + steps.length;
+    journeyNav[0].disabled = currentStep === 0;
+    journeyNav[1].disabled = currentStep === steps.length - 1;
+    steps.forEach((button, i) => {
+      button.classList.toggle("spec-passed", i < currentStep || (i === currentStep && completed));
+      if (i !== currentStep || reducedMotion.matches) button.style.removeProperty("--spec-progress");
+    });
+    progress();
+  }
+
+  function setStep(step, focus = false) {
+    const index = steps.findIndex(button => button.dataset.specStep === step);
+    if (index < 0) return;
+    currentStep = index;
+    steps.forEach((button, i) => button.setAttribute("aria-pressed", String(i === index)));
+    panels.forEach(panel => { panel.hidden = panel.dataset.specPanel !== step; });
+    presentation.dataset.specCurrent = step;
+    caption.textContent = narration[step];
+    if (step === "exchange") caption.append(node("code", "0ie0zF$y5VRQbchodvwdxV"));
+    updateGuide();
+    if (focus) steps[index].focus();
+  }
+
+  function pauseGuide() {
+    if (!playing) return;
+    playing = false;
+    cancelAnimationFrame(animationFrame);
+    previousTick = undefined;
+    updateGuide();
+  }
+
+  function manualStep(step, focus = false) {
+    pauseGuide();
+    elapsed = 0;
+    tourStarted = false;
+    completed = false;
+    setStep(step, focus);
+  }
+
+  function tick(time) {
+    if (!playing) return;
+    if (previousTick !== undefined) elapsed += time - previousTick;
+    previousTick = time;
+    if (elapsed >= stepDuration) {
+      if (currentStep === steps.length - 1) {
+        completed = true;
+        pauseGuide();
+        return;
+      }
+      elapsed = 0;
+      setStep(steps[currentStep + 1].dataset.specStep);
+    }
+    progress();
+    animationFrame = requestAnimationFrame(tick);
+  }
+
+  play.addEventListener("click", () => {
+    if (playing) {
+      pauseGuide();
+      return;
+    }
+    if (completed || !tourStarted) {
+      completed = false;
+      elapsed = 0;
+      setStep(steps[0].dataset.specStep);
+    }
+    tourStarted = true;
+    playing = true;
+    updateGuide();
+    animationFrame = requestAnimationFrame(tick);
+  });
+  steps.forEach(button => button.addEventListener("click", () => manualStep(button.dataset.specStep)));
+  journeyNav.forEach(button => button.addEventListener("click", () => {
+    const target = steps[currentStep + Number(button.dataset.specMove)];
+    if (target) {
+      manualStep(target.dataset.specStep);
+      if (button.disabled) (journeyNav.find(control => !control.disabled) || play).focus();
+    }
+  }));
   slide.querySelectorAll("[data-spec-go]").forEach(button =>
-    button.addEventListener("click", () => setStep(button.dataset.specGo, true))
+    button.addEventListener("click", () => manualStep(button.dataset.specGo, true))
   );
   slide.querySelectorAll("[data-open-catalog]").forEach(button =>
-    button.addEventListener("click", () => openCatalog(button.dataset.openCatalog, "", button))
+    button.addEventListener("click", () => openCatalog(button.dataset.openCatalog, "", button, button.dataset.catalogId))
   );
+  new MutationObserver(() => { if (slide.hidden) pauseGuide(); }).observe(slide, { attributes: true, attributeFilter: ["hidden"] });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) pauseGuide(); });
+  reducedMotion.addEventListener("change", updateGuide);
 
   function normalize(s) {
     return (s || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
@@ -135,16 +239,23 @@
     results.scrollTop = 0;
   }
 
-  function openCatalog(type, family, source) {
+  function openCatalog(type, family, source, id = "") {
     if (!data) return;
+    pauseGuide();
     mode = type;
     linkedRequirement = null;
     familyFilter.value = family;
-    search.value = "";
+    search.value = id;
     trigger = source;
     renderCatalog();
     catalog.showModal();
-    modes.find(button => button.dataset.catalogMode === type)?.focus();
+    const detail = id && results.querySelector("details");
+    if (detail) {
+      detail.open = true;
+      detail.querySelector("summary").focus();
+    } else {
+      modes.find(button => button.dataset.catalogMode === type)?.focus();
+    }
   }
 
   modes.forEach(button => button.addEventListener("click", () => {
@@ -177,10 +288,19 @@
       ["ERI-F04-018", "Fissura transversal"]
     ];
     const fieldsById = new Map(data.fields.map(field => [field.id, field]));
-    exampleValues.forEach(([id, value]) => {
+    exampleValues.forEach(([id, value], i) => {
       const field = fieldsById.get(id);
       const entry = node("div");
-      entry.append(node("span", id, "spec-kicker"), node("dt", field.title), node("dd", value));
+      entry.style.setProperty("--i", i);
+      const term = node("dt", field.title);
+      term.prepend(node("span", id, "spec-kicker spec-field-code"));
+      const definition = node("dd", value);
+      const rule = node("button", "Ver regra ↗", "spec-field-rule");
+      rule.type = "button";
+      rule.setAttribute("aria-label", "Ver regra: " + field.title);
+      rule.addEventListener("click", () => openCatalog("fields", field.family, rule, id));
+      definition.append(rule);
+      entry.append(term, definition);
       slide.querySelector("#spec-examples").append(entry);
     });
 
@@ -196,6 +316,7 @@
       const card = node("button", undefined, "spec-family");
       card.type = "button";
       card.style.setProperty("--i", i);
+      if (family.id === "F04") card.classList.add("is-example");
       const description = node("span");
       description.append(node("strong", family.title), node("small", reqs + " requisitos · " + fields + " campos"));
       const arrow = node("span", "↗", "spec-arrow");
