@@ -29,14 +29,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline
 #clock { min-width: 3.35rem; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
 .back { text-decoration: none; color: var(--muted); font-weight: 660; white-space: nowrap; }
 .back:hover, .text-button:hover { color: var(--ink); text-decoration: underline; }
-.button, .controls > button, .timer button, .demo-nav button, .close {
+.button, .controls > button, .timer button, .close {
   border: 1px solid #31515d; border-radius: 10px; color: var(--ink); background: var(--control);
   transition: background .16s ease, color .16s ease, border-color .16s ease;
 }
 .button { display: inline-block; padding: .65rem .9rem; text-decoration: none; font-weight: 750; white-space: nowrap; }
 .primary { background: var(--cyan); border-color: var(--cyan); color: #09252b; }
 .primary:hover { background: #a0f1e8; }
-.controls > button:not(:disabled):hover, .timer button:not(:disabled):hover, .demo-nav button:hover, .close:hover { border-color: var(--cyan); background: #254957; }
+.controls > button:not(:disabled):hover, .timer button:not(:disabled):hover:hover, .close:hover { border-color: var(--cyan); background: #254957; }
 .timer button { display: grid; place-items: center; width: 31px; height: 31px; padding: 0; border-radius: 8px; font-size: .77rem; }
 #stage { min-width: 0; display: grid; }
 .slide {
@@ -73,21 +73,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .screen { min-width: 0; }
 .screen img { width: 100%; max-height: min(45vh,490px); display: block; border-radius: 12px; border: 1px solid #5f7d85; background: #f2f7f7; object-fit: contain; }
 .screen figcaption { margin-top: .44rem; color: var(--muted); font-size: .78rem; line-height: 1.3; }
-.app-screen img { aspect-ratio: 1.45; object-fit: cover; object-position: center 60%; }
-.demo-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: -.25rem 0 1rem; }
-.demo-nav button { padding: .48rem .62rem; font-size: clamp(.75rem,1.1vw,.9rem); font-weight: 675; }
-.demo-nav button[aria-pressed="true"] { color: #09252b; background: var(--cyan); border-color: var(--cyan); }
-.demo-layout { grid-template-columns: .68fr 1.32fr; align-items: start; }
-.demo-copy { padding-top: .6rem; }
-.demo-copy p { margin: .6rem 0 1rem; color: var(--muted); font-size: clamp(.94rem,1.45vw,1.24rem); line-height: 1.42; }
-.demo-copy .button { font-size: .87rem; }
-.demo-screen img { height: clamp(170px,39vh,410px); object-fit: cover; object-position: center; }
-.demo-screen img[data-view="acervo"] { object-position: center 69%; }
-.demo-screen img[data-view="familias"] { object-position: center 72%; }
-.demo-screen img[data-view="modelo"] { object-position: center 68%; }
-.demo-screen img[data-view="receptor"] { object-position: center 24%; }
-.demo-screen figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; }
-.demo-screen figcaption a { color: var(--cyan); font-weight: 650; white-space: nowrap; }
 .delivery { display: grid; grid-template-columns: .89fr 1.11fr; gap: clamp(14px,3.5vw,55px); margin-bottom: 1.1rem; }
 .files { border-left: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-around; }
 .files > div { display: flex; flex-direction: column; padding: .36rem .85rem; }
@@ -133,8 +118,6 @@ tfoot { color: var(--cyan); font-weight: 760; }
   .slide { padding: 25px 19px; border-radius: 16px; }
   .split, .delivery { grid-template-columns: 1fr; gap: 15px; }
   .screen img { max-height: 34vh; }
-  .demo-screen img { height: 230px; }
-  .demo-copy { padding-top: 0; }
   .controls { gap: 5px; }
   .controls > button { min-width: 31px; padding: 0 .38rem; min-height: 34px; }
   #markers button { width: 15px; }
@@ -154,7 +137,7 @@ tfoot { color: var(--cyan); font-weight: 760; }
   @page { size: A4 landscape; margin: 12mm; }
   body, .slide { background: white; }
   .shell, #stage { display: block; padding: 0; }
-  .bar, .controls, .skip, .text-button, .demo-copy .button, dialog { display: none !important; }
+  .bar, .controls, .skip, .text-button, dialog { display: none !important; }
   .slide, .slide[hidden] { display: flex !important; min-height: 176mm; break-after: page; animation: none; }
   .slide:last-child { break-after: auto; }
   .callout, .example { background: #eef5f4; }

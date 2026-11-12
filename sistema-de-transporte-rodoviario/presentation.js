@@ -1,13 +1,5 @@
 "use strict";
 
-const demo = [
-  { heading: "Inspeção de 2008", detail: "Localize a ponte e consulte o documento fictício de origem em Documentos.", file: "acervo.png", alt: "Acervo georreferenciado com a ponte fictícia selecionada", caption: "Captura do demonstrador público" },
-  { heading: "Observação na família F04", detail: "Associe a observação à inspeção e à viga V01. Registre a região, a descrição e a referência à evidência.", file: "familias.jpg", alt: "Tela Famílias ERI, com a família F04 de observações e evidências", caption: "Famílias ERI · captura do piloto local" },
-  { heading: "A mesma viga no modelo", detail: "Selecione a V01 e confira seu identificador IFC, o GlobalId.", file: "modelo.jpg", alt: "Modelo da ponte fictícia com a viga V01 destacada em verde e seus identificadores na ficha lateral", caption: "Modelo e simulação · captura do piloto local" },
-  { heading: "Leituras simuladas", detail: "Reproduza a série de deslocamento do sensor virtual vinculado à V01.", file: "serie.jpg", alt: "Série temporal de deslocamento simulado da viga V01", caption: "Série de deslocamento · captura do piloto local" },
-  { heading: "Exportação e recepção", detail: "Em Entregas, use Exportar e conferir no receptor. Confira se o identificador da V01 foi preservado.", file: "receptor.jpg", alt: "Tabela do receptor local com os identificadores dos sete componentes", caption: "Receptor do pacote · captura do piloto local" }
-];
-
 const slides = Array.from(document.querySelectorAll(".slide"));
 const previous = document.querySelector("#previous");
 const next = document.querySelector("#next");
@@ -43,7 +35,8 @@ function showSlide(index, updateAddress = true) {
 }
 
 function slideFromAddress() {
-  const found = slides.findIndex((slide) => "#" + slide.id === location.hash);
+  const hash = location.hash === "#demonstracao" ? "#prototipo" : location.hash;
+  const found = slides.findIndex((slide) => "#" + slide.id === hash);
   showSlide(Math.max(0, found), false);
 }
 
@@ -73,7 +66,7 @@ document.addEventListener("fullscreenchange", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (document.querySelector("dialog[open]") || event.target instanceof HTMLSelectElement || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+  if (event.defaultPrevented || document.querySelector("dialog[open]") || event.target instanceof HTMLSelectElement || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
   const key = event.key.toLowerCase();
   if (["arrowleft", "pageup", "arrowright", "pagedown", "home", "end", "f"].includes(key)) event.preventDefault();
   if (key === "arrowleft" || key === "pageup") showSlide(current - 1);
@@ -121,24 +114,6 @@ reset.addEventListener("click", () => {
   elapsed = 0;
   reset.disabled = true;
   updateClock();
-});
-
-const demoButtons = Array.from(document.querySelectorAll("[data-step]"));
-const demoImage = document.querySelector("#demo-image");
-demoButtons.forEach((button, index) => {
-  button.addEventListener("click", () => {
-    const step = demo[index];
-    demoButtons.forEach((other, i) => other.setAttribute("aria-pressed", String(i === index)));
-    document.querySelector("#demo-heading").textContent = step.heading;
-    document.querySelector("#demo-detail").textContent = step.detail;
-    const imagePath = "assets/" + step.file;
-    demoImage.src = imagePath;
-    demoImage.dataset.view = step.file.split(".")[0];
-    document.querySelector("#demo-image-link").href = imagePath;
-    document.querySelector("#demo-zoom").href = imagePath;
-    demoImage.alt = step.alt;
-    document.querySelector("#demo-caption").textContent = step.caption;
-  });
 });
 
 const switchReceiver = document.querySelector("#switch-receiver");

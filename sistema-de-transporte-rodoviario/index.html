@@ -6,19 +6,21 @@
   <meta name="theme-color" content="#091720">
   <meta name="robots" content="noindex">
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
-  <link rel="stylesheet" href="style.css?controles=2">
+  <link rel="stylesheet" href="style.css?controles=3">
   <link rel="stylesheet" href="cover.css?acessos=1">
   <link rel="stylesheet" href="history.css?lupa=2">
   <link rel="stylesheet" href="base.css">
   <link rel="stylesheet" href="method.css?conferencia=2">
   <link rel="stylesheet" href="specification.css?v=2">
-  <script defer src="presentation.js?controles=3"></script>
+  <link rel="stylesheet" href="tutorial.css?v=1">
+  <script defer src="presentation.js?controles=4"></script>
   <script defer src="cover.js"></script>
   <script defer src="history.js?lupa=2"></script>
   <script defer src="assets/mapa-estudos-dados.js"></script>
   <script defer src="base.js"></script>
   <script defer src="method.js"></script>
   <script defer src="specification.js?v=2"></script>
+  <script defer src="tutorial.js?v=1"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -361,42 +363,46 @@
       <p class="spec-error" role="status" hidden>O catálogo não carregou. Atualize a página para tentar novamente.</p>
     </section>
 
-    <section class="slide" id="prototipo" data-title="Desenvolvimento do protótipo" hidden>
-      <p class="eyebrow">Implementação</p>
-      <h2>Desenvolvimento do protótipo</h2>
-      <div class="split app-slide">
-        <div>
-          <p class="lede">O cadastro da obra conecta documentos de origem, eventos, famílias ERI e componentes do modelo.</p>
-          <ol class="steps">
-            <li>Transcrever os dados do acervo e preservar o documento.</li>
-            <li>Vincular cada registro à ponte ou ao componente.</li>
-            <li>Conferir os dados e preparar a entrega.</li>
-          </ol>
+    <section class="slide" id="prototipo" data-title="Tutorial visual do protótipo" hidden>
+      <p class="eyebrow">Demonstração guiada · Ponte Demonstrativa IME</p>
+      <h2>Como usar o protótipo ERI-OAE</h2>
+      <div class="tutorial" role="region" aria-label="Tutorial em seis etapas">
+        <nav class="tutorial-nav" aria-label="Etapas do tutorial">
+          <button type="button" data-tutorial-step="0" aria-pressed="true"><span>01</span> Acervo</button>
+          <button type="button" data-tutorial-step="1" aria-pressed="false"><span>02</span> Histórico</button>
+          <button type="button" data-tutorial-step="2" aria-pressed="false"><span>03</span> Famílias ERI</button>
+          <button type="button" data-tutorial-step="3" aria-pressed="false"><span>04</span> Validação</button>
+          <button type="button" data-tutorial-step="4" aria-pressed="false"><span>05</span> Modelo</button>
+          <button type="button" data-tutorial-step="5" aria-pressed="false"><span>06</span> Entregas</button>
+        </nav>
+        <div class="tutorial-panel">
+          <div class="tutorial-copy">
+            <p class="tutorial-kicker" id="tutorial-kicker">Etapa 01 de 06</p>
+            <h3 id="tutorial-heading">Localize a ponte</h3>
+            <dl class="tutorial-directions">
+              <div><dt>O que fazer</dt><dd id="tutorial-instruction">Em <strong>Visão geral</strong>, selecione <strong>ERI-DEMO-001</strong> no mapa ou na lista. Clique em <strong>Abrir cadastro</strong>.</dd></div>
+              <div><dt>Para que serve</dt><dd id="tutorial-purpose">Encontrar a obra pelo mapa ou pelo código e entrar no cadastro certo antes de consultar ou preencher os dados.</dd></div>
+            </dl>
+          </div>
+          <figure class="tutorial-figure">
+            <div class="tutorial-window">
+              <div class="tutorial-chrome" aria-hidden="true"><span><i></i><i></i><i></i></span><span>ERI-OAE · DEMONSTRADOR PÚBLICO</span></div>
+              <button class="tutorial-preview" type="button" aria-label="Ampliar imagem da etapa">
+                <img id="tutorial-image" src="assets/tutorial-01-acervo.jpg" width="1265" height="711" alt="Mapa do acervo com a Ponte Demonstrativa IME selecionada e o botão Abrir cadastro no cartão da obra" decoding="async" loading="lazy">
+                <span class="tutorial-hotspot" aria-hidden="true"></span>
+              </button>
+            </div>
+            <figcaption class="tutorial-caption"><span id="tutorial-target"><span class="tutorial-dot" aria-hidden="true"></span><span id="tutorial-target-text">Em destaque: Abrir cadastro</span></span><span class="tutorial-image-actions"><button class="tutorial-hint" type="button" aria-pressed="true">Destaque na tela</button><button class="tutorial-zoom" type="button">Ampliar tela ↗</button></span></figcaption>
+          </figure>
         </div>
-        <figure class="screen app-screen"><img src="assets/acervo.png" alt="Tela inicial do protótipo com o mapa e a Ponte Demonstrativa IME selecionada"><figcaption>Visão geral do acervo · demonstrador público</figcaption></figure>
-      </div>
-    </section>
-
-    <section class="slide" id="demonstracao" data-title="Demonstração da viga V01" hidden>
-      <p class="eyebrow">ERI-DEMO-001 · dados fictícios</p>
-      <h2>Demonstração da viga V01</h2>
-      <div class="demo-nav" role="group" aria-label="Etapas da demonstração">
-        <button type="button" data-step="0" aria-pressed="true">1 · Acervo</button>
-        <button type="button" data-step="1" aria-pressed="false">2 · Registro</button>
-        <button type="button" data-step="2" aria-pressed="false">3 · Modelo</button>
-        <button type="button" data-step="3" aria-pressed="false">4 · Leituras</button>
-        <button type="button" data-step="4" aria-pressed="false">5 · Entrega</button>
-      </div>
-      <div class="split demo-layout" id="demo-content">
-        <div class="demo-copy" aria-live="polite">
-          <h3 id="demo-heading">Inspeção de 2008</h3>
-          <p id="demo-detail">Localize a ponte e consulte o documento fictício de origem em Documentos.</p>
-          <a class="button primary" href="https://eri-oae-demonstrador.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Testar no protótipo ↗</a>
+        <div class="tutorial-footer">
+          <div class="tutorial-controls" role="group" aria-label="Navegação do carrossel">
+            <button type="button" id="tutorial-prev" disabled>← Anterior</button>
+            <button type="button" id="tutorial-next">Próxima etapa →</button>
+          </div>
+          <a class="button primary" href="https://eri-oae-demonstrador.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Praticar no protótipo ↗</a>
         </div>
-        <figure class="screen demo-screen">
-          <a id="demo-image-link" href="assets/acervo.png" target="_blank" rel="noopener" aria-label="Ampliar captura da demonstração"><img id="demo-image" data-view="acervo" src="assets/acervo.png" alt="Acervo georreferenciado com a ponte fictícia selecionada"></a>
-          <figcaption><span id="demo-caption">Captura do demonstrador público</span><a id="demo-zoom" href="assets/acervo.png" target="_blank" rel="noopener">Ampliar captura ↗</a></figcaption>
-        </figure>
+        <p class="tutorial-sr" id="tutorial-announcement" role="status"></p>
       </div>
     </section>
 
@@ -452,11 +458,16 @@
     <button type="button" id="previous" title="Slide anterior (←)" aria-label="Slide anterior">←</button>
     <nav id="markers" aria-label="Escolher slide"></nav>
     <button type="button" id="next" title="Próximo slide (→)" aria-label="Próximo slide">→</button>
-    <span id="counter" aria-live="polite">01 / 10</span>
+    <span id="counter" aria-live="polite">01 / 09</span>
     <button type="button" id="fullscreen" title="Tela cheia (F)" aria-label="Tela cheia">⛶</button>
   </footer>
 </div>
 
+<dialog id="tutorial-dialog" aria-labelledby="tutorial-dialog-title">
+  <div class="dialog-header"><h2 id="tutorial-dialog-title">Tela do protótipo</h2><button class="close" type="button" aria-label="Fechar imagem ampliada" data-close>×</button></div>
+  <div class="tutorial-enlarged"><img id="tutorial-large-image" alt=""><span class="tutorial-hotspot" aria-hidden="true"></span></div>
+  <p id="tutorial-large-target"></p>
+</dialog>
 <dialog id="spec-catalog" aria-labelledby="spec-catalog-title">
   <div class="dialog-header"><div><p class="spec-kicker">Catálogo da especificação</p><h2 id="spec-catalog-title">Explorar a ERI-OAE</h2></div><button class="close" type="button" aria-label="Fechar catálogo" data-close>×</button></div>
   <div class="spec-catalog-tools">
