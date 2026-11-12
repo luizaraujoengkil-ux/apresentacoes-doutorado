@@ -27,10 +27,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline
 .timer { margin-inline-end: 8px; }
 .timer-label { color: var(--muted); font-size: .8rem; }
 #clock { min-width: 3.35rem; color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
-.back, .bar-link { text-decoration: none; color: var(--muted); font-weight: 660; white-space: nowrap; }
-.back:hover, .bar-link:hover, .text-button:hover { color: var(--ink); text-decoration: underline; }
-.bar-link { padding-inline: 6px; }
-.bar-link span { color: var(--cyan); }
+.back { text-decoration: none; color: var(--muted); font-weight: 660; white-space: nowrap; }
+.back:hover, .text-button:hover { color: var(--ink); text-decoration: underline; }
 .button, .controls > button, .timer button, .demo-nav button, .close {
   border: 1px solid #31515d; border-radius: 10px; color: var(--ink); background: var(--control);
   transition: background .16s ease, color .16s ease, border-color .16s ease;
@@ -60,11 +58,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .lined > div { border-top: 1px solid var(--line); padding: .68rem 0; }
 .lined dt { font-size: clamp(.98rem,1.55vw,1.34rem); font-weight: 730; }
 .lined dd { margin: .21rem 0 0; color: var(--muted); font-size: clamp(.88rem,1.34vw,1.16rem); line-height: 1.35; }
-.chain { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; padding: 0; margin: 0 0 1.25rem; list-style: none; counter-reset: method; }
-.chain li { position: relative; padding: .8rem 1rem .65rem 0; border-top: 1px solid var(--line); counter-increment: method; }
-.chain li::before { content: "0" counter(method); display: block; margin-bottom: .3rem; color: var(--cyan); font-size: .85rem; font-weight: 790; }
-.chain strong { display: block; font-size: clamp(1.1rem,2.1vw,1.75rem); }
-.chain span { display: block; margin-top: .35rem; color: var(--muted); font-size: clamp(.9rem,1.4vw,1.14rem); line-height: 1.36; }
 .example { padding: clamp(14px,2vw,26px); border: 1px solid var(--line); border-left: 3px solid var(--amber); background: #0a1c27a8; border-radius: 0 12px 12px 0; }
 .example p { margin-top: .5rem; color: var(--muted); font-size: clamp(.94rem,1.55vw,1.28rem); line-height: 1.4; }
 .example strong { color: var(--ink); }
@@ -116,13 +109,11 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 #markers button[aria-current="step"]::before { background: var(--cyan); box-shadow: 0 0 0 4px #76dfd733; }
 #markers button:hover::before { background: var(--ink); }
 #counter { min-width: 4.1rem; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; text-align: center; }
-#notes { font-size: .82rem; }
 dialog { width: min(calc(100% - 24px), 690px); max-height: 88vh; padding: clamp(16px,3vw,30px); background: #102b38; color: var(--ink); border: 1px solid var(--line); border-radius: 16px; }
 dialog::backdrop { background: #040d16cf; }
 .dialog-header { display: flex; justify-content: space-between; align-items: center; gap: .6rem; margin-bottom: .9rem; }
 .dialog-header h2 { font-size: clamp(1.23rem,3vw,1.7rem); line-height: 1.15; }
 .close { flex: 0 0 37px; min-height: 36px; font-size: 1.3rem; }
-.speaker-note { color: var(--muted); font-size: 1.1rem; line-height: 1.55; }
 table { width: 100%; border-collapse: collapse; font-size: clamp(.72rem,1.7vw,.96rem); }
 th, td { padding: .43rem .36rem; border-bottom: 1px solid var(--line); }
 th { text-align: left; }
@@ -135,17 +126,12 @@ tfoot { color: var(--cyan); font-weight: 760; }
   .bar-tools { justify-content: flex-end; margin-left: auto; min-width: 0; flex-wrap: wrap; gap: 6px; }
   .timer { margin-right: 0; gap: 4px; }
   #clock { min-width: 2.7rem; }
-  .bar-link { padding-inline: 3px; }
   .timer-label { display: none; }
   .bar .button { padding: .52rem .58rem; font-size: .76rem; }
-  .bar-link, .back { font-size: .82rem; }
+  .back { font-size: .82rem; }
   .timer button { width: 26px; height: 28px; }
   .slide { padding: 25px 19px; border-radius: 16px; }
   .split, .delivery { grid-template-columns: 1fr; gap: 15px; }
-  .chain { grid-template-columns: 1fr; gap: .45rem; }
-  .chain li { padding: .45rem 0 .3rem 2.1rem; }
-  .chain li::before { position: absolute; top: .55rem; left: 0; }
-  .chain span { margin-top: .2rem; }
   .screen img { max-height: 34vh; }
   .demo-screen img { height: 230px; }
   .demo-copy { padding-top: 0; }

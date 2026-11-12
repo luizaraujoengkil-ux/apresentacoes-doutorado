@@ -6,15 +6,17 @@
   <meta name="theme-color" content="#091720">
   <meta name="robots" content="noindex">
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?controles=2">
   <link rel="stylesheet" href="cover.css?acessos=1">
   <link rel="stylesheet" href="history.css?lupa=2">
   <link rel="stylesheet" href="base.css">
-  <script defer src="presentation.js"></script>
+  <link rel="stylesheet" href="method.css">
+  <script defer src="presentation.js?controles=2"></script>
   <script defer src="cover.js"></script>
   <script defer src="history.js?lupa=2"></script>
   <script defer src="assets/mapa-estudos-dados.js"></script>
   <script defer src="base.js"></script>
+  <script defer src="method.js"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -28,7 +30,6 @@
         <button id="pause" title="Pausar" aria-label="Pausar cronômetro" disabled>Ⅱ</button>
         <button id="reset" title="Zerar" aria-label="Zerar cronômetro" disabled>■</button>
       </div>
-      <a class="bar-link" href="#historico">Sobre o artigo</a>
       <a class="button primary" href="https://eri-oae-demonstrador.luizaraujoengkil.chatgpt.site/" target="_blank" rel="noopener">Abrir protótipo ↗</a>
     </div>
   </header>
@@ -200,19 +201,63 @@
       </div>
     </section>
 
-    <section class="slide" id="metodo" data-title="Extração e compatibilização normativa" hidden>
-      <p class="eyebrow">Método</p>
-      <h2>Extração e compatibilização normativa</h2>
-      <ol class="chain">
-        <li><strong>Localizar</strong><span>Registrar fonte, edição e trecho aplicável.</span></li>
-        <li><strong>Compatibilizar</strong><span>Comparar escopo, incidência e força dos enunciados.</span></li>
-        <li><strong>Especificar</strong><span>Definir a informação, o responsável e a verificação.</span></li>
-      </ol>
-      <div class="example">
-        <h3>Exemplo · periodicidade de inspeção</h3>
-        <p>A ERI-OAE preserva a regra aplicável a cada contexto e registra <strong>fonte, jurisdição, justificativa, responsável e data-limite</strong>.</p>
+    <section class="slide" id="metodo" data-title="Como a norma vira dado" hidden>
+      <p class="eyebrow">Método · Planejamento da inspeção</p>
+      <h2>Como a norma vira dado no ERI-OAE</h2>
+      <p class="method-question">Quando vence a próxima inspeção da ponte?</p>
+      <div class="method-steps" role="group" aria-label="Etapas da transformação da norma em dado">
+        <button type="button" data-method-step aria-controls="method-source" aria-pressed="true">Fonte</button>
+        <button type="button" data-method-step aria-controls="method-requirement" aria-pressed="false">Requisito</button>
+        <button type="button" data-method-step aria-controls="method-fields" aria-pressed="false">Campos</button>
+        <button type="button" data-method-step aria-controls="method-check" aria-pressed="false">Conferência</button>
       </div>
-      <p class="footnote">Dos 50 requisitos, 41 têm suporte direto em fontes verificadas, 7 são inferências fundamentadas e 2 são proposições do estudo.</p>
+      <div class="method-stage">
+        <div id="method-source" class="method-panel">
+          <h3>Onde a periodicidade é definida</h3>
+          <div class="method-pair">
+            <div>
+              <strong>ABNT NBR 9452:2023</strong>
+              <p>Referência de inspeção e periodicidade analisada no artigo.</p>
+            </div>
+            <div>
+              <strong>DNIT 010/2024-PRO</strong>
+              <p>No regime do DNIT, a inspeção rotineira ocorre normalmente em até dois anos após a anterior.</p>
+              <a href="https://www.gov.br/dnit/pt-br/assuntos/planejamento-e-pesquisa/ipr/coletanea-de-normas/coletanea-de-normas/procedimento-pro/dnit_010_2024_pro.pdf#page=4" target="_blank" rel="noopener">Quadro 1 e item 4.2.2 ↗</a>
+            </div>
+          </div>
+        </div>
+        <div id="method-requirement" class="method-panel" hidden>
+          <h3>O que o cadastro precisa guardar</h3>
+          <p class="method-rule">Registrar o regime aplicável à ponte, sua fonte e a data limite da próxima inspeção.</p>
+          <p class="method-explanation">O registro permite recuperar a regra usada e a justificativa de uma exceção, quando houver.</p>
+        </div>
+        <div id="method-fields" class="method-panel" hidden>
+          <h3>Como o requisito aparece no cadastro</h3>
+          <p class="method-form-context">Planejamento da inspeção · valores fictícios do protótipo</p>
+          <dl class="method-fields">
+            <div><dt>Tipo de inspeção</dt><dd>Rotineira fictícia</dd></div>
+            <div><dt>Periodicidade aplicável</dt><dd>Intervalo de exercício, sem atribuição normativa</dd></div>
+            <div><dt>Data limite do ciclo</dt><dd><time datetime="2027-11-06">06/11/2027</time></dd></div>
+          </dl>
+        </div>
+        <div id="method-check" class="method-panel" hidden>
+          <h3>O que precisa ser conferido</h3>
+          <div class="method-pair">
+            <div>
+              <strong>Verificação no protótipo</strong>
+              <p>O esquema verifica se a data foi informada em um formato válido.</p>
+            </div>
+            <div>
+              <strong>Conferência do responsável</strong>
+              <p>O responsável confere se o prazo escolhido está de acordo com o regime aplicável à ponte.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="method-footer">
+        <p>F03 · Planejamento e eventos de inspeção</p>
+        <button class="method-next" type="button">Avançar etapa →</button>
+      </div>
     </section>
 
     <section class="slide" id="especificacao" data-title="Famílias, requisitos e campos" hidden>
@@ -322,16 +367,10 @@
     <nav id="markers" aria-label="Escolher slide"></nav>
     <button type="button" id="next" title="Próximo slide (→)" aria-label="Próximo slide">→</button>
     <span id="counter" aria-live="polite">01 / 10</span>
-    <button type="button" id="notes" title="Roteiro de fala (N)" aria-label="Roteiro de fala">Roteiro</button>
     <button type="button" id="fullscreen" title="Tela cheia (F)" aria-label="Tela cheia">⛶</button>
   </footer>
 </div>
 
-<dialog id="notes-dialog" aria-labelledby="notes-title">
-  <div class="dialog-header"><h2 id="notes-title">Roteiro de fala</h2><button class="close" type="button" aria-label="Fechar roteiro" data-close>×</button></div>
-  <p class="eyebrow" id="notes-meta"></p>
-  <p class="speaker-note" id="notes-text"></p>
-</dialog>
 <dialog id="families-dialog" aria-labelledby="families-title">
   <div class="dialog-header"><h2 id="families-title">As nove famílias da ERI-OAE</h2><button class="close" type="button" aria-label="Fechar famílias" data-close>×</button></div>
   <table>

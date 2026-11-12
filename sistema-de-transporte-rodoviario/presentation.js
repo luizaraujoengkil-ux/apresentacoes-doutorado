@@ -1,18 +1,5 @@
 "use strict";
 
-const notes = [
-  ["0min25s", "Apresente o título e os autores. Na projeção, acompanhe a imagem da ponte se transformar na representação BIM e observe como a viga V01 leva aos dados vinculados. O artigo especifica como preservar esse vínculo entre o modelo IFC e o dossiê de inspeções e intervenções."],
-  ["0min55s", "Mostre a mesma ponte nos cinco marcos. Em 2008, há o registro de origem da V01. Em 2012, aproxime a equipe de manutenção preventiva. Em 2021, mostre as fissuras, o desplacamento e a armadura exposta no cenário. Em 2024, aproxime os laminados de fibra de carbono usados após a avaliação de insuficiência estrutural. Em 2026, mostre o cadastro da observação da V01 no formulário do ERI-OAE. Pergunte como manter esse vínculo quando os registros são produzidos em épocas e formatos diferentes."],
-  ["0min50s", "Abra o mapa dos 40 estudos lidos integralmente. Explique que o mapa indica países de afiliação dos autores e o país do órgão editor dos relatórios. Um estudo com coautorias pode aparecer em mais de um país. Passe para Normas e ISOs e mostre as referências de inspeção, gestão da informação BIM, ativos, qualidade e intercâmbio que embasaram o artigo."],
-  ["1min20s", "Explique o percurso da fonte ao campo. A leitura registrou origem, escopo e aplicabilidade. Na periodicidade de inspeção, o artigo preservou os regimes associados à ABNT NBR 9452 e ao procedimento DNIT, com origem e justificativa. Mostre o resultado em campos de fonte, jurisdição, responsável e data-limite. Os 50 requisitos incluem 41 com suporte direto, 7 inferências e 2 proposições."],
-  ["1min05s", "Leia os números na ordem da explicação. As nove famílias organizam a informação. Os 50 requisitos dizem o que deve ser registrado. Os 301 campos permitem preencher e verificar os requisitos. Use o exemplo da observação da V01. Cada observação nova reutiliza a estrutura de campos. Abra a tabela apenas se precisar mostrar as outras famílias."],
-  ["0min50s", "Mostre que a implementação preserva o vínculo entre documento, evento, família e componente. No acervo legado, a equipe extrai os dados relevantes e associa o documento de origem. As famílias recebem registros contextualizados e a entrega preserva os vínculos."],
-  ["3min30s", "Abra a Ponte Demonstrativa IME. Em Documentos, mostre o histórico fictício de inspeções. Em Famílias ERI, abra F04 e a observação da V01. Se for demonstrar a gravação, complemente a descrição com um texto fictício. Em Modelo e simulação, selecione V01, aponte o GlobalId e reproduza algumas leituras. Em Entregas, use Exportar e conferir no receptor. As cinco etapas deste slide servem de apoio visual."],
-  ["1min20s", "Abra o pacote. O IFC 4.3 acompanha o dossiê como modelo de referência na versão pública. O JSON leva os dados editados e o CSV leva tabelas e leituras simuladas. O mesmo componente pode ser reconhecido pelo GlobalId. Leitores IFC, sistemas de gestão e plataformas de gêmeos digitais consomem partes diferentes do pacote. A integração com um destino externo requer mapeamento e teste específico."],
-  ["0min45s", "Mostre a recepção do pacote original e a detecção de uma alteração na cópia. Na versão pública foram 56 controles de integridade e vínculos, com sete componentes e 24 leituras. As capturas de apoio são do piloto local. O ensaio verificou o intercâmbio em cenário fictício."],
-  ["1min00s", "Volte à mesma viga. Um histórico rastreável ajuda a planejar a manutenção preventiva e a investigar causas recorrentes numa abordagem proativa. As leituras simuladas demonstram o vínculo com o modelo. Manutenção preditiva e gêmeos digitais operacionais exigem instrumentação real, séries confiáveis, modelos de análise e validação em campo."]
-];
-
 const demo = [
   { heading: "Inspeção de 2008", detail: "Localize a ponte e consulte o documento fictício de origem em Documentos.", file: "acervo.png", alt: "Acervo georreferenciado com a ponte fictícia selecionada", caption: "Captura do demonstrador público" },
   { heading: "Observação na família F04", detail: "Associe a observação à inspeção e à viga V01. Registre a região, a descrição e a referência à evidência.", file: "familias.jpg", alt: "Tela Famílias ERI, com a família F04 de observações e evidências", caption: "Famílias ERI · captura do piloto local" },
@@ -65,17 +52,8 @@ window.addEventListener("hashchange", slideFromAddress);
 previous.addEventListener("click", () => showSlide(current - 1));
 next.addEventListener("click", () => showSlide(current + 1));
 
-const notesDialog = document.querySelector("#notes-dialog");
 const familiesDialog = document.querySelector("#families-dialog");
 
-function openNotes() {
-  const [duration, script] = notes[current];
-  document.querySelector("#notes-meta").textContent = "Slide " + (current + 1) + " · " + duration;
-  document.querySelector("#notes-text").textContent = script;
-  notesDialog.showModal();
-}
-
-document.querySelector("#notes").addEventListener("click", openNotes);
 document.querySelector("#show-families").addEventListener("click", () => familiesDialog.showModal());
 document.querySelectorAll("dialog").forEach((dialog) => {
   dialog.querySelector("[data-close]").addEventListener("click", () => dialog.close());
@@ -100,13 +78,12 @@ document.addEventListener("fullscreenchange", () => {
 document.addEventListener("keydown", (event) => {
   if (document.querySelector("dialog[open]") || event.target instanceof HTMLSelectElement || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
   const key = event.key.toLowerCase();
-  if (["arrowleft", "pageup", "arrowright", "pagedown", "home", "end", "f", "n"].includes(key)) event.preventDefault();
+  if (["arrowleft", "pageup", "arrowright", "pagedown", "home", "end", "f"].includes(key)) event.preventDefault();
   if (key === "arrowleft" || key === "pageup") showSlide(current - 1);
   if (key === "arrowright" || key === "pagedown") showSlide(current + 1);
   if (key === "home") showSlide(0);
   if (key === "end") showSlide(slides.length - 1);
   if (key === "f" && !fullscreenButton.disabled) toggleFullscreen();
-  if (key === "n") openNotes();
 });
 
 const clock = document.querySelector("#clock");
