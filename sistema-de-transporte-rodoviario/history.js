@@ -12,7 +12,8 @@
   const scene = slide.querySelector(".history-scene");
   const play = slide.querySelector(".history-sequence");
   const detailButton = slide.querySelector(".history-zoom-toggle");
-  const lens = scene.querySelector(".history-lens");
+  const layout = slide.querySelector(".history-layout");
+  const lens = layout.querySelector(".history-lens");
   const zoom = scene.querySelector(".history-zoom");
   const zoomImage = scene.querySelector(".history-zoom-image");
   const tablet = scene.querySelector(".history-tablet");
@@ -56,6 +57,7 @@
   let active = 0;
   let advance = null;
   let sweep = null;
+  let lensMotion = null;
 
   function positionLens() {
     const record = records[active];
@@ -71,13 +73,63 @@
     scene.style.setProperty("--lens-x", 100 * focusX / width + "%");
     scene.style.setProperty("--lens-y", 100 * focusY / height + "%");
     scene.style.setProperty("--lens-zoom", String(scale));
+    return relativePoint(scene, focusX, focusY);
+  }
+
+  function relativePoint(element, x, y) {
+    const rect = element.getBoundingClientRect();
+    const area = layout.getBoundingClientRect();
+    return { x: rect.left - area.left + x, y: rect.top - area.top + y };
+  }
+
+  function moveLens(poses, duration, onFinish, easing = "cubic-bezier(.22,.65,.27,1)") {
+    if (lensMotion) lensMotion.cancel();
+    lens.hidden = false;
+    const frames = poses.map(({ x, y, scale, opacity }) => ({
+      transform: "translate(" + x + "px," + y + "px) translate(-50%,-50%) scale(" + scale + ")",
+      opacity
+    }));
+    const animation = lens.animate(frames, { duration, easing, fill: "forwards" });
+    lensMotion = animation;
+    if (onFinish) animation.onfinish = () => {
+      if (lensMotion === animation) onFinish();
+    };
+  }
+
+  function readText() {
+    sweep = null;
+    if (slide.hidden || zoom.hidden) return;
+    if (motion.matches) {
+      lens.hidden = true;
+      detail.dataset.reading = "complete";
+      return;
+    }
+    const center = relativePoint(scene, scene.clientWidth / 2, scene.clientHeight / 2);
+    const top = relativePoint(detail, -9, 3);
+    const bottom = relativePoint(detail, -9, Math.max(3, detail.clientHeight - 2));
+    moveLens([
+      { ...center, scale: .72, opacity: .48 },
+      { ...top, scale: .23, opacity: 1 }
+    ], 500, () => {
+      detail.dataset.reading = "scanning";
+      moveLens([
+        { ...top, scale: .23, opacity: 1 },
+        { ...bottom, scale: .23, opacity: .78 }
+      ], 1000, () => {
+        detail.dataset.reading = "complete";
+        lens.hidden = true;
+      }, "linear");
+    });
   }
 
   function closeZoom() {
     if (sweep !== null) clearTimeout(sweep);
     sweep = null;
+    if (lensMotion) lensMotion.cancel();
+    lensMotion = null;
     lens.hidden = true;
     zoom.hidden = true;
+    delete detail.dataset.reading;
     caption.textContent = defaultCaption;
     detailButton.textContent = "Ver detalhe";
     detailButton.setAttribute("aria-expanded", "false");
@@ -86,7 +138,9 @@
   function showZoom() {
     const record = records[active];
     if (!record.focus || slide.hidden) return;
-    positionLens();
+    sweep = null;
+    const focus = positionLens();
+    if (!focus) return;
     tablet.hidden = !record.tablet;
     zoomImage.hidden = Boolean(record.tablet);
     if (record.tablet) {
@@ -96,18 +150,31 @@
       zoomImage.alt = record.zoomAlt;
     }
     const open = () => {
-      sweep = null;
-      lens.hidden = true;
       zoom.hidden = false;
-      if (record.tablet) caption.textContent = "Formulário reconstituído · cenário fictício";
       detailButton.textContent = "Ver vista geral";
       detailButton.setAttribute("aria-expanded", "true");
+      if (record.tablet) {
+        lens.hidden = true;
+        caption.textContent = "Formulário reconstituído · cenário fictício";
+      } else if (motion.matches) {
+        readText();
+      } else {
+        const center = relativePoint(scene, scene.clientWidth / 2, scene.clientHeight / 2);
+        moveLens([
+          { ...focus, scale: 1, opacity: 1 },
+          { ...center, scale: .72, opacity: .48 }
+        ], 540);
+        sweep = setTimeout(readText, 2100);
+      }
     };
     if (motion.matches) {
       open();
     } else {
-      lens.hidden = false;
-      sweep = setTimeout(open, 850);
+      const entry = relativePoint(scene, scene.clientWidth * .11, scene.clientHeight * .26);
+      moveLens([
+        { ...entry, scale: .68, opacity: 0 },
+        { ...focus, scale: 1, opacity: 1 }
+      ], 730, open);
     }
   }
 

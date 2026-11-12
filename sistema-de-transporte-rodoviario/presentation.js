@@ -3,7 +3,7 @@
 const notes = [
   ["0min25s", "Apresente o título e os autores. Na projeção, acompanhe a imagem da ponte se transformar na representação BIM e observe como a viga V01 leva aos dados vinculados. O artigo especifica como preservar esse vínculo entre o modelo IFC e o dossiê de inspeções e intervenções."],
   ["0min55s", "Mostre a mesma ponte nos cinco marcos. Em 2008, há o registro de origem da V01. Em 2012, aproxime a equipe de manutenção preventiva. Em 2021, mostre as fissuras, o desplacamento e a armadura exposta no cenário. Em 2024, aproxime os laminados de fibra de carbono usados após a avaliação de insuficiência estrutural. Em 2026, mostre o cadastro da observação da V01 no formulário do ERI-OAE. Pergunte como manter esse vínculo quando os registros são produzidos em épocas e formatos diferentes."],
-  ["0min50s", "Resuma a base em uma frase por bloco. A literatura ajudou a situar o problema de integrar registros e modelos. As fontes brasileiras orientaram quais informações registrar. As referências de gestão e troca ajudaram a definir como organizar a entrega."],
+  ["0min50s", "Abra o mapa dos 40 estudos lidos integralmente. Explique que o mapa indica países de afiliação dos autores e o país do órgão editor dos relatórios. Um estudo com coautorias pode aparecer em mais de um país. Passe para Normas e ISOs e mostre as referências de inspeção, gestão da informação BIM, ativos, qualidade e intercâmbio que embasaram o artigo."],
   ["1min20s", "Explique o percurso da fonte ao campo. A leitura registrou origem, escopo e aplicabilidade. Na periodicidade de inspeção, o artigo preservou os regimes associados à ABNT NBR 9452 e ao procedimento DNIT, com origem e justificativa. Mostre o resultado em campos de fonte, jurisdição, responsável e data-limite. Os 50 requisitos incluem 41 com suporte direto, 7 inferências e 2 proposições."],
   ["1min05s", "Leia os números na ordem da explicação. As nove famílias organizam a informação. Os 50 requisitos dizem o que deve ser registrado. Os 301 campos permitem preencher e verificar os requisitos. Use o exemplo da observação da V01. Cada observação nova reutiliza a estrutura de campos. Abra a tabela apenas se precisar mostrar as outras famílias."],
   ["0min50s", "Mostre que a implementação preserva o vínculo entre documento, evento, família e componente. No acervo legado, a equipe extrai os dados relevantes e associa o documento de origem. As famílias recebem registros contextualizados e a entrega preserva os vínculos."],
@@ -98,7 +98,7 @@ document.addEventListener("fullscreenchange", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (notesDialog.open || familiesDialog.open || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
+  if (document.querySelector("dialog[open]") || event.target instanceof HTMLSelectElement || event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
   const key = event.key.toLowerCase();
   if (["arrowleft", "pageup", "arrowright", "pagedown", "home", "end", "f", "n"].includes(key)) event.preventDefault();
   if (key === "arrowleft" || key === "pageup") showSlide(current - 1);

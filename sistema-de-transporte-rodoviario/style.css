@@ -57,10 +57,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .callout { padding: .68rem .9rem; border-left: 3px solid var(--cyan); color: var(--muted); background: #08192370; font-size: clamp(.93rem,1.45vw,1.24rem); line-height: 1.42; }
 .callout strong { color: var(--ink); }
 .split { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(20px,3.5vw,54px); align-items: center; }
-.research { grid-template-columns: .69fr 1.31fr; }
-.number { display: block; color: var(--cyan); font-size: clamp(5rem,12vw,10.5rem); font-weight: 790; letter-spacing: -.085em; line-height: .85; }
-.reading p { margin: .6rem 0 .35rem; font-size: clamp(1.1rem,2.3vw,1.85rem); font-weight: 680; }
-.reading small { color: var(--muted); }
 .lined > div { border-top: 1px solid var(--line); padding: .68rem 0; }
 .lined dt { font-size: clamp(.98rem,1.55vw,1.34rem); font-weight: 730; }
 .lined dd { margin: .21rem 0 0; color: var(--muted); font-size: clamp(.88rem,1.34vw,1.16rem); line-height: 1.35; }
@@ -150,7 +146,6 @@ tfoot { color: var(--cyan); font-weight: 760; }
   .chain li { padding: .45rem 0 .3rem 2.1rem; }
   .chain li::before { position: absolute; top: .55rem; left: 0; }
   .chain span { margin-top: .2rem; }
-  .research { align-content: start; }
   .screen img { max-height: 34vh; }
   .demo-screen img { height: 230px; }
   .demo-copy { padding-top: 0; }

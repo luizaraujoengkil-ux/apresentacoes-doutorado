@@ -8,10 +8,13 @@
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="cover.css?acessos=1">
-  <link rel="stylesheet" href="history.css?lupa=1">
+  <link rel="stylesheet" href="history.css?lupa=2">
+  <link rel="stylesheet" href="base.css">
   <script defer src="presentation.js"></script>
   <script defer src="cover.js"></script>
-  <script defer src="history.js?lupa=1"></script>
+  <script defer src="history.js?lupa=2"></script>
+  <script defer src="assets/mapa-estudos-dados.js"></script>
+  <script defer src="base.js"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -81,6 +84,7 @@
       <p class="eyebrow">Problema de pesquisa · ERI-DEMO-001</p>
       <h2>O histórico de uma ponte existente</h2>
       <div class="history-layout">
+        <div class="history-lens" aria-hidden="true" hidden></div>
         <figure class="history-visual" aria-label="Evolução ilustrativa da ponte demonstrativa">
           <div class="history-scene" data-year="2008">
             <img class="history-image is-current" data-history-image src="assets/ponte-demonstrativa.webp?acessos=1" alt="A ponte fictícia de três vãos na inspeção mais antiga do recorte">
@@ -88,7 +92,6 @@
             <img class="history-image" data-history-image src="assets/historico-2021.webp?acessos=1" alt="Concreto da viga V01 com deterioração localizada, fissuras e armadura exposta no cenário fictício" loading="lazy" decoding="async" aria-hidden="true">
             <img class="history-image" data-history-image src="assets/historico-2024.webp?acessos=1" alt="Mesma ponte com reforço ilustrativo de fibra de carbono na viga V01" loading="lazy" decoding="async" aria-hidden="true">
             <img class="history-image" data-history-image src="assets/historico-2026.webp?acessos=1" alt="Equipe em inspeção recente da região reforçada da viga V01" loading="lazy" decoding="async" aria-hidden="true">
-            <div class="history-lens" aria-hidden="true" hidden></div>
             <div class="history-zoom" id="history-detail-view" hidden>
               <img class="history-zoom-image" alt="">
               <div class="history-tablet" hidden>
@@ -141,15 +144,60 @@
     <section class="slide" id="base" data-title="Base científica e normativa" hidden>
       <p class="eyebrow">Fundamentação</p>
       <h2>Base científica e normativa</h2>
-      <div class="split research">
-        <div class="reading"><span class="number">40</span><p>textos lidos na íntegra</p><small>32 estudos EB1 e 8 estudos EB2</small></div>
-        <dl class="lined">
-          <div><dt>Pesquisa científica</dt><dd>BIM para pontes existentes, informação de inspeção e integração com modelos.</dd></div>
-          <div><dt>Inspeção e gerenciamento</dt><dd>ABNT NBR 9452, DNIT 010/2024-PRO e documentos institucionais do DNIT.</dd></div>
-          <div><dt>Gestão e troca da informação</dt><dd>Série ABNT NBR ISO 19650 e especificações openBIM.</dd></div>
-        </dl>
+      <div class="basis-switch" role="group" aria-label="Conteúdo da fundamentação">
+        <button type="button" data-basis="map" aria-pressed="true" aria-controls="basis-map">Mapa dos estudos</button>
+        <button type="button" data-basis="norms" aria-pressed="false" aria-controls="basis-norms">Normas e ISOs</button>
       </div>
-      <p class="footnote">Fonte · artigo ERI-OAE, fundamentação e método</p>
+      <div id="basis-map" class="basis-panel basis-map">
+        <figure class="basis-figure" aria-label="Distribuição geográfica do núcleo de leitura integral">
+          <div class="basis-world">
+            <img src="assets/mapa-estudos.svg" alt="Mapa mundial com as fronteiras dos países">
+            <div class="basis-markers" aria-label="Países com estudos no núcleo"></div>
+          </div>
+          <figcaption>Países de afiliação dos autores e do órgão editor dos relatórios</figcaption>
+        </figure>
+        <div class="basis-map-side">
+          <p class="basis-total"><strong>40</strong> trabalhos lidos na íntegra</p>
+          <p class="basis-groups">32 EB1 · 8 EB2</p>
+          <label class="basis-country-label" for="basis-country">Explorar por país</label>
+          <select id="basis-country"><option value="">Todos os países</option></select>
+          <p class="basis-country-summary" aria-live="polite"></p>
+          <button class="basis-open" type="button">Ver os 40 trabalhos</button>
+        </div>
+      </div>
+      <div id="basis-norms" class="basis-panel basis-norms" hidden>
+        <div class="basis-norm-group">
+          <h3>Inspeção e intervenções</h3>
+          <ul>
+            <li><strong>ABNT NBR 9452:2023</strong><span>Inspeção de pontes, viadutos e passarelas</span></li>
+            <li><strong>DNIT 010/2024-PRO</strong><span>Procedimento de inspeção e registros no SGE</span></li>
+            <li><strong>Manual IPR 709:2026</strong><span>Manual de Inspeção de Pontes, 3ª edição</span></li>
+            <li><strong>IN DNIT nº 2/2026</strong><span>Intervenções no PROARTE, edição retificada</span></li>
+          </ul>
+        </div>
+        <div class="basis-norm-group">
+          <h3>Gestão da informação BIM</h3>
+          <ul>
+            <li><strong>ABNT NBR ISO 19650-1:2022</strong><span>Conceitos e princípios · versão corrigida 2:2025</span></li>
+            <li><strong>ABNT NBR ISO 19650-3:2025</strong><span>Fase operacional dos ativos</span></li>
+            <li><strong>ABNT NBR ISO 19650-4:2025</strong><span>Troca de informações</span></li>
+          </ul>
+        </div>
+        <div class="basis-norm-group">
+          <h3>Gestão de ativos e qualidade</h3>
+          <ul>
+            <li><strong>ISO 55001:2024 e ISO 55013:2024</strong><span>Gestão de ativos e dos dados associados</span></li>
+            <li><strong>ABNT NBR ISO 9000:2026 e ABNT NBR ISO 9001:2026</strong><span>Referências complementares de qualidade</span></li>
+          </ul>
+        </div>
+        <div class="basis-norm-group">
+          <h3>Intercâmbio openBIM</h3>
+          <ul>
+            <li><strong>IFC 4.3 ADD2</strong><span>Representação do modelo e dos componentes</span></li>
+            <li><strong>IDS 1.0 e bSDD</strong><span>Verificação de requisitos e vocabulário compartilhado</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <section class="slide" id="metodo" data-title="Extração e compatibilização normativa" hidden>
@@ -301,6 +349,11 @@
     </tbody>
     <tfoot><tr><th scope="row">Total</th><td>50</td><td>301</td></tr></tfoot>
   </table>
+</dialog>
+<dialog id="basis-studies-dialog" aria-labelledby="basis-studies-title">
+  <div class="dialog-header"><h2 id="basis-studies-title">Trabalhos de leitura integral</h2><button class="close" type="button" aria-label="Fechar lista dos estudos" data-close>×</button></div>
+  <p id="basis-studies-context"></p>
+  <ol id="basis-studies-list"></ol>
 </dialog>
 </body>
 </html>
