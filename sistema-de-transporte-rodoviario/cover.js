@@ -88,9 +88,11 @@
   }
 
   function camera() {
-    const turn = ease((elapsed - photoHold) / (end - photoHold));
-    const yaw = mix(.29, .46, turn);
-    const pitch = mix(.33, .48, turn);
+    const turn = ease((elapsed - modelAt) / (end - modelAt));
+    const yaw = mix(.24, .46, turn);
+    const pitch = mix(.20, .48, turn);
+    const originX = mix(.50, .49, turn) * width;
+    const originY = mix(.615, .60, turn) * height;
     const cosine = Math.cos(yaw);
     const sine = Math.sin(yaw);
     const cosPitch = Math.cos(pitch);
@@ -101,7 +103,7 @@
       const v = z * cosine - x * sine;
       const depth = y * sinPitch + v * cosPitch;
       const perspective = scale * (1 + depth * .008);
-      return { x: width * .49 + u * perspective, y: height * .60 + (v * sinPitch - y * cosPitch) * perspective, depth };
+      return { x: originX + u * perspective, y: originY + (v * sinPitch - y * cosPitch) * perspective, depth };
     };
   }
 
@@ -222,7 +224,7 @@
   function preparePhoto() {
     if (!photograph.naturalWidth || !width || !height) return null;
     const scale = Math.max(width / photograph.naturalWidth, height / photograph.naturalHeight);
-    const left = (photograph.naturalWidth - width / scale) * .62;
+    const left = (photograph.naturalWidth - width / scale) * .5;
     const top = (photograph.naturalHeight - height / scale) * .5;
     const columns = Math.ceil(width / 15);
     const rows = Math.ceil(height / 15);

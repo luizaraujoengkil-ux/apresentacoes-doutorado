@@ -42,7 +42,7 @@
   border-left: 2px solid #76dfd786;
   font-size: clamp(.96rem, 1.35vw, 1.16rem);
 }
-.cover-model { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 9px; min-width: 0; }
+.cover-model { display: grid; align-content: center; grid-template-rows: auto auto auto; gap: 9px; min-width: 0; width: min(100%, max(340px, calc((100svh - 205px) * 1.4))); justify-self: center; }
 .cover-model-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
 .cover-model-header strong { font-size: clamp(.85rem, 1.2vw, 1.02rem); font-weight: 720; }
 .cover-model-header span { color: var(--projection-muted); font-size: clamp(.71rem, 1.04vw, .84rem); }
@@ -50,12 +50,12 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: clamp(280px, 47vh, 495px);
+  aspect-ratio: 7 / 5;
   border: 1px solid #47747d;
   border-radius: 16px;
   background:
     linear-gradient(145deg, #0a1d2cee 14%, #0c3440e8 52%, #071a27fa 98%),
-    url("assets/ponte.webp") center / cover;
+    url("assets/ponte-demonstrativa.webp") center / cover;
 }
 .projection::before {
   content: "";
@@ -64,7 +64,7 @@
   z-index: -1;
   background: radial-gradient(ellipse at 51% 48%, #4ec3c024, transparent 64%);
 }
-.projection-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
+.projection-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 #cover-canvas { display: none; position: absolute; inset: 0; width: 100%; height: 100%; }
 .projection.is-ready #cover-canvas { display: block; }
 .projection-element {
@@ -129,7 +129,7 @@
   .cover-content { gap: 18px; }
   .cover h1 { font-size: clamp(3.7rem, 13vw, 6.4rem); }
   .subtitle { font-size: clamp(1.33rem, 5.2vw, 2.35rem); margin-top: .5rem; }
-  .projection { min-height: clamp(245px, 55vw, 370px); }
+  .cover-model { width: 100%; }
   .cover-controls button { min-height: 36px; }
   .cover-model-header span { font-size: .7rem; }
 }
