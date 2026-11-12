@@ -4,6 +4,7 @@
   const cover = document.querySelector("#capa");
   const projection = cover.querySelector(".projection");
   const canvas = cover.querySelector("#cover-canvas");
+  const photograph = cover.querySelector(".projection-photo");
   const context = canvas.getContext("2d");
   if (!context) return;
 
@@ -14,7 +15,11 @@
   const play = controls.querySelector(".cover-play");
   const steps = Array.from(controls.querySelectorAll("[data-cover-step]"));
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
-  const end = 7650;
+  const photoHold = 1950;
+  const modelAt = 5250;
+  const beamAt = 7700;
+  const dataAt = 10300;
+  const end = 12800;
 
   // O modelo.glb do pacote ERI-DEMO-001 contém sete volumes ortogonais em metros.
   const bounds = [
@@ -48,6 +53,7 @@
   let started = false;
   let paused = false;
   let phase = -1;
+  let photoTiles = null;
 
   const clamp = (value) => Math.max(0, Math.min(1, value));
   const ease = (value) => {
@@ -82,8 +88,9 @@
   }
 
   function camera() {
-    const yaw = mix(.64, .46, ease(elapsed / end));
-    const pitch = .48;
+    const turn = ease((elapsed - photoHold) / (end - photoHold));
+    const yaw = mix(.29, .46, turn);
+    const pitch = mix(.33, .48, turn);
     const cosine = Math.cos(yaw);
     const sine = Math.sin(yaw);
     const cosPitch = Math.cos(pitch);
@@ -120,8 +127,8 @@
   }
 
   function drawBridge(project) {
-    const highlight = ease((elapsed - 2450) / 700);
-    const illuminate = ease(elapsed / 1350);
+    const highlight = ease((elapsed - beamAt) / 700);
+    const illuminate = ease((elapsed - photoHold) / 1750);
     const projected = volumes.map(({ selected, vertices }) => ({ selected, points: vertices.map(project) }));
     const visibleFaces = projected.flatMap(({ selected, points }) => faces.map((face, index) => {
       const corners = face.map((vertex) => points[vertex]);
@@ -157,8 +164,8 @@
   }
 
   function drawScan(project) {
-    if (elapsed >= 2450) return;
-    const progress = ease(elapsed / 2450);
+    if (elapsed < modelAt || elapsed >= beamAt) return;
+    const progress = ease((elapsed - modelAt) / (beamAt - modelAt));
     const x = mix(-21, 21, progress);
     const alpha = Math.sin(Math.PI * progress);
     const corners = [[x, -.15, -6], [x, -.15, 6], [x, 9, 6], [x, 9, -6]].map(project);
@@ -167,7 +174,7 @@
   }
 
   function drawLinks(project) {
-    if (phase === 0) return;
+    if (phase < 2) return;
     const anchor = project([2.3, 5.42, 2.725]);
     const label = { x: elementLabel.offsetLeft, y: elementLabel.offsetTop + elementLabel.offsetHeight / 2 };
     const bend = { x: label.x - Math.min(width * .09, 52), y: label.y };
@@ -175,20 +182,20 @@
     dot(anchor, 6, "rgba(255, 206, 127, .25)");
     dot(anchor, 2.7, "#ffdfab");
 
-    if (phase < 2) return;
+    if (phase < 3) return;
     const panel = { x: width * .24, y: dataLabel.offsetTop };
     const turn = { x: panel.x + width * .10, y: panel.y - height * .08 };
     context.save();
     context.setLineDash([3, 5]);
     line([anchor, turn, panel], "rgba(118, 223, 215, .78)");
     context.restore();
-    const t = ease((elapsed - 5150) / 1600);
+    const t = ease((elapsed - dataAt) / 1600);
     const [from, to, fraction] = t < .7 ? [anchor, turn, t / .7] : [turn, panel, (t - .7) / .3];
     dot({ x: mix(from.x, to.x, fraction), y: mix(from.y, to.y, fraction) }, 2.7, "#95fff2");
   }
 
   function drawReadings() {
-    if (phase < 2) return;
+    if (phase < 3) return;
     const graph = readingsCanvas.getContext("2d");
     if (!graph) return;
     const pixelRatio = Math.min(devicePixelRatio || 1, 2);
@@ -202,7 +209,7 @@
     graph.strokeStyle = "#8ee9df";
     graph.lineWidth = 1.25 * pixelRatio;
     graph.beginPath();
-    const count = Math.max(2, Math.round(mix(2, readings.length, ease((elapsed - 5150) / 1150))));
+    const count = Math.max(2, Math.round(mix(2, readings.length, ease((elapsed - dataAt) / 1150))));
     readings.slice(0, count).forEach((value, index) => {
       const x = 1 + index * (w - 2) / (readings.length - 1);
       const y = h - 1 - (value - .08) / .08 * (h - 2);
@@ -212,23 +219,95 @@
     graph.stroke();
   }
 
+  function preparePhoto() {
+    if (!photograph.naturalWidth || !width || !height) return null;
+    const scale = Math.max(width / photograph.naturalWidth, height / photograph.naturalHeight);
+    const left = (photograph.naturalWidth - width / scale) * .62;
+    const top = (photograph.naturalHeight - height / scale) * .5;
+    const columns = Math.ceil(width / 15);
+    const rows = Math.ceil(height / 15);
+    const sample = document.createElement("canvas");
+    sample.width = columns;
+    sample.height = rows;
+    const pixels = sample.getContext("2d", { willReadFrequently: true });
+    pixels.drawImage(photograph, left, top, width / scale, height / scale, 0, 0, columns, rows);
+    const colors = pixels.getImageData(0, 0, columns, rows).data;
+    return { scale, left, top, columns, rows, colors };
+  }
+
+  function drawPhotoRegion(x, y, w, h) {
+    const { left, top, scale } = photoTiles;
+    context.drawImage(photograph, left + x / scale, top + y / scale, w / scale, h / scale, x, y, w, h);
+  }
+
+  function digitizePhoto(project) {
+    if (!photoTiles || elapsed < photoHold || elapsed >= modelAt) return;
+    const { columns, rows, colors } = photoTiles;
+    const tileWidth = width / columns;
+    const tileHeight = height / rows;
+    const sweep = 1.34 * (elapsed - photoHold) / (modelAt - photoHold);
+    const first = Math.max(0, Math.floor((sweep - .34) * columns));
+    const intact = Math.min(columns, Math.ceil((sweep + .07) * columns) + 1);
+    if (intact < columns) drawPhotoRegion(intact * tileWidth, 0, width - intact * tileWidth, height);
+
+    // A faixa entre a foto intacta e a projeção usa as cores amostradas da própria imagem.
+    for (let column = first; column < intact; column++) {
+      const x = column * tileWidth;
+      const u = (column + .5) / columns;
+      const target = project([(u - .5) * 36, 5.55, 2.725]);
+      for (let row = 0; row < rows; row++) {
+        const y = row * tileHeight;
+        const jitter = ((column * 19 + row * 37) % 23 - 11) / 410;
+        const offset = u + (row / rows - .5) * .07 + jitter;
+        const progress = clamp((sweep - offset) / .265);
+        if (progress === 0) {
+          drawPhotoRegion(x, y, tileWidth + .25, tileHeight + .25);
+          continue;
+        }
+        if (progress === 1) continue;
+        if (progress < .38) {
+          context.globalAlpha = 1 - ease(progress / .38);
+          drawPhotoRegion(x, y, tileWidth, tileHeight);
+          context.globalAlpha = 1;
+        }
+        const shrink = mix(1, .09, ease(progress));
+        const pixelWidth = tileWidth * shrink;
+        const pixelHeight = tileHeight * shrink;
+        const cx = mix(x + tileWidth / 2, target.x, progress * .21);
+        const cy = mix(y + tileHeight / 2, target.y, progress * .29);
+        const colorIndex = (row * columns + column) * 4;
+        const tint = ease(progress);
+        const red = Math.round(mix(colors[colorIndex], 72, tint));
+        const green = Math.round(mix(colors[colorIndex + 1], 244, tint));
+        const blue = Math.round(mix(colors[colorIndex + 2], 226, tint));
+        const opacity = Math.min(1, progress * 5) * (1 - ease((progress - .56) / .44));
+        context.fillStyle = "rgba(" + red + ", " + green + ", " + blue + ", " + opacity + ")";
+        context.fillRect(cx - pixelWidth / 2, cy - pixelHeight / 2, pixelWidth, pixelHeight);
+      }
+    }
+  }
+
   function render() {
     if (!width || !height || cover.hidden) return;
-    const nextPhase = elapsed >= 5150 ? 2 : elapsed >= 2450 ? 1 : 0;
+    const nextPhase = elapsed >= dataAt ? 3 : elapsed >= beamAt ? 2 : elapsed >= modelAt ? 1 : 0;
+    const hidePhoto = elapsed >= photoHold;
+    if (photograph.hidden !== hidePhoto) photograph.hidden = hidePhoto;
     if (phase !== nextPhase) {
       phase = nextPhase;
       projection.dataset.phase = String(phase);
-      elementLabel.hidden = phase === 0;
-      dataLabel.hidden = phase < 2;
+      elementLabel.hidden = phase < 2;
+      dataLabel.hidden = phase < 3;
       steps.forEach((step, index) => step.setAttribute("aria-pressed", String(index === phase)));
     }
     context.clearRect(0, 0, width, height);
+    if (!hidePhoto) return;
     const project = camera();
     drawGrid(project);
     drawBridge(project);
     drawScan(project);
     drawLinks(project);
     drawReadings();
+    digitizePhoto(project);
   }
 
   function resize() {
@@ -239,6 +318,7 @@
     canvas.width = Math.round(width * pixelRatio);
     canvas.height = Math.round(height * pixelRatio);
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    photoTiles = preparePhoto();
     render();
   }
 
@@ -254,7 +334,8 @@
   }
 
   function animate() {
-    const start = performance.now() - (paused ? elapsed : 0);
+    if (!paused) elapsed = photograph.naturalWidth ? 0 : modelAt;
+    const start = performance.now() - elapsed;
     paused = false;
     const tick = (now) => {
       elapsed = Math.min(end, now - start);
@@ -268,7 +349,7 @@
 
   function jump(index) {
     stop();
-    elapsed = [2200, 4800, end][index];
+    elapsed = [0, beamAt - 60, dataAt - 100, end][index];
     render();
   }
 
@@ -278,8 +359,9 @@
       return;
     }
     resize();
-    if (started) return;
+    if (started || !photograph.complete) return;
     started = true;
+    steps[0].disabled = !photograph.naturalWidth;
     if (motion.matches) jump(2);
     else animate();
   }
@@ -294,6 +376,8 @@
   new ResizeObserver(resize).observe(projection);
   new MutationObserver(showCover).observe(cover, { attributes: true, attributeFilter: ["hidden"] });
   document.addEventListener("visibilitychange", showCover);
+  photograph.addEventListener("load", showCover);
+  photograph.addEventListener("error", showCover);
   motion.addEventListener("change", () => {
     if (motion.matches) jump(2);
   });

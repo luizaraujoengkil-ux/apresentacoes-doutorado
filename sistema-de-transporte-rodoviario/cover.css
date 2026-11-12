@@ -64,8 +64,7 @@
   z-index: -1;
   background: radial-gradient(ellipse at 51% 48%, #4ec3c024, transparent 64%);
 }
-.projection-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.projection.is-ready .projection-fallback { display: none; }
+.projection-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; }
 #cover-canvas { display: none; position: absolute; inset: 0; width: 100%; height: 100%; }
 .projection.is-ready #cover-canvas { display: block; }
 .projection-element {
@@ -142,6 +141,6 @@
 }
 @media print {
   .slide.cover { display: grid !important; print-color-adjust: exact; }
-  .projection.is-ready .projection-fallback { display: block; }
+  .projection-photo { display: block !important; }
   .projection.is-ready #cover-canvas, .projection-element, .projection-data, .cover-controls { display: none !important; }
 }
