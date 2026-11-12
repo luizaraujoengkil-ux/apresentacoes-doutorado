@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="cover.css?acessos=1">
   <link rel="stylesheet" href="history.css?lupa=2">
   <link rel="stylesheet" href="base.css">
-  <link rel="stylesheet" href="method.css">
+  <link rel="stylesheet" href="method.css?conferencia=2">
   <script defer src="presentation.js?controles=2"></script>
   <script defer src="cover.js"></script>
   <script defer src="history.js?lupa=2"></script>
@@ -233,23 +233,25 @@
         </div>
         <div id="method-fields" class="method-panel" hidden>
           <h3>Como o requisito aparece no cadastro</h3>
-          <p class="method-form-context">Planejamento da inspeção · valores fictícios do protótipo</p>
+          <p class="method-form-context">Exemplo de planejamento · regime DNIT</p>
           <dl class="method-fields">
-            <div><dt>Tipo de inspeção</dt><dd>Rotineira fictícia</dd></div>
-            <div><dt>Periodicidade aplicável</dt><dd>Intervalo de exercício, sem atribuição normativa</dd></div>
-            <div><dt>Data limite do ciclo</dt><dd><time datetime="2027-11-06">06/11/2027</time></dd></div>
+            <div><dt>Tipo de inspeção</dt><dd>Rotineira</dd></div>
+            <div><dt>Data de referência</dt><dd><time datetime="2026-11-06">06/11/2026</time></dd></div>
+            <div><dt>Periodicidade aplicável</dt><dd>Até dois anos após a inspeção anterior</dd></div>
+            <div><dt>Data limite do ciclo</dt><dd><time datetime="2028-11-06">06/11/2028</time></dd></div>
           </dl>
         </div>
         <div id="method-check" class="method-panel" hidden>
-          <h3>O que precisa ser conferido</h3>
+          <h3>A data é válida. O prazo está correto?</h3>
+          <p class="method-form-context">Exemplo de data preenchida · <strong>06/11/2029</strong></p>
           <div class="method-pair">
             <div>
-              <strong>Verificação no protótipo</strong>
-              <p>O esquema verifica se a data foi informada em um formato válido.</p>
+              <strong>Validação do campo pelo sistema</strong>
+              <p>06/11/2029 é uma data válida e passa na verificação do campo.</p>
             </div>
             <div>
-              <strong>Conferência do responsável</strong>
-              <p>O responsável confere se o prazo escolhido está de acordo com o regime aplicável à ponte.</p>
+              <strong>Revisão do prazo pelo responsável</strong>
+              <p>A inspeção de referência foi em 06/11/2026. No exemplo, o limite é 06/11/2028. A data informada fica um ano além do prazo.</p>
             </div>
           </div>
         </div>
