@@ -8,6 +8,7 @@ const markerList = document.querySelector("#markers");
 const stage = document.querySelector("#stage");
 const paper = document.querySelector("#slide-paper");
 const pixelCanvas = document.querySelector("#slide-pixels");
+const scanStatus = document.querySelector("#slide-scan-status");
 const pixelContext = pixelCanvas?.getContext("2d");
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
 const markers = slides.map((slide, index) => {
@@ -27,6 +28,19 @@ let pixelFrame = 0;
 let pixelWidth = 0;
 let pixelHeight = 0;
 let pixelOffset = 0;
+let paperHeight = 0;
+let paperFragments = [];
+
+const sourceSlips = {
+  historico: ["INSPEÇÃO / 2008", "REFORÇO / 2024", "V01 / FICHA DE CAMPO"],
+  base: ["FONTE: ABNT", "ESTUDOS / EB1 · EB2", "DNIT / DOCUMENTOS"],
+  metodo: ["VISTORIA / DATA DE REFERÊNCIA", "REGIME / PERIODICIDADE", "PRAZO / CONFERÊNCIA"],
+  especificacao: ["F04 / OBSERVAÇÃO", "V01 / REGIÃO OBSERVADA", "EVIDÊNCIA / DOCUMENTO"],
+  prototipo: ["ERI-DEMO-001 / CADASTRO", "V01 / HISTÓRICO", "F04 / ORIGEM"],
+  entrega: ["MODELO / IFC", "DOCUMENTOS / ORIGEM", "DOSSIÊ / JSON"],
+  verificacao: ["CONTROLE / PACOTE", "IDENTIFICAÇÃO / V01", "RESULTADO / ENSAIO"],
+  aplicacoes: ["V01 / REGISTROS", "MANUTENÇÃO / HISTÓRICO", "SÉRIE / LEITURAS"]
+};
 
 function renderSlide(index, updateAddress = true, useFade = true) {
   if (index < 0 || index >= slides.length || index === current) return;
@@ -66,6 +80,26 @@ function ensurePaperSurface() {
     .paper-surface > .slide *, .paper-surface > .slide *::before, .paper-surface > .slide *::after {
       animation: none !important; transition: none !important;
     }
+    .paper-fragment { transform-origin: center; }
+    .paper-title-piece { display: inline-block; max-width: 100%; }
+    .paper-image-slice {
+      position: absolute; display: block; margin: 0; border-radius: 0;
+      pointer-events: none;
+    }
+    .paper-slip {
+      position: absolute; z-index: 3; width: max-content; max-width: 55%;
+      padding: .32rem .48rem .36rem; border: 1px solid #888;
+      border-left-width: 3px; background: #222; color: #eee;
+      font: 750 clamp(.53rem,.96vw,.75rem)/1.24 "Consolas", monospace; letter-spacing: .05em;
+      box-shadow: 2px 2px #0f0f0f55;
+    }
+    .paper-slip--a { top: 20%; right: 8%; }
+    .paper-slip--b { top: 54%; left: 11%; }
+    .paper-slip--c { top: 70%; right: 16%; }
+    .paper-slip::after {
+      content: ""; display: block; height: 3px; width: 62%; margin-top: .33rem;
+      background: repeating-linear-gradient(90deg,#999 0 4px,transparent 4px 7px);
+    }
     .paper-surface .paper-caption {
       position: absolute; inset: auto auto 9px clamp(18px, 3vw, 42px);
       color: #353535; font: 700 clamp(.57rem, .9vw, .7rem)/1.25 "Segoe UI", sans-serif;
@@ -80,12 +114,100 @@ function ensurePaperSurface() {
   return paperSurface;
 }
 
+function makeFragment(element, offset, kind, area) {
+  element.classList.add("paper-fragment");
+  const rect = element.getBoundingClientRect();
+  const center = (rect.x + rect.width / 2 - area.x) / area.width;
+  const [dx, dy, angle] = offset;
+  const scale = Math.min(1, area.width / 960);
+  const entry = { element, center, dx: dx * scale, dy: dy * scale, angle, kind };
+  paperFragments.push(entry);
+  placeFragment(entry, 1);
+}
+
+function placeFragment(fragment, amount) {
+  const { element, dx, dy, angle, kind } = fragment;
+  element.style.transform = "translate(" + (dx * amount).toFixed(1) + "px," +
+    (dy * amount).toFixed(1) + "px) rotate(" + (angle * amount).toFixed(2) + "deg)";
+  if (kind === "slip") element.style.opacity = String(.95 * amount);
+}
+
+function disorder(copy) {
+  const area = copy.getBoundingClientRect();
+  if (!area.width) return;
+  const title = copy.querySelector("h2");
+  if (title && !title.children.length) {
+    // Preserve the wording; disorder comes from moving the line fragments.
+    const words = title.textContent.trim().split(/\s+/);
+    const cut = Math.ceil(words.length / 2);
+    const segments = [words.slice(0, cut), words.slice(cut)].filter(segment => segment.length);
+    title.replaceChildren();
+    segments.forEach((segment, i) => {
+      if (i) title.append(" ");
+      const part = document.createElement("span");
+      part.className = "paper-title-piece";
+      part.textContent = segment.join(" ");
+      title.append(part);
+    });
+    Array.from(title.children).forEach((part, i) =>
+      makeFragment(part, i === 0 ? [12, -11, -2.4] : [-35, 9, 3.1], "text", area));
+  }
+
+  const images = Array.from(copy.querySelectorAll("img"));
+  const image = images.find(element => {
+    const r = element.getBoundingClientRect();
+    return r.width > area.width * .18 && r.height > 72 && getComputedStyle(element).opacity !== "0";
+  });
+  if (image && image.complete && image.naturalWidth) {
+    const r = image.getBoundingClientRect();
+    const layout = getComputedStyle(image);
+    const slices = [
+      [0, 64, [-13, -9, -1.6]],
+      [37, 33, [33, 3, 2.6]],
+      [68, 0, [-22, 12, -2.4]]
+    ];
+    slices.forEach(([top, bottom, offset]) => {
+      const slice = document.createElement("img");
+      slice.src = image.currentSrc || image.src;
+      slice.alt = "";
+      slice.className = "paper-image-slice";
+      Object.assign(slice.style, {
+        left: (r.x - area.x - copy.clientLeft) + "px",
+        top: (r.y - area.y - copy.clientTop) + "px",
+        width: r.width + "px",
+        height: r.height + "px",
+        objectFit: layout.objectFit,
+        objectPosition: layout.objectPosition,
+        clipPath: "inset(" + top + "% 0 " + bottom + "% 0)"
+      });
+      copy.append(slice);
+      makeFragment(slice, offset, "image", area);
+    });
+    image.style.visibility = "hidden";
+  } else {
+    const content = copy.querySelector(":scope > .method-stage, :scope > .spec-presentation, :scope > .delivery");
+    if (content) makeFragment(content, [17, 9, -1.6], "text", area);
+  }
+
+  const presets = [
+    ["a", [-20, -5, -8]],
+    ["b", [14, 2, 5]],
+    ["c", [-2, 0, -6]]
+  ];
+  (sourceSlips[copy.id] || []).forEach((value, i) => {
+    const slip = document.createElement("span");
+    slip.className = "paper-slip paper-slip--" + presets[i][0];
+    slip.textContent = value;
+    copy.append(slip);
+    makeFragment(slip, presets[i][1], "slip", area);
+  });
+}
+
 function showPaper(slide) {
   const surface = ensurePaperSurface();
   if (!surface) return false;
   const copy = slide.cloneNode(true);
   copy.classList.remove("entering");
-  // Reuse already loaded sources for the brief visual copy; it has no interactive behavior.
   copy.querySelectorAll('img[loading="lazy"]').forEach(image => image.removeAttribute("loading"));
   const caption = document.createElement("span");
   caption.className = "paper-caption";
@@ -93,6 +215,8 @@ function showPaper(slide) {
   surface.replaceChildren(copy, caption);
   paper.style.clipPath = "";
   paper.hidden = false;
+  paperHeight = paper.offsetHeight;
+  disorder(copy);
   return true;
 }
 
@@ -112,42 +236,67 @@ function sizePixels() {
   return true;
 }
 
-const clampPixel = (value, max) => Math.max(0, Math.min(max, value));
+const clampPixel = (value, max = 1) => Math.max(0, Math.min(max, value));
+const smoothPixel = value => { const t = clampPixel(value); return t * t * (3 - 2 * t); };
 
-function drawScan(progress, direction) {
-  const unit = Math.max(10, Math.min(18, Math.round(pixelWidth / 78)));
-  const height = paper.offsetHeight;
-  const rows = Math.max(1, Math.ceil(height / unit));
-  const sign = direction > 0 ? 1 : -1;
-  const leading = -unit * 6 + (pixelWidth + unit * 12) * progress;
-  const paperEdge = sign > 0 ? "100%" : "0";
-  const polygon = [paperEdge + " 0"];
+function drawScan(progress) {
+  // Use the cover's 15px sampling, 1.34 sweep, .265-wide pixel trail and shrinking particles.
+  const columns = Math.max(1, Math.ceil(pixelWidth / 15));
+  const rows = Math.max(1, Math.ceil(paperHeight / 15));
+  const tileW = pixelWidth / columns;
+  const tileH = paperHeight / rows;
+  const sweep = 1.34 * progress;
+  const polygon = ["100% 0"];
   pixelContext.clearRect(0, 0, pixelWidth, pixelHeight);
 
   for (let row = 0; row < rows; row++) {
-    let seed = Math.imul(row + 1, 0x85ebca77);
-    seed = Math.imul(seed ^ (seed >>> 16), 0x7feb352d);
-    seed = (seed ^ (seed >>> 15)) >>> 0;
-    const offset = ((seed % 9) - 4) * unit;
-    const boundary = clampPixel(Math.round((leading + offset) / unit) * unit, pixelWidth);
-    const x = sign > 0 ? boundary : pixelWidth - boundary;
-    const y = row * unit;
-    polygon.push(x + "px " + y + "px", x + "px " + Math.min(height, y + unit) + "px");
-    if (boundary === 0 || boundary === pixelWidth || y + unit < pixelOffset || y > pixelOffset + pixelHeight) continue;
-    const paintY = y - pixelOffset;
-    pixelContext.fillStyle = seed % 7 === 0 ? "#dabc92" : "#77dcd6";
-    pixelContext.globalAlpha = .67 + (seed % 3) * .11;
-    pixelContext.fillRect(x - (sign > 0 ? unit : 0), paintY, unit, unit);
-    if (seed % 4 !== 0) {
-      const tail = Math.max(2, Math.round(unit * (.28 + (seed % 4) * .12)));
-      pixelContext.fillStyle = "#51acae";
-      pixelContext.globalAlpha = .56;
-      pixelContext.fillRect(x - sign * (unit * (1 + seed % 3)) - tail / 2, paintY + (unit - tail) / 2, tail, tail);
+    const y = row * tileH;
+    const slope = (row / rows - .5) * .07;
+    const boundary = clampPixel(Math.floor((sweep - slope + ((row * 37 % 23) - 11) / 410 - .052) * columns), columns);
+    const edge = (boundary * tileW).toFixed(2);
+    polygon.push(edge + "px " + y.toFixed(2) + "px", edge + "px " + (y + tileH).toFixed(2) + "px");
+    if (y + tileH < pixelOffset || y > pixelOffset + pixelHeight) continue;
+
+    const first = Math.max(0, Math.floor((sweep - slope - .31) * columns));
+    const last = Math.min(columns, Math.ceil((sweep - slope + .035) * columns));
+    for (let column = first; column < last; column++) {
+      const u = (column + .5) / columns;
+      const jitter = ((column * 19 + row * 37) % 23 - 11) / 410;
+      const local = clampPixel((sweep - u - slope - jitter) / .265);
+      if (local <= 0 || local >= 1) continue;
+      const eased = smoothPixel(local);
+      const shrink = 1 - .91 * eased;
+      const seed = (column * 17 + row * 13) % 23;
+      const green = Math.round(162 + 82 * eased);
+      const blue = Math.round(162 + 64 * eased);
+      const opacity = Math.min(1, local * 5) * (1 - smoothPixel((local - .56) / .44));
+      const cx = (column + .5) * tileW + local * tileW * (.25 + seed % 3 * .15);
+      const cy = y + tileH * .5 - pixelOffset + local * tileH * ((seed % 5) - 2) * .32;
+      pixelContext.fillStyle = "rgb(72 " + green + " " + blue + ")";
+      pixelContext.globalAlpha = opacity * (.64 + (seed % 4) * .085);
+      pixelContext.fillRect(cx - tileW * shrink / 2, cy - tileH * shrink / 2, tileW * shrink, tileH * shrink);
     }
   }
   pixelContext.globalAlpha = 1;
-  polygon.push(paperEdge + " 100%");
+  polygon.push("100% 100%");
   paper.style.clipPath = "polygon(" + polygon.join(",") + ")";
+
+  paperFragments.forEach(fragment => {
+    const passing = smoothPixel((sweep - fragment.center + .16) / .25);
+    placeFragment(fragment, 1 - passing);
+  });
+}
+
+function drawFinalScan(progress) {
+  pixelContext.clearRect(0, 0, pixelWidth, pixelHeight);
+  const center = -38 + (pixelWidth + 76) * smoothPixel(progress);
+  const beam = pixelContext.createLinearGradient(center - 48, 0, center + 7, 0);
+  beam.addColorStop(0, "rgba(83, 219, 210, 0)");
+  beam.addColorStop(.83, "rgba(83, 219, 210, .13)");
+  beam.addColorStop(.94, "rgba(151, 255, 239, .62)");
+  beam.addColorStop(1, "rgba(83, 219, 210, 0)");
+  pixelContext.fillStyle = beam;
+  pixelContext.fillRect(center - 48, 0, 55, pixelHeight);
 }
 
 function stopPixels() {
@@ -155,6 +304,8 @@ function stopPixels() {
   pixelFrame = 0;
   pixelCanvas.hidden = true;
   paper.hidden = true;
+  scanStatus.hidden = true;
+  paperFragments = [];
   paperSurface?.replaceChildren();
   paper.style.clipPath = "";
 }
@@ -170,18 +321,33 @@ function showSlide(index) {
   if (!canScan || !sizePixels() || !showPaper(slides[index])) return;
 
   const started = performance.now();
-  const hold = 820;
-  const duration = 1480;
-  const direction = index > from ? 1 : -1;
+  const hold = 1400;
+  const digitize = 3300; // Same duration as the photo-to-model pass on the cover.
+  const finalScan = 1020;
   function draw(now) {
     const time = Math.max(0, now - started);
-    if (time >= hold + duration || document.querySelector("dialog[open]")) {
+    if (time >= hold + digitize + finalScan + 440 || document.querySelector("dialog[open]")) {
       stopPixels();
       return;
     }
-    if (time >= hold) {
+
+    if (time >= hold + digitize) {
+      if (!paper.hidden) {
+        paper.hidden = true;
+        paperSurface.replaceChildren();
+        paperFragments = [];
+        scanStatus.textContent = "Varredura final";
+        scanStatus.hidden = false;
+      }
+      const scanTime = time - hold - digitize;
+      if (scanTime < finalScan) drawFinalScan(scanTime / finalScan);
+      else if (!pixelCanvas.hidden) {
+        pixelCanvas.hidden = true;
+        scanStatus.textContent = "Informação estruturada";
+      }
+    } else if (time >= hold) {
       pixelCanvas.hidden = false;
-      drawScan((time - hold) / duration, direction);
+      drawScan((time - hold) / digitize);
     }
     pixelFrame = requestAnimationFrame(draw);
   }
