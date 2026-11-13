@@ -48,6 +48,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--amber); outline
   text-transform: uppercase; letter-spacing: .085em; animation: scan-status .23s ease-out both;
 }
 @keyframes scan-status { from { opacity: .25; transform: translateY(-2px); } to { opacity: 1; transform: translateY(0); } }
+#slide-scan-start {
+  position: absolute; top: 13px; right: clamp(12px, 2vw, 22px); z-index: 7;
+  display: inline-flex; align-items: center; gap: .4rem; min-height: 40px; padding: .45rem .68rem;
+  border: 1px solid #69aeab; border-radius: 7px; color: #d3fff7; background: #102b39;
+  font-size: clamp(.72rem, 1.1vw, .91rem); font-weight: 750; box-shadow: 0 2px 6px #07131c35;
+}
+#slide-scan-start span { color: var(--cyan); }
+#slide-scan-start:hover { background: #1c4b54; }
 .slide {
   position: relative; isolation: isolate; min-width: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: center;
   padding: clamp(26px,4.4vh,57px) clamp(22px,4vw,72px); border: 1px solid #66828a;
@@ -140,7 +148,7 @@ tfoot { color: var(--cyan); font-weight: 760; }
   #markers button { width: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #slide-pixels, #slide-paper, #slide-scan-status { display: none; }
+  #slide-pixels, #slide-paper, #slide-scan-status, #slide-scan-start { display: none; }
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
 @media print {
@@ -148,7 +156,7 @@ tfoot { color: var(--cyan); font-weight: 760; }
   @page { size: A4 landscape; margin: 12mm; }
   body, .slide { background: white; }
   .shell, #stage { display: block; padding: 0; }
-  .bar, .controls, .skip, .text-button, #slide-pixels, #slide-paper, #slide-scan-status, dialog { display: none !important; }
+  .bar, .controls, .skip, .text-button, #slide-pixels, #slide-paper, #slide-scan-status, #slide-scan-start, dialog { display: none !important; }
   .slide, .slide[hidden] { display: flex !important; min-height: 176mm; break-after: page; animation: none; }
   .slide:last-child { break-after: auto; }
   .callout, .example { background: #eef5f4; }

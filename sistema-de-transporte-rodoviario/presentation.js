@@ -9,6 +9,7 @@ const stage = document.querySelector("#stage");
 const paper = document.querySelector("#slide-paper");
 const pixelCanvas = document.querySelector("#slide-pixels");
 const scanStatus = document.querySelector("#slide-scan-status");
+const scanStart = document.querySelector("#slide-scan-start");
 const pixelContext = pixelCanvas?.getContext("2d");
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
 const markers = slides.map((slide, index) => {
@@ -30,6 +31,7 @@ let pixelHeight = 0;
 let pixelOffset = 0;
 let paperHeight = 0;
 let paperFragments = [];
+let heldSlide = null;
 
 const sourceSlips = {
   historico: ["INSPEÇÃO / 2008", "REFORÇO / 2024", "V01 / FICHA DE CAMPO"],
@@ -208,6 +210,7 @@ function showPaper(slide) {
   if (!surface) return false;
   const copy = slide.cloneNode(true);
   copy.classList.remove("entering");
+  copy.inert = false;
   copy.querySelectorAll('img[loading="lazy"]').forEach(image => image.removeAttribute("loading"));
   const caption = document.createElement("span");
   caption.className = "paper-caption";
@@ -299,7 +302,18 @@ function drawFinalScan(progress) {
   pixelContext.fillRect(center - 48, 0, 55, pixelHeight);
 }
 
+function releaseHold() {
+  if (!heldSlide) return;
+  heldSlide.inert = false;
+  heldSlide = null;
+  if (document.activeElement === scanStart) stage.focus({ preventScroll: true });
+  scanStart.hidden = true;
+  next.setAttribute("aria-label", "Próximo slide");
+  next.title = "Próximo slide (→)";
+}
+
 function stopPixels() {
+  releaseHold();
   cancelAnimationFrame(pixelFrame);
   pixelFrame = 0;
   pixelCanvas.hidden = true;
@@ -320,8 +334,30 @@ function showSlide(index) {
   renderSlide(index, true, !canScan && !motionPreference.matches);
   if (!canScan || !sizePixels() || !showPaper(slides[index])) return;
 
+  if (from === 0 && index === 1) {
+    heldSlide = slides[index];
+    heldSlide.inert = true;
+    scanStart.hidden = false;
+    next.setAttribute("aria-label", "Iniciar varredura do slide");
+    next.title = "Iniciar varredura (→)";
+    return;
+  }
+
+  playScan(1400);
+}
+
+function startHeldScan() {
+  if (!heldSlide) return;
+  releaseHold();
+  if (!sizePixels()) {
+    stopPixels();
+    return;
+  }
+  playScan(0);
+}
+
+function playScan(hold) {
   const started = performance.now();
-  const hold = 1400;
   const digitize = 3300; // Same duration as the photo-to-model pass on the cover.
   const finalScan = 1020;
   function draw(now) {
@@ -355,12 +391,20 @@ function showSlide(index) {
 }
 
 function moveSlide(delta) {
-  showSlide(current + delta);
+  if (heldSlide && delta > 0) startHeldScan();
+  else showSlide(current + delta);
 }
 
+scanStart.addEventListener("click", startHeldScan);
+
 motionPreference.addEventListener("change", () => { if (motionPreference.matches) stopPixels(); });
-document.addEventListener("visibilitychange", () => { if (document.hidden) stopPixels(); });
-window.addEventListener("resize", () => { if (pixelFrame) stopPixels(); });
+document.addEventListener("visibilitychange", () => { if (document.hidden && pixelFrame) stopPixels(); });
+window.addEventListener("resize", () => {
+  if (heldSlide) {
+    paperFragments = [];
+    showPaper(heldSlide);
+  } else if (pixelFrame) stopPixels();
+});
 stage.addEventListener("pointerdown", () => { if (pixelFrame) stopPixels(); }, { capture: true });
 stage.addEventListener("focusin", event => { if (pixelFrame && event.target !== stage) stopPixels(); });
 
