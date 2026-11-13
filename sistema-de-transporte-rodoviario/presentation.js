@@ -40,7 +40,6 @@ const sourceSlips = {
   especificacao: ["F04 / OBSERVAÇÃO", "V01 / REGIÃO OBSERVADA", "EVIDÊNCIA / DOCUMENTO"],
   prototipo: ["ERI-DEMO-001 / CADASTRO", "V01 / HISTÓRICO", "F04 / ORIGEM"],
   entrega: ["MODELO / IFC", "DOCUMENTOS / ORIGEM", "DOSSIÊ / JSON"],
-  verificacao: ["CONTROLE / PACOTE", "IDENTIFICAÇÃO / V01", "RESULTADO / ENSAIO"],
   aplicacoes: ["V01 / REGISTROS", "MANUTENÇÃO / HISTÓRICO", "SÉRIE / LEITURAS"]
 };
 
@@ -409,8 +408,10 @@ stage.addEventListener("pointerdown", () => { if (pixelFrame) stopPixels(); }, {
 stage.addEventListener("focusin", event => { if (pixelFrame && event.target !== stage) stopPixels(); });
 
 function slideFromAddress() {
-  const hash = location.hash === "#demonstracao" ? "#prototipo" : location.hash;
+  const aliases = { "#demonstracao": "#prototipo", "#verificacao": "#aplicacoes" };
+  const hash = aliases[location.hash] || location.hash;
   const found = slides.findIndex((slide) => "#" + slide.id === hash);
+  if (hash !== location.hash) history.replaceState(null, "", hash);
   stopPixels();
   renderSlide(Math.max(0, found), false);
 }
@@ -489,15 +490,4 @@ reset.addEventListener("click", () => {
   elapsed = 0;
   reset.disabled = true;
   updateClock();
-});
-
-const switchReceiver = document.querySelector("#switch-receiver");
-const receiverImage = document.querySelector("#receiver-image");
-switchReceiver.addEventListener("click", () => {
-  const showNegative = switchReceiver.getAttribute("aria-pressed") === "false";
-  switchReceiver.setAttribute("aria-pressed", String(showNegative));
-  switchReceiver.textContent = showNegative ? "Voltar ao pacote original" : "Ver captura do ensaio de alteração ↗";
-  receiverImage.src = showNegative ? "assets/receptor-negativo.jpg" : "assets/receptor.jpg";
-  receiverImage.alt = showNegative ? "Receptor local informando falha de integridade na cópia alterada" : "Receptor local exibindo os identificadores preservados dos sete componentes";
-  document.querySelector("#receiver-caption").textContent = showNegative ? "Ensaio de alteração · captura do piloto local" : "Captura de apoio · receptor do piloto local";
 });

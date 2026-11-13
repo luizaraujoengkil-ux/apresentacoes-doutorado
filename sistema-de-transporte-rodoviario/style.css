@@ -95,11 +95,6 @@ h1, h2, h3, p, figure, dl, dd { margin: 0; }
 .files > div { display: flex; flex-direction: column; padding: .36rem .85rem; }
 .files strong { color: var(--cyan); font-size: clamp(1.08rem,2vw,1.85rem); letter-spacing: -.02em; }
 .files span { color: var(--muted); font-size: clamp(.83rem,1.21vw,1.06rem); line-height: 1.34; }
-.result-number { display: flex; align-items: center; gap: .85rem; margin-bottom: .8rem; }
-.result-number strong { color: var(--cyan); font-size: clamp(4.5rem,9vw,8rem); line-height: .82; letter-spacing: -.075em; }
-.result-number span { color: var(--muted); font-size: clamp(.93rem,1.48vw,1.28rem); font-weight: 720; line-height: 1.2; }
-.results .callout { margin-top: 1rem; }
-.receiver-screen img { height: clamp(155px,36vh,390px); }
 .closing { grid-template-columns: .94fr 1.06fr; }
 .closing .screen img { max-height: 37vh; }
 .closing-line { margin-top: clamp(.9rem,2.6vh,1.7rem); color: var(--cyan); font-size: clamp(1.05rem,1.85vw,1.6rem); font-weight: 730; line-height: 1.3; }
