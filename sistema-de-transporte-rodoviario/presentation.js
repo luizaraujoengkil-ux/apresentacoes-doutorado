@@ -6,6 +6,7 @@ const next = document.querySelector("#next");
 const counter = document.querySelector("#counter");
 const markerList = document.querySelector("#markers");
 const stage = document.querySelector("#stage");
+const paper = document.querySelector("#slide-paper");
 const pixelCanvas = document.querySelector("#slide-pixels");
 const pixelContext = pixelCanvas?.getContext("2d");
 const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
@@ -21,10 +22,11 @@ const markers = slides.map((slide, index) => {
 
 const numberLabel = (value) => String(value).padStart(2, "0");
 let current = -1;
-let pendingSlide = null;
+let paperSurface;
 let pixelFrame = 0;
 let pixelWidth = 0;
 let pixelHeight = 0;
+let pixelOffset = 0;
 
 function renderSlide(index, updateAddress = true, useFade = true) {
   if (index < 0 || index >= slides.length || index === current) return;
@@ -44,107 +46,142 @@ function renderSlide(index, updateAddress = true, useFade = true) {
   window.scrollTo(0, 0);
 }
 
+function ensurePaperSurface() {
+  if (paperSurface) return paperSurface;
+  const applicable = Array.from(document.styleSheets).flatMap(sheet => {
+    try { return Array.from(sheet.cssRules, rule => rule.cssText); }
+    catch { return []; }
+  });
+  if (!applicable.length) return null;
+  const style = document.createElement("style");
+  style.textContent = applicable.join("\n") + `
+    :host { display: block; }
+    .paper-surface { width: 100%; height: 100%; }
+    .paper-surface > .slide {
+      width: 100%; height: 100%; margin: 0; animation: none;
+      filter: invert(1) grayscale(1) brightness(1.09) contrast(1.08);
+      border-radius: 0;
+    }
+    .paper-surface > .slide :is(img, video, canvas) { filter: invert(1); }
+    .paper-surface > .slide *, .paper-surface > .slide *::before, .paper-surface > .slide *::after {
+      animation: none !important; transition: none !important;
+    }
+    .paper-surface .paper-caption {
+      position: absolute; inset: auto auto 9px clamp(18px, 3vw, 42px);
+      color: #353535; font: 700 clamp(.57rem, .9vw, .7rem)/1.25 "Segoe UI", sans-serif;
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+  `;
+  // An isolated copy keeps the same layout and IDs without duplicating the active controls.
+  const root = paper.attachShadow({ mode: "open" });
+  paperSurface = document.createElement("div");
+  paperSurface.className = "paper-surface";
+  root.append(style, paperSurface);
+  return paperSurface;
+}
+
+function showPaper(slide) {
+  const surface = ensurePaperSurface();
+  if (!surface) return false;
+  const copy = slide.cloneNode(true);
+  copy.classList.remove("entering");
+  // Reuse already loaded sources for the brief visual copy; it has no interactive behavior.
+  copy.querySelectorAll('img[loading="lazy"]').forEach(image => image.removeAttribute("loading"));
+  const caption = document.createElement("span");
+  caption.className = "paper-caption";
+  caption.textContent = "Registro analógico  /  " + numberLabel(current + 1);
+  surface.replaceChildren(copy, caption);
+  paper.style.clipPath = "";
+  paper.hidden = false;
+  return true;
+}
+
 function sizePixels() {
   const bounds = stage.getBoundingClientRect();
-  const offset = Math.max(1, Math.floor(-bounds.top));
-  pixelWidth = Math.max(0, Math.floor(bounds.width) - 2);
-  pixelHeight = Math.max(0, Math.floor(Math.min(bounds.height - offset - 1, innerHeight - bounds.top - offset)));
+  pixelOffset = Math.max(0, Math.floor(-bounds.top));
+  pixelWidth = Math.max(0, Math.floor(bounds.width));
+  pixelHeight = Math.max(0, Math.floor(Math.min(bounds.height - pixelOffset, innerHeight - bounds.top - pixelOffset)));
   if (!pixelWidth || !pixelHeight) return false;
   const scale = Math.min(devicePixelRatio || 1, 1.5);
   pixelCanvas.style.width = pixelWidth + "px";
   pixelCanvas.style.height = pixelHeight + "px";
-  pixelCanvas.style.top = offset + "px";
+  pixelCanvas.style.top = pixelOffset + "px";
   pixelCanvas.width = Math.round(pixelWidth * scale);
   pixelCanvas.height = Math.round(pixelHeight * scale);
   pixelContext.setTransform(scale, 0, 0, scale, 0, 0);
   return true;
 }
 
-function drawPixels(phase, reveal, direction) {
+const clampPixel = (value, max) => Math.max(0, Math.min(max, value));
+
+function drawScan(progress, direction) {
+  const unit = Math.max(10, Math.min(18, Math.round(pixelWidth / 78)));
+  const height = paper.offsetHeight;
+  const rows = Math.max(1, Math.ceil(height / unit));
+  const sign = direction > 0 ? 1 : -1;
+  const leading = -unit * 6 + (pixelWidth + unit * 12) * progress;
+  const paperEdge = sign > 0 ? "100%" : "0";
+  const polygon = [paperEdge + " 0"];
   pixelContext.clearRect(0, 0, pixelWidth, pixelHeight);
-  const tile = Math.max(12, Math.min(21, Math.round(pixelWidth / 82)));
-  const columns = Math.ceil(pixelWidth / tile);
-  const rows = Math.ceil(pixelHeight / tile);
-  const accents = ["#76dfd7", "#45b9bb", "#248b99", "#edbc83"];
-  const base = ["#102633", "#112934", "#132b38", "#152e3b"];
-  const clamp = value => Math.min(1, Math.max(0, value));
-  const sweep = phase * 1.47;
-  for (let column = 0; column < columns; column++) {
-    const along = (direction > 0 ? column : columns - 1 - column) / columns;
-    for (let row = 0; row < rows; row++) {
-      let seed = Math.imul(column + 1, 0x9e3779b1) ^ Math.imul(row + 1, 0x85ebca77);
-      seed = Math.imul(seed ^ (seed >>> 16), 0x7feb352d);
-      seed = (seed ^ (seed >>> 15)) >>> 0;
-      const jitter = ((seed % 29) - 14) / 168;
-      const offset = .09 + along * .95 + (row / rows - .5) * .10 + jitter;
-      const local = clamp((sweep - offset) / .31);
-      const amount = reveal ? 1 - local : local;
-      if (amount <= 0) continue;
-      const eased = amount * amount * (3 - 2 * amount);
-      const edge = amount < .97 && seed % 4 !== 0;
-      const side = (tile + .55) * eased;
-      const drift = edge ? (1 - eased) * (seed % 5 - 2) : 0;
-      pixelContext.fillStyle = edge ? accents[seed % 17 === 0 ? 3 : seed % 3] : base[seed % base.length];
-      pixelContext.fillRect(column * tile + (tile - side) * .5 + drift,
-        row * tile + (tile - side) * .5, side, side);
+
+  for (let row = 0; row < rows; row++) {
+    let seed = Math.imul(row + 1, 0x85ebca77);
+    seed = Math.imul(seed ^ (seed >>> 16), 0x7feb352d);
+    seed = (seed ^ (seed >>> 15)) >>> 0;
+    const offset = ((seed % 9) - 4) * unit;
+    const boundary = clampPixel(Math.round((leading + offset) / unit) * unit, pixelWidth);
+    const x = sign > 0 ? boundary : pixelWidth - boundary;
+    const y = row * unit;
+    polygon.push(x + "px " + y + "px", x + "px " + Math.min(height, y + unit) + "px");
+    if (boundary === 0 || boundary === pixelWidth || y + unit < pixelOffset || y > pixelOffset + pixelHeight) continue;
+    const paintY = y - pixelOffset;
+    pixelContext.fillStyle = seed % 7 === 0 ? "#dabc92" : "#77dcd6";
+    pixelContext.globalAlpha = .67 + (seed % 3) * .11;
+    pixelContext.fillRect(x - (sign > 0 ? unit : 0), paintY, unit, unit);
+    if (seed % 4 !== 0) {
+      const tail = Math.max(2, Math.round(unit * (.28 + (seed % 4) * .12)));
+      pixelContext.fillStyle = "#51acae";
+      pixelContext.globalAlpha = .56;
+      pixelContext.fillRect(x - sign * (unit * (1 + seed % 3)) - tail / 2, paintY + (unit - tail) / 2, tail, tail);
     }
   }
+  pixelContext.globalAlpha = 1;
+  polygon.push(paperEdge + " 100%");
+  paper.style.clipPath = "polygon(" + polygon.join(",") + ")";
 }
 
-function stopPixels(commitPending = false) {
+function stopPixels() {
   cancelAnimationFrame(pixelFrame);
   pixelFrame = 0;
-  const pending = pendingSlide;
-  pendingSlide = null;
-  if (pixelCanvas) pixelCanvas.hidden = true;
-  if (commitPending && pending) renderSlide(pending.index, true, false);
+  pixelCanvas.hidden = true;
+  paper.hidden = true;
+  paperSurface?.replaceChildren();
+  paper.style.clipPath = "";
 }
 
 function showSlide(index) {
-  if (index < 0 || index >= slides.length) return;
-  if (pendingSlide) {
-    if (index === current) stopPixels();
-    else pendingSlide.index = index;
-    return;
-  }
-  if (index === current) return;
-  if (!pixelContext || motionPreference.matches || document.hidden || !sizePixels()) {
-    stopPixels();
-    renderSlide(index, true, !motionPreference.matches);
-    return;
-  }
-
+  if (index < 0 || index >= slides.length || index === current) return;
+  const from = current;
   stopPixels();
-  pendingSlide = { index };
-  pixelCanvas.hidden = false;
-  const direction = index > current ? 1 : -1;
+  const canScan = from >= 0 && index > 0 && pixelContext && paper.attachShadow &&
+    CSS.supports("clip-path", "polygon(0 0, 100% 0, 100% 100%)") &&
+    !motionPreference.matches && !document.hidden;
+  renderSlide(index, true, !canScan && !motionPreference.matches);
+  if (!canScan || !sizePixels() || !showPaper(slides[index])) return;
+
   const started = performance.now();
-  const coverTime = 230;
-  const revealTime = 345;
+  const hold = 820;
+  const duration = 1480;
+  const direction = index > from ? 1 : -1;
   function draw(now) {
-    const elapsed = now - started;
-    if (elapsed < coverTime) {
-      drawPixels(Math.max(0, elapsed / coverTime), false, direction);
-    } else {
-      if (pendingSlide) {
-        if (document.querySelector("dialog[open]")) {
-          stopPixels();
-          return;
-        }
-        const target = pendingSlide.index;
-        pendingSlide = null;
-        renderSlide(target, true, false);
-        if (!sizePixels()) {
-          stopPixels();
-          return;
-        }
-      }
-      const reveal = (elapsed - coverTime) / revealTime;
-      if (reveal >= 1) {
-        stopPixels();
-        return;
-      }
-      drawPixels(reveal, true, direction);
+    const time = Math.max(0, now - started);
+    if (time >= hold + duration || document.querySelector("dialog[open]")) {
+      stopPixels();
+      return;
+    }
+    if (time >= hold) {
+      pixelCanvas.hidden = false;
+      drawScan((time - hold) / duration, direction);
     }
     pixelFrame = requestAnimationFrame(draw);
   }
@@ -152,12 +189,14 @@ function showSlide(index) {
 }
 
 function moveSlide(delta) {
-  showSlide((pendingSlide?.index ?? current) + delta);
+  showSlide(current + delta);
 }
 
-motionPreference.addEventListener("change", () => { if (motionPreference.matches) stopPixels(true); });
-document.addEventListener("visibilitychange", () => { if (document.hidden) stopPixels(true); });
-window.addEventListener("resize", () => { if (pixelFrame) stopPixels(true); });
+motionPreference.addEventListener("change", () => { if (motionPreference.matches) stopPixels(); });
+document.addEventListener("visibilitychange", () => { if (document.hidden) stopPixels(); });
+window.addEventListener("resize", () => { if (pixelFrame) stopPixels(); });
+stage.addEventListener("pointerdown", () => { if (pixelFrame) stopPixels(); }, { capture: true });
+stage.addEventListener("focusin", event => { if (pixelFrame && event.target !== stage) stopPixels(); });
 
 function slideFromAddress() {
   const hash = location.hash === "#demonstracao" ? "#prototipo" : location.hash;
