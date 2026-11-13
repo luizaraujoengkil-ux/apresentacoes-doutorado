@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#091720">
   <meta name="robots" content="noindex">
   <title>ERI-OAE · Sistema de Transporte Rodoviário · IME</title>
-  <link rel="stylesheet" href="style.css?acervo=4">
+  <link rel="stylesheet" href="style.css?acervo=5">
   <link rel="stylesheet" href="cover.css?acessos=1">
   <link rel="stylesheet" href="history.css?lupa=2">
   <link rel="stylesheet" href="base.css">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="specification.css?v=2">
   <link rel="stylesheet" href="tutorial.css?v=1">
   <link rel="stylesheet" href="delivery-preview.css?v=1">
-  <link rel="stylesheet" href="closing.css?v=1">
+  <link rel="stylesheet" href="closing.css?v=2">
   <script defer src="presentation.js?acervo=3"></script>
   <script defer src="cover.js"></script>
   <script defer src="history.js?lupa=2"></script>
@@ -24,7 +24,7 @@
   <script defer src="specification.js?v=2"></script>
   <script defer src="tutorial.js?v=1"></script>
   <script defer src="delivery-preview.js?v=1"></script>
-  <script defer src="closing.js?v=1"></script>
+  <script defer src="closing.js?v=2"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -433,55 +433,51 @@
       </div>
     </section>
 
-    <section class="slide" id="aplicacoes" data-title="Manutenção proativa e gêmeos digitais" hidden>
-      <p class="eyebrow">Fechamento · Da informação à decisão</p>
-      <h2>Manutenção proativa e gêmeos digitais</h2>
-      <div class="closing-grid">
-        <figure class="closing-monitor" aria-labelledby="closing-monitor-title">
-          <div class="closing-monitor-top">
-            <div><p class="closing-kicker">V01 · Sensor SIM-DISP-01</p><h3 id="closing-monitor-title">Deslocamento da viga</h3></div>
-            <span class="closing-badge">Simulação</span>
+    <section class="slide" id="aplicacoes" data-title="Manutenção e gêmeos digitais" hidden>
+      <p class="eyebrow">Aplicações e continuidade da pesquisa</p>
+      <h2>Manutenção e gêmeos digitais</h2>
+      <div class="split closing">
+        <figure class="screen closing-screen">
+          <div class="closing-capture">
+            <div class="closing-frame">
+              <img src="assets/serie.jpg" width="860" height="695" alt="Tela do protótipo ERI-OAE com a série de deslocamento simulado da viga V01">
+              <svg class="closing-overlay" viewBox="0 0 860 695" aria-hidden="true" hidden>
+                <rect x="91" y="155" width="441" height="90" fill="#fcfefd"/>
+                <path class="closing-plot-grid" d="M92 159H531M92 187H531M92 215H531M92 243H531"/>
+                <path class="closing-guide"></path>
+                <polyline class="closing-trace"></polyline>
+                <circle class="closing-cursor" r="3.5"></circle>
+                <path fill="#fff" d="M395 31H553V89H395ZM47 375H552V426H47Z"/>
+                <rect x="61" y="277" width="340" height="24" fill="#fcfefd"/>
+                <g class="closing-ui">
+                  <text class="closing-measure-top" x="549" y="55" text-anchor="end"></text>
+                  <text class="closing-date-top" x="549" y="84" text-anchor="end"></text>
+                  <text class="closing-measure" x="67" y="294"></text>
+                  <text class="closing-date-bottom" x="135" y="293"></text>
+                  <text class="closing-instant" x="49" y="394"></text>
+                </g>
+                <path class="closing-slider-track" d="M54 416H547"/>
+                <path class="closing-slider-progress"></path>
+                <circle class="closing-slider-knob" cy="416" r="7"></circle>
+                <g class="closing-pause-mark" hidden>
+                  <rect x="61" y="335" width="87" height="25" rx="3" fill="#00817d"/>
+                  <path d="M65 341H68V354H65ZM71 341H74V354H71Z" fill="#fff"/>
+                  <text x="83" y="351">Pausar</text>
+                </g>
+              </svg>
+              <button class="closing-hit closing-play" type="button" aria-label="Reproduzir leituras simuladas" hidden></button>
+              <button class="closing-hit closing-next" type="button" aria-label="Avançar leitura simulada" hidden></button>
+            </div>
           </div>
-          <svg id="closing-chart" viewBox="0 0 480 192" role="img" aria-labelledby="closing-chart-label closing-chart-desc">
-            <title id="closing-chart-label">Leituras simuladas de deslocamento da viga V01</title>
-            <desc id="closing-chart-desc">Série do demonstrador, com 24 leituras simuladas entre 09h00 e 10h55 UTC, em milímetros, com cinco minutos entre amostras.</desc>
-            <path class="closing-grid-lines" d="M53 24H454M53 56H454M53 88H454M53 120H454M53 152H454M53 24V152M158 24V152M262 24V152M367 24V152M454 24V152"/>
-            <g class="closing-axis-labels">
-              <text x="19" y="13">mm</text>
-              <text x="16" y="28">0,16</text><text x="16" y="60">0,14</text><text x="16" y="92">0,12</text><text x="16" y="124">0,10</text><text x="16" y="156">0,08</text>
-              <text x="53" y="174" text-anchor="start">09:00</text><text x="158" y="174" text-anchor="middle">09:30</text><text x="262" y="174" text-anchor="middle">10:00</text><text x="367" y="174" text-anchor="middle">10:30</text><text x="454" y="174" text-anchor="end">10:55</text>
-              <text x="454" y="189" text-anchor="end">UTC</text>
-            </g>
-            <path class="closing-chart-area" id="closing-chart-area"></path>
-            <polyline class="closing-trace" id="closing-trace"></polyline>
-            <g id="closing-cursor"><circle class="closing-point-halo" r="7.5"></circle><circle class="closing-point" r="3.8"></circle></g>
-          </svg>
-          <div class="closing-readout">
-            <span><strong id="closing-value">0,1230 mm</strong><small id="closing-time">09:00 UTC · Leitura 01/24</small></span>
-            <button type="button" id="closing-playback"><span data-icon aria-hidden="true">Ⅱ</span> <span data-label>Pausar</span></button>
-          </div>
-          <figcaption>Reprodução acelerada de 24 leituras simuladas vinculadas à V01 no modelo BIM do demonstrador.</figcaption>
+          <figcaption>Leituras simuladas da viga V01 · protótipo ERI-OAE</figcaption>
         </figure>
-        <div class="closing-decision">
-          <div class="closing-proactive">
-            <p class="closing-kicker">Conceito adotado na tese</p>
-            <h3>Manutenção proativa sistêmica</h3>
-            <p>Usar histórico, inspeções, monitoramento e previsões para <strong>agir antes da perda de função</strong>, controlando as causas da deterioração. A decisão considera riscos, custos e as consequências de uma interdição para a rede de transportes.</p>
-          </div>
-          <dl class="closing-strategies" aria-label="Diferenças entre as estratégias de manutenção">
-            <div><dt>Corretiva</dt><dd>Intervém após a falha.</dd></div>
-            <div><dt>Preventiva</dt><dd>Intervém em intervalos programados.</dd></div>
-            <div><dt>Preditiva</dt><dd>Estima quando e onde a condição pode piorar.</dd></div>
-            <div><dt>Proativa</dt><dd>Decide o que fazer antes da perda de função.</dd></div>
-          </dl>
-        </div>
+        <dl class="lined">
+          <div><dt>Preventiva</dt><dd>Programar inspeções e serviços com base no histórico.</dd></div>
+          <div><dt>Proativa</dt><dd>Agir antes da perda de função, usando histórico e previsões para controlar as causas da deterioração e priorizar intervenções conforme riscos, custos e impactos na rede.</dd></div>
+          <div><dt>Preditiva e gêmeos digitais</dt><dd>Associar medições ao modelo. A aplicação em campo requer instrumentação real e validação.</dd></div>
+        </dl>
       </div>
-      <div class="closing-bottom">
-        <ol class="closing-flow" aria-label="Ciclo da manutenção proativa">
-          <li>Histórico + condição</li><li>Previsão</li><li>Risco e consequências</li><li>Priorização</li><li>Intervenção</li><li>Atualização do histórico</li>
-        </ol>
-        <p>A <strong>ERI-OAE</strong> organiza dados rastreáveis por componente. Na tese, essa base sustenta o estudo de <strong>BIM, monitoramento, IA e decisão multicritério</strong> para priorizar ações na rede.</p>
-      </div>
+      <p class="closing-line">A mesma viga pode ser localizada no laudo, no cadastro e no modelo entregue.</p>
     </section>
     <div id="slide-paper" aria-hidden="true" inert hidden></div>
     <canvas id="slide-pixels" aria-hidden="true" hidden></canvas>
