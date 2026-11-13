@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="method.css?conferencia=2">
   <link rel="stylesheet" href="specification.css?v=2">
   <link rel="stylesheet" href="tutorial.css?v=1">
+  <link rel="stylesheet" href="delivery-preview.css?v=1">
   <script defer src="presentation.js?controles=4"></script>
   <script defer src="cover.js"></script>
   <script defer src="history.js?lupa=2"></script>
@@ -21,6 +22,7 @@
   <script defer src="method.js"></script>
   <script defer src="specification.js?v=2"></script>
   <script defer src="tutorial.js?v=1"></script>
+  <script defer src="delivery-preview.js?v=1"></script>
 </head>
 <body>
 <a class="skip" href="#stage">Ir para a apresentação</a>
@@ -422,7 +424,11 @@
         </dl>
       </div>
       <p class="callout">Na versão pública, o <strong>dossiê acompanha as edições</strong> e o IFC permanece como modelo de referência.</p>
-      <a class="text-button" href="assets/ERI-DEMO-001-intercambio.zip" download>Baixar pacote fictício do ensaio local ↓</a>
+      <div class="delivery-actions">
+        <a class="button primary" id="delivery-download" href="assets/ERI-DEMO-001-intercambio.zip" download>Baixar pacote do ensaio ↓</a>
+        <button type="button" class="button delivery-replay" id="delivery-replay" hidden>Rever a prévia ▶</button>
+        <span id="delivery-hint">No primeiro clique, veja o que vem no ZIP.</span>
+      </div>
     </section>
 
     <section class="slide" id="verificacao" data-title="O que foi demonstrado" hidden>
@@ -463,6 +469,43 @@
   </footer>
 </div>
 
+<dialog id="delivery-preview" aria-labelledby="delivery-preview-title">
+  <div class="dialog-header delivery-preview-header">
+    <div><p class="delivery-label">ERI-DEMO-001 · Pacote do ensaio local</p><h2 id="delivery-preview-title">Por dentro do dossiê</h2></div>
+    <button class="close" type="button" aria-label="Fechar prévia do pacote" data-close autofocus>×</button>
+  </div>
+  <div class="delivery-film">
+    <div class="delivery-frame">
+      <div class="delivery-frame-bar"><span class="delivery-film-light" aria-hidden="true"></span><span>EXPLORADOR DO PACOTE</span><span id="delivery-scene-index">01 / 06</span></div>
+      <div class="delivery-scene">
+        <div class="delivery-scene-copy">
+          <p class="delivery-label" id="delivery-scene-category"></p>
+          <h3 id="delivery-scene-title"></h3>
+          <p id="delivery-scene-description"></p>
+          <div id="delivery-file-tags" aria-label="Arquivos desta etapa"></div>
+        </div>
+        <figure class="delivery-art" aria-hidden="true"></figure>
+      </div>
+    </div>
+    <div class="delivery-timeline" role="group" aria-label="Capítulos da prévia">
+      <button type="button" data-delivery-scene="0" aria-pressed="true">Pacote</button>
+      <button type="button" data-delivery-scene="1" aria-pressed="false">Dossiê</button>
+      <button type="button" data-delivery-scene="2" aria-pressed="false">Modelo</button>
+      <button type="button" data-delivery-scene="3" aria-pressed="false">Leituras</button>
+      <button type="button" data-delivery-scene="4" aria-pressed="false">Documentos</button>
+      <button type="button" data-delivery-scene="5" aria-pressed="false">Conferência</button>
+    </div>
+  </div>
+  <div class="delivery-preview-footer">
+    <div class="delivery-film-controls" role="group" aria-label="Controles da prévia">
+      <button type="button" data-delivery-back aria-label="Capítulo anterior" disabled>←</button>
+      <button type="button" data-delivery-play>Pausar</button>
+      <button type="button" data-delivery-next aria-label="Próximo capítulo">→</button>
+    </div>
+    <a class="button primary" href="assets/ERI-DEMO-001-intercambio.zip" download>Baixar ZIP agora ↓</a>
+  </div>
+  <p class="delivery-sr" id="delivery-announcement" role="status"></p>
+</dialog>
 <dialog id="tutorial-dialog" aria-labelledby="tutorial-dialog-title">
   <div class="dialog-header"><h2 id="tutorial-dialog-title">Tela do protótipo</h2><button class="close" type="button" aria-label="Fechar imagem ampliada" data-close>×</button></div>
   <div class="tutorial-enlarged"><img id="tutorial-large-image" alt=""><span class="tutorial-hotspot" aria-hidden="true"></span></div>
