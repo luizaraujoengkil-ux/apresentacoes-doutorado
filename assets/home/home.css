@@ -144,3 +144,7 @@ h1 span { color: var(--cyan); }
   .subject { break-inside: avoid; }
   .hero-actions, .skip-link { display: none; }
 }
+
+/* Ações do artigo preservam a área de leitura e o download no acervo. */
+.subject .article-actions { position: relative; z-index: 1; gap: .25rem 1rem; font-size: .875rem; }
+.article-actions a { display: inline-flex; align-items: center; min-height: 2.75rem; text-underline-offset: 3px; }
