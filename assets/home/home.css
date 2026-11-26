@@ -68,6 +68,10 @@ h1 span { color: var(--cyan); }
 .ongoing { color: var(--blue); }
 .availability { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-top: 2px; padding-left: 34px; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .availability .icon { width: 14px; height: 14px; color: #245d9c; }
+.subject-choices { display: grid; gap: 5px; margin-top: 5px; padding-left: 34px; }
+.subject-choices a { color: #245d9c; font-size: 13px; line-height: 1.45; text-decoration: none; width: fit-content; }
+.subject-choices a:hover { text-decoration: underline; }
+@media (max-width: 600px) { .subject-choices { padding-left: 26px; } }
 .featured-subject { background: #e0f6f9; border: 0; border-left: 2px solid #24bdd5; padding-inline: 16px; margin-inline: -18px; border-radius: 6px; }
 .featured-subject h3 a::after { inset: 0; }
 .footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); margin-top: 78px; padding-block: 20px 32px; color: var(--muted); font-size: 12px; line-height: 1.6; }
